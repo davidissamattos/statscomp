@@ -1,9 +1,0 @@
-.Rproj.user
-.Rhistory
-.RData
-.Ruserdata
-/renv/library/*
-/renv/staging/*
-.DS_Store
-/_bookdown_files/*
-/statscomp-paper/*
