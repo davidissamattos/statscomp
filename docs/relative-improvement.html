@@ -1,0 +1,1162 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 4 Relative improvement | Statistical Models for Benchmark Comparison</title>
+  <meta name="description" content="Chapter 4 Relative improvement | Statistical Models for Benchmark Comparison" />
+  <meta name="generator" content="bookdown 0.19 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 4 Relative improvement | Statistical Models for Benchmark Comparison" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 4 Relative improvement | Statistical Models for Benchmark Comparison" />
+  
+  
+  
+
+<meta name="author" content="David Issa Mattos" />
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="probability-of-success-model.html"/>
+<link rel="next" href="ranking.html"/>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
+
+
+<style type="text/css">
+code.sourceCode > span { display: inline-block; line-height: 1.25; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a><ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#pre-requisites"><i class="fa fa-check"></i>Pre-requisites</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#source-code"><i class="fa fa-check"></i>Source code</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#compiling-this-document"><i class="fa fa-check"></i>Compiling this document</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#software-environment"><i class="fa fa-check"></i>Software environment</a></li>
+</ul></li>
+<li class="chapter" data-level="1" data-path="introduction.html"><a href="introduction.html"><i class="fa fa-check"></i><b>1</b> Introduction</a><ul>
+<li class="chapter" data-level="1.1" data-path="introduction.html"><a href="introduction.html#the-simulation"><i class="fa fa-check"></i><b>1.1</b> The simulation</a><ul>
+<li class="chapter" data-level="1.1.1" data-path="introduction.html"><a href="introduction.html#exploring-the-dataset"><i class="fa fa-check"></i><b>1.1.1</b> Exploring the dataset</a></li>
+<li class="chapter" data-level="1.1.2" data-path="introduction.html"><a href="introduction.html#column-definitions"><i class="fa fa-check"></i><b>1.1.2</b> Column definitions</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="introduction-1.html"><a href="introduction-1.html"><i class="fa fa-check"></i><b>2</b> Introduction</a><ul>
+<li class="chapter" data-level="2.1" data-path="introduction-1.html"><a href="introduction-1.html#the-simulation-1"><i class="fa fa-check"></i><b>2.1</b> The simulation</a><ul>
+<li class="chapter" data-level="2.1.1" data-path="introduction-1.html"><a href="introduction-1.html#exploring-the-dataset-1"><i class="fa fa-check"></i><b>2.1.1</b> Exploring the dataset</a></li>
+<li class="chapter" data-level="2.1.2" data-path="introduction-1.html"><a href="introduction-1.html#column-definitions-1"><i class="fa fa-check"></i><b>2.1.2</b> Column definitions</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="probability-of-success-model.html"><a href="probability-of-success-model.html"><i class="fa fa-check"></i><b>3</b> Probability of success model</a><ul>
+<li class="chapter" data-level="3.1" data-path="probability-of-success-model.html"><a href="probability-of-success-model.html#data-preparation"><i class="fa fa-check"></i><b>3.1</b> Data preparation</a></li>
+<li class="chapter" data-level="3.2" data-path="probability-of-success-model.html"><a href="probability-of-success-model.html#stan-model"><i class="fa fa-check"></i><b>3.2</b> Stan model</a></li>
+<li class="chapter" data-level="3.3" data-path="probability-of-success-model.html"><a href="probability-of-success-model.html#diagnosis"><i class="fa fa-check"></i><b>3.3</b> Diagnosis</a></li>
+<li class="chapter" data-level="3.4" data-path="probability-of-success-model.html"><a href="probability-of-success-model.html#results-and-plots"><i class="fa fa-check"></i><b>3.4</b> Results and Plots</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="relative-improvement.html"><a href="relative-improvement.html"><i class="fa fa-check"></i><b>4</b> Relative improvement</a><ul>
+<li class="chapter" data-level="4.1" data-path="relative-improvement.html"><a href="relative-improvement.html#data-preparation-1"><i class="fa fa-check"></i><b>4.1</b> Data preparation</a></li>
+<li class="chapter" data-level="4.2" data-path="relative-improvement.html"><a href="relative-improvement.html#stan-model-1"><i class="fa fa-check"></i><b>4.2</b> Stan model</a></li>
+<li class="chapter" data-level="4.3" data-path="relative-improvement.html"><a href="relative-improvement.html#diagnosis-1"><i class="fa fa-check"></i><b>4.3</b> Diagnosis</a></li>
+<li class="chapter" data-level="4.4" data-path="relative-improvement.html"><a href="relative-improvement.html#results-and-plots-1"><i class="fa fa-check"></i><b>4.4</b> Results and Plots</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="ranking.html"><a href="ranking.html"><i class="fa fa-check"></i><b>5</b> Ranking</a><ul>
+<li class="chapter" data-level="5.1" data-path="ranking.html"><a href="ranking.html#data-preparation-2"><i class="fa fa-check"></i><b>5.1</b> Data preparation</a></li>
+<li class="chapter" data-level="5.2" data-path="ranking.html"><a href="ranking.html#stan-model-2"><i class="fa fa-check"></i><b>5.2</b> Stan model</a></li>
+<li class="chapter" data-level="5.3" data-path="ranking.html"><a href="ranking.html#diagnosis-2"><i class="fa fa-check"></i><b>5.3</b> Diagnosis</a></li>
+<li class="chapter" data-level="5.4" data-path="ranking.html"><a href="ranking.html#results-and-plots-2"><i class="fa fa-check"></i><b>5.4</b> Results and Plots</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="time-to-complete.html"><a href="time-to-complete.html"><i class="fa fa-check"></i><b>6</b> Time to complete</a><ul>
+<li class="chapter" data-level="6.1" data-path="time-to-complete.html"><a href="time-to-complete.html#data-preparation-3"><i class="fa fa-check"></i><b>6.1</b> Data preparation</a></li>
+<li class="chapter" data-level="6.2" data-path="time-to-complete.html"><a href="time-to-complete.html#stan-model-3"><i class="fa fa-check"></i><b>6.2</b> Stan model</a></li>
+<li class="chapter" data-level="6.3" data-path="time-to-complete.html"><a href="time-to-complete.html#diagnosis-3"><i class="fa fa-check"></i><b>6.3</b> Diagnosis</a></li>
+<li class="chapter" data-level="6.4" data-path="time-to-complete.html"><a href="time-to-complete.html#results-and-plots-3"><i class="fa fa-check"></i><b>6.4</b> Results and Plots</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="multiple-group-comparison.html"><a href="multiple-group-comparison.html"><i class="fa fa-check"></i><b>7</b> Multiple-group comparison</a><ul>
+<li class="chapter" data-level="7.1" data-path="multiple-group-comparison.html"><a href="multiple-group-comparison.html#data-preparation-4"><i class="fa fa-check"></i><b>7.1</b> Data preparation</a></li>
+<li class="chapter" data-level="7.2" data-path="multiple-group-comparison.html"><a href="multiple-group-comparison.html#stan-model-4"><i class="fa fa-check"></i><b>7.2</b> Stan model</a></li>
+<li class="chapter" data-level="7.3" data-path="multiple-group-comparison.html"><a href="multiple-group-comparison.html#diagnosis-4"><i class="fa fa-check"></i><b>7.3</b> Diagnosis</a></li>
+<li class="chapter" data-level="7.4" data-path="multiple-group-comparison.html"><a href="multiple-group-comparison.html#results-and-plots-4"><i class="fa fa-check"></i><b>7.4</b> Results and Plots</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="sensitivity-analysis-and-model-comparison.html"><a href="sensitivity-analysis-and-model-comparison.html"><i class="fa fa-check"></i><b>8</b> Sensitivity analysis and model comparison</a></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Statistical Models for Benchmark Comparison</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="relative-improvement" class="section level1">
+<h1><span class="header-section-number">Chapter 4</span> Relative improvement</h1>
+<p>Our next, model deals with relative improvement of the algorithms over a baseline in noiseless functions. This model is based on a normal linear regression.</p>
+<p><strong>RQ</strong> What is the expected improvement of these algorithms against the Random Search in noiseless benchmark functions? For this question we will consider the Euclidean distance to the location of the closest global minima, instead of the final reward difference.</p>
+<div id="data-preparation-1" class="section level2">
+<h2><span class="header-section-number">4.1</span> Data preparation</h2>
+<p>We start importing the dataset</p>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="relative-improvement.html#cb24-1"></a>dataset &lt;-<span class="st"> </span>readr<span class="op">::</span><span class="kw">read_csv</span>(<span class="st">&quot;./data/statscomp.csv&quot;</span>)</span></code></pre></div>
+<p>Let’s select only the columns that interests us, in this case the Euclidean distance</p>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="relative-improvement.html#cb25-1"></a>d &lt;-<span class="st"> </span>dataset <span class="op">%&gt;%</span><span class="st"> </span>dplyr<span class="op">::</span><span class="kw">select</span>(Algorithm, CostFunction, SD, <span class="dt">Budget =</span> MaxFevalPerDimensions, simNumber, </span>
+<span id="cb25-2"><a href="relative-improvement.html#cb25-2"></a>    EuclideanDistance, OptimizationSuccessful) <span class="op">%&gt;%</span><span class="st"> </span>dplyr<span class="op">::</span><span class="kw">filter</span>(OptimizationSuccessful <span class="op">&amp;</span><span class="st"> </span>SD <span class="op">==</span><span class="st"> </span></span>
+<span id="cb25-3"><a href="relative-improvement.html#cb25-3"></a><span class="st">    </span><span class="dv">0</span>) <span class="op">%&gt;%</span><span class="st"> </span>dplyr<span class="op">::</span><span class="kw">select</span>(<span class="op">-</span>SD, <span class="op">-</span>OptimizationSuccessful)</span></code></pre></div>
+<p>Let’s first make this a wide data set based on the algorithm to make it easier to compute the relative improvement over the Random Search. We are also dropping the RandomSearch2 since there is no noise in the benchmark functions</p>
+<p>There are several ways that can be used to compute a relative improvement (and they will affect the result). The way we are using is to compare against the mean of distance of the 10 samples of the Random Search in each cost function for a specific budget. The way we are comparing is we divide the distance of each algorithm by the average distance of the random search. If this ratio is greater than 1 then random search is better, if smaller than 1 then the algorithm is better</p>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="relative-improvement.html#cb26-1"></a>relativeImprovement &lt;-<span class="st"> </span><span class="cf">function</span>(x, rs) {</span>
+<span id="cb26-2"><a href="relative-improvement.html#cb26-2"></a>    <span class="co"># x is the column rs is the random search column</span></span>
+<span id="cb26-3"><a href="relative-improvement.html#cb26-3"></a>    ri &lt;-<span class="st"> </span>(rs <span class="op">-</span><span class="st"> </span>x)<span class="op">/</span>rs</span>
+<span id="cb26-4"><a href="relative-improvement.html#cb26-4"></a>    ri &lt;-<span class="st"> </span><span class="kw">ifelse</span>(ri <span class="op">&lt;</span><span class="st"> </span><span class="dv">-1</span>, <span class="dv">-1</span>, ri)</span>
+<span id="cb26-5"><a href="relative-improvement.html#cb26-5"></a>    ri &lt;-<span class="st"> </span><span class="kw">ifelse</span>(ri <span class="op">&gt;</span><span class="st"> </span><span class="dv">1</span>, <span class="dv">1</span>, ri)</span>
+<span id="cb26-6"><a href="relative-improvement.html#cb26-6"></a>    <span class="kw">return</span>(ri)</span>
+<span id="cb26-7"><a href="relative-improvement.html#cb26-7"></a>}</span>
+<span id="cb26-8"><a href="relative-improvement.html#cb26-8"></a></span>
+<span id="cb26-9"><a href="relative-improvement.html#cb26-9"></a>d_wide &lt;-<span class="st"> </span>d <span class="op">%&gt;%</span><span class="st"> </span>tidyr<span class="op">::</span><span class="kw">pivot_wider</span>(<span class="dt">names_from =</span> Algorithm, <span class="dt">values_from =</span> EuclideanDistance) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb26-10"><a href="relative-improvement.html#cb26-10"></a><span class="st">    </span>dplyr<span class="op">::</span><span class="kw">select</span>(<span class="op">-</span>RandomSearch2) <span class="op">%&gt;%</span><span class="st"> </span>dplyr<span class="op">::</span><span class="kw">group_by</span>(CostFunction, Budget) <span class="op">%&gt;%</span><span class="st"> </span>dplyr<span class="op">::</span><span class="kw">mutate</span>(<span class="dt">avgRandomSearch =</span> <span class="kw">mean</span>(RandomSearch1)) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb26-11"><a href="relative-improvement.html#cb26-11"></a><span class="st">    </span>dplyr<span class="op">::</span><span class="kw">ungroup</span>() <span class="op">%&gt;%</span><span class="st"> </span>dplyr<span class="op">::</span><span class="kw">mutate_at</span>(<span class="kw">c</span>(<span class="st">&quot;NelderMead&quot;</span>, <span class="st">&quot;PSO&quot;</span>, <span class="st">&quot;SimulatedAnnealing&quot;</span>, <span class="st">&quot;CuckooSearch&quot;</span>, </span>
+<span id="cb26-12"><a href="relative-improvement.html#cb26-12"></a>    <span class="st">&quot;DifferentialEvolution&quot;</span>, <span class="st">&quot;CMAES&quot;</span>), <span class="op">~</span><span class="kw">relativeImprovement</span>(.x, <span class="dt">rs =</span> avgRandomSearch))</span></code></pre></div>
+<p>After we compute our metric we drop the Random Search column and we pivot_longer again to make the inference</p>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="relative-improvement.html#cb27-1"></a>d_final &lt;-<span class="st"> </span>d_wide <span class="op">%&gt;%</span><span class="st"> </span>dplyr<span class="op">::</span><span class="kw">select</span>(<span class="op">-</span>RandomSearch1, <span class="op">-</span>avgRandomSearch) <span class="op">%&gt;%</span><span class="st"> </span>tidyr<span class="op">::</span><span class="kw">pivot_longer</span>(<span class="dt">cols =</span> <span class="kw">c</span>(<span class="st">&quot;NelderMead&quot;</span>, </span>
+<span id="cb27-2"><a href="relative-improvement.html#cb27-2"></a>    <span class="st">&quot;PSO&quot;</span>, <span class="st">&quot;SimulatedAnnealing&quot;</span>, <span class="st">&quot;CuckooSearch&quot;</span>, <span class="st">&quot;DifferentialEvolution&quot;</span>, <span class="st">&quot;CMAES&quot;</span>), <span class="dt">names_to =</span> <span class="st">&quot;Algorithm&quot;</span>, </span>
+<span id="cb27-3"><a href="relative-improvement.html#cb27-3"></a>    <span class="dt">values_to =</span> <span class="st">&quot;y&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span>dplyr<span class="op">::</span><span class="kw">select</span>(<span class="op">-</span>simNumber) <span class="op">%&gt;%</span><span class="st"> </span>dplyr<span class="op">::</span><span class="kw">mutate</span>(<span class="dt">AlgorithmID =</span> <span class="kw">create_index</span>(Algorithm), </span>
+<span id="cb27-4"><a href="relative-improvement.html#cb27-4"></a>    <span class="dt">CostFunctionID =</span> <span class="kw">create_index</span>(CostFunction)) <span class="op">%&gt;%</span><span class="st"> </span>dplyr<span class="op">::</span><span class="kw">select</span>(Algorithm, AlgorithmID, CostFunction, </span>
+<span id="cb27-5"><a href="relative-improvement.html#cb27-5"></a>    CostFunctionID, Budget, y)</span>
+<span id="cb27-6"><a href="relative-improvement.html#cb27-6"></a></span>
+<span id="cb27-7"><a href="relative-improvement.html#cb27-7"></a><span class="co"># checking if there is any na -&gt; stan does not accept that</span></span>
+<span id="cb27-8"><a href="relative-improvement.html#cb27-8"></a>find.na &lt;-<span class="st"> </span>d_final <span class="op">%&gt;%</span><span class="st"> </span>dplyr<span class="op">::</span><span class="kw">filter</span>(<span class="kw">is.na</span>(y))</span>
+<span id="cb27-9"><a href="relative-improvement.html#cb27-9"></a></span>
+<span id="cb27-10"><a href="relative-improvement.html#cb27-10"></a>bm &lt;-<span class="st"> </span><span class="kw">get_index_names_as_array</span>(d_final<span class="op">$</span>CostFunction)</span>
+<span id="cb27-11"><a href="relative-improvement.html#cb27-11"></a>algorithms &lt;-<span class="st"> </span><span class="kw">get_index_names_as_array</span>(d_final<span class="op">$</span>Algorithm)</span></code></pre></div>
+<p>Now we have our final dataset to use with Stan. Lets preview a sample of the data set</p>
+<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="relative-improvement.html#cb28-1"></a><span class="kw">kable</span>(dplyr<span class="op">::</span><span class="kw">sample_n</span>(d_final, <span class="dt">size =</span> <span class="dv">10</span>), <span class="st">&quot;html&quot;</span>, <span class="dt">booktabs =</span> T, <span class="dt">format.args =</span> <span class="kw">list</span>(<span class="dt">scientific =</span> <span class="ot">FALSE</span>), </span>
+<span id="cb28-2"><a href="relative-improvement.html#cb28-2"></a>    <span class="dt">digits =</span> <span class="dv">3</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">kable_styling</span>(<span class="dt">bootstrap_options =</span> <span class="kw">c</span>(<span class="st">&quot;striped&quot;</span>, <span class="st">&quot;hover&quot;</span>, <span class="st">&quot;condensed&quot;</span>))</span></code></pre></div>
+<table class="table table-striped table-hover table-condensed" style="margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:left;">
+Algorithm
+</th>
+<th style="text-align:right;">
+AlgorithmID
+</th>
+<th style="text-align:left;">
+CostFunction
+</th>
+<th style="text-align:right;">
+CostFunctionID
+</th>
+<th style="text-align:right;">
+Budget
+</th>
+<th style="text-align:right;">
+y
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+NelderMead
+</td>
+<td style="text-align:right;">
+4
+</td>
+<td style="text-align:left;">
+RosenbrockRotatedN6
+</td>
+<td style="text-align:right;">
+14
+</td>
+<td style="text-align:right;">
+1000
+</td>
+<td style="text-align:right;">
+-1.000
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+CMAES
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:left;">
+Schwefel2d20N2
+</td>
+<td style="text-align:right;">
+16
+</td>
+<td style="text-align:right;">
+1000
+</td>
+<td style="text-align:right;">
+1.000
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+CuckooSearch
+</td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:left;">
+ChenV
+</td>
+<td style="text-align:right;">
+3
+</td>
+<td style="text-align:right;">
+10000
+</td>
+<td style="text-align:right;">
+0.210
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+NelderMead
+</td>
+<td style="text-align:right;">
+4
+</td>
+<td style="text-align:left;">
+StrechedVSineWave2N
+</td>
+<td style="text-align:right;">
+23
+</td>
+<td style="text-align:right;">
+20
+</td>
+<td style="text-align:right;">
+-1.000
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+DifferentialEvolution
+</td>
+<td style="text-align:right;">
+3
+</td>
+<td style="text-align:left;">
+ChenBird
+</td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:right;">
+100000
+</td>
+<td style="text-align:right;">
+-1.000
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+NelderMead
+</td>
+<td style="text-align:right;">
+4
+</td>
+<td style="text-align:left;">
+ExponentialN2
+</td>
+<td style="text-align:right;">
+7
+</td>
+<td style="text-align:right;">
+100000
+</td>
+<td style="text-align:right;">
+-0.664
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+PSO
+</td>
+<td style="text-align:right;">
+5
+</td>
+<td style="text-align:left;">
+Tripod
+</td>
+<td style="text-align:right;">
+27
+</td>
+<td style="text-align:right;">
+100
+</td>
+<td style="text-align:right;">
+0.897
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+CuckooSearch
+</td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:left;">
+LunacekBiRastriginN6
+</td>
+<td style="text-align:right;">
+9
+</td>
+<td style="text-align:right;">
+10000
+</td>
+<td style="text-align:right;">
+-0.683
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+NelderMead
+</td>
+<td style="text-align:right;">
+4
+</td>
+<td style="text-align:left;">
+ThreeHumpCamelBack
+</td>
+<td style="text-align:right;">
+24
+</td>
+<td style="text-align:right;">
+100
+</td>
+<td style="text-align:right;">
+-0.687
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+DifferentialEvolution
+</td>
+<td style="text-align:right;">
+3
+</td>
+<td style="text-align:left;">
+Schwefel2d21N6
+</td>
+<td style="text-align:right;">
+17
+</td>
+<td style="text-align:right;">
+10000
+</td>
+<td style="text-align:right;">
+1.000
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="stan-model-1" class="section level2">
+<h2><span class="header-section-number">4.2</span> Stan model</h2>
+<p>The Stan model is specified in the file: <code>'./stanmodels/relativeimprovement.stan'</code></p>
+<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="relative-improvement.html#cb29-1"></a><span class="kw">print_stan_code</span>(<span class="st">&quot;./stanmodels/relativeimprovement.stan&quot;</span>)</span></code></pre></div>
+<pre><code>// Relative improvement model
+// Author: David Issa Mattos
+// Date: 17 June 2020
+//
+//
+
+data {
+ int &lt;lower=1&gt; N_total; // Sample size
+ real y[N_total]; // relative improvement variable
+
+ //To model each algorithm independently
+ int &lt;lower=1&gt; N_algorithm; // Number of algorithms
+ int algorithm_id[N_total]; //vector that has the id of each algorithm
+ 
+ //To model the influence of each benchmark
+ int &lt;lower=1&gt; N_bm;
+ int bm_id[N_total];
+}
+
+parameters {
+  real &lt;lower=0&gt; sigma;//std for the normal
+  
+  //Fixed effect
+  real a_alg[N_algorithm];//the mean effect given by the algorithms
+
+  // //Random effect. The effect of the benchmarks
+  real a_bm_norm[N_bm];//the mean effect given by the base class type
+  real&lt;lower=0&gt; s;//std for the random effects
+  
+}
+
+model {
+  real mu[N_total];
+
+  sigma ~ exponential(1);
+  
+  //Fixed effect
+  a_alg ~ normal(0,1);
+  
+  // //Random effects
+  s ~ exponential(1);
+  a_bm_norm ~ normal(0,1);
+
+  for (i in 1:N_total)
+  {
+    
+     mu[i] = a_alg[algorithm_id[i]] + a_bm_norm[bm_id[i]]*s;
+  }
+  
+  y ~ normal(mu, sigma);
+}</code></pre>
+<p>Let’s compile and start sampling with the Stan function. In the data folder you can find the specific data used to fit the model after all transformations <code>"./data/relativeimprovement-data.RDS"</code></p>
+<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="relative-improvement.html#cb31-1"></a>standata &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="dt">N_total =</span> <span class="kw">nrow</span>(d_final), <span class="dt">y =</span> d_final<span class="op">$</span>y, <span class="dt">N_algorithm =</span> <span class="kw">length</span>(algorithms), <span class="dt">algorithm_id =</span> d_final<span class="op">$</span>AlgorithmID, </span>
+<span id="cb31-2"><a href="relative-improvement.html#cb31-2"></a>    <span class="dt">N_bm =</span> <span class="kw">length</span>(bm), <span class="dt">bm_id =</span> d_final<span class="op">$</span>CostFunctionID)</span>
+<span id="cb31-3"><a href="relative-improvement.html#cb31-3"></a><span class="kw">saveRDS</span>(standata, <span class="dt">file =</span> <span class="st">&quot;./data/relativeimprovement-data.RDS&quot;</span>)</span></code></pre></div>
+<p>For computation time sake we are not running this chunk every time we compile this document. From now on we will load from the saved Stan fit object. However, when we change our model or the data we can just run this chunk separately</p>
+<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="relative-improvement.html#cb32-1"></a>standata &lt;-<span class="st"> </span><span class="kw">readRDS</span>(<span class="st">&quot;./data/relativeimprovement-data.RDS&quot;</span>)</span>
+<span id="cb32-2"><a href="relative-improvement.html#cb32-2"></a>relativeimprovement.fit &lt;-<span class="st"> </span><span class="kw">stan</span>(<span class="dt">file =</span> <span class="st">&quot;./stanmodels/relativeimprovement.stan&quot;</span>, <span class="dt">data =</span> standata, </span>
+<span id="cb32-3"><a href="relative-improvement.html#cb32-3"></a>    <span class="dt">chains =</span> <span class="dv">4</span>, <span class="dt">warmup =</span> <span class="dv">200</span>, <span class="dt">iter =</span> <span class="dv">2000</span>)</span>
+<span id="cb32-4"><a href="relative-improvement.html#cb32-4"></a><span class="kw">saveRDS</span>(relativeimprovement.fit, <span class="dt">file =</span> <span class="st">&quot;./data/relativeimprovement-fit.RDS&quot;</span>)</span></code></pre></div>
+</div>
+<div id="diagnosis-1" class="section level2">
+<h2><span class="header-section-number">4.3</span> Diagnosis</h2>
+<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="relative-improvement.html#cb33-1"></a>a_alg &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;a_alg[1]&quot;</span>, <span class="st">&quot;a_alg[2]&quot;</span>, <span class="st">&quot;a_alg[3]&quot;</span>, <span class="st">&quot;a_alg[4]&quot;</span>, <span class="st">&quot;a_alg[5]&quot;</span>, <span class="st">&quot;a_alg[6]&quot;</span>)</span>
+<span id="cb33-2"><a href="relative-improvement.html#cb33-2"></a>rstan<span class="op">::</span><span class="kw">traceplot</span>(relativeimprovement.fit, <span class="dt">pars =</span> a_alg)</span></code></pre></div>
+<p><img src="statscomp-appendix_files/figure-html/unnamed-chunk-32-1.png" width="672" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="relative-improvement.html#cb34-1"></a>rstan<span class="op">::</span><span class="kw">traceplot</span>(relativeimprovement.fit, <span class="dt">pars =</span> <span class="kw">c</span>(<span class="st">&quot;s&quot;</span>, <span class="st">&quot;sigma&quot;</span>))</span></code></pre></div>
+<p><img src="statscomp-appendix_files/figure-html/unnamed-chunk-32-2.png" width="672" style="display: block; margin: auto;" /></p>
+<p>Another diagnosis is to look at the Rhat. If Rhat is greater than 1.01 it indicates a divergence in the chains (they did not mix well). The table below shows a summary of the sampling.</p>
+<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="relative-improvement.html#cb35-1"></a><span class="kw">kable</span>(<span class="kw">summary</span>(relativeimprovement.fit)<span class="op">$</span>summary) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">kable_styling</span>(<span class="dt">bootstrap_options =</span> <span class="kw">c</span>(<span class="st">&quot;striped&quot;</span>, </span>
+<span id="cb35-2"><a href="relative-improvement.html#cb35-2"></a>    <span class="st">&quot;hover&quot;</span>, <span class="st">&quot;condensed&quot;</span>))</span></code></pre></div>
+<table>
+<thead>
+<tr class="header">
+<th></th>
+<th align="center">mean</th>
+<th align="left">se_mean</th>
+<th align="center">sd</th>
+<th align="center">2.5%</th>
+<th align="center">25%</th>
+<th align="center">50%</th>
+<th align="center">75%</th>
+<th align="center">97.5%</th>
+<th align="center">n_eff</th>
+<th align="center">Rhat</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>sigma</td>
+<td align="center">0.6367136</td>
+<td align="left">0.0000457</td>
+<td align="center">0.0047811</td>
+<td align="center">0.6274032</td>
+<td align="center">0.6335385</td>
+<td align="center">0.6366453</td>
+<td align="center">0.6398819</td>
+<td align="center">0.6462761</td>
+<td align="center">10932.6669</td>
+<td align="center">0.9997383</td>
+</tr>
+<tr class="even">
+<td>a_alg[1]</td>
+<td align="center">0.1528724</td>
+<td align="left">0.0011168</td>
+<td align="center">0.0323725</td>
+<td align="center">0.0882285</td>
+<td align="center">0.1315695</td>
+<td align="center">0.1537696</td>
+<td align="center">0.1743541</td>
+<td align="center">0.2147639</td>
+<td align="center">840.2495</td>
+<td align="center">1.0058980</td>
+</tr>
+<tr class="odd">
+<td>a_alg[2]</td>
+<td align="center">-0.3757817</td>
+<td align="left">0.0011411</td>
+<td align="center">0.0324419</td>
+<td align="center">-0.4395244</td>
+<td align="center">-0.3972668</td>
+<td align="center">-0.3758854</td>
+<td align="center">-0.3542998</td>
+<td align="center">-0.3120183</td>
+<td align="center">808.3258</td>
+<td align="center">1.0073515</td>
+</tr>
+<tr class="even">
+<td>a_alg[3]</td>
+<td align="center">0.3040463</td>
+<td align="left">0.0010979</td>
+<td align="center">0.0321423</td>
+<td align="center">0.2413520</td>
+<td align="center">0.2826737</td>
+<td align="center">0.3040526</td>
+<td align="center">0.3258091</td>
+<td align="center">0.3661104</td>
+<td align="center">857.1476</td>
+<td align="center">1.0068383</td>
+</tr>
+<tr class="odd">
+<td>a_alg[4]</td>
+<td align="center">-0.6389961</td>
+<td align="left">0.0011438</td>
+<td align="center">0.0323862</td>
+<td align="center">-0.7034160</td>
+<td align="center">-0.6603248</td>
+<td align="center">-0.6383835</td>
+<td align="center">-0.6171854</td>
+<td align="center">-0.5766122</td>
+<td align="center">801.6916</td>
+<td align="center">1.0059957</td>
+</tr>
+<tr class="even">
+<td>a_alg[5]</td>
+<td align="center">0.3221519</td>
+<td align="left">0.0011488</td>
+<td align="center">0.0321185</td>
+<td align="center">0.2586531</td>
+<td align="center">0.3006443</td>
+<td align="center">0.3220550</td>
+<td align="center">0.3437193</td>
+<td align="center">0.3849371</td>
+<td align="center">781.6795</td>
+<td align="center">1.0053256</td>
+</tr>
+<tr class="odd">
+<td>a_alg[6]</td>
+<td align="center">-0.5685966</td>
+<td align="left">0.0011482</td>
+<td align="center">0.0325380</td>
+<td align="center">-0.6323306</td>
+<td align="center">-0.5898365</td>
+<td align="center">-0.5682307</td>
+<td align="center">-0.5467721</td>
+<td align="center">-0.5056506</td>
+<td align="center">803.0586</td>
+<td align="center">1.0063050</td>
+</tr>
+<tr class="even">
+<td>a_bm_norm[1]</td>
+<td align="center">-0.5528284</td>
+<td align="left">0.0083841</td>
+<td align="center">0.3167051</td>
+<td align="center">-1.1996023</td>
+<td align="center">-0.7578486</td>
+<td align="center">-0.5461023</td>
+<td align="center">-0.3393093</td>
+<td align="center">0.0522052</td>
+<td align="center">1426.9037</td>
+<td align="center">1.0038626</td>
+</tr>
+<tr class="odd">
+<td>a_bm_norm[2]</td>
+<td align="center">-2.1898502</td>
+<td align="left">0.0113977</td>
+<td align="center">0.4119069</td>
+<td align="center">-3.0368446</td>
+<td align="center">-2.4563185</td>
+<td align="center">-2.1700033</td>
+<td align="center">-1.9085664</td>
+<td align="center">-1.4215276</td>
+<td align="center">1306.0717</td>
+<td align="center">1.0041856</td>
+</tr>
+<tr class="even">
+<td>a_bm_norm[3]</td>
+<td align="center">0.8438667</td>
+<td align="left">0.0080493</td>
+<td align="center">0.3315706</td>
+<td align="center">0.2222905</td>
+<td align="center">0.6137846</td>
+<td align="center">0.8362845</td>
+<td align="center">1.0601660</td>
+<td align="center">1.5239791</td>
+<td align="center">1696.8102</td>
+<td align="center">1.0023274</td>
+</tr>
+<tr class="odd">
+<td>a_bm_norm[4]</td>
+<td align="center">0.1326418</td>
+<td align="left">0.0076929</td>
+<td align="center">0.3098639</td>
+<td align="center">-0.4611369</td>
+<td align="center">-0.0784186</td>
+<td align="center">0.1286970</td>
+<td align="center">0.3417231</td>
+<td align="center">0.7405153</td>
+<td align="center">1622.4335</td>
+<td align="center">1.0027501</td>
+</tr>
+<tr class="even">
+<td>a_bm_norm[5]</td>
+<td align="center">-1.1574387</td>
+<td align="left">0.0089213</td>
+<td align="center">0.3436102</td>
+<td align="center">-1.8558549</td>
+<td align="center">-1.3858565</td>
+<td align="center">-1.1460847</td>
+<td align="center">-0.9203579</td>
+<td align="center">-0.5105154</td>
+<td align="center">1483.4530</td>
+<td align="center">1.0032709</td>
+</tr>
+<tr class="odd">
+<td>a_bm_norm[6]</td>
+<td align="center">0.8473595</td>
+<td align="left">0.0077491</td>
+<td align="center">0.3310120</td>
+<td align="center">0.2198905</td>
+<td align="center">0.6176796</td>
+<td align="center">0.8400744</td>
+<td align="center">1.0664735</td>
+<td align="center">1.5069308</td>
+<td align="center">1824.6630</td>
+<td align="center">1.0020777</td>
+</tr>
+<tr class="even">
+<td>a_bm_norm[7]</td>
+<td align="center">-0.0610561</td>
+<td align="left">0.0085946</td>
+<td align="center">0.3144614</td>
+<td align="center">-0.6810709</td>
+<td align="center">-0.2755458</td>
+<td align="center">-0.0583310</td>
+<td align="center">0.1466462</td>
+<td align="center">0.5439426</td>
+<td align="center">1338.7012</td>
+<td align="center">1.0049663</td>
+</tr>
+<tr class="odd">
+<td>a_bm_norm[8]</td>
+<td align="center">1.1217552</td>
+<td align="left">0.0080232</td>
+<td align="center">0.3420421</td>
+<td align="center">0.4738809</td>
+<td align="center">0.8903396</td>
+<td align="center">1.1093751</td>
+<td align="center">1.3444527</td>
+<td align="center">1.8245162</td>
+<td align="center">1817.4716</td>
+<td align="center">1.0023594</td>
+</tr>
+<tr class="even">
+<td>a_bm_norm[9]</td>
+<td align="center">0.4668407</td>
+<td align="left">0.0078682</td>
+<td align="center">0.3195200</td>
+<td align="center">-0.1380094</td>
+<td align="center">0.2474110</td>
+<td align="center">0.4566927</td>
+<td align="center">0.6766766</td>
+<td align="center">1.1142890</td>
+<td align="center">1649.0941</td>
+<td align="center">1.0023276</td>
+</tr>
+<tr class="odd">
+<td>a_bm_norm[10]</td>
+<td align="center">0.3172916</td>
+<td align="left">0.0077608</td>
+<td align="center">0.3189086</td>
+<td align="center">-0.2935497</td>
+<td align="center">0.0990584</td>
+<td align="center">0.3126447</td>
+<td align="center">0.5271420</td>
+<td align="center">0.9585043</td>
+<td align="center">1688.5619</td>
+<td align="center">1.0021347</td>
+</tr>
+<tr class="even">
+<td>a_bm_norm[11]</td>
+<td align="center">0.8617476</td>
+<td align="left">0.0082667</td>
+<td align="center">0.3297373</td>
+<td align="center">0.2358761</td>
+<td align="center">0.6354238</td>
+<td align="center">0.8532483</td>
+<td align="center">1.0858978</td>
+<td align="center">1.5127949</td>
+<td align="center">1591.0008</td>
+<td align="center">1.0032300</td>
+</tr>
+<tr class="odd">
+<td>a_bm_norm[12]</td>
+<td align="center">0.6566616</td>
+<td align="left">0.0078074</td>
+<td align="center">0.3235731</td>
+<td align="center">0.0477075</td>
+<td align="center">0.4366450</td>
+<td align="center">0.6465615</td>
+<td align="center">0.8677998</td>
+<td align="center">1.3043995</td>
+<td align="center">1717.6193</td>
+<td align="center">1.0024749</td>
+</tr>
+<tr class="even">
+<td>a_bm_norm[13]</td>
+<td align="center">-1.7662785</td>
+<td align="left">0.0105775</td>
+<td align="center">0.3755665</td>
+<td align="center">-2.5312320</td>
+<td align="center">-2.0139812</td>
+<td align="center">-1.7539172</td>
+<td align="center">-1.5087779</td>
+<td align="center">-1.0539527</td>
+<td align="center">1260.6829</td>
+<td align="center">1.0043260</td>
+</tr>
+<tr class="odd">
+<td>a_bm_norm[14]</td>
+<td align="center">0.8799962</td>
+<td align="left">0.0080830</td>
+<td align="center">0.3285285</td>
+<td align="center">0.2494554</td>
+<td align="center">0.6609048</td>
+<td align="center">0.8717198</td>
+<td align="center">1.0949806</td>
+<td align="center">1.5441091</td>
+<td align="center">1651.9503</td>
+<td align="center">1.0028887</td>
+</tr>
+<tr class="even">
+<td>a_bm_norm[15]</td>
+<td align="center">-1.0860694</td>
+<td align="left">0.0089953</td>
+<td align="center">0.3355051</td>
+<td align="center">-1.7640085</td>
+<td align="center">-1.3054263</td>
+<td align="center">-1.0771789</td>
+<td align="center">-0.8600993</td>
+<td align="center">-0.4451459</td>
+<td align="center">1391.1255</td>
+<td align="center">1.0035691</td>
+</tr>
+<tr class="odd">
+<td>a_bm_norm[16]</td>
+<td align="center">0.0960651</td>
+<td align="left">0.0072150</td>
+<td align="center">0.3106989</td>
+<td align="center">-0.4885144</td>
+<td align="center">-0.1189339</td>
+<td align="center">0.0918543</td>
+<td align="center">0.3064252</td>
+<td align="center">0.7194358</td>
+<td align="center">1854.4275</td>
+<td align="center">1.0022760</td>
+</tr>
+<tr class="even">
+<td>a_bm_norm[17]</td>
+<td align="center">0.8120032</td>
+<td align="left">0.0078637</td>
+<td align="center">0.3262759</td>
+<td align="center">0.1982053</td>
+<td align="center">0.5919244</td>
+<td align="center">0.8021110</td>
+<td align="center">1.0258392</td>
+<td align="center">1.4730756</td>
+<td align="center">1721.5552</td>
+<td align="center">1.0032659</td>
+</tr>
+<tr class="odd">
+<td>a_bm_norm[18]</td>
+<td align="center">0.7555947</td>
+<td align="left">0.0083187</td>
+<td align="center">0.3336851</td>
+<td align="center">0.1286890</td>
+<td align="center">0.5315805</td>
+<td align="center">0.7432168</td>
+<td align="center">0.9694233</td>
+<td align="center">1.4395282</td>
+<td align="center">1609.0170</td>
+<td align="center">1.0024624</td>
+</tr>
+<tr class="even">
+<td>a_bm_norm[19]</td>
+<td align="center">-0.5861159</td>
+<td align="left">0.0080184</td>
+<td align="center">0.3212106</td>
+<td align="center">-1.2205327</td>
+<td align="center">-0.8040274</td>
+<td align="center">-0.5858222</td>
+<td align="center">-0.3705707</td>
+<td align="center">0.0440855</td>
+<td align="center">1604.7485</td>
+<td align="center">1.0026585</td>
+</tr>
+<tr class="odd">
+<td>a_bm_norm[20]</td>
+<td align="center">0.0731471</td>
+<td align="left">0.0079307</td>
+<td align="center">0.3164780</td>
+<td align="center">-0.5347566</td>
+<td align="center">-0.1350642</td>
+<td align="center">0.0726553</td>
+<td align="center">0.2799041</td>
+<td align="center">0.7101974</td>
+<td align="center">1592.4387</td>
+<td align="center">1.0026327</td>
+</tr>
+<tr class="even">
+<td>a_bm_norm[21]</td>
+<td align="center">-0.5713165</td>
+<td align="left">0.0083904</td>
+<td align="center">0.3161689</td>
+<td align="center">-1.1905242</td>
+<td align="center">-0.7827417</td>
+<td align="center">-0.5701083</td>
+<td align="center">-0.3607944</td>
+<td align="center">0.0425663</td>
+<td align="center">1419.9437</td>
+<td align="center">1.0041760</td>
+</tr>
+<tr class="odd">
+<td>a_bm_norm[22]</td>
+<td align="center">1.1639801</td>
+<td align="left">0.0081842</td>
+<td align="center">0.3445592</td>
+<td align="center">0.5154897</td>
+<td align="center">0.9237753</td>
+<td align="center">1.1561923</td>
+<td align="center">1.3978981</td>
+<td align="center">1.8615953</td>
+<td align="center">1772.4412</td>
+<td align="center">1.0028106</td>
+</tr>
+<tr class="even">
+<td>a_bm_norm[23]</td>
+<td align="center">-1.2825067</td>
+<td align="left">0.0095313</td>
+<td align="center">0.3498452</td>
+<td align="center">-1.9944274</td>
+<td align="center">-1.5092287</td>
+<td align="center">-1.2707083</td>
+<td align="center">-1.0428518</td>
+<td align="center">-0.6255937</td>
+<td align="center">1347.2624</td>
+<td align="center">1.0046445</td>
+</tr>
+<tr class="odd">
+<td>a_bm_norm[24]</td>
+<td align="center">0.2527552</td>
+<td align="left">0.0076225</td>
+<td align="center">0.3157048</td>
+<td align="center">-0.3578683</td>
+<td align="center">0.0430652</td>
+<td align="center">0.2507233</td>
+<td align="center">0.4669514</td>
+<td align="center">0.8864676</td>
+<td align="center">1715.3991</td>
+<td align="center">1.0028007</td>
+</tr>
+<tr class="even">
+<td>a_bm_norm[25]</td>
+<td align="center">-0.7524686</td>
+<td align="left">0.0084671</td>
+<td align="center">0.3275641</td>
+<td align="center">-1.4141219</td>
+<td align="center">-0.9697545</td>
+<td align="center">-0.7476515</td>
+<td align="center">-0.5245629</td>
+<td align="center">-0.1250794</td>
+<td align="center">1496.6702</td>
+<td align="center">1.0027062</td>
+</tr>
+<tr class="odd">
+<td>a_bm_norm[26]</td>
+<td align="center">1.3912052</td>
+<td align="left">0.0091255</td>
+<td align="center">0.3635091</td>
+<td align="center">0.7033080</td>
+<td align="center">1.1367450</td>
+<td align="center">1.3827850</td>
+<td align="center">1.6295467</td>
+<td align="center">2.1351611</td>
+<td align="center">1586.7690</td>
+<td align="center">1.0023171</td>
+</tr>
+<tr class="even">
+<td>a_bm_norm[27]</td>
+<td align="center">-1.0996624</td>
+<td align="left">0.0090897</td>
+<td align="center">0.3404926</td>
+<td align="center">-1.7931082</td>
+<td align="center">-1.3260065</td>
+<td align="center">-1.0905193</td>
+<td align="center">-0.8685259</td>
+<td align="center">-0.4454558</td>
+<td align="center">1403.1947</td>
+<td align="center">1.0035552</td>
+</tr>
+<tr class="odd">
+<td>a_bm_norm[28]</td>
+<td align="center">-0.3881069</td>
+<td align="left">0.0077362</td>
+<td align="center">0.3130439</td>
+<td align="center">-1.0123018</td>
+<td align="center">-0.5938400</td>
+<td align="center">-0.3877528</td>
+<td align="center">-0.1802449</td>
+<td align="center">0.2239530</td>
+<td align="center">1637.3854</td>
+<td align="center">1.0030598</td>
+</tr>
+<tr class="even">
+<td>a_bm_norm[29]</td>
+<td align="center">-0.5438003</td>
+<td align="left">0.0078397</td>
+<td align="center">0.3152240</td>
+<td align="center">-1.1690190</td>
+<td align="center">-0.7533013</td>
+<td align="center">-0.5436276</td>
+<td align="center">-0.3304766</td>
+<td align="center">0.0660344</td>
+<td align="center">1616.7290</td>
+<td align="center">1.0026129</td>
+</tr>
+<tr class="odd">
+<td>a_bm_norm[30]</td>
+<td align="center">1.0874127</td>
+<td align="left">0.0085530</td>
+<td align="center">0.3444976</td>
+<td align="center">0.4601920</td>
+<td align="center">0.8502100</td>
+<td align="center">1.0742699</td>
+<td align="center">1.3177185</td>
+<td align="center">1.8022325</td>
+<td align="center">1622.3188</td>
+<td align="center">1.0033795</td>
+</tr>
+<tr class="even">
+<td>s</td>
+<td align="center">0.1450795</td>
+<td align="left">0.0006307</td>
+<td align="center">0.0215598</td>
+<td align="center">0.1099735</td>
+<td align="center">0.1298466</td>
+<td align="center">0.1424160</td>
+<td align="center">0.1578436</td>
+<td align="center">0.1937342</td>
+<td align="center">1168.6901</td>
+<td align="center">1.0044734</td>
+</tr>
+<tr class="odd">
+<td>lp__</td>
+<td align="center">-454.4377641</td>
+<td align="left">0.1720569</td>
+<td align="center">5.8632921</td>
+<td align="center">-467.1570738</td>
+<td align="center">-458.1997270</td>
+<td align="center">-454.0645231</td>
+<td align="center">-450.4068103</td>
+<td align="center">-444.0162036</td>
+<td align="center">1161.2856</td>
+<td align="center">1.0050157</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="results-and-plots-1" class="section level2">
+<h2><span class="header-section-number">4.4</span> Results and Plots</h2>
+<p>First lets get the HPDI of every parameter.</p>
+<p>Then we restrict to the algorithms, them to the slopes, then to the</p>
+<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="relative-improvement.html#cb36-1"></a>hpdi &lt;-<span class="st"> </span><span class="kw">get_HPDI_from_stanfit</span>(relativeimprovement.fit)</span>
+<span id="cb36-2"><a href="relative-improvement.html#cb36-2"></a></span>
+<span id="cb36-3"><a href="relative-improvement.html#cb36-3"></a>hpdi_algorithm &lt;-<span class="st"> </span>hpdi <span class="op">%&gt;%</span><span class="st"> </span>dplyr<span class="op">::</span><span class="kw">filter</span>(<span class="kw">str_detect</span>(Parameter, <span class="st">&quot;a_alg</span><span class="ch">\\</span><span class="st">[&quot;</span>)) <span class="op">%&gt;%</span><span class="st"> </span>dplyr<span class="op">::</span><span class="kw">mutate</span>(<span class="dt">Parameter =</span> algorithms)  <span class="co">#Changing to the algorithms labels</span></span>
+<span id="cb36-4"><a href="relative-improvement.html#cb36-4"></a></span>
+<span id="cb36-5"><a href="relative-improvement.html#cb36-5"></a>hpdi_other_parameters &lt;-<span class="st"> </span>hpdi <span class="op">%&gt;%</span><span class="st"> </span>dplyr<span class="op">::</span><span class="kw">filter</span>(Parameter <span class="op">==</span><span class="st"> &quot;s&quot;</span> <span class="op">|</span><span class="st"> </span>Parameter <span class="op">==</span><span class="st"> &quot;sigma&quot;</span>)</span>
+<span id="cb36-6"><a href="relative-improvement.html#cb36-6"></a></span>
+<span id="cb36-7"><a href="relative-improvement.html#cb36-7"></a></span>
+<span id="cb36-8"><a href="relative-improvement.html#cb36-8"></a>p_alg &lt;-<span class="st"> </span><span class="kw">ggplot</span>(<span class="dt">data =</span> hpdi_algorithm, <span class="kw">aes</span>(<span class="dt">x =</span> Parameter)) <span class="op">+</span><span class="st"> </span><span class="kw">geom_pointrange</span>(<span class="kw">aes</span>(<span class="dt">ymin =</span> HPDI.lower, </span>
+<span id="cb36-9"><a href="relative-improvement.html#cb36-9"></a>    <span class="dt">ymax =</span> HPDI.higher, <span class="dt">y =</span> Mean)) <span class="op">+</span><span class="st"> </span><span class="kw">labs</span>(<span class="dt">y =</span> <span class="st">&quot;Estimate&quot;</span>, <span class="dt">x =</span> <span class="st">&quot;Algorithm&quot;</span>) <span class="op">+</span><span class="st"> </span><span class="kw">coord_flip</span>()</span>
+<span id="cb36-10"><a href="relative-improvement.html#cb36-10"></a>p_alg <span class="op">+</span><span class="st"> </span><span class="kw">plot_annotation</span>(<span class="dt">title =</span> <span class="st">&quot;HPDI interval for the algorithms&quot;</span>)</span></code></pre></div>
+<p><img src="statscomp-appendix_files/figure-html/unnamed-chunk-34-1.png" width="672" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="relative-improvement.html#cb37-1"></a>p_others &lt;-<span class="st"> </span><span class="kw">ggplot</span>(<span class="dt">data =</span> hpdi_other_parameters, <span class="kw">aes</span>(<span class="dt">x =</span> Parameter)) <span class="op">+</span><span class="st"> </span><span class="kw">geom_pointrange</span>(<span class="kw">aes</span>(<span class="dt">ymin =</span> HPDI.lower, </span>
+<span id="cb37-2"><a href="relative-improvement.html#cb37-2"></a>    <span class="dt">ymax =</span> HPDI.higher, <span class="dt">y =</span> Mean)) <span class="op">+</span><span class="st"> </span><span class="kw">labs</span>(<span class="dt">y =</span> <span class="st">&quot;Estimate&quot;</span>, <span class="dt">x =</span> <span class="st">&quot;Parameter&quot;</span>) <span class="op">+</span><span class="st"> </span><span class="kw">coord_flip</span>()</span>
+<span id="cb37-3"><a href="relative-improvement.html#cb37-3"></a>p_others <span class="op">+</span><span class="st"> </span><span class="kw">plot_annotation</span>(<span class="dt">title =</span> <span class="st">&quot;HPDI interval&quot;</span>)</span></code></pre></div>
+<p><img src="statscomp-appendix_files/figure-html/unnamed-chunk-34-2.png" width="672" style="display: block; margin: auto;" /></p>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="probability-of-success-model.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="ranking.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": null,
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

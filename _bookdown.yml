@@ -1,0 +1,8 @@
+book_filename: "statscomp-appendix"
+chapter_name: "Chapter "
+repo: https://github.com/davidissamattos/statscomp
+delete_merged_file: true 
+output_dir: docs
+rmd_files: ["index.Rmd", "01-Introduction.Rmd", "02-ProbSuccess.Rmd", "03-RelativeImprovement.Rmd", "04-Ranking.Rmd","05-IterationsToConverge.Rmd","06-MultipleGroup.Rmd","07-SensitivityAndModel.Rmd"]
+clean: [references.bib]
+new_session: no

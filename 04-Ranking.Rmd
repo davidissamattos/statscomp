@@ -1,0 +1,233 @@
+# Ranking
+
+In this section, we will consider the Bradley-Terry Model for ranking algorithms in the fixed budget of 10,000 function evaluations per dimension and controlling for noise and the effect of benchmark functions
+
+\textbf{RQ: } How can we rank algorithm different optimization algorithms given a budget of 10,000 evaluations per dimension in noisy benchmarks?
+
+
+## Data preparation
+
+We start importing the dataset
+
+```{r}
+dataset <- readr::read_csv('./data/statscomp.csv')
+```
+
+The BT model formulation that we use has a specific data format, where we have one column with algo_0 (with index of each algorithm) another column with algo_1 and a third column with who won (algo 0 or algo 1),
+
+First lets select only the data that we are interested and create ranking by the each run in each group (by the simNumber).
+To avoid ties (dealing with those on next session) we will rank ties randomly
+
+```{r}
+d1 <- dataset %>% 
+  dplyr::select(Algorithm, CostFunction, SD, Budget=MaxFevalPerDimensions, simNumber, TrueRewardDifference, OptimizationSuccessful) %>% 
+  dplyr::filter(OptimizationSuccessful & Budget==10000 & SD==3.0) %>% 
+  dplyr::select(-Budget, -OptimizationSuccessful, -SD) %>% 
+  dplyr::group_by(CostFunction, simNumber) %>% 
+  dplyr::mutate(rankReward=rank(TrueRewardDifference, ties.method = 'random')) %>% 
+  dplyr::ungroup() %>% 
+  dplyr::select(-TrueRewardDifference)
+```
+
+```{r}
+kable(dplyr::sample_n(d1,size=10), booktabs=T, format.args = list(scientific = FALSE), digits = 3) %>% 
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"))
+```
+
+Now to compare the ranks we need to pivot wider the data frame and based on that we will expand to the dataset in the appropriated format
+
+```{r}
+d1_wide <- d1 %>% 
+  tidyr::pivot_wider(names_from = Algorithm,
+                     values_from=rankReward)
+```
+
+```{r}
+kable(dplyr::sample_n(d1_wide,size=10), booktabs=T, format.args = list(scientific = FALSE), digits = 3) %>% 
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"))
+```
+
+Now we need to modify this data set and expand it so we have the pairwise comparisons
+
+First let's get the number of algorithms and create combination of all possible 2 by 2 comparisons without repeating
+
+```{r}
+algorithms <- get_index_names_as_array(d1$Algorithm)
+n_algorithms <- length(algorithms)
+comb <- gtools::combinations(n=n_algorithms, r=2, v=seq(1:n_algorithms), repeats.allowed = F)
+```
+
+The pairs combinations looks like this (for algo_0 and algo_1):
+
+```{r}
+kable(comb, booktabs=T) %>% 
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"))
+```
+Note that each row of d_wide will be expanded into `r nrow(comb)` rows. Giving a dataset with a total of `r nrow(d1_wide)*nrow(comb)` rows.
+
+The following code can a bit slow to run due to the double for loops (there is probably a way to vectorize this and make it run faster), but for building this appendix we will not run, instead we will run it once, save this data, and load it when needed. It takes a couple of minutes but if you have a lot of data and algorithms it can easily go for hours
+
+We will use a progress bar to follow the data frame creation.
+
+1- We initialize a tibble data frame
+2- First we loop through the wide data frame `d1_wide` row by row
+3- For each row we will loop through the different combinations in the `comb` variable to create the rows of the data frame. We add each row to the initial dataframe
+```{r echo=T, eval=F}
+pb <- progress::progress_bar$new(format = "[:bar] :current/:total (:percent)", total = nrow(d1_wide))
+
+df_out <-  dplyr::tribble(~algo0_name, ~algo0, ~algo1_name, ~algo1, ~y, ~simNumber, ~CostFunction)
+
+for(i in 1:nrow(d1_wide))
+{
+  current_row <- d1_wide[i,]
+  for(j in 1:nrow(comb)){
+    comb_row <- comb[j,]
+    
+    algo0_name <- algorithms[comb_row[1]]
+    algo0 <- comb_row[1]
+    algo0_rank <- current_row[[1,algo0_name]]
+    
+    algo1_name <- algorithms[comb_row[2]]
+    algo1 <- comb_row[2]
+    algo1_rank <- current_row[[1,algo1_name]]
+    
+    diff_rank <- algo1_rank - algo0_rank
+    y <- ifelse(diff_rank<0, 1, 0) 
+    
+    
+    df_out <- add_row(df_out,
+                      algo0_name=algo0_name,
+                      algo0=algo0,
+                      algo1_name=algo1_name,
+                      algo1=algo1,
+                      y=y,
+                      simNumber=current_row$simNumber,
+                      CostFunction=current_row$CostFunction)
+    
+  }
+  pb$tick()
+}
+saveRDS(df_out, file="./data/ranking.RDS")
+```
+
+Visualizing how the data frame looks like
+```{r}
+df_out <- readRDS("./data/ranking.RDS")
+kable(dplyr::sample_n(df_out,size=10), "html", booktabs=T, format.args = list(scientific = FALSE), digits = 3) %>% 
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"))
+```
+
+```{r include=F}
+df_table<-df_out %>% select(-simNumber)
+saveRDS(sample_n(df_table,size=6), './statscomp-paper/tables/datafortables/rankingtmodeldata.RDS')
+```
+
+
+
+## Stan model
+
+The Stan model is specified in the file: `'./stanmodels/rankingmodel.stan'`
+
+```{r}
+print_stan_code('./stanmodels/rankingmodel.stan')
+```
+
+Let's compile and start sampling with the Stan function. In the data folder you can find the specific data used to fit the model after all transformations `"./data/rankingmodel-data.RDS"`
+
+```{r}
+standata <- list(
+  N_total=nrow(df_out),
+  y = as.integer(df_out$y),
+  N_algorithm = length(algorithms),
+  algo0=df_out$algo0,
+  algo1=df_out$algo1
+  )
+saveRDS(standata, file = "./data/rankingmodel-data.RDS")
+```
+
+For computation time sake we are not running this chunk every time we compile this document. From now on we will load from the saved Stan fit object. However, when we change our model or the data we can just run this chunk separately
+
+```{r echo=T, eval=F}
+standata<-readRDS("./data/rankingmodel-data.RDS")
+ranking.fit <- stan(file = './stanmodels/rankingmodel.stan',
+                     data=standata,
+                     chains = 4,
+                     warmup = 200,
+                     iter = 3000)
+saveRDS(ranking.fit, file = "./data/ranking-fit.RDS")
+```
+
+```{r echo=F, include=F, eval=T}
+ranking.fit <-readRDS("./data/ranking-fit.RDS")
+```
+
+## Diagnosis
+
+```{r}
+rstan::traceplot(ranking.fit)
+```
+
+Another diagnosis is to look at the Rhat. If Rhat is greater than 1.05 it indicates a divergence in the chains (they did not mix well). The table below shows a summary of the sampling.
+```{r}
+kable(summary(ranking.fit)$summary) %>% 
+  kable_styling(bootstrap_options = c('striped',"hover", "condensed" ))
+```
+
+
+## Results and Plots
+
+First let's get the HPDI interval for the "strength" parameters. Then we will sample the posterior and rank them and present the ranks with their respective posteriors.
+
+```{r}
+hpdi <- get_HPDI_from_stanfit(ranking.fit)
+
+hpdi_algorithm <- hpdi %>% 
+      dplyr::filter(str_detect(Parameter, "alpha\\[")) %>%
+      dplyr::mutate(Parameter=algorithms) #Changing to the algorithms labels
+
+
+p_alg<-ggplot(data=hpdi_algorithm, aes(x=Parameter))+
+  geom_pointrange(aes(
+    ymin=HPDI.lower, 
+    ymax=HPDI.higher, 
+    y=Mean))+
+  labs(y="Estimate", x="Algorithm")+
+  coord_flip()
+p_alg + plot_annotation(title = 'HPDI interval for the algorithms strength')
+```
+```{r echo=F, include=F, eval=T}
+save_fig(p_alg, 'ranking.pdf')
+```
+
+
+Computing the ranks
+```{r}
+posterior <- rstan::extract(ranking.fit)
+alpha <- as_tibble(posterior$alpha)
+colnames(alpha) <- algorithms
+#sampling from the posterior
+s <- dplyr::sample_n(alpha, size = 1000, replace=T)
+s <- dplyr::mutate(s, rown = row_number())
+wide_s <- tidyr::pivot_longer(s, cols=all_of(algorithms), names_to = "Algorithm", values_to = "Alpha")
+rank_df <- wide_s %>% 
+  dplyr::group_by(rown) %>% 
+  dplyr::mutate(Rank = rank(-Alpha, ties.method = 'random')) %>% 
+  dplyr::ungroup() %>% 
+  dplyr::select(-Alpha) %>% 
+  dplyr::group_by(Algorithm) %>% 
+  dplyr::summarise(MedianRank = median(Rank),
+                   VarianceRank = var(Rank)) %>% 
+  dplyr::arrange(MedianRank)
+```
+
+```{r}
+rank_df_table <- rank_df
+colnames(rank_df_table) <- c("Algorithm","Median Rank", "Variance of the Rank")
+kable(rank_df_table, "html") %>% 
+  kable_styling(bootstrap_options = c('striped',"hover", "condensed" ))
+```
+
+```{r include=F}
+saveRDS(rank_df_table,'./statscomp-paper/tables/datafortables/rankingalgorithmsresults.RDS')
+```
+

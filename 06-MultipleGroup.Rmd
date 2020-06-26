@@ -1,0 +1,246 @@
+# Multiple-group comparison 
+
+We present here the Stan version of the BEST (Bayesian Estimation Supersedes the t Test) from John K. Kruschke. We will consider the following research question
+
+
+**RQ: **
+
+## Data preparation
+
+We start importing the dataset
+
+```{r}
+dataset <- readr::read_csv('./data/statscomp.csv')
+```
+
+Filtering the data that we want and applying some transformations
+```{r}
+d <- dataset %>% 
+  dplyr::filter(
+    OptimizationSuccessful==TRUE &
+    (Algorithm=="PSO" | Algorithm=="RandomSearch1" | Algorithm=="DifferentialEvolution")) %>% 
+  dplyr::select(Algorithm, CostFunction, TimeToComplete, simNumber, MaxFeval) %>% 
+  dplyr::mutate(y=10000*TimeToComplete/MaxFeval,
+                CostFunctionID=create_index(CostFunction),
+                AlgorithmID=create_index(Algorithm)) %>% 
+  dplyr::select(Algorithm, AlgorithmID, CostFunction, CostFunctionID, y,-simNumber, -MaxFeval)
+
+algorithms<-get_index_names_as_array(d$Algorithm)
+bm <- get_index_names_as_array(d$CostFunction)
+```
+
+The data should look like this:
+```{r}
+kable(dplyr::sample_n(d,size=10), "html",booktabs=T, format.args = list(scientific = FALSE), digits = 3) %>% 
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"))
+```
+
+```{r include=F}
+saveRDS(dplyr::sample_n(d,size=6), './statscomp-paper/tables/datafortables/multiplegroupsdata.RDS')
+```
+
+Some initial visualizations in terms of box-plots
+```{r}
+p1<-ggplot(d) +
+  geom_boxplot(aes(x=Algorithm, y=y))+
+  labs(y="Time to complete x10,000")
+p1 + plot_annotation(title ="Box-plot of the time per evaluation")
+
+lmfit <- lm(y~Algorithm, data=d)
+
+p2<-ggplot()+
+  geom_qq(aes(sample=lmfit$residuals))+
+  geom_qq_line(aes(sample=lmfit$residuals))+
+  labs(x="Standard normal quantiles", y="Sample quantiles")
+p2 + plot_annotation(title = "Q-Q plot for normality analysis")
+```
+
+```{r echo=F, include=F, eval=T}
+#figure for the paper
+p<- (p1 | p2) + plot_annotation(tag_levels = 'A')
+save_fig(p, 'groupcomparisonexplore.pdf')
+```
+
+
+
+## Stan model
+
+The Stan model is specified in the file: `'./stanmodels/multiplegroups.stan'`
+
+```{r}
+print_stan_code('./stanmodels/multiplegroups.stan')
+```
+
+Let's compile and start sampling with the Stan function. In the data folder you can find the specific data used to fit the model after all transformations `"./data/multiplegroup-data.RDS"`
+
+```{r}
+standata <- list(
+  N_total=nrow(d),
+  y = d$y,
+  N_algorithm = length(algorithms),
+  algorithm_id = d$AlgorithmID,
+  N_bm = length(bm),
+  bm_id = d$CostFunctionID
+  )
+saveRDS(standata, file = "./data/multiplegroups-data.RDS")
+```
+
+For computation time sake we are not running this chunk every time we compile this document. From now on we will load from the saved Stan fit object. However, when we change our model or the data we can just run this chunk separately. Here we increased the maxtreedepth and the number of iterations so we have a higher effective sample for inference. Both of these do not impact the validity of the chain just the computation efficiency.
+
+```{r echo=T, eval=F}
+standata<-readRDS("./data/multiplegroups-data.RDS")
+multiplegroup_fit <- stan(file = './stanmodels/multiplegroups.stan',
+                     data=standata,
+                     chains = 4,
+                     warmup = 400,
+                     iter = 4000,
+                     # include = T,
+                     # sample_file = "./stanmodels/multiplegroups.csv"
+                     control = list(max_treedepth = 15))
+saveRDS(multiplegroup_fit, file = "./data/multiplegroups-fit.RDS")
+```
+
+## Diagnosis
+
+```{r echo=F, include=F, eval=T}
+multiplegroup_fit <-readRDS("./data/multiplegroups-fit.RDS")
+```
+
+
+```{r}
+a_alg <- c("a_alg[1]",
+           "a_alg[2]",
+           "a_alg[3]")
+
+b_noise <- c("sigma[1]",
+           "sigma[2]",
+           "sigma[3]")
+rstan::traceplot(multiplegroup_fit, pars=a_alg)
+rstan::traceplot(multiplegroup_fit, pars=b_noise)
+rstan::traceplot(multiplegroup_fit, pars=c('s', 'nu'))
+```
+
+Another diagnosis is to look at the Rhat. If Rhat is greater than 1.05 it indicates a divergence in the chains (they did not mix well). The table below shows a summary of the sampling.
+```{r}
+kable(summary(multiplegroup_fit)$summary, "html",) %>% 
+  kable_styling(bootstrap_options = c('striped',"hover", "condensed" ))
+```
+
+## Results and Plots
+
+First lets get the HPDI of every parameter. 
+
+Then we restrict to the algorithms, them to the slopes, then to the parameter s
+```{r}
+hpdi <- get_HPDI_from_stanfit(multiplegroup_fit)
+
+hpdi_algorithm <- hpdi %>% 
+      dplyr::filter(str_detect(Parameter, "a_alg\\[")) %>%
+      dplyr::mutate(Parameter=algorithms) #Changing to the algorithms labels
+
+hpdi_sigma<- hpdi %>% 
+      dplyr::filter(str_detect(Parameter, "sigma\\[")) %>%
+      dplyr::mutate(Parameter=algorithms) #Changing to the algorithms labels
+
+hpdi_s <- hpdi %>% 
+      dplyr::filter(Parameter=='s')
+
+
+hpdi_nu <- hpdi %>% 
+      dplyr::filter(Parameter=='nu')
+
+
+hpdi_nu_s <- hpdi %>% 
+      dplyr::filter(Parameter=='nu' | Parameter=='s')
+
+p_alg<-ggplot(data=hpdi_algorithm, aes(x=Parameter))+
+  geom_pointrange(aes(
+    ymin=HPDI.lower, 
+    ymax=HPDI.higher, 
+    y=Mean))+
+  labs(y="a_alg", x="Algorithm")+
+  coord_flip()
+p_alg + plot_annotation(title = 'HPDI interval for the algorithms')
+
+p_sigma<-ggplot(data=hpdi_sigma, aes(x=Parameter))+
+  geom_pointrange(aes(
+    ymin=HPDI.lower, 
+    ymax=HPDI.higher, 
+    y=Mean))+
+  labs(y="sigma", x="Algorithm")+
+  coord_flip()
+p_sigma + plot_annotation(title = 'HPDI interval for sigma')
+
+p_s <- ggplot(data=hpdi_s, aes(x=Parameter))+
+  geom_pointrange(aes(
+    ymin=HPDI.lower, 
+    ymax=HPDI.higher, 
+    y=Mean))+
+  labs(y="s", x="Parameter")+
+  coord_flip()
+p_s + plot_annotation(title = 'HPDI interval std of the benchmarks')
+
+p_nu <- ggplot(data=hpdi_nu, aes(x=Parameter))+
+  geom_pointrange(aes(
+    ymin=HPDI.lower, 
+    ymax=HPDI.higher, 
+    y=Mean))+
+  labs(y="nu", x="Parameter")+
+  coord_flip()
+p_nu + plot_annotation(title = 'HPDI interval of the degree of freedom')
+
+p_nu_s <- ggplot(data=hpdi_nu_s, aes(x=Parameter))+
+  geom_pointrange(aes(
+    ymin=HPDI.lower, 
+    ymax=HPDI.higher, 
+    y=Mean))+
+  labs(y="Estimate", x="Parameter")+
+  coord_flip()
+p_nu_s + plot_annotation(title = 'HPDI interval')
+```
+
+```{r echo=F, include=F, eval=T}
+#figure for the paper
+p<- (p_alg | p_sigma | (p_nu_s)) + plot_annotation(title = 'HPDI interval of the parameters')
+save_fig(p, 'multiplegroups.pdf')
+```
+
+Now lets get a posterior distribution of the difference
+
+```{r}
+posterior <- rstan::extract(multiplegroup_fit)
+a_alg <- as_tibble(posterior$a_alg)
+colnames(a_alg) <- algorithms
+sample_a_alg <- dplyr::sample_n(a_alg, size=1000, replace=T) %>% 
+  dplyr::mutate(PSO_Random = PSO-RandomSearch1,
+                DE_PSO= DifferentialEvolution-PSO,
+                DE_Random = DifferentialEvolution-RandomSearch1) %>% 
+  dplyr::select(-DifferentialEvolution,-PSO,-RandomSearch1)
+
+#Getting HPDI from a data frame and creating a table instead of plotting...
+hpdi_diff<-HDInterval::hdi(sample_a_alg,credMass=0.95)
+hpdi_diff<-hpdi_diff %>% as_tibble(rownames = "Metric") %>% 
+  tibble::add_row(Metric="Mean", 
+                PSO_Random=mean(sample_a_alg$PSO_Random), 
+                DE_PSO=mean(sample_a_alg$DE_PSO), 
+                DE_Random=mean(sample_a_alg$DE_Random)) %>%
+  tidyr::pivot_longer(cols=-Metric, names_to="AlgorithmDifference", values_to='values') %>% 
+  tidyr::pivot_wider(names_from =Metric , values_from=values) %>% 
+  dplyr::mutate(Difference=c('PSO - RandomSearch', 'DifferentialEvolution - PSO', 'DifferentialEvolution - RandomSearch')) %>% 
+  dplyr::select(Difference, Lower=lower, Mean, Upper=upper)
+
+kable(hpdi_diff, booktabs=T, format.args = list(scientific = FALSE), digits = 3) %>% 
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"))
+```
+
+```{r include=F}
+saveRDS(hpdi_diff, './statscomp-paper/tables/datafortables/multiplegroupsdifference.RDS')
+```
+
+```{r include=F, results='asis'}
+#this snipped is for creating the latex code for the paper
+kable(hpdi_diff, "latex",caption="HPDI interval for the difference between the groups", label = "multiplegroupsdifference" ,booktabs=T, format.args = list(scientific = FALSE), digits = 3) %>% 
+  kable_styling(latex_options = c("hold_position"),
+                full_width = F) %>% 
+  readr::write_lines('./statscomp-paper/tables/multiplegroupsdifference.tex')
+```

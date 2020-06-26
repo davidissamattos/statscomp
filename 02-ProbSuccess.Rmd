@@ -1,0 +1,193 @@
+# Probability of success model
+
+Our first model can be used to address problems such as:
+
+**RQ1** What is the probability of each solving a problem at precision $\epsilon=0.1$? 
+
+**RQ2** What is the impact of noise in the probability of success of each algorithm?
+
+## Data preparation
+
+We start importing the dataset
+
+```{r}
+dataset <- readr::read_csv('./data/statscomp.csv')
+```
+
+Let's select only the columns that interests us. Note that some of the columns have "" because of the "-" in the column name
+```{r echo=T}
+dataset<-select(dataset, Algorithm, CostFunction, SD, MaxFevalPerDimensions, simNumber, SolveAt1, "SolveAt1e-1","SolveAt1e-3","SolveAt1e-6", OptimizationSuccessful)
+```
+
+Let's do some basic transformation
+
+1 - We select only the cases where the optimization completed
+2 - We convert True to 1 and 0 to false
+3 - We group by the algorithms, functions, SD, and budget so we can summarize and create aggregated data
+4 - We create an index of each algorithm and the cost functions. This is basically creating a map of NelderMead=1, PSO=2 etc... This makes things easier to work in Stan. For that we use the function create_index from the utils.R file  
+5 - We drop the columns we wont use
+6 - Get an array with the names of the benchmark functions and the algorithms (to create nicer plots later with lengend)
+
+Since we are only looking at 1e-1 for the precision we comment the other lines
+```{r, warning=F, message=F}
+d <- dataset %>% 
+  dplyr::filter(OptimizationSuccessful==TRUE) %>%
+  dplyr::mutate(
+      solvedAt1e1=as.integer(dataset$"SolveAt1e-1"),
+      budget=MaxFevalPerDimensions)  %>% 
+  dplyr::group_by(Algorithm, CostFunction, SD, budget) %>% 
+    dplyr::summarize(
+      solvedAt1e1=sum(solvedAt1e1),
+      N=n()) %>% 
+  dplyr::ungroup() %>%
+  dplyr::mutate(AlgorithmID=create_index(Algorithm),
+                CostFunctionID=create_index(CostFunction)) %>% 
+    dplyr::select(Algorithm,AlgorithmID, CostFunction, CostFunctionID, SD, budget, N,
+                  y=solvedAt1e1,
+                  )
+
+#List of algorithms
+bm <- get_index_names_as_array(d$CostFunction)
+algorithms <- get_index_names_as_array(d$Algorithm)
+```
+
+Lets preview a sample of the data set
+```{r}
+kable(dplyr::sample_n(d,size=10),"html", booktabs=T, format.args = list(scientific = FALSE), digits = 3) %>% 
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"))
+```
+
+```{r include=F}
+saveRDS(dplyr::sample_n(d,size=4),'./statscomp-paper/tables/datafortables/probsuccessmodeldata.RDS')
+```
+
+## Stan model
+
+The Stan model is specified in the file: `'./stanmodels/probsuccess.stan'`
+
+```{r}
+print_stan_code('./stanmodels/probsuccess.stan')
+```
+
+Let's compile and start sampling with the Stan function. In the data folder you can find the specific data used to fit the model after all transformations `"./data/probsuccsess-data.RDS"`
+
+```{r}
+standata <- list(
+  N_total = nrow(d),
+  y = d$y,
+  N_draw = d$N,
+  x_noise = d$SD,
+  N_algorithm = length(algorithms),
+  algorithm_id =d$AlgorithmID,
+  N_bm = length(bm),
+  bm_id = d$CostFunctionID)
+saveRDS(standata, file = "./data/probsuccsess-data.RDS")
+```
+
+For computation time sake we are not running this chunk every time we compile this document. From now on we will load from the saved Stan fit object. However, when we change our model or the data we can just run this chunk separately
+```{r echo=T, eval=F}
+standata<-readRDS("./data/probsuccsess-data.RDS")
+probsuccess.fit <- stan(file = './stanmodels/probsuccess.stan',
+                     data=standata,
+                     chains = 4,
+                     warmup = 200,
+                     iter = 3000)
+saveRDS(probsuccess.fit, file = "./data/probsuccsess-fit.RDS")
+```
+
+## Diagnosis
+
+```{r echo=F, include=F, eval=T}
+probsuccess.fit <-readRDS("./data/probsuccsess-fit.RDS")
+```
+
+The first step is to evaluate the convergence of the chains. We will look now only for the slopes, algorithms intercept and the standard deviation of the random effects
+```{r}
+a_alg <- c("a_alg[1]",
+           "a_alg[2]",
+           "a_alg[3]",
+           "a_alg[4]",
+           "a_alg[5]",
+           "a_alg[6]",
+           "a_alg[7]",
+           "a_alg[8]")
+b_noise <- c("b_noise[1]",
+             "b_noise[2]",
+             "b_noise[3]",
+             "b_noise[4]",
+             "b_noise[5]",
+             "b_noise[6]",
+             "b_noise[7]",
+             "b_noise[8]")
+rstan::traceplot(probsuccess.fit, pars=a_alg)
+rstan::traceplot(probsuccess.fit, pars=b_noise)
+rstan::traceplot(probsuccess.fit, pars=c('s'))
+```
+
+Another diagnosis is to look at the Rhat. If Rhat is greater than 1.05 it indicates a divergence in the chains (they did not mix well). The table below shows a summary of the sampling.
+```{r}
+kable(summary(probsuccess.fit)$summary) %>% 
+  kable_styling(bootstrap_options = c('striped',"hover", "condensed" ))
+```
+
+
+## Results and Plots
+
+First lets get the HPDI of every parameter. 
+
+Then we restrict to the algorithms, them to the slopes, then to the
+```{r}
+hpdi <- get_HPDI_from_stanfit(probsuccess.fit)
+hpdi_oddsratio <- hpdi
+hpdi_oddsratio$Mean <- exp(hpdi$Mean)
+hpdi_oddsratio$HPDI.lower <- exp(hpdi$HPDI.lower)
+hpdi_oddsratio$HPDI.higher <- exp(hpdi$HPDI.higher)
+
+
+hpdi_oddsratio_algorithm <- hpdi_oddsratio %>% 
+      dplyr::filter(str_detect(Parameter, "a_alg\\[")) %>%
+      dplyr::mutate(Parameter=algorithms) #Changing to the algorithms labels
+
+hpdi_oddsratio_b_noise <- hpdi_oddsratio %>% 
+      dplyr::filter(str_detect(Parameter, "b_noise\\[")) %>%
+      dplyr::mutate(Parameter=algorithms) #Changing to the algorithms labels
+
+hpdi_s <- hpdi %>% 
+      dplyr::filter(Parameter=='s') 
+
+
+p_alg<-ggplot(data=hpdi_oddsratio_algorithm, aes(x=Parameter))+
+  geom_pointrange(aes(
+    ymin=HPDI.lower, 
+    ymax=HPDI.higher, 
+    y=Mean))+
+  labs(title="Algorithm intercept", y="Odds ratio", x="Algorithm")+
+  coord_flip()
+p_alg + plot_annotation(title = 'HPDI interval for the algorithms odd ratio')
+
+p_noise <- ggplot(data=hpdi_oddsratio_b_noise, aes(x=Parameter))+
+  geom_pointrange(aes(
+    ymin=HPDI.lower, 
+    ymax=HPDI.higher, 
+    y=Mean))+
+  labs(title="Noise coefficient", y="Odds ratio", x="")+
+  coord_flip()+
+  theme(axis.text.y=element_blank())
+p_noise + plot_annotation(title = 'HPDI interval for the noise coefficients odd ratio')
+
+p_s <- ggplot(data=hpdi_s, aes(x=Parameter))+
+  geom_pointrange(aes(
+    ymin=HPDI.lower, 
+    ymax=HPDI.higher, 
+    y=Mean))+
+  labs(title="Std benchmarks", y="Estimate", x="Parameter")+
+  coord_flip()
+p_s + plot_annotation(title = 'HPDI interval for s')
+```
+
+```{r echo=F, include=F, eval=T}
+#figure for the paper
+p<- (p_alg | p_noise | p_s) + plot_annotation(title = 'HPDI interval')
+save_fig(p, 'probsuccess-oddsratio.pdf')
+```
+
