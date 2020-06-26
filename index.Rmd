@@ -1,6 +1,6 @@
 ---
-title: "Statistical Models for Benchmark Comparison"
-author: "David Issa Mattos"
+title: "Online Appendix for: Statistical Models for the Analysis of Optimization Algorithms with Benchmark Functions"
+author: "David Issa Mattos, Jan Bosch, Helena Holmström Olsson"
 date: "`r format(Sys.time(), '%d %B, %Y')`"
 site: bookdown::bookdown_site
 documentclass: book

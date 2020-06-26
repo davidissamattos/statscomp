@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Chapter 1 Introduction | Statistical Models for Benchmark Comparison</title>
-  <meta name="description" content="Chapter 1 Introduction | Statistical Models for Benchmark Comparison" />
+  <title>Chapter 1 Introduction | Online Appendix for: Statistical Models for the Analysis of Optimization Algorithms with Benchmark Functions</title>
+  <meta name="description" content="Chapter 1 Introduction | Online Appendix for: Statistical Models for the Analysis of Optimization Algorithms with Benchmark Functions" />
   <meta name="generator" content="bookdown 0.19 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Chapter 1 Introduction | Statistical Models for Benchmark Comparison" />
+  <meta property="og:title" content="Chapter 1 Introduction | Online Appendix for: Statistical Models for the Analysis of Optimization Algorithms with Benchmark Functions" />
   <meta property="og:type" content="book" />
   
   
@@ -16,12 +16,12 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 1 Introduction | Statistical Models for Benchmark Comparison" />
+  <meta name="twitter:title" content="Chapter 1 Introduction | Online Appendix for: Statistical Models for the Analysis of Optimization Algorithms with Benchmark Functions" />
   
   
   
 
-<meta name="author" content="David Issa Mattos" />
+<meta name="author" content="David Issa Mattos, Jan Bosch, Helena Holmström Olsson" />
 
 
 
@@ -181,7 +181,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <div class="body-inner">
         <div class="book-header" role="navigation">
           <h1>
-            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Statistical Models for Benchmark Comparison</a>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Online Appendix for: Statistical Models for the Analysis of Optimization Algorithms with Benchmark Functions</a>
           </h1>
         </div>
 
@@ -198,10 +198,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h3><span class="header-section-number">1.1.1</span> Exploring the dataset</h3>
 <p>This dataset follows the principle of tidy data as described in <a href="https://r4ds.had.co.nz/tidy-data.html" class="uri">https://r4ds.had.co.nz/tidy-data.html</a>. The key idea is that every variables has its own column, and every observation has its own unique row. Throughout this document, to facilitate our modeling approach, we will modify this dataset in different ways, often resulting in non-tidy data. However every model will start from the same base tidy dataset.</p>
 <p>This approach will hopefully make it easier for the reader to understand from where we are starting and adopt similar strategies in their own models. Additionally, we recommend, if the reader has the opportunity to influence the data collection process, the choice of tidy data. It is often ideal for exploratory analysis, plotting, is the basis for most models, and easy to transform to be used in different models.</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="introduction.html#cb5-1"></a>d &lt;-<span class="st"> </span>readr<span class="op">::</span><span class="kw">read_csv</span>(<span class="st">&quot;./data/statscomp.csv&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="introduction.html#cb5-1"></a>d &lt;-<span class="st"> </span>readr<span class="op">::</span><span class="kw">read_csv</span>(<span class="st">&#39;./data/statscomp.csv&#39;</span>)</span></code></pre></div>
 <p>Here we are excluding a few columns to simplify our view</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="introduction.html#cb6-1"></a><span class="kw">kable</span>(<span class="kw">head</span>(dplyr<span class="op">::</span><span class="kw">select</span>(d, <span class="op">-</span>BestArm, <span class="op">-</span>Continuous, <span class="op">-</span>Differentiability, <span class="op">-</span>Separability, <span class="op">-</span>Scalability, </span>
-<span id="cb6-2"><a href="introduction.html#cb6-2"></a>    <span class="op">-</span>Modality, <span class="op">-</span>BBOB, <span class="op">-</span>BaseClass, <span class="op">-</span>MaxFeval, <span class="op">-</span>FevalPerDimensions), <span class="dt">n =</span> <span class="dv">10</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="introduction.html#cb6-1"></a><span class="kw">kable</span>(<span class="kw">head</span>(dplyr<span class="op">::</span><span class="kw">select</span>(d,</span>
+<span id="cb6-2"><a href="introduction.html#cb6-2"></a>                         <span class="op">-</span>BestArm, <span class="op">-</span>Continuous, <span class="op">-</span>Differentiability, <span class="op">-</span>Separability, <span class="op">-</span>Scalability, <span class="op">-</span>Modality,<span class="op">-</span>BBOB,<span class="op">-</span>BaseClass, <span class="op">-</span>MaxFeval, <span class="op">-</span>FevalPerDimensions),</span>
+<span id="cb6-3"><a href="introduction.html#cb6-3"></a>           <span class="dt">n=</span><span class="dv">10</span>))</span></code></pre></div>
 <table>
 <thead>
 <tr>
