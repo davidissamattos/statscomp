@@ -1,0 +1,27 @@
+# Introduction
+
+This document is based on a single dataset. We will ask several possible research questions from this dataset in order to develop and motivate the statistical models of this paper. But first let's explore the dataset and how this data was obtained.
+
+## The simulation
+
+### Exploring the dataset
+
+This dataset follows the principle of tidy data as described in https://r4ds.had.co.nz/tidy-data.html. The key idea is that every variables has its own column, and every observation has its own unique row. Throughout this document, to facilitate our modeling approach, we will modify this dataset in different ways, often resulting in non-tidy data. However every model will start from the same base tidy dataset. 
+
+This approach will hopefully make it easier for the reader to understand from where we are starting and adopt similar strategies in their own models. Additionally, we recommend, if the reader has the opportunity to influence the data collection process, the choice of tidy data. It is often ideal for exploratory analysis, plotting, is the basis for most models, and easy to transform to be used in different models.
+
+```{r echo=T, warning=FALSE}
+d <- readr::read_csv('./data/statscomp.csv')
+```
+
+Here we are excluding a few columns to simplify our view
+```{r echo=T}
+kable(head(dplyr::select(d,
+                         -BestArm, -Continuous, -Differentiability, -Separability, -Scalability, -Modality,-BBOB,-BaseClass, -MaxFeval, -FevalPerDimensions),
+           n=10))
+```
+
+
+### Column definitions
+
+

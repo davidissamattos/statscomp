@@ -1,0 +1,198 @@
+# Time to complete
+
+In this section, we will consider the Cox's Proportional Hazard model for analyzing the time to converge to a a solution (in number of iterations).
+
+*RQ1: **What is the average number of function evaluations that it takes for an algorithm to converge to a solution at a precision of $\epsilon=0.1$? Here we will utilize a window of 100,000 function evaluations per dimension (the budget).
+
+**RQ2:** What is the impact of noise in the number of function evaluations? 
+
+## Data preparation
+
+We start importing the dataset
+
+```{r}
+dataset <- readr::read_csv('./data/statscomp.csv')
+```
+
+Filtering the data that we want and applying some transformations
+```{r}
+d <- dataset %>% 
+  dplyr::filter(OptimizationSuccessful==TRUE & MaxFevalPerDimensions==100000 & (Algorithm=="PSO"|Algorithm=="CMAES"|Algorithm=="DifferentialEvolution"|Algorithm=="RandomSearch2")) %>% 
+  dplyr::select(Algorithm, CostFunction, Event="SolveAt1e-1", simNumber, Ndimensions, SD, SolvedAtIteration="SolveEarlierAt1e-1") %>% 
+  dplyr::mutate(y=SolvedAtIteration/Ndimensions,
+                Event=as.integer(Event),
+                CostFunctionID=create_index(CostFunction),
+                AlgorithmID=create_index(Algorithm)) %>% 
+  dplyr::select(Algorithm, AlgorithmID, CostFunction, CostFunctionID, SD, Event, y,-simNumber,-SolvedAtIteration, -Ndimensions)
+
+algorithms<-get_index_names_as_array(d$Algorithm)
+bm <- get_index_names_as_array(d$CostFunction)
+```
+
+The data should look like this:
+```{r}
+kable(dplyr::sample_n(d,size=10),"html", booktabs=T, format.args = list(scientific = FALSE), digits = 3) %>% 
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"))
+```
+
+
+```{r include=F}
+saveRDS(dplyr::sample_n(d,size=6), './statscomp-paper/tables/datafortables/timetoconvergedata.RDS')
+```
+
+## Stan model
+
+The Stan model is specified in the file: `'./stanmodels/timetoconverge.stan'`
+
+```{r}
+print_stan_code('./stanmodels/timetoconverge.stan')
+```
+
+Let's compile and start sampling with the Stan function. In the data folder you can find the specific data used to fit the model after all transformations `"./data/timetoconverge-data.RDS"`
+
+Note that stan does not support NA in the data, so we have two options... We either replace NA for a value and add conditionals in the model (note that this value will not be used). Or we separate the data frame in two parts, censored and not not-censored. We will do the first approach replacing the NA by 0.
+
+```{r}
+dstan<-d %>% 
+  dplyr::mutate(y=replace_na(y,0))
+
+standata <- list(
+  N_total=nrow(dstan),
+  y = dstan$y,
+  event = dstan$Event,
+  x_noise = d$SD,
+  N_algorithm = length(algorithms),
+  algorithm_id = dstan$AlgorithmID,
+  N_bm = length(bm),
+  bm_id = d$CostFunctionID
+  )
+saveRDS(standata, file = "./data/timetoconverge-data.RDS")
+```
+
+For computation time sake we are not running this chunk every time we compile this document. From now on we will load from the saved Stan fit object. However, when we change our model or the data we can just run this chunk separately
+
+```{r echo=T, eval=F}
+standata<-readRDS("./data/timetoconverge-data.RDS")
+timetoconverge_fit <- stan(file = './stanmodels/timetoconverge.stan',
+                     data=standata,
+                     chains = 4,
+                     warmup = 200,
+                     iter = 3000)
+saveRDS(timetoconverge_fit, file = "./data/timetoconverge-fit.RDS")
+```
+
+```{r echo=F, include=F, eval=T}
+timetoconverge_fit <-readRDS("./data/timetoconverge-fit.RDS")
+```
+
+
+## Diagnosis
+
+```{r}
+a_alg <- c("a_alg[1]",
+           "a_alg[2]",
+           "a_alg[3]",
+           "a_alg[4]")
+
+b_noise <- c("b_noise[1]",
+           "b_noise[2]",
+           "b_noise[3]",
+           "b_noise[4]")
+rstan::traceplot(timetoconverge_fit, pars=a_alg)
+rstan::traceplot(timetoconverge_fit, pars=b_noise)
+rstan::traceplot(timetoconverge_fit, pars='s')
+```
+
+
+Another diagnosis is to look at the Rhat. If Rhat is greater than 1.05 it indicates a divergence in the chains (they did not mix well). The table below shows a summary of the sampling.
+```{r}
+kable(summary(timetoconverge_fit)$summary) %>% 
+  kable_styling(bootstrap_options = c('striped',"hover", "condensed" ))
+```
+
+
+## Results and Plots
+
+First lets get the HPDI of every parameter. 
+
+Then we restrict to the algorithms, them to the slopes, then to the parameter s
+```{r}
+hpdi <- get_HPDI_from_stanfit(timetoconverge_fit)
+
+hpdi_algorithm <- hpdi %>% 
+      dplyr::filter(str_detect(Parameter, "a_alg\\[")) %>%
+      dplyr::mutate(Parameter=algorithms) #Changing to the algorithms labels
+
+hpdi_noise<- hpdi %>% 
+      dplyr::filter(str_detect(Parameter, "b_noise\\[")) %>%
+      dplyr::mutate(Parameter=algorithms) #Changing to the algorithms labels
+
+hpdi_s <- hpdi %>% 
+      dplyr::filter(Parameter=='s')
+
+
+p_alg<-ggplot(data=hpdi_algorithm, aes(x=Parameter))+
+  geom_pointrange(aes(
+    ymin=HPDI.lower, 
+    ymax=HPDI.higher, 
+    y=Mean))+
+  labs(y="a_alg", x="Algorithm")+
+  coord_flip()
+p_alg + plot_annotation(title = 'HPDI interval for the algorithms')
+
+p_noise<-ggplot(data=hpdi_noise, aes(x=Parameter))+
+  geom_pointrange(aes(
+    ymin=HPDI.lower, 
+    ymax=HPDI.higher, 
+    y=Mean))+
+  labs(y="b_noise", x="Algorithm")+
+  coord_flip()
+p_noise + plot_annotation(title = 'HPDI interval for noise coefficient')
+
+p_s <- ggplot(data=hpdi_s, aes(x=Parameter))+
+  geom_pointrange(aes(
+    ymin=HPDI.lower, 
+    ymax=HPDI.higher, 
+    y=Mean))+
+  labs(y="Estimate", x="Parameter")+
+  coord_flip()
+p_s + plot_annotation(title = 'HPDI interval std of the benchmarks')
+```
+
+
+```{r echo=F, include=F, eval=T}
+#figure for the paper
+p<- (p_alg | p_noise | p_s) + plot_annotation(title = 'HPDI interval of the parameters')
+save_fig(p, 'timetoconverge.pdf')
+```
+
+Table for the hazard ratio
+
+```{r}
+hr_table <- tibble(
+  "Algorithm" = algorithms,
+  "Baseline Coefficient" = exp(hpdi_algorithm$Mean),
+  "Noise HR" = exp(hpdi_noise$Mean))
+
+kable(hr_table, booktabs=T, format.args = list(scientific = FALSE), digits = 3) %>% 
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"))
+```
+
+```{r include=F}
+saveRDS(hr_table, './statscomp-paper/tables/datafortables/hr_table.RDS')
+```
+
+```{r hr, echo=F, include=F, eval=T}
+#this snipped is for creating the latex code for the paper
+kable(hr_table, "latex", caption=" Average baseline coefficient and the average noise hazard ratio", label = "hr" ,booktabs=T, format.args = list(scientific = FALSE), digits = 3) %>% 
+  kable_styling(latex_options = c("hold_position"),
+                full_width = F) %>% 
+  readr::write_lines('./statscomp-paper/tables/hr.tex')
+```
+
+Creating an output table
+```{r}
+rename_pars <- c(paste(rep('a_',length(algorithms)),algorithms, sep = ""), paste(rep('b_',length(algorithms)),algorithms, sep = ""),'s')
+t<-create_table_model(timetoconverge_fit, c(a_alg, b_noise, 's'),rename_pars)
+saveRDS(t,'./statscomp-paper/tables/datafortables/timetoconverge-par-table.RDS')
+```
