@@ -9,57 +9,22 @@ output:
 
 ---
 
-```{r echo=F, eval=T}
-library(knitr)
-library(rmdformats)
-library(kableExtra)
-#data processing
-library(tidyverse)
-library(glue)
-#modeling
-library(rstan)
-options(mc.cores = parallel::detectCores()) #use multiple cores
-rstan_options(auto_write = TRUE) # we dont need to recompile
-library(coda)
-#plotting
-library(patchwork)
-library(viridis)
-library(ggthemr)#devtools::install_github('cttobin/ggthemr')
-ggthemr('flat')
-ggplot2::theme_replace(axis.title.y=element_blank())
-ggplot2::theme_replace(axis.text.y=element_text(size=8))
-
-knitr::opts_chunk$set(
-  echo=T, 
-  warning=FALSE, 
-  include=T,
-  cache=F,
-  prompt=FALSE,
-  tidy=FALSE,
-  comment=NA,
-  message=FALSE,
-  fig.align='center')
-knitr::opts_knit$set(width=75)
-source("utils.R")
-```
-
-
 # Preface {-}
 
-This document is an online appendix to the paper *"Statistical Models for Benchmark Comparison"* by David Issa Mattos, Jan Bosch and Helena Holmström Olsson. It shows the process to analyze the data, including data preparation, modeling and plotting for all the models described on the paper. 
+This document is an online appendix to the paper *"Statistical Models for the Analysis of Optimization Algorithms with Benchmark Functions"* by David Issa Mattos, Jan Bosch and Helena Holmström Olsson. It shows the step-by-step process to analyze the data, including data preparation, modeling and plotting for all the models described on the paper. 
 
 
 ## Pre-requisites {-}
 
-We assume that the reader has some familiarity with the R environment including packages included of the `tidyverse`, such as `dplyr` and `ggplot2`. The code presented is described and fairly commented to help readers follow the modeling process. Other programming languages such as Python with `numpy`, `pandas`, `matplotlib` etc are capable of performing the same steps, but this is out of the scope of this document. For the Bayesian models, we try to minimize dependency on a specific R package such as `brms` or `rstanarm`, and therefore we discuss the model in Stan only, since it has bindings for multiple programming languages. 
+To follow the code, we assume that the reader has some familiarity with the R environment including packages included of the `tidyverse`, such as `dplyr` and `ggplot2`. The code presented is described and fairly commented to help readers follow the modeling process. Other programming languages such as Python with `numpy`, `pandas`, `matplotlib` etc are capable of performing the same steps, but this is out of the scope of this document. For the Bayesian models, we try to minimize dependency on a specific R package such as `brms` or `rstanarm`, and therefore we discuss the model in Stan only, since it has bindings for multiple programming languages. The reader familiar with other languages might be interested in adapting these models and plots to the desired language,
 
 ## Source code {-}
 
-The full source code is available in the repository.
+The full source code is available in the repository https://github.com/davidissamattos/statscomp.
 
-* The raw data for each model (after the described data transformation) is also available for download in the `./data` folder.
+* The dataset and the final data for each model (after the described data transformation) is also available for download in the `./data` folder.
 * The Stan models are available in the `./stanmodels` folder.
-* The `utils` folder contains some helper functions to help plotting, and generating figures etc... In the chapter *utils* we discuss each function in detail 
+* The `utils` folder contains some helper functions. 
 
 
 The environment was defined and based on the `renv` package. The `renv` package logs all the packages in the `renv.lock` file and manages installation for a specific project. For more information see !!!!!!!
@@ -77,8 +42,14 @@ This command will download and install all the the packages use in this work. No
 This document was created with the `bookdown` package. To compile it (and run every command to generate the models, figures and etc. ) type:
 
 ```{r eval=F}
-rmarkdown::render_site('./index.Rmd',  encoding = 'UTF-8');
+bookdown::render_book('index.Rmd', 'all')
 ```
+
+or alternatively use the custom function from the utils.R file. This function besides compiling the book generate the tables for the paper. We cannot generate latex tables (with correct labels) while compiling to bookdown_site. So this function takes the saved tables and generate them separately
+```{r eval=F}
+compile_book()
+```
+
 
 ## Software environment {-}
 

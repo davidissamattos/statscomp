@@ -2,9 +2,8 @@
 
 Our first model can be used to address problems such as:
 
-**RQ1** What is the probability of each solving a problem at precision $\epsilon=0.1$? 
-
-**RQ2** What is the impact of noise in the probability of success of each algorithm?
+* **RQ1-a:** What is the probability of each algorithm solving a problem at precision $\epsilon \leq 0.1$? 
+* **RQ1-b:** What is the impact of noise in the probability of success of each algorithm at precision $\epsilon \leq 0.1$?
 
 ## Data preparation
 
@@ -14,9 +13,9 @@ We start importing the dataset
 dataset <- readr::read_csv('./data/statscomp.csv')
 ```
 
-Let's select only the columns that interests us. Note that some of the columns have "" because of the "-" in the column name
+Let's select only the columns that interests us. Note we use "" to select some of the columns because they have  "-" in the column name
 ```{r echo=T}
-dataset<-select(dataset, Algorithm, CostFunction, SD, MaxFevalPerDimensions, simNumber, SolveAt1, "SolveAt1e-1","SolveAt1e-3","SolveAt1e-6", OptimizationSuccessful)
+dataset<-dplyr::select(dataset, Algorithm, CostFunction, SD, MaxFevalPerDimensions, simNumber, SolveAt1, "SolveAt1e-1","SolveAt1e-3","SolveAt1e-6", OptimizationSuccessful)
 ```
 
 Let's do some basic transformation
@@ -63,7 +62,7 @@ saveRDS(dplyr::sample_n(d,size=4),'./statscomp-paper/tables/datafortables/probsu
 
 ## Stan model
 
-The Stan model is specified in the file: `'./stanmodels/probsuccess.stan'`
+The Stan model is specified in the file: `'./stanmodels/probsuccess.stan'`. Note that at the end of the model we commented the generated quantities. This block generates the predictive posterior y_rep and the log likelihood, log_lik. These values are useful in diagnosing and validating the model but the end file is extremely large (~1Gb for 2000 iterations) and make many of the following calculations slow. If the reader wants to see these values is just to uncomment and run the stan model again
 
 ```{r}
 print_stan_code('./stanmodels/probsuccess.stan')
@@ -84,7 +83,7 @@ standata <- list(
 saveRDS(standata, file = "./data/probsuccsess-data.RDS")
 ```
 
-For computation time sake we are not running this chunk every time we compile this document. From now on we will load from the saved Stan fit object. However, when we change our model or the data we can just run this chunk separately
+For computation time sake we are not running this chunk every time we compile this document. From now on we will load from the saved Stan fit object in the data folder. However, when we change our model or the data we can just run this chunk separately.
 ```{r echo=T, eval=F}
 standata<-readRDS("./data/probsuccsess-data.RDS")
 probsuccess.fit <- stan(file = './stanmodels/probsuccess.stan',
@@ -97,11 +96,14 @@ saveRDS(probsuccess.fit, file = "./data/probsuccsess-fit.RDS")
 
 ## Diagnosis
 
+### Chains convergence
+
 ```{r echo=F, include=F, eval=T}
 probsuccess.fit <-readRDS("./data/probsuccsess-fit.RDS")
 ```
 
-The first step is to evaluate the convergence of the chains. We will look now only for the slopes, algorithms intercept and the standard deviation of the random effects
+The first step is to evaluate the convergence of the chains. 
+We will look now only for the slopes, algorithms intercept and the standard deviation of the random effects (and not each intercept of the random effects)
 ```{r}
 a_alg <- c("a_alg[1]",
            "a_alg[2]",
@@ -131,10 +133,12 @@ kable(summary(probsuccess.fit)$summary) %>%
 ```
 
 
+
 ## Results and Plots
 
-First lets get the HPDI of every parameter. 
-Then we restrict to the algorithms, them to the slopes, then to the other parameters
+First lets get the HPDI of every parameter. We do this with the helper function from utils.R. But the function is quite simple. It just converts the stanmodel object to an object that the coda package can read (and do some renaming). Alternatively we can use the HDInterval package.
+
+Then we restrict to the algorithms, them to the slopes, then to the other parameters. We create different data frames that we use to plot with ggplot pointrange
 ```{r}
 hpdi <- get_HPDI_from_stanfit(probsuccess.fit)
 hpdi_oddsratio <- hpdi
@@ -160,7 +164,7 @@ p_alg<-ggplot(data=hpdi_oddsratio_algorithm, aes(x=Parameter))+
     ymin=HPDI.lower, 
     ymax=HPDI.higher, 
     y=Mean))+
-  labs(title="Algorithm intercept", y="Odds ratio", x="Algorithm")+
+  labs(y="Odds ratio for intercept", x="Algorithm")+
   coord_flip()
 p_alg + plot_annotation(title = 'HPDI interval for the algorithms odd ratio')
 
@@ -169,7 +173,7 @@ p_noise <- ggplot(data=hpdi_oddsratio_b_noise, aes(x=Parameter))+
     ymin=HPDI.lower, 
     ymax=HPDI.higher, 
     y=Mean))+
-  labs(title="Noise coefficient", y="Odds ratio", x="")+
+  labs( y="Odds ratio for b_noise", x="")+
   coord_flip()+
   theme(axis.text.y=element_blank())
 p_noise + plot_annotation(title = 'HPDI interval for the noise coefficients odd ratio')
@@ -179,7 +183,7 @@ p_s <- ggplot(data=hpdi_s, aes(x=Parameter))+
     ymin=HPDI.lower, 
     ymax=HPDI.higher, 
     y=Mean))+
-  labs(title="Std benchmarks", y="Estimate", x="Parameter")+
+  labs(y="s", x="Parameter")+
   coord_flip()
 p_s + plot_annotation(title = 'HPDI interval for s')
 ```
@@ -198,7 +202,7 @@ rename_pars <- c(
   paste(rep('b_',length(algorithms)),algorithms, sep = ""),
   's')
 
-t<-create_table_model(probsuccess.fit, c(a_alg, b_noise, 's'), rename_pars)
+t<-create_table_model(probsuccess.fit, pars = c(a_alg, b_noise, 's'), renamepars =  rename_pars)
 saveRDS(t,'./statscomp-paper/tables/datafortables/probsuccess-par-table.RDS')
 ```
 

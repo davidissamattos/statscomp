@@ -40,7 +40,8 @@ model {
   
   // //Random effects
   s ~ exponential(0.1);
-  a_bm_norm ~ normal(0,10);
+  a_bm_norm ~ normal(0,1);
+  b_noise ~ normal(0,2);
 
   for (i in 1:N_total)
   {
@@ -52,3 +53,23 @@ model {
   
 }
 
+
+//Uncoment this part to get the posterior predictives and the log likelihood
+//But note that it takes a lot of space in the final model
+// //Here we suppose that the predictive data will not be censored.
+// //But if it is above the budget we can censor it later
+// generated quantities{
+//   vector [N_total] y_rep;
+//   vector[N_total] log_lik;
+//   
+//   for(i in 1:N_total){
+//     real mu;
+//     mu = a_alg[algorithm_id[i]] + s*a_bm_norm[bm_id[i]] + b_noise[algorithm_id[i]]*x_noise[i];
+//     y_rep[i]= exponential_rng(mu);
+//     
+//     //uncensored data
+//     if(event[i]==1) log_lik[i]= exponential_lpdf(y[i] | exp(a_alg[algorithm_id[i]] + s*a_bm_norm[bm_id[i]] + b_noise[algorithm_id[i]]*x_noise[i])); 
+//     //censored data
+//     if(event[i]==0) log_lik[i]= exponential_lccdf(y[i] | exp(a_alg[algorithm_id[i]] + s*a_bm_norm[bm_id[i]] + b_noise[algorithm_id[i]]*x_noise[i]));  
+//   }
+// }

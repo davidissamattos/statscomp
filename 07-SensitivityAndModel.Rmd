@@ -1,1 +1,196 @@
-# Sensitivity analysis and model comparison
+# Sensitivity analysis, model comparison and posterior predictive
+
+In this chapter, we provide an example on how to do a sensitivity analysis and model comparison. For that we will use the Relative Improvement model of chapter 3.
+
+Note that it is important to have a model that calculates the log likelihood to compute the WAIC or the LOO-CV. Here we will show only how to use and interpret the WAIC.
+
+Reading the data for the (already prepared data) for the model
+```{r}
+standata<-readRDS("./data/relativeimprovement-data.RDS")
+algorithms<-readRDS("./data/relativeimprovement_algorithms.RDS")
+bm<-readRDS("./data/relativeimprovement_bm.RDS")
+```
+
+Here we consider 3 models for the relative improvement. The original model presented on chapter 3 and in the paper. A model without clustering information about the benchmarks (m1) and a model with a different set of priors (m2)
+
+In m2 we consider HalfNormal(0,5) for both the s and the sigma parameters (instead of the exponential)
+
+We are saving the files in a non-tracked folder because they are too big for github
+
+```{r echo=T, eval=F}
+relativeimprovement_fit_original <- stan(file = './stanmodels/relativeimprovement-original.stan',
+                     data=standata,
+                     chains = 4,
+                     warmup = 200,
+                     iter = 1000)
+saveRDS(relativeimprovement_fit_original, file = "./data/gitignore/relativeimprovement_fit_original.RDS")
+```
+
+```{r echo=T, eval=F}
+standata_m1 = list(
+  N_total= standata$N_total,
+  y = standata$y,
+  N_algorithm = standata$N_algorithm,
+  algorithm_id = standata$algorithm_id
+)
+relativeimprovement_fit_m1 <- stan(file = './stanmodels/relativeimprovement-m1.stan',
+                     data=standata_m1,
+                     chains = 4,
+                     warmup = 200,
+                     iter = 1000)
+saveRDS(relativeimprovement_fit_m1, file = "./data/gitignore/relativeimprovement_fit_m1.RDS")
+```
+
+
+```{r echo=T, eval=F}
+standata_m2 <- standata 
+relativeimprovement_fit_m2 <- stan(file = './stanmodels/relativeimprovement-m2.stan',
+                     data=standata,
+                     chains = 4,
+                     warmup = 200,
+                     iter = 1000)
+saveRDS(relativeimprovement_fit_m2, file = "./data/gitignore/relativeimprovement_fit_m2.RDS")
+```
+
+
+
+```{r echo=F, eval=T}
+relativeimprovement_fit_original <- readRDS("./data/gitignore/relativeimprovement_fit_original.RDS")
+relativeimprovement_fit_m1 <- readRDS("./data/gitignore/relativeimprovement_fit_m1.RDS")
+relativeimprovement_fit_m2 <- readRDS("./data/gitignore/relativeimprovement_fit_m2.RDS")
+```
+
+
+## Compare models with and without clustering
+
+First we get the log likelihood
+```{r}
+log_lik_original <- loo::extract_log_lik(relativeimprovement_fit_original, merge_chains = T)
+log_lik_m1 <- loo::extract_log_lik(relativeimprovement_fit_m1 ,merge_chains = T)
+```
+
+Then we compute the waic
+```{r}
+waic_original<-loo::waic(log_lik_original)
+waic_m1<-loo::waic(log_lik_m1)
+```
+
+Now we use the compare function
+```{r}
+print(waic_original)
+print(waic_m1)
+loo::loo_compare(waic_original, waic_m1)
+```
+
+We can see that the WAIC original (with clustering) provides a big improvement over m1 (without clustering).
+
+
+## Sensitivity analysis of priors  
+
+```{r}
+log_lik_m2 <- loo::extract_log_lik(relativeimprovement_fit_m2, merge_chains = T)
+```
+
+First let's look at the WAIC
+
+```{r}
+waic_m2<-loo::waic(log_lik_m2)
+print(waic_m2)
+```
+
+Comparing the models
+```{r}
+loo::loo_compare(waic_original, waic_m2)
+```
+
+We can see here that there is no significant difference between the models with the two priors. This already indicates some robustness in the estimation parameters regardless of the priors (which is expected since both are weakly informative priors).
+
+Comparing the estimates for the intercepts of the algorithms only. Note that since we have a very big stanfit the summary calculations might take a bit longer.
+```{r}
+a_alg <- c("a_alg[1]",
+           "a_alg[2]",
+           "a_alg[3]",
+           "a_alg[4]",
+           "a_alg[5]",
+           "a_alg[6]")
+df_original<-summary(relativeimprovement_fit_original, pars = a_alg)$summary
+
+kable(df_original, "html",booktabs=T, format.args = list(scientific = FALSE), digits = 3) %>% 
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed")) 
+```
+
+```{r}
+df_m2<-summary(relativeimprovement_fit_m2, pars = a_alg)$summary
+kable(df_m2, "html",booktabs=T, format.args = list(scientific = FALSE), digits = 3) %>% 
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed")) 
+```
+
+
+We can see from both tables that the estimates of the algorithms intercepts are very similar, which starts to indicate a certain robustness of the model in respect to the priors.
+
+## Posterior predictive plots
+
+To check for the posterior predictive we will use the original model.
+
+First we extract the posterior of the predictive values. We have in this posterior 3200 rows (800 iterations for every chain) and 9000 columns (1 for each point in the dataset).
+Lets start by resampling to get only 100 estimates for each observation. Then we will create a data frame that has a column for each type of observation. Then we will pivot longer so the 100 observations go to a single column. This will multiply the dataset number of rows by 100 . This will facilitate plotting with ggplot
+```{r}
+y_rep_posterior <- as_tibble(rstan::extract(relativeimprovement_fit_original, pars='y_rep')$y_rep)
+y_rep <- as_tibble(t(sample_n(y_rep_posterior, size=100)))
+y <- as_tibble(standata$y)  %>% select(y_obs=value)
+algo<-as_tibble(standata$algorithm_id) %>% select(algo=value)
+algo$algo<-dplyr::recode(algo$algo, '1'=algorithms[1], '2'=algorithms[2], '3'=algorithms[3], '4'=algorithms[4], '5'=algorithms[5], '6'=algorithms[6])
+
+benchmark <- as_tibble(standata$bm_id) %>% select(benchmark=value)
+benchmark$benchmark<-dplyr::recode(benchmark$benchmark, 
+                                   '1'=bm[1], 
+                                   '2'=bm[2], 
+                                   '3'=bm[3], 
+                                   '4'=bm[4], 
+                                   '5'=bm[5], 
+                                   '6'=bm[6],
+                                   '7'=bm[7], 
+                                   '8'=bm[8], 
+                                   '9'=bm[9], 
+                                   '10'=bm[10], 
+                                   '11'=bm[11], 
+                                   '12'=bm[12], 
+                                   '13'=bm[13], 
+                                   '14'=bm[14], 
+                                   '15'=bm[15], 
+                                   '16'=bm[16], 
+                                   '17'=bm[17], 
+                                   '18'=bm[18], 
+                                   '19'=bm[19], 
+                                   '20'=bm[20], 
+                                   '21'=bm[21], 
+                                   '22'=bm[22], 
+                                   '23'=bm[23], 
+                                   '24'=bm[24], 
+                                   '25'=bm[25], 
+                                   '26'=bm[26], 
+                                   '27'=bm[27], 
+                                   '28'=bm[28], 
+                                   '29'=bm[29], 
+                                   '30'=bm[30]
+                                   )
+
+df <- algo %>% 
+  add_column(benchmark) %>% 
+  add_column(y) %>% 
+  add_column(y_rep) %>% 
+  tidyr::pivot_longer(cols=4:103,names_to = 'sample', values_to='y_rep')
+```
+
+There are multiple ways to plot predictive posterior. One of them is with a histogram plot of the predictions, or lines for th  intercept etc..
+Here we plot the histogram of each benchmark function for the PSO algorithm. Note that the model predicts better for some benchmark functions and not so well for others, but in average all the observed values are inside the histogram of the predictions
+```{r}
+ggplot(data=dplyr::filter(df, algo=='PSO'))+
+  geom_histogram(aes(x=y_rep), fill='black', alpha=0.8)+
+  geom_histogram(aes(x=y_obs), fill='blue', alpha=0.8)+
+  facet_wrap(~benchmark)+
+  labs(title='Predictive posterior for the PSO')
+```
+
+
+

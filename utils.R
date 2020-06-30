@@ -5,6 +5,8 @@ compile_book <- function(){
   generate_tables()
 }
 
+
+
 create_table_model <- function(stanfit, pars, renamepars){
   if(length(pars)!=length(renamepars)) print("ERROR different size vectors")
   hpdi <- get_HPDI_from_stanfit(stanfit)
@@ -85,121 +87,110 @@ save_fig <- function(p, name, type="two-column"){
   }
 }
 
-save_table <- function(table, name){
-  path <- glue::glue('./statscomp-paper/tables/',name, '.tex')
-  readr::write_lines(table, path)
+save_parameter_table <- function(in_path, out_path, caption="Estimated parameters of the model", label, table.env="table*"){
+  kable(readRDS(in_path), 
+        "latex", 
+        table.envir = table.env,
+        caption=caption, 
+        booktabs=T,
+        label=label,
+        format.args = list(scientific = FALSE), digits = 3,
+        linesep = "") %>% 
+    # footnote(general = "n_eff is the number of effective samples \n Rhat is the Gelman-Rubin potential scale reduction",
+    #          footnote_as_chunk = T, 
+    #          title_format = c("italic")
+    # ) %>% 
+    kable_styling(latex_options = c("hold_position"),
+                  full_width = F) %>% 
+    readr::write_lines(out_path)
 }
+
+save_data_table <- function(in_path, out_path, caption, label,table.env="table"){
+  kable(readRDS(in_path), 
+        "latex", 
+        table.envir = table.env,
+        caption=caption, 
+        booktabs=T,
+        label=label,
+        format.args = list(scientific = FALSE), digits = 3,
+        linesep = "") %>% 
+    kable_styling(latex_options = c("hold_position"),
+                  full_width = F) %>% 
+    readr::write_lines(out_path)
+}
+
 
 generate_tables<-function(){
   
   # Probability of success
+  save_data_table(in_path = './statscomp-paper/tables/datafortables/probsuccessmodeldata.RDS', 
+                  out_path = './statscomp-paper/tables/probsuccessmodeldata.tex', 
+                  caption = "Illustrating the data used in probability of success model (sample of four rows)",
+                  label = 'probsuccessmodeldata',
+                  table.env = "table*")
   
-  kable(readRDS('./statscomp-paper/tables/datafortables/probsuccessmodeldata.RDS'), 
-        "latex", 
-        caption="Illustrating the data used in probability of success model (sample of four rows)", 
-        booktabs=T, label='probsuccessmodeldata',format.args = list(scientific = FALSE), digits = 3) %>% 
-    kable_styling(latex_options = c("hold_position"),
-                  full_width = F) %>% 
-    readr::write_lines('./statscomp-paper/tables/probsuccessmodeldata.tex')
-  
-  kable(readRDS('./statscomp-paper/tables/datafortables/probsuccess-par-table.RDS'), 
-        "latex", 
-        caption="Estimated parameters of the model", 
-        booktabs=T, label='probsuccesspartable',format.args = list(scientific = FALSE), digits = 3) %>% 
-    kable_styling(latex_options = c("hold_position"),
-                  full_width = F) %>% 
-    readr::write_lines('./statscomp-paper/tables/probsuccess-par-table.tex')
+  save_parameter_table(in_path ='./statscomp-paper/tables/datafortables/probsuccess-par-table.RDS' ,
+                       out_path = './statscomp-paper/tables/probsuccess-par-table.tex',
+                       label = 'probsuccesspartable')
   
   #Relative improvement
+  save_data_table(in_path = './statscomp-paper/tables/datafortables/relativeimprovementmodeldata.RDS', 
+                  out_path = './statscomp-paper/tables/relativeimprovementmodeldata.tex', 
+                  caption = "Illustrating the data used in relative improvement model (sample of four rows)",
+                  label = 'relativeimprovementmodeldata',
+                  table.env = "table*")
   
-  kable(readRDS('./statscomp-paper/tables/datafortables/relativeimprovementmodeldata.RDS'), 
-        "latex",
-        caption="Illustrating the data used in relative improvement model (sample of four rows)", 
-        label = "relativeimprovementmodeldata" ,booktabs=T, format.args = list(scientific = FALSE), digits = 3) %>% 
-    kable_styling(latex_options = c("hold_position"),
-                  full_width = F) %>%
-    readr::write_lines('./statscomp-paper/tables/relativeimprovementmodeldata.tex')
-  
-  kable(readRDS('./statscomp-paper/tables/datafortables/relativeimprovement-par-table.RDS'), 
-        "latex", 
-        caption="Estimated parameters of the model", 
-        booktabs=T, label='relativeimprovementpartable',format.args = list(scientific = FALSE), digits = 3) %>% 
-    kable_styling(latex_options = c("hold_position"),
-                  full_width = F) %>% 
-    readr::write_lines('./statscomp-paper/tables/relativeimprovement-par-table.tex')
+  save_parameter_table(in_path =  './statscomp-paper/tables/datafortables/relativeimprovement-par-table.RDS',
+                       out_path =  './statscomp-paper/tables/relativeimprovement-par-table.tex',
+                       label = 'relativeimprovementpartable' )
   
   #Ranking data 
+  save_data_table(in_path =  './statscomp-paper/tables/datafortables/rankingtmodeldata.RDS', 
+                  out_path = './statscomp-paper/tables/rankingtmodeldata.tex' , 
+                  caption = "Illustrating the data used in the Bradley Terry model for ranking (sample of 6 rows)" ,
+                  label =  'rankingtmodeldata',
+                  table.env = "table*")
   
-  kable(readRDS('./statscomp-paper/tables/datafortables/rankingtmodeldata.RDS'),
-        "latex",
-        caption="Illustrating the data used in the Bradley Terry model for ranking (sample of 6 rows)", label = "rankingtmodeldata" ,booktabs=T, format.args = list(scientific = FALSE), digits = 3) %>% 
-    kable_styling(latex_options = c("hold_position"),
-                  full_width = F) %>% 
-    readr::write_lines('./statscomp-paper/tables/rankingtmodeldata.tex')
-
-  kable(readRDS('./statscomp-paper/tables/datafortables/rankingalgorithmsresults.RDS'), 
-        "latex",
-        caption="Ranking the algorithms based on the reward difference", 
-        label = "rankingalgorithmsresults" ,booktabs=T, format.args = list(scientific = FALSE), digits = 3) %>% 
-    kable_styling(latex_options = c("hold_position"),
-                  full_width = F) %>% 
-    readr::write_lines('./statscomp-paper/tables/rankingalgorithmsresults.tex')
+  save_data_table(in_path =  './statscomp-paper/tables/datafortables/rankingalgorithmsresults.RDS', 
+                  out_path = './statscomp-paper/tables/rankingalgorithmsresults.tex' , 
+                  caption = "Ranking the algorithms based on the reward difference" ,
+                  label =  'rankingalgorithmsresults')
   
-  
-  kable(readRDS('./statscomp-paper/tables/datafortables/ranking-par-table.RDS'), 
-        "latex", 
-        caption="Estimated parameters of the model", 
-        booktabs=T, label='rankingpartable',format.args = list(scientific = FALSE), digits = 3) %>% 
-    kable_styling(latex_options = c("hold_position"),
-                  full_width = F) %>% 
-    readr::write_lines('./statscomp-paper/tables/ranking-par-table.tex')
+  save_parameter_table(in_path =  './statscomp-paper/tables/datafortables/ranking-par-table.RDS',
+                       out_path =  './statscomp-paper/tables/ranking-par-table.tex',
+                       label = 'rankingpartable' )
   
   # time to converge
 
-  kable(readRDS('./statscomp-paper/tables/datafortables/timetoconvergedata.RDS'),
-        "latex",
-        caption="Illustrating the data used in the Cox Proportional Hazards model time to converge to a solution (sample of 6 rows)", 
-        label = "timetoconvergedata" ,booktabs=T, format.args = list(scientific = FALSE), digits = 3) %>% 
-    kable_styling(latex_options = c("hold_position"),
-                  full_width = F) %>% 
-    readr::write_lines('./statscomp-paper/tables/timetoconvergedata.tex')
-
-  kable(readRDS( './statscomp-paper/tables/datafortables/hr_table.RDS'), 
-        "latex", 
-        caption=" Average baseline coefficient and the average noise hazard ratio", 
-        label = "hr" ,booktabs=T, format.args = list(scientific = FALSE), digits = 3) %>% 
-    kable_styling(latex_options = c("hold_position"),
-                  full_width = F) %>% 
-    readr::write_lines('./statscomp-paper/tables/hr.tex')
+  save_data_table(in_path =  './statscomp-paper/tables/datafortables/timetoconvergedata.RDS', 
+                  out_path = './statscomp-paper/tables/timetoconvergedata.tex', 
+                  caption = "Illustrating the data used in the Cox Proportional Hazards model time to converge to a solution (sample of 6 rows)",
+                  label =  'timetoconvergedata',
+                  table.env = "table*")
   
+  save_data_table(in_path =  './statscomp-paper/tables/datafortables/hr_table.RDS', 
+                  out_path = './statscomp-paper/tables/hr.tex', 
+                  caption = "Average baseline coefficient and the average noise hazard ratio",
+                  label =  'hr')
   
-  kable(readRDS('./statscomp-paper/tables/datafortables/timetoconverge-par-table.RDS'), 
-        "latex", 
-        caption="Estimated parameters of the model", 
-        booktabs=T, label='timetoconvergepartable',format.args = list(scientific = FALSE), digits = 3) %>% 
-    kable_styling(latex_options = c("hold_position"),
-                  full_width = F) %>% 
-    readr::write_lines('./statscomp-paper/tables/timetoconverge-par-table.tex')
+  save_parameter_table(in_path =  './statscomp-paper/tables/datafortables/timetoconverge-par-table.RDS',
+                          out_path =  './statscomp-paper/tables/timetoconverge-par-table.tex',
+                          label = 'timetoconvergepartable' )
   
   #Multiple groups comparison
   
-  kable(readRDS('./statscomp-paper/tables/datafortables/multiplegroupsdata.RDS'), "latex",caption="Illustrating the data used in the roobust multiple groups comparison (sample of 6 rows)", label = "multiplegroupsdata" ,booktabs=T, format.args = list(scientific = FALSE), digits = 3) %>% 
-    kable_styling(latex_options = c("hold_position"),
-                  full_width = F) %>% 
-    readr::write_lines('./statscomp-paper/tables/multiplegroupsdata.tex')
+  save_data_table(in_path =  './statscomp-paper/tables/datafortables/multiplegroupsdata.RDS', 
+                  out_path = './statscomp-paper/tables/multiplegroupsdata.tex', 
+                  caption ="Illustrating the data used in the roobust multiple groups comparison (sample of 6 rows)",
+                  label =  'multiplegroupsdata',
+                  table.env = "table*")
   
-  kable(readRDS('./statscomp-paper/tables/datafortables/multiplegroupsdifference-par-table.RDS'), 
-        "latex", 
-        caption="Estimated parameters of the model", 
-        booktabs=T, label='multiplegroupsdifferenceartable',format.args = list(scientific = FALSE), digits = 3) %>% 
-    kable_styling(latex_options = c("hold_position"),
-                  full_width = F) %>% 
-    readr::write_lines('./statscomp-paper/tables/multiplegroupsdifference-par-table.tex')
+  save_parameter_table(in_path =  './statscomp-paper/tables/datafortables/multiplegroupsdifference-par-table.RDS', 
+                  out_path = './statscomp-paper/tables/multiplegroupsdifference-par-table.tex', 
+                  label =  'multiplegroupsdifferenceartable')
   
-  kable(readRDS('./statscomp-paper/tables/datafortables/multiplegroupsdifference.RDS'), 
-        "latex",caption="HPDI interval for the difference between the groups", 
-        label = "multiplegroupsdifference" ,booktabs=T, format.args = list(scientific = FALSE), digits = 3) %>% 
-    kable_styling(latex_options = c("hold_position"),
-                  full_width = F) %>% 
-    readr::write_lines('./statscomp-paper/tables/multiplegroupsdifference.tex')
+  save_data_table(in_path =  './statscomp-paper/tables/datafortables/multiplegroupsdifference.RDS',
+                  caption= "HPDI interval for the difference between the groups",
+                       out_path =  './statscomp-paper/tables/multiplegroupsdifference.tex',
+                       label = 'multiplegroupsdifference' )
 }

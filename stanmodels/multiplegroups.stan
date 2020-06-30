@@ -54,3 +54,20 @@ model {
   y ~ student_t(nu, mu, sigma_i);
 }
 
+//Uncoment this part to get the posterior predictives and the log likelihood
+//But note that it takes a lot of space in the final model
+// generated quantities{
+//   vector [N_total] y_rep;
+//   vector[N_total] log_lik;
+//   for (i in 1:N_total){
+//     real mu;
+//     real sigma_i;
+//     mu = a_alg[algorithm_id[i]] + a_bm_norm[bm_id[i]]*s;
+//     sigma_i = sigma[algorithm_id[i]];
+//     y_rep[i] = student_t_rng(nu,mu,sigma_i);
+//     
+//     //Log likelihood
+//     log_lik[i] = student_t_lpdf(y[i] | nu,mu,sigma_i);
+//     
+//   }
+// }

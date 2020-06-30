@@ -25,7 +25,7 @@ parameters {
 model {
   real p[N_total];
 
-  a_alg ~ normal(0,5);
+  a_alg ~ normal(0,2);
   
 
   for (i in 1:N_total)
@@ -36,3 +36,18 @@ model {
   y ~ bernoulli_logit(p);
 }
 
+
+//Uncoment this part to get the posterior predictives and the log likelihood
+//But note that it takes a lot of space in the final model
+// generated quantities{
+//   vecor [N_total] y_rep;
+//   vector[N_total] log_lik;
+//   for(i in 1:N_total){
+//     real p;
+//     p = a_alg[algo1[i]] - a_alg[algo0[i]];
+//     y_rep[i] = bernoulli_logit_rng(p);
+//     
+//     //Log likelihood
+//      log_lik[i] = bernoulli_logit_lpmf(y[i] | p);
+//   }
+// }

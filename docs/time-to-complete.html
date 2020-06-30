@@ -136,15 +136,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#software-environment"><i class="fa fa-check"></i>Software environment</a></li>
 </ul></li>
 <li class="chapter" data-level="1" data-path="introduction.html"><a href="introduction.html"><i class="fa fa-check"></i><b>1</b> Introduction</a><ul>
-<li class="chapter" data-level="1.1" data-path="introduction.html"><a href="introduction.html#the-simulation"><i class="fa fa-check"></i><b>1.1</b> The simulation</a><ul>
-<li class="chapter" data-level="1.1.1" data-path="introduction.html"><a href="introduction.html#exploring-the-dataset"><i class="fa fa-check"></i><b>1.1.1</b> Exploring the dataset</a></li>
-<li class="chapter" data-level="1.1.2" data-path="introduction.html"><a href="introduction.html#column-definitions"><i class="fa fa-check"></i><b>1.1.2</b> Column definitions</a></li>
-</ul></li>
+<li class="chapter" data-level="1.0.1" data-path="introduction.html"><a href="introduction.html#exploring-the-dataset"><i class="fa fa-check"></i><b>1.0.1</b> Exploring the dataset</a></li>
+<li class="chapter" data-level="1.0.2" data-path="introduction.html"><a href="introduction.html#column-definitions-of-the-dataset"><i class="fa fa-check"></i><b>1.0.2</b> Column definitions of the dataset</a></li>
 </ul></li>
 <li class="chapter" data-level="2" data-path="probability-of-success-model.html"><a href="probability-of-success-model.html"><i class="fa fa-check"></i><b>2</b> Probability of success model</a><ul>
 <li class="chapter" data-level="2.1" data-path="probability-of-success-model.html"><a href="probability-of-success-model.html#data-preparation"><i class="fa fa-check"></i><b>2.1</b> Data preparation</a></li>
 <li class="chapter" data-level="2.2" data-path="probability-of-success-model.html"><a href="probability-of-success-model.html#stan-model"><i class="fa fa-check"></i><b>2.2</b> Stan model</a></li>
-<li class="chapter" data-level="2.3" data-path="probability-of-success-model.html"><a href="probability-of-success-model.html#diagnosis"><i class="fa fa-check"></i><b>2.3</b> Diagnosis</a></li>
+<li class="chapter" data-level="2.3" data-path="probability-of-success-model.html"><a href="probability-of-success-model.html#diagnosis"><i class="fa fa-check"></i><b>2.3</b> Diagnosis</a><ul>
+<li class="chapter" data-level="2.3.1" data-path="probability-of-success-model.html"><a href="probability-of-success-model.html#chains-convergence"><i class="fa fa-check"></i><b>2.3.1</b> Chains convergence</a></li>
+</ul></li>
 <li class="chapter" data-level="2.4" data-path="probability-of-success-model.html"><a href="probability-of-success-model.html#results-and-plots"><i class="fa fa-check"></i><b>2.4</b> Results and Plots</a></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="relative-improvement.html"><a href="relative-improvement.html"><i class="fa fa-check"></i><b>3</b> Relative improvement</a><ul>
@@ -171,7 +171,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="6.3" data-path="multiple-group-comparison.html"><a href="multiple-group-comparison.html#diagnosis-4"><i class="fa fa-check"></i><b>6.3</b> Diagnosis</a></li>
 <li class="chapter" data-level="6.4" data-path="multiple-group-comparison.html"><a href="multiple-group-comparison.html#results-and-plots-4"><i class="fa fa-check"></i><b>6.4</b> Results and Plots</a></li>
 </ul></li>
-<li class="chapter" data-level="7" data-path="sensitivity-analysis-and-model-comparison.html"><a href="sensitivity-analysis-and-model-comparison.html"><i class="fa fa-check"></i><b>7</b> Sensitivity analysis and model comparison</a></li>
+<li class="chapter" data-level="7" data-path="sensitivity-analysis-model-comparison-and-posterior-predictive.html"><a href="sensitivity-analysis-model-comparison-and-posterior-predictive.html"><i class="fa fa-check"></i><b>7</b> Sensitivity analysis, model comparison and posterior predictive</a><ul>
+<li class="chapter" data-level="7.1" data-path="sensitivity-analysis-model-comparison-and-posterior-predictive.html"><a href="sensitivity-analysis-model-comparison-and-posterior-predictive.html#compare-models-with-and-without-clustering"><i class="fa fa-check"></i><b>7.1</b> Compare models with and without clustering</a></li>
+<li class="chapter" data-level="7.2" data-path="sensitivity-analysis-model-comparison-and-posterior-predictive.html"><a href="sensitivity-analysis-model-comparison-and-posterior-predictive.html#sensitivity-analysis-of-priors"><i class="fa fa-check"></i><b>7.2</b> Sensitivity analysis of priors</a></li>
+<li class="chapter" data-level="7.3" data-path="sensitivity-analysis-model-comparison-and-posterior-predictive.html"><a href="sensitivity-analysis-model-comparison-and-posterior-predictive.html#posterior-predictive-plots"><i class="fa fa-check"></i><b>7.3</b> Posterior predictive plots</a></li>
+</ul></li>
 </ul>
 
       </nav>
@@ -192,27 +196,29 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="time-to-complete" class="section level1">
 <h1><span class="header-section-number">Chapter 5</span> Time to complete</h1>
 <p>In this section, we will consider the Cox’s Proportional Hazard model for analyzing the time to converge to a a solution (in number of iterations).</p>
-<p>*RQ1: **What is the average number of function evaluations that it takes for an algorithm to converge to a solution at a precision of <span class="math inline">\(\epsilon=0.1\)</span>? Here we will utilize a window of 100,000 function evaluations per dimension (the budget).</p>
-<p><strong>RQ2:</strong> What is the impact of noise in the number of function evaluations?</p>
+<ul>
+<li><strong>RQ4-a:</strong> What is the average number of function evaluations taken by an algorithm to converge to a solution at a precision of <span class="math inline">\(\epsilon=0.1\)</span>, with a budget of 100,000 function evaluations per dimension?</li>
+<li><strong>RQ4-b:</strong> What is the impact of noise in the number of function evaluations taken by an algorithm to converge to a solution at a precision of <span class="math inline">\(\epsilon=0.1\)</span>, with a budget of 100,000 function evaluations per dimension?</li>
+</ul>
 <div id="data-preparation-3" class="section level2">
 <h2><span class="header-section-number">5.1</span> Data preparation</h2>
 <p>We start importing the dataset</p>
-<div class="sourceCode" id="cb57"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb57-1"><a href="time-to-complete.html#cb57-1"></a>dataset &lt;-<span class="st"> </span>readr<span class="op">::</span><span class="kw">read_csv</span>(<span class="st">&#39;./data/statscomp.csv&#39;</span>)</span></code></pre></div>
-<p>Filtering the data that we want and applying some transformations</p>
-<div class="sourceCode" id="cb58"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb58-1"><a href="time-to-complete.html#cb58-1"></a>d &lt;-<span class="st"> </span>dataset <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb58-2"><a href="time-to-complete.html#cb58-2"></a><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">filter</span>(OptimizationSuccessful<span class="op">==</span><span class="ot">TRUE</span> <span class="op">&amp;</span><span class="st"> </span>MaxFevalPerDimensions<span class="op">==</span><span class="dv">100000</span> <span class="op">&amp;</span><span class="st"> </span>(Algorithm<span class="op">==</span><span class="st">&quot;PSO&quot;</span><span class="op">|</span>Algorithm<span class="op">==</span><span class="st">&quot;CMAES&quot;</span><span class="op">|</span>Algorithm<span class="op">==</span><span class="st">&quot;DifferentialEvolution&quot;</span><span class="op">|</span>Algorithm<span class="op">==</span><span class="st">&quot;RandomSearch2&quot;</span>)) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb58-3"><a href="time-to-complete.html#cb58-3"></a><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">select</span>(Algorithm, CostFunction, <span class="dt">Event=</span><span class="st">&quot;SolveAt1e-1&quot;</span>, simNumber, Ndimensions, SD, <span class="dt">SolvedAtIteration=</span><span class="st">&quot;SolveEarlierAt1e-1&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb58-4"><a href="time-to-complete.html#cb58-4"></a><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">mutate</span>(<span class="dt">y=</span>SolvedAtIteration<span class="op">/</span>Ndimensions,</span>
-<span id="cb58-5"><a href="time-to-complete.html#cb58-5"></a>                <span class="dt">Event=</span><span class="kw">as.integer</span>(Event),</span>
-<span id="cb58-6"><a href="time-to-complete.html#cb58-6"></a>                <span class="dt">CostFunctionID=</span><span class="kw">create_index</span>(CostFunction),</span>
-<span id="cb58-7"><a href="time-to-complete.html#cb58-7"></a>                <span class="dt">AlgorithmID=</span><span class="kw">create_index</span>(Algorithm)) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb58-8"><a href="time-to-complete.html#cb58-8"></a><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">select</span>(Algorithm, AlgorithmID, CostFunction, CostFunctionID, SD, Event, y,<span class="op">-</span>simNumber,<span class="op">-</span>SolvedAtIteration, <span class="op">-</span>Ndimensions)</span>
-<span id="cb58-9"><a href="time-to-complete.html#cb58-9"></a></span>
-<span id="cb58-10"><a href="time-to-complete.html#cb58-10"></a>algorithms&lt;-<span class="kw">get_index_names_as_array</span>(d<span class="op">$</span>Algorithm)</span>
-<span id="cb58-11"><a href="time-to-complete.html#cb58-11"></a>bm &lt;-<span class="st"> </span><span class="kw">get_index_names_as_array</span>(d<span class="op">$</span>CostFunction)</span></code></pre></div>
+<div class="sourceCode" id="cb59"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb59-1"><a href="time-to-complete.html#cb59-1"></a>dataset &lt;-<span class="st"> </span>readr<span class="op">::</span><span class="kw">read_csv</span>(<span class="st">&#39;./data/statscomp.csv&#39;</span>)</span></code></pre></div>
+<p>Filtering the data that we want and applying some transformations. The Event variable will indicate if it was censored or not.</p>
+<div class="sourceCode" id="cb60"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb60-1"><a href="time-to-complete.html#cb60-1"></a>d &lt;-<span class="st"> </span>dataset <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb60-2"><a href="time-to-complete.html#cb60-2"></a><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">filter</span>(OptimizationSuccessful<span class="op">==</span><span class="ot">TRUE</span> <span class="op">&amp;</span><span class="st"> </span>MaxFevalPerDimensions<span class="op">==</span><span class="dv">100000</span> <span class="op">&amp;</span><span class="st"> </span>(Algorithm<span class="op">==</span><span class="st">&quot;PSO&quot;</span><span class="op">|</span>Algorithm<span class="op">==</span><span class="st">&quot;CMAES&quot;</span><span class="op">|</span>Algorithm<span class="op">==</span><span class="st">&quot;DifferentialEvolution&quot;</span><span class="op">|</span>Algorithm<span class="op">==</span><span class="st">&quot;RandomSearch2&quot;</span>)) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb60-3"><a href="time-to-complete.html#cb60-3"></a><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">select</span>(Algorithm, CostFunction, <span class="dt">Event=</span><span class="st">&quot;SolveAt1e-1&quot;</span>, simNumber, Ndimensions, SD, <span class="dt">SolvedAtIteration=</span><span class="st">&quot;SolveEarlierAt1e-1&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb60-4"><a href="time-to-complete.html#cb60-4"></a><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">mutate</span>(<span class="dt">y=</span>SolvedAtIteration<span class="op">/</span>Ndimensions,</span>
+<span id="cb60-5"><a href="time-to-complete.html#cb60-5"></a>                <span class="dt">Event=</span><span class="kw">as.integer</span>(Event),</span>
+<span id="cb60-6"><a href="time-to-complete.html#cb60-6"></a>                <span class="dt">CostFunctionID=</span><span class="kw">create_index</span>(CostFunction),</span>
+<span id="cb60-7"><a href="time-to-complete.html#cb60-7"></a>                <span class="dt">AlgorithmID=</span><span class="kw">create_index</span>(Algorithm)) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb60-8"><a href="time-to-complete.html#cb60-8"></a><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">select</span>(Algorithm, AlgorithmID, CostFunction, CostFunctionID, SD, Event, y,<span class="op">-</span>simNumber,<span class="op">-</span>SolvedAtIteration, <span class="op">-</span>Ndimensions)</span>
+<span id="cb60-9"><a href="time-to-complete.html#cb60-9"></a></span>
+<span id="cb60-10"><a href="time-to-complete.html#cb60-10"></a>algorithms&lt;-<span class="kw">get_index_names_as_array</span>(d<span class="op">$</span>Algorithm)</span>
+<span id="cb60-11"><a href="time-to-complete.html#cb60-11"></a>bm &lt;-<span class="st"> </span><span class="kw">get_index_names_as_array</span>(d<span class="op">$</span>CostFunction)</span></code></pre></div>
 <p>The data should look like this:</p>
-<div class="sourceCode" id="cb59"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb59-1"><a href="time-to-complete.html#cb59-1"></a><span class="kw">kable</span>(dplyr<span class="op">::</span><span class="kw">sample_n</span>(d,<span class="dt">size=</span><span class="dv">10</span>),<span class="st">&quot;html&quot;</span>, <span class="dt">booktabs=</span>T, <span class="dt">format.args =</span> <span class="kw">list</span>(<span class="dt">scientific =</span> <span class="ot">FALSE</span>), <span class="dt">digits =</span> <span class="dv">3</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb59-2"><a href="time-to-complete.html#cb59-2"></a><span class="st">  </span><span class="kw">kable_styling</span>(<span class="dt">bootstrap_options =</span> <span class="kw">c</span>(<span class="st">&quot;striped&quot;</span>, <span class="st">&quot;hover&quot;</span>, <span class="st">&quot;condensed&quot;</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb61"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb61-1"><a href="time-to-complete.html#cb61-1"></a><span class="kw">kable</span>(dplyr<span class="op">::</span><span class="kw">sample_n</span>(d,<span class="dt">size=</span><span class="dv">10</span>),<span class="st">&quot;html&quot;</span>, <span class="dt">booktabs=</span>T, <span class="dt">format.args =</span> <span class="kw">list</span>(<span class="dt">scientific =</span> <span class="ot">FALSE</span>), <span class="dt">digits =</span> <span class="dv">3</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb61-2"><a href="time-to-complete.html#cb61-2"></a><span class="st">  </span><span class="kw">kable_styling</span>(<span class="dt">bootstrap_options =</span> <span class="kw">c</span>(<span class="st">&quot;striped&quot;</span>, <span class="st">&quot;hover&quot;</span>, <span class="st">&quot;condensed&quot;</span>))</span></code></pre></div>
 <table class="table table-striped table-hover table-condensed" style="margin-left: auto; margin-right: auto;">
 <thead>
 <tr>
@@ -242,16 +248,62 @@ y
 <tbody>
 <tr>
 <td style="text-align:left;">
+DifferentialEvolution
+</td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:left;">
+ChungReynoldsN2
+</td>
+<td style="text-align:right;">
+4
+</td>
+<td style="text-align:right;">
+3
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+333.0
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+DifferentialEvolution
+</td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:left;">
+QingN2
+</td>
+<td style="text-align:right;">
+13
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+NA
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
 CMAES
 </td>
 <td style="text-align:right;">
 1
 </td>
 <td style="text-align:left;">
-DiscusN2
+Tripod
 </td>
 <td style="text-align:right;">
-6
+27
 </td>
 <td style="text-align:right;">
 3
@@ -271,13 +323,59 @@ PSO
 3
 </td>
 <td style="text-align:left;">
-Schwefel2d4N6
+Schwefel2d20N2
 </td>
 <td style="text-align:right;">
-20
+16
 </td>
 <td style="text-align:right;">
 0
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+956.5
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+RandomSearch2
+</td>
+<td style="text-align:right;">
+4
+</td>
+<td style="text-align:left;">
+Damavandi
+</td>
+<td style="text-align:right;">
+5
+</td>
+<td style="text-align:right;">
+3
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+26679.0
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+DifferentialEvolution
+</td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:left;">
+ChenV
+</td>
+<td style="text-align:right;">
+3
+</td>
+<td style="text-align:right;">
+3
 </td>
 <td style="text-align:right;">
 0
@@ -294,10 +392,10 @@ CMAES
 1
 </td>
 <td style="text-align:left;">
-Price1
+Mishra7N6
 </td>
 <td style="text-align:right;">
-12
+10
 </td>
 <td style="text-align:right;">
 0
@@ -306,15 +404,61 @@ Price1
 1
 </td>
 <td style="text-align:right;">
-27.000
+218.0
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-RandomSearch2
+CMAES
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:left;">
+ChungReynoldsN2
 </td>
 <td style="text-align:right;">
 4
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+79.0
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+DifferentialEvolution
+</td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:left;">
+ChenBird
+</td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+NA
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+PSO
+</td>
+<td style="text-align:right;">
+3
 </td>
 <td style="text-align:left;">
 Schwefel2d20N2
@@ -329,145 +473,7 @@ Schwefel2d20N2
 0
 </td>
 <td style="text-align:right;">
-NA
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-PSO
-</td>
-<td style="text-align:right;">
-3
-</td>
-<td style="text-align:left;">
-Schwefel2d4N6
-</td>
-<td style="text-align:right;">
-20
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
-1
-</td>
-<td style="text-align:right;">
-12580.333
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-RandomSearch2
-</td>
-<td style="text-align:right;">
-4
-</td>
-<td style="text-align:left;">
-SphereN6
-</td>
-<td style="text-align:right;">
-22
-</td>
-<td style="text-align:right;">
-3
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
-NA
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-PSO
-</td>
-<td style="text-align:right;">
-3
-</td>
-<td style="text-align:left;">
-Price1
-</td>
-<td style="text-align:right;">
-12
-</td>
-<td style="text-align:right;">
-3
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
-57.500
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-PSO
-</td>
-<td style="text-align:right;">
-3
-</td>
-<td style="text-align:left;">
-SphereN6
-</td>
-<td style="text-align:right;">
-22
-</td>
-<td style="text-align:right;">
-3
-</td>
-<td style="text-align:right;">
-1
-</td>
-<td style="text-align:right;">
-40.167
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-RandomSearch2
-</td>
-<td style="text-align:right;">
-4
-</td>
-<td style="text-align:left;">
-RosenbrockRotatedN6
-</td>
-<td style="text-align:right;">
-14
-</td>
-<td style="text-align:right;">
-3
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
-NA
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-RandomSearch2
-</td>
-<td style="text-align:right;">
-4
-</td>
-<td style="text-align:left;">
-WhitleyN6
-</td>
-<td style="text-align:right;">
-28
-</td>
-<td style="text-align:right;">
-3
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
-NA
+7381.5
 </td>
 </tr>
 </tbody>
@@ -475,8 +481,8 @@ NA
 </div>
 <div id="stan-model-3" class="section level2">
 <h2><span class="header-section-number">5.2</span> Stan model</h2>
-<p>The Stan model is specified in the file: <code>'./stanmodels/timetoconverge.stan'</code></p>
-<div class="sourceCode" id="cb60"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb60-1"><a href="time-to-complete.html#cb60-1"></a><span class="kw">print_stan_code</span>(<span class="st">&#39;./stanmodels/timetoconverge.stan&#39;</span>)</span></code></pre></div>
+<p>The Stan model is specified in the file: <code>'./stanmodels/timetoconverge.stan'</code>. Note that at the end of the model we commented the generated quantities. This block generates the predictive posterior y_rep and the log likelihood, log_lik. These values are useful in diagnosing and validating the model but the end file is extremely large (~1Gb for 2000 iterations) and make many of the following calculations slow. If the reader wants to see these values is just to uncomment and run the stan model again. Note also the the predictive posterior calculates for censored and non censored data. We can in r restrict and compare the predictive only to the non censored data or even censor it if the prediction is above the budget.</p>
+<div class="sourceCode" id="cb62"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb62-1"><a href="time-to-complete.html#cb62-1"></a><span class="kw">print_stan_code</span>(<span class="st">&#39;./stanmodels/timetoconverge.stan&#39;</span>)</span></code></pre></div>
 <pre><code>// Time to converge, Cox regression model
 // Author: David Issa Mattos
 // Date: 23 June 2020
@@ -519,7 +525,8 @@ model {
   
   // //Random effects
   s ~ exponential(0.1);
-  a_bm_norm ~ normal(0,10);
+  a_bm_norm ~ normal(0,1);
+  b_noise ~ normal(0,2);
 
   for (i in 1:N_total)
   {
@@ -529,52 +536,73 @@ model {
     if(event[i]==0) target += exponential_lccdf(y[i] | exp(a_alg[algorithm_id[i]] + s*a_bm_norm[bm_id[i]] + b_noise[algorithm_id[i]]*x_noise[i]));  
   }
   
-}</code></pre>
+}
+
+
+//Uncoment this part to get the posterior predictives and the log likelihood
+//But note that it takes a lot of space in the final model
+// //Here we suppose that the predictive data will not be censored.
+// //But if it is above the budget we can censor it later
+// generated quantities{
+//   vector [N_total] y_rep;
+//   vector[N_total] log_lik;
+//   
+//   for(i in 1:N_total){
+//     real mu;
+//     mu = a_alg[algorithm_id[i]] + s*a_bm_norm[bm_id[i]] + b_noise[algorithm_id[i]]*x_noise[i];
+//     y_rep[i]= exponential_rng(mu);
+//     
+//     //uncensored data
+//     if(event[i]==1) log_lik[i]= exponential_lpdf(y[i] | exp(a_alg[algorithm_id[i]] + s*a_bm_norm[bm_id[i]] + b_noise[algorithm_id[i]]*x_noise[i])); 
+//     //censored data
+//     if(event[i]==0) log_lik[i]= exponential_lccdf(y[i] | exp(a_alg[algorithm_id[i]] + s*a_bm_norm[bm_id[i]] + b_noise[algorithm_id[i]]*x_noise[i]));  
+//   }
+// }</code></pre>
 <p>Let’s compile and start sampling with the Stan function. In the data folder you can find the specific data used to fit the model after all transformations <code>"./data/timetoconverge-data.RDS"</code></p>
 <p>Note that stan does not support NA in the data, so we have two options… We either replace NA for a value and add conditionals in the model (note that this value will not be used). Or we separate the data frame in two parts, censored and not not-censored. We will do the first approach replacing the NA by 0.</p>
-<div class="sourceCode" id="cb62"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb62-1"><a href="time-to-complete.html#cb62-1"></a>dstan&lt;-d <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb62-2"><a href="time-to-complete.html#cb62-2"></a><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">mutate</span>(<span class="dt">y=</span><span class="kw">replace_na</span>(y,<span class="dv">0</span>))</span>
-<span id="cb62-3"><a href="time-to-complete.html#cb62-3"></a></span>
-<span id="cb62-4"><a href="time-to-complete.html#cb62-4"></a>standata &lt;-<span class="st"> </span><span class="kw">list</span>(</span>
-<span id="cb62-5"><a href="time-to-complete.html#cb62-5"></a>  <span class="dt">N_total=</span><span class="kw">nrow</span>(dstan),</span>
-<span id="cb62-6"><a href="time-to-complete.html#cb62-6"></a>  <span class="dt">y =</span> dstan<span class="op">$</span>y,</span>
-<span id="cb62-7"><a href="time-to-complete.html#cb62-7"></a>  <span class="dt">event =</span> dstan<span class="op">$</span>Event,</span>
-<span id="cb62-8"><a href="time-to-complete.html#cb62-8"></a>  <span class="dt">x_noise =</span> d<span class="op">$</span>SD,</span>
-<span id="cb62-9"><a href="time-to-complete.html#cb62-9"></a>  <span class="dt">N_algorithm =</span> <span class="kw">length</span>(algorithms),</span>
-<span id="cb62-10"><a href="time-to-complete.html#cb62-10"></a>  <span class="dt">algorithm_id =</span> dstan<span class="op">$</span>AlgorithmID,</span>
-<span id="cb62-11"><a href="time-to-complete.html#cb62-11"></a>  <span class="dt">N_bm =</span> <span class="kw">length</span>(bm),</span>
-<span id="cb62-12"><a href="time-to-complete.html#cb62-12"></a>  <span class="dt">bm_id =</span> d<span class="op">$</span>CostFunctionID</span>
-<span id="cb62-13"><a href="time-to-complete.html#cb62-13"></a>  )</span>
-<span id="cb62-14"><a href="time-to-complete.html#cb62-14"></a><span class="kw">saveRDS</span>(standata, <span class="dt">file =</span> <span class="st">&quot;./data/timetoconverge-data.RDS&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb64"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb64-1"><a href="time-to-complete.html#cb64-1"></a>dstan&lt;-d <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb64-2"><a href="time-to-complete.html#cb64-2"></a><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">mutate</span>(<span class="dt">y=</span><span class="kw">replace_na</span>(y,<span class="dv">0</span>))</span>
+<span id="cb64-3"><a href="time-to-complete.html#cb64-3"></a></span>
+<span id="cb64-4"><a href="time-to-complete.html#cb64-4"></a>standata &lt;-<span class="st"> </span><span class="kw">list</span>(</span>
+<span id="cb64-5"><a href="time-to-complete.html#cb64-5"></a>  <span class="dt">N_total=</span><span class="kw">nrow</span>(dstan),</span>
+<span id="cb64-6"><a href="time-to-complete.html#cb64-6"></a>  <span class="dt">y =</span> dstan<span class="op">$</span>y,</span>
+<span id="cb64-7"><a href="time-to-complete.html#cb64-7"></a>  <span class="dt">event =</span> dstan<span class="op">$</span>Event,</span>
+<span id="cb64-8"><a href="time-to-complete.html#cb64-8"></a>  <span class="dt">x_noise =</span> d<span class="op">$</span>SD,</span>
+<span id="cb64-9"><a href="time-to-complete.html#cb64-9"></a>  <span class="dt">N_algorithm =</span> <span class="kw">length</span>(algorithms),</span>
+<span id="cb64-10"><a href="time-to-complete.html#cb64-10"></a>  <span class="dt">algorithm_id =</span> dstan<span class="op">$</span>AlgorithmID,</span>
+<span id="cb64-11"><a href="time-to-complete.html#cb64-11"></a>  <span class="dt">N_bm =</span> <span class="kw">length</span>(bm),</span>
+<span id="cb64-12"><a href="time-to-complete.html#cb64-12"></a>  <span class="dt">bm_id =</span> d<span class="op">$</span>CostFunctionID</span>
+<span id="cb64-13"><a href="time-to-complete.html#cb64-13"></a>  )</span>
+<span id="cb64-14"><a href="time-to-complete.html#cb64-14"></a><span class="kw">saveRDS</span>(standata, <span class="dt">file =</span> <span class="st">&quot;./data/timetoconverge-data.RDS&quot;</span>)</span></code></pre></div>
 <p>For computation time sake we are not running this chunk every time we compile this document. From now on we will load from the saved Stan fit object. However, when we change our model or the data we can just run this chunk separately</p>
-<div class="sourceCode" id="cb63"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb63-1"><a href="time-to-complete.html#cb63-1"></a>standata&lt;-<span class="kw">readRDS</span>(<span class="st">&quot;./data/timetoconverge-data.RDS&quot;</span>)</span>
-<span id="cb63-2"><a href="time-to-complete.html#cb63-2"></a>timetoconverge_fit &lt;-<span class="st"> </span><span class="kw">stan</span>(<span class="dt">file =</span> <span class="st">&#39;./stanmodels/timetoconverge.stan&#39;</span>,</span>
-<span id="cb63-3"><a href="time-to-complete.html#cb63-3"></a>                     <span class="dt">data=</span>standata,</span>
-<span id="cb63-4"><a href="time-to-complete.html#cb63-4"></a>                     <span class="dt">chains =</span> <span class="dv">4</span>,</span>
-<span id="cb63-5"><a href="time-to-complete.html#cb63-5"></a>                     <span class="dt">warmup =</span> <span class="dv">200</span>,</span>
-<span id="cb63-6"><a href="time-to-complete.html#cb63-6"></a>                     <span class="dt">iter =</span> <span class="dv">3000</span>)</span>
-<span id="cb63-7"><a href="time-to-complete.html#cb63-7"></a><span class="kw">saveRDS</span>(timetoconverge_fit, <span class="dt">file =</span> <span class="st">&quot;./data/timetoconverge-fit.RDS&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb65"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb65-1"><a href="time-to-complete.html#cb65-1"></a>standata&lt;-<span class="kw">readRDS</span>(<span class="st">&quot;./data/timetoconverge-data.RDS&quot;</span>)</span>
+<span id="cb65-2"><a href="time-to-complete.html#cb65-2"></a>timetoconverge_fit &lt;-<span class="st"> </span><span class="kw">stan</span>(<span class="dt">file =</span> <span class="st">&#39;./stanmodels/timetoconverge.stan&#39;</span>,</span>
+<span id="cb65-3"><a href="time-to-complete.html#cb65-3"></a>                     <span class="dt">data=</span>standata,</span>
+<span id="cb65-4"><a href="time-to-complete.html#cb65-4"></a>                     <span class="dt">chains =</span> <span class="dv">4</span>,</span>
+<span id="cb65-5"><a href="time-to-complete.html#cb65-5"></a>                     <span class="dt">warmup =</span> <span class="dv">200</span>,</span>
+<span id="cb65-6"><a href="time-to-complete.html#cb65-6"></a>                     <span class="dt">iter =</span> <span class="dv">3000</span>)</span>
+<span id="cb65-7"><a href="time-to-complete.html#cb65-7"></a><span class="kw">saveRDS</span>(timetoconverge_fit, <span class="dt">file =</span> <span class="st">&quot;./data/timetoconverge-fit.RDS&quot;</span>)</span></code></pre></div>
 </div>
 <div id="diagnosis-3" class="section level2">
 <h2><span class="header-section-number">5.3</span> Diagnosis</h2>
-<div class="sourceCode" id="cb64"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb64-1"><a href="time-to-complete.html#cb64-1"></a>a_alg &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;a_alg[1]&quot;</span>,</span>
-<span id="cb64-2"><a href="time-to-complete.html#cb64-2"></a>           <span class="st">&quot;a_alg[2]&quot;</span>,</span>
-<span id="cb64-3"><a href="time-to-complete.html#cb64-3"></a>           <span class="st">&quot;a_alg[3]&quot;</span>,</span>
-<span id="cb64-4"><a href="time-to-complete.html#cb64-4"></a>           <span class="st">&quot;a_alg[4]&quot;</span>)</span>
-<span id="cb64-5"><a href="time-to-complete.html#cb64-5"></a></span>
-<span id="cb64-6"><a href="time-to-complete.html#cb64-6"></a>b_noise &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;b_noise[1]&quot;</span>,</span>
-<span id="cb64-7"><a href="time-to-complete.html#cb64-7"></a>           <span class="st">&quot;b_noise[2]&quot;</span>,</span>
-<span id="cb64-8"><a href="time-to-complete.html#cb64-8"></a>           <span class="st">&quot;b_noise[3]&quot;</span>,</span>
-<span id="cb64-9"><a href="time-to-complete.html#cb64-9"></a>           <span class="st">&quot;b_noise[4]&quot;</span>)</span>
-<span id="cb64-10"><a href="time-to-complete.html#cb64-10"></a>rstan<span class="op">::</span><span class="kw">traceplot</span>(timetoconverge_fit, <span class="dt">pars=</span>a_alg)</span></code></pre></div>
-<p><img src="statscomp-appendix_files/figure-html/unnamed-chunk-65-1.png" width="672" style="display: block; margin: auto;" /></p>
-<div class="sourceCode" id="cb65"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb65-1"><a href="time-to-complete.html#cb65-1"></a>rstan<span class="op">::</span><span class="kw">traceplot</span>(timetoconverge_fit, <span class="dt">pars=</span>b_noise)</span></code></pre></div>
-<p><img src="statscomp-appendix_files/figure-html/unnamed-chunk-65-2.png" width="672" style="display: block; margin: auto;" /></p>
-<div class="sourceCode" id="cb66"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb66-1"><a href="time-to-complete.html#cb66-1"></a>rstan<span class="op">::</span><span class="kw">traceplot</span>(timetoconverge_fit, <span class="dt">pars=</span><span class="st">&#39;s&#39;</span>)</span></code></pre></div>
-<p><img src="statscomp-appendix_files/figure-html/unnamed-chunk-65-3.png" width="672" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb66"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb66-1"><a href="time-to-complete.html#cb66-1"></a>a_alg &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;a_alg[1]&quot;</span>,</span>
+<span id="cb66-2"><a href="time-to-complete.html#cb66-2"></a>           <span class="st">&quot;a_alg[2]&quot;</span>,</span>
+<span id="cb66-3"><a href="time-to-complete.html#cb66-3"></a>           <span class="st">&quot;a_alg[3]&quot;</span>,</span>
+<span id="cb66-4"><a href="time-to-complete.html#cb66-4"></a>           <span class="st">&quot;a_alg[4]&quot;</span>)</span>
+<span id="cb66-5"><a href="time-to-complete.html#cb66-5"></a></span>
+<span id="cb66-6"><a href="time-to-complete.html#cb66-6"></a>b_noise &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;b_noise[1]&quot;</span>,</span>
+<span id="cb66-7"><a href="time-to-complete.html#cb66-7"></a>           <span class="st">&quot;b_noise[2]&quot;</span>,</span>
+<span id="cb66-8"><a href="time-to-complete.html#cb66-8"></a>           <span class="st">&quot;b_noise[3]&quot;</span>,</span>
+<span id="cb66-9"><a href="time-to-complete.html#cb66-9"></a>           <span class="st">&quot;b_noise[4]&quot;</span>)</span>
+<span id="cb66-10"><a href="time-to-complete.html#cb66-10"></a>rstan<span class="op">::</span><span class="kw">traceplot</span>(timetoconverge_fit, <span class="dt">pars=</span>a_alg)</span></code></pre></div>
+<p><img src="statscomp-appendix_files/figure-html/unnamed-chunk-143-1.png" width="672" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb67"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb67-1"><a href="time-to-complete.html#cb67-1"></a>rstan<span class="op">::</span><span class="kw">traceplot</span>(timetoconverge_fit, <span class="dt">pars=</span>b_noise)</span></code></pre></div>
+<p><img src="statscomp-appendix_files/figure-html/unnamed-chunk-143-2.png" width="672" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb68"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb68-1"><a href="time-to-complete.html#cb68-1"></a>rstan<span class="op">::</span><span class="kw">traceplot</span>(timetoconverge_fit, <span class="dt">pars=</span><span class="st">&#39;s&#39;</span>)</span></code></pre></div>
+<p><img src="statscomp-appendix_files/figure-html/unnamed-chunk-143-3.png" width="672" style="display: block; margin: auto;" /></p>
 <p>Another diagnosis is to look at the Rhat. If Rhat is greater than 1.05 it indicates a divergence in the chains (they did not mix well). The table below shows a summary of the sampling.</p>
-<div class="sourceCode" id="cb67"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb67-1"><a href="time-to-complete.html#cb67-1"></a><span class="kw">kable</span>(<span class="kw">summary</span>(timetoconverge_fit)<span class="op">$</span>summary) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb67-2"><a href="time-to-complete.html#cb67-2"></a><span class="st">  </span><span class="kw">kable_styling</span>(<span class="dt">bootstrap_options =</span> <span class="kw">c</span>(<span class="st">&#39;striped&#39;</span>,<span class="st">&quot;hover&quot;</span>, <span class="st">&quot;condensed&quot;</span> ))</span></code></pre></div>
+<div class="sourceCode" id="cb69"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb69-1"><a href="time-to-complete.html#cb69-1"></a><span class="kw">kable</span>(<span class="kw">summary</span>(timetoconverge_fit)<span class="op">$</span>summary) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb69-2"><a href="time-to-complete.html#cb69-2"></a><span class="st">  </span><span class="kw">kable_styling</span>(<span class="dt">bootstrap_options =</span> <span class="kw">c</span>(<span class="st">&#39;striped&#39;</span>,<span class="st">&quot;hover&quot;</span>, <span class="st">&quot;condensed&quot;</span> ))</span></code></pre></div>
 <table class="table table-striped table-hover table-condensed" style="margin-left: auto; margin-right: auto;">
 <thead>
 <tr>
@@ -618,34 +646,34 @@ Rhat
 a_alg[1]
 </td>
 <td style="text-align:right;">
--5.0613996
+-5.0876436
 </td>
 <td style="text-align:right;">
-0.0157814
+0.0163450
 </td>
 <td style="text-align:right;">
-0.4560554
+0.4749516
 </td>
 <td style="text-align:right;">
--5.9648678
+-6.1009042
 </td>
 <td style="text-align:right;">
--5.3565507
+-5.3879902
 </td>
 <td style="text-align:right;">
--5.0671857
+-5.0723454
 </td>
 <td style="text-align:right;">
--4.7771710
+-4.7666194
 </td>
 <td style="text-align:right;">
--4.1191871
+-4.1983810
 </td>
 <td style="text-align:right;">
-835.1080
+844.3647
 </td>
 <td style="text-align:right;">
-1.0059471
+1.0029185
 </td>
 </tr>
 <tr>
@@ -653,34 +681,34 @@ a_alg[1]
 a_alg[2]
 </td>
 <td style="text-align:right;">
--6.3414200
+-6.3679581
 </td>
 <td style="text-align:right;">
-0.0157765
+0.0164399
 </td>
 <td style="text-align:right;">
-0.4539939
+0.4729020
 </td>
 <td style="text-align:right;">
--7.2424630
+-7.3803595
 </td>
 <td style="text-align:right;">
--6.6317677
+-6.6721314
 </td>
 <td style="text-align:right;">
--6.3496712
+-6.3496253
 </td>
 <td style="text-align:right;">
--6.0581270
+-6.0462865
 </td>
 <td style="text-align:right;">
--5.4164012
+-5.4849112
 </td>
 <td style="text-align:right;">
-828.0941
+827.4495
 </td>
 <td style="text-align:right;">
-1.0067278
+1.0028510
 </td>
 </tr>
 <tr>
@@ -688,34 +716,34 @@ a_alg[2]
 a_alg[3]
 </td>
 <td style="text-align:right;">
--6.2728790
+-6.3007230
 </td>
 <td style="text-align:right;">
-0.0159023
+0.0163282
 </td>
 <td style="text-align:right;">
-0.4566207
+0.4719901
 </td>
 <td style="text-align:right;">
--7.1798165
+-7.2941107
 </td>
 <td style="text-align:right;">
--6.5678209
+-6.6024358
 </td>
 <td style="text-align:right;">
--6.2849249
+-6.2839196
 </td>
 <td style="text-align:right;">
--5.9858838
+-5.9799940
 </td>
 <td style="text-align:right;">
--5.3405945
+-5.4202570
 </td>
 <td style="text-align:right;">
-824.4971
+835.5808
 </td>
 <td style="text-align:right;">
-1.0064357
+1.0028738
 </td>
 </tr>
 <tr>
@@ -723,34 +751,34 @@ a_alg[3]
 a_alg[4]
 </td>
 <td style="text-align:right;">
--8.9236906
+-8.9508434
 </td>
 <td style="text-align:right;">
-0.0160332
+0.0163599
 </td>
 <td style="text-align:right;">
-0.4656145
+0.4804615
 </td>
 <td style="text-align:right;">
--9.8527233
+-9.9725014
 </td>
 <td style="text-align:right;">
--9.2297362
+-9.2629771
 </td>
 <td style="text-align:right;">
--8.9294489
+-8.9396770
 </td>
 <td style="text-align:right;">
--8.6299670
+-8.6226019
 </td>
 <td style="text-align:right;">
--7.9744463
+-8.0575120
 </td>
 <td style="text-align:right;">
-843.3587
+862.4938
 </td>
 <td style="text-align:right;">
-1.0065466
+1.0026451
 </td>
 </tr>
 <tr>
@@ -758,34 +786,34 @@ a_alg[4]
 b_noise[1]
 </td>
 <td style="text-align:right;">
--0.7860677
+-0.7873706
 </td>
 <td style="text-align:right;">
-0.0006585
+0.0007192
 </td>
 <td style="text-align:right;">
-0.0678371
+0.0690586
 </td>
 <td style="text-align:right;">
--0.9215398
+-0.9271111
 </td>
 <td style="text-align:right;">
--0.8307742
+-0.8327514
 </td>
 <td style="text-align:right;">
--0.7847312
+-0.7860082
 </td>
 <td style="text-align:right;">
--0.7398537
+-0.7407884
 </td>
 <td style="text-align:right;">
--0.6572384
+-0.6560111
 </td>
 <td style="text-align:right;">
-10612.7997
+9220.2337
 </td>
 <td style="text-align:right;">
-0.9999942
+0.9999166
 </td>
 </tr>
 <tr>
@@ -793,34 +821,34 @@ b_noise[1]
 b_noise[2]
 </td>
 <td style="text-align:right;">
--0.9581764
+-0.9589087
 </td>
 <td style="text-align:right;">
-0.0005810
+0.0007239
 </td>
 <td style="text-align:right;">
-0.0659688
+0.0650844
 </td>
 <td style="text-align:right;">
--1.0919712
+-1.0877326
 </td>
 <td style="text-align:right;">
--1.0009872
+-1.0024880
 </td>
 <td style="text-align:right;">
--0.9569834
+-0.9586410
 </td>
 <td style="text-align:right;">
--0.9131543
+-0.9135975
 </td>
 <td style="text-align:right;">
--0.8322398
+-0.8360297
 </td>
 <td style="text-align:right;">
-12892.0779
+8083.6928
 </td>
 <td style="text-align:right;">
-1.0000365
+0.9996969
 </td>
 </tr>
 <tr>
@@ -828,34 +856,34 @@ b_noise[2]
 b_noise[3]
 </td>
 <td style="text-align:right;">
--0.6789703
+-0.6783821
 </td>
 <td style="text-align:right;">
-0.0006821
+0.0006466
 </td>
 <td style="text-align:right;">
-0.0611909
+0.0620621
 </td>
 <td style="text-align:right;">
--0.8038079
+-0.8025203
 </td>
 <td style="text-align:right;">
--0.7194895
+-0.7202606
 </td>
 <td style="text-align:right;">
--0.6772081
+-0.6769984
 </td>
 <td style="text-align:right;">
--0.6375569
+-0.6373789
 </td>
 <td style="text-align:right;">
--0.5625861
+-0.5589440
 </td>
 <td style="text-align:right;">
-8047.7954
+9212.0256
 </td>
 <td style="text-align:right;">
-0.9999387
+1.0003974
 </td>
 </tr>
 <tr>
@@ -863,34 +891,34 @@ b_noise[3]
 b_noise[4]
 </td>
 <td style="text-align:right;">
--0.4095699
+-0.4101144
 </td>
 <td style="text-align:right;">
-0.0007824
+0.0007183
 </td>
 <td style="text-align:right;">
-0.0721207
+0.0699979
 </td>
 <td style="text-align:right;">
--0.5565661
+-0.5541200
 </td>
 <td style="text-align:right;">
--0.4568533
+-0.4556815
 </td>
 <td style="text-align:right;">
--0.4082483
+-0.4092248
 </td>
 <td style="text-align:right;">
--0.3602928
+-0.3627118
 </td>
 <td style="text-align:right;">
--0.2740744
+-0.2753365
 </td>
 <td style="text-align:right;">
-8497.8242
+9497.4239
 </td>
 <td style="text-align:right;">
-1.0000011
+1.0001411
 </td>
 </tr>
 <tr>
@@ -898,34 +926,34 @@ b_noise[4]
 a_bm_norm[1]
 </td>
 <td style="text-align:right;">
--7.0877389
+-0.7041758
 </td>
 <td style="text-align:right;">
-0.0749785
+0.0074050
 </td>
 <td style="text-align:right;">
-2.3831719
+0.2440880
 </td>
 <td style="text-align:right;">
--11.9757364
+-1.1894131
 </td>
 <td style="text-align:right;">
--8.6159193
+-0.8657688
 </td>
 <td style="text-align:right;">
--6.9973773
+-0.7055417
 </td>
 <td style="text-align:right;">
--5.4510546
+-0.5392809
 </td>
 <td style="text-align:right;">
--2.6669323
+-0.2269247
 </td>
 <td style="text-align:right;">
-1010.2686
+1086.5259
 </td>
 <td style="text-align:right;">
-1.0082755
+1.0020074
 </td>
 </tr>
 <tr>
@@ -933,34 +961,34 @@ a_bm_norm[1]
 a_bm_norm[2]
 </td>
 <td style="text-align:right;">
--5.9245341
+-0.5818895
 </td>
 <td style="text-align:right;">
-0.0741209
+0.0073780
 </td>
 <td style="text-align:right;">
-4.2518131
+0.4270480
 </td>
 <td style="text-align:right;">
--15.6367452
+-1.5191613
 </td>
 <td style="text-align:right;">
--8.4127182
+-0.8418573
 </td>
 <td style="text-align:right;">
--5.4917162
+-0.5479411
 </td>
 <td style="text-align:right;">
--2.9632739
+-0.2833611
 </td>
 <td style="text-align:right;">
-1.1536322
+0.1484277
 </td>
 <td style="text-align:right;">
-3290.5399
+3350.2487
 </td>
 <td style="text-align:right;">
-1.0014992
+1.0006340
 </td>
 </tr>
 <tr>
@@ -968,34 +996,34 @@ a_bm_norm[2]
 a_bm_norm[3]
 </td>
 <td style="text-align:right;">
--6.4322669
+-0.6352680
 </td>
 <td style="text-align:right;">
-0.0718337
+0.0072651
 </td>
 <td style="text-align:right;">
-2.2904443
+0.2320169
 </td>
 <td style="text-align:right;">
--11.0973986
+-1.0878214
 </td>
 <td style="text-align:right;">
--7.9441332
+-0.7884735
 </td>
 <td style="text-align:right;">
--6.3896121
+-0.6381949
 </td>
 <td style="text-align:right;">
--4.8402558
+-0.4805968
 </td>
 <td style="text-align:right;">
--2.1235828
+-0.1731862
 </td>
 <td style="text-align:right;">
-1016.6778
+1019.9047
 </td>
 <td style="text-align:right;">
-1.0086309
+1.0019516
 </td>
 </tr>
 <tr>
@@ -1003,34 +1031,34 @@ a_bm_norm[3]
 a_bm_norm[4]
 </td>
 <td style="text-align:right;">
-0.2645846
+0.0368664
 </td>
 <td style="text-align:right;">
-0.0652792
+0.0067509
 </td>
 <td style="text-align:right;">
-1.9160067
+0.1986395
 </td>
 <td style="text-align:right;">
--3.5999621
+-0.3358272
 </td>
 <td style="text-align:right;">
--0.9711798
+-0.1013126
 </td>
 <td style="text-align:right;">
-0.2815428
+0.0323551
 </td>
 <td style="text-align:right;">
-1.5247146
+0.1679413
 </td>
 <td style="text-align:right;">
-3.9836167
+0.4523768
 </td>
 <td style="text-align:right;">
-861.4773
+865.7858
 </td>
 <td style="text-align:right;">
-1.0060705
+1.0024907
 </td>
 </tr>
 <tr>
@@ -1038,34 +1066,34 @@ a_bm_norm[4]
 a_bm_norm[5]
 </td>
 <td style="text-align:right;">
--7.1089601
+-0.7091761
 </td>
 <td style="text-align:right;">
-0.0749560
+0.0073280
 </td>
 <td style="text-align:right;">
-2.8684430
+0.2940958
 </td>
 <td style="text-align:right;">
--13.1196102
+-1.3154960
 </td>
 <td style="text-align:right;">
--8.9776989
+-0.8957398
 </td>
 <td style="text-align:right;">
--6.9803076
+-0.6995976
 </td>
 <td style="text-align:right;">
--5.1185665
+-0.5110043
 </td>
 <td style="text-align:right;">
--1.8397802
+-0.1537985
 </td>
 <td style="text-align:right;">
-1464.4666
+1610.6609
 </td>
 <td style="text-align:right;">
-1.0053574
+1.0011429
 </td>
 </tr>
 <tr>
@@ -1073,34 +1101,34 @@ a_bm_norm[5]
 a_bm_norm[6]
 </td>
 <td style="text-align:right;">
--9.8906483
+-0.9853524
 </td>
 <td style="text-align:right;">
-0.0784257
+0.0078730
 </td>
 <td style="text-align:right;">
-2.4163333
+0.2463757
 </td>
 <td style="text-align:right;">
--14.8309217
+-1.4710094
 </td>
 <td style="text-align:right;">
--11.4851003
+-1.1489153
 </td>
 <td style="text-align:right;">
--9.8269148
+-0.9852357
 </td>
 <td style="text-align:right;">
--8.2255915
+-0.8255646
 </td>
 <td style="text-align:right;">
--5.3486789
+-0.4912610
 </td>
 <td style="text-align:right;">
-949.2849
+979.2990
 </td>
 <td style="text-align:right;">
-1.0095475
+1.0026001
 </td>
 </tr>
 <tr>
@@ -1108,34 +1136,34 @@ a_bm_norm[6]
 a_bm_norm[7]
 </td>
 <td style="text-align:right;">
-27.3747983
+2.7705694
 </td>
 <td style="text-align:right;">
-0.1216245
+0.0107276
 </td>
 <td style="text-align:right;">
-4.2044063
+0.4115945
 </td>
 <td style="text-align:right;">
-19.3919625
+1.9929088
 </td>
 <td style="text-align:right;">
-24.4791772
+2.4867064
 </td>
 <td style="text-align:right;">
-27.3492651
+2.7579232
 </td>
 <td style="text-align:right;">
-30.2644685
+3.0485064
 </td>
 <td style="text-align:right;">
-35.5916931
+3.5979627
 </td>
 <td style="text-align:right;">
-1194.9987
+1472.0983
 </td>
 <td style="text-align:right;">
-1.0014577
+1.0012395
 </td>
 </tr>
 <tr>
@@ -1143,34 +1171,34 @@ a_bm_norm[7]
 a_bm_norm[8]
 </td>
 <td style="text-align:right;">
-17.6615243
+1.7905731
 </td>
 <td style="text-align:right;">
-0.0921898
+0.0084627
 </td>
 <td style="text-align:right;">
-3.0984475
+0.3045386
 </td>
 <td style="text-align:right;">
-11.6936753
+1.2072707
 </td>
 <td style="text-align:right;">
-15.5639385
+1.5803690
 </td>
 <td style="text-align:right;">
-17.6473338
+1.7814323
 </td>
 <td style="text-align:right;">
-19.7271769
+1.9964897
 </td>
 <td style="text-align:right;">
-23.6888205
+2.3985149
 </td>
 <td style="text-align:right;">
-1129.5944
+1294.9769
 </td>
 <td style="text-align:right;">
-1.0008837
+1.0017889
 </td>
 </tr>
 <tr>
@@ -1178,34 +1206,34 @@ a_bm_norm[8]
 a_bm_norm[9]
 </td>
 <td style="text-align:right;">
-0.1504036
+0.0020454
 </td>
 <td style="text-align:right;">
-0.0915617
+0.0111730
 </td>
 <td style="text-align:right;">
-10.0544727
+1.0044252
 </td>
 <td style="text-align:right;">
--19.8795982
+-1.9297168
 </td>
 <td style="text-align:right;">
--6.5489149
+-0.6878567
 </td>
 <td style="text-align:right;">
-0.0575604
+-0.0082880
 </td>
 <td style="text-align:right;">
-7.0376056
+0.6849401
 </td>
 <td style="text-align:right;">
-20.0162593
+1.9679818
 </td>
 <td style="text-align:right;">
-12058.4285
+8081.5821
 </td>
 <td style="text-align:right;">
-0.9997498
+0.9998849
 </td>
 </tr>
 <tr>
@@ -1213,34 +1241,34 @@ a_bm_norm[9]
 a_bm_norm[10]
 </td>
 <td style="text-align:right;">
--4.4694467
+-0.4393476
 </td>
 <td style="text-align:right;">
-0.0687983
+0.0071129
 </td>
 <td style="text-align:right;">
-2.0355906
+0.2114526
 </td>
 <td style="text-align:right;">
--8.5651224
+-0.8364776
 </td>
 <td style="text-align:right;">
--5.7852747
+-0.5832773
 </td>
 <td style="text-align:right;">
--4.4065630
+-0.4466005
 </td>
 <td style="text-align:right;">
--3.1022936
+-0.2994468
 </td>
 <td style="text-align:right;">
--0.5689452
+-0.0016197
 </td>
 <td style="text-align:right;">
-875.4383
+883.7470
 </td>
 <td style="text-align:right;">
-1.0087418
+1.0028639
 </td>
 </tr>
 <tr>
@@ -1248,34 +1276,34 @@ a_bm_norm[10]
 a_bm_norm[11]
 </td>
 <td style="text-align:right;">
--5.4379287
+-0.5384238
 </td>
 <td style="text-align:right;">
-0.0701770
+0.0071635
 </td>
 <td style="text-align:right;">
-2.3044786
+0.2390311
 </td>
 <td style="text-align:right;">
--10.1394427
+-1.0120373
 </td>
 <td style="text-align:right;">
--6.9592956
+-0.6926342
 </td>
 <td style="text-align:right;">
--5.3795716
+-0.5387878
 </td>
 <td style="text-align:right;">
--3.8705804
+-0.3808905
 </td>
 <td style="text-align:right;">
--1.0531343
+-0.0640232
 </td>
 <td style="text-align:right;">
-1078.3414
+1113.4031
 </td>
 <td style="text-align:right;">
-1.0066421
+1.0021580
 </td>
 </tr>
 <tr>
@@ -1283,34 +1311,34 @@ a_bm_norm[11]
 a_bm_norm[12]
 </td>
 <td style="text-align:right;">
-9.2048973
+0.9383982
 </td>
 <td style="text-align:right;">
-0.0720827
+0.0071315
 </td>
 <td style="text-align:right;">
-2.2941741
+0.2320267
 </td>
 <td style="text-align:right;">
-4.7324357
+0.4989064
 </td>
 <td style="text-align:right;">
-7.6721227
+0.7778547
 </td>
 <td style="text-align:right;">
-9.2162178
+0.9321981
 </td>
 <td style="text-align:right;">
-10.7585273
+1.0941525
 </td>
 <td style="text-align:right;">
-13.7363416
+1.4067974
 </td>
 <td style="text-align:right;">
-1012.9567
+1058.5545
 </td>
 <td style="text-align:right;">
-1.0014343
+1.0023799
 </td>
 </tr>
 <tr>
@@ -1318,34 +1346,34 @@ a_bm_norm[12]
 a_bm_norm[13]
 </td>
 <td style="text-align:right;">
--1.5298311
+-0.1434221
 </td>
 <td style="text-align:right;">
-0.0662179
+0.0068078
 </td>
 <td style="text-align:right;">
-1.9885925
+0.2063970
 </td>
 <td style="text-align:right;">
--5.5559351
+-0.5319042
 </td>
 <td style="text-align:right;">
--2.8125576
+-0.2860761
 </td>
 <td style="text-align:right;">
--1.4943839
+-0.1480169
 </td>
 <td style="text-align:right;">
--0.1883472
+-0.0075512
 </td>
 <td style="text-align:right;">
-2.2895267
+0.2832601
 </td>
 <td style="text-align:right;">
-901.8630
+919.1634
 </td>
 <td style="text-align:right;">
-1.0069762
+1.0029467
 </td>
 </tr>
 <tr>
@@ -1353,34 +1381,34 @@ a_bm_norm[13]
 a_bm_norm[14]
 </td>
 <td style="text-align:right;">
--5.7866173
+-0.5726918
 </td>
 <td style="text-align:right;">
-0.0700067
+0.0072433
 </td>
 <td style="text-align:right;">
-2.1671965
+0.2264003
 </td>
 <td style="text-align:right;">
--10.1555018
+-1.0093800
 </td>
 <td style="text-align:right;">
--7.1683828
+-0.7224609
 </td>
 <td style="text-align:right;">
--5.7436617
+-0.5778708
 </td>
 <td style="text-align:right;">
--4.3204160
+-0.4215351
 </td>
 <td style="text-align:right;">
--1.6094038
+-0.1147686
 </td>
 <td style="text-align:right;">
-958.3364
+976.9795
 </td>
 <td style="text-align:right;">
-1.0082794
+1.0022757
 </td>
 </tr>
 <tr>
@@ -1388,34 +1416,34 @@ a_bm_norm[14]
 a_bm_norm[15]
 </td>
 <td style="text-align:right;">
--6.0465802
+-0.5973401
 </td>
 <td style="text-align:right;">
-0.0725298
+0.0071526
 </td>
 <td style="text-align:right;">
-2.2009008
+0.2234751
 </td>
 <td style="text-align:right;">
--10.5609547
+-1.0297154
 </td>
 <td style="text-align:right;">
--7.4800582
+-0.7474412
 </td>
 <td style="text-align:right;">
--5.9742389
+-0.6036431
 </td>
 <td style="text-align:right;">
--4.5277332
+-0.4493756
 </td>
 <td style="text-align:right;">
--1.8971065
+-0.1442324
 </td>
 <td style="text-align:right;">
-920.8065
+976.1780
 </td>
 <td style="text-align:right;">
-1.0090590
+1.0021256
 </td>
 </tr>
 <tr>
@@ -1423,34 +1451,34 @@ a_bm_norm[15]
 a_bm_norm[16]
 </td>
 <td style="text-align:right;">
--1.5955184
+-0.1502131
 </td>
 <td style="text-align:right;">
-0.0659452
+0.0067989
 </td>
 <td style="text-align:right;">
-1.9753904
+0.2036326
 </td>
 <td style="text-align:right;">
--5.6179865
+-0.5376026
 </td>
 <td style="text-align:right;">
--2.8619788
+-0.2904790
 </td>
 <td style="text-align:right;">
--1.5684474
+-0.1557584
 </td>
 <td style="text-align:right;">
--0.2656631
+-0.0157417
 </td>
 <td style="text-align:right;">
-2.2091017
+0.2663880
 </td>
 <td style="text-align:right;">
-897.3037
+897.0410
 </td>
 <td style="text-align:right;">
-1.0071111
+1.0028733
 </td>
 </tr>
 <tr>
@@ -1458,34 +1486,34 @@ a_bm_norm[16]
 a_bm_norm[17]
 </td>
 <td style="text-align:right;">
--8.3947538
+-0.8350260
 </td>
 <td style="text-align:right;">
-0.0762844
+0.0076364
 </td>
 <td style="text-align:right;">
-2.2904871
+0.2334681
 </td>
 <td style="text-align:right;">
--13.1127504
+-1.2874667
 </td>
 <td style="text-align:right;">
--9.8702466
+-0.9917736
 </td>
 <td style="text-align:right;">
--8.3122852
+-0.8379554
 </td>
 <td style="text-align:right;">
--6.8348196
+-0.6810848
 </td>
 <td style="text-align:right;">
--4.0266879
+-0.3605677
 </td>
 <td style="text-align:right;">
-901.5379
+934.7052
 </td>
 <td style="text-align:right;">
-1.0092575
+1.0024115
 </td>
 </tr>
 <tr>
@@ -1493,34 +1521,34 @@ a_bm_norm[17]
 a_bm_norm[18]
 </td>
 <td style="text-align:right;">
-1.9662528
+0.2081051
 </td>
 <td style="text-align:right;">
-0.0643692
+0.0066556
 </td>
 <td style="text-align:right;">
-1.9323805
+0.2005683
 </td>
 <td style="text-align:right;">
--1.9650423
+-0.1665740
 </td>
 <td style="text-align:right;">
-0.7186888
+0.0669625
 </td>
 <td style="text-align:right;">
-1.9915568
+0.2033960
 </td>
 <td style="text-align:right;">
-3.2605817
+0.3401691
 </td>
 <td style="text-align:right;">
-5.7014489
+0.6170056
 </td>
 <td style="text-align:right;">
-901.2164
+908.1384
 </td>
 <td style="text-align:right;">
-1.0045200
+1.0030978
 </td>
 </tr>
 <tr>
@@ -1528,34 +1556,34 @@ a_bm_norm[18]
 a_bm_norm[19]
 </td>
 <td style="text-align:right;">
--5.1319274
+-0.5037260
 </td>
 <td style="text-align:right;">
-0.0718555
+0.0075471
 </td>
 <td style="text-align:right;">
-3.0224655
+0.3074640
 </td>
 <td style="text-align:right;">
--11.5147855
+-1.1386899
 </td>
 <td style="text-align:right;">
--7.0374354
+-0.7012929
 </td>
 <td style="text-align:right;">
--4.9572509
+-0.4932808
 </td>
 <td style="text-align:right;">
--3.0605805
+-0.2909143
 </td>
 <td style="text-align:right;">
-0.3507493
+0.0670852
 </td>
 <td style="text-align:right;">
-1769.3062
+1659.6929
 </td>
 <td style="text-align:right;">
-1.0049483
+1.0021561
 </td>
 </tr>
 <tr>
@@ -1563,34 +1591,34 @@ a_bm_norm[19]
 a_bm_norm[20]
 </td>
 <td style="text-align:right;">
--4.1510092
+-0.4077283
 </td>
 <td style="text-align:right;">
-0.0679660
+0.0070541
 </td>
 <td style="text-align:right;">
-2.1149226
+0.2170846
 </td>
 <td style="text-align:right;">
--8.4905133
+-0.8231301
 </td>
 <td style="text-align:right;">
--5.5208133
+-0.5541845
 </td>
 <td style="text-align:right;">
--4.1004063
+-0.4122319
 </td>
 <td style="text-align:right;">
--2.7190834
+-0.2635899
 </td>
 <td style="text-align:right;">
--0.0952630
+0.0353661
 </td>
 <td style="text-align:right;">
-968.2912
+947.0569
 </td>
 <td style="text-align:right;">
-1.0073867
+1.0032213
 </td>
 </tr>
 <tr>
@@ -1598,34 +1626,34 @@ a_bm_norm[20]
 a_bm_norm[21]
 </td>
 <td style="text-align:right;">
--6.0097069
+-0.5961393
 </td>
 <td style="text-align:right;">
-0.0709157
+0.0071996
 </td>
 <td style="text-align:right;">
-2.1251703
+0.2185068
 </td>
 <td style="text-align:right;">
--10.3425980
+-1.0155647
 </td>
 <td style="text-align:right;">
--7.3809040
+-0.7439766
 </td>
 <td style="text-align:right;">
--5.9256659
+-0.5974407
 </td>
 <td style="text-align:right;">
--4.5776428
+-0.4536867
 </td>
 <td style="text-align:right;">
--1.9232086
+-0.1544017
 </td>
 <td style="text-align:right;">
-898.0553
+921.1054
 </td>
 <td style="text-align:right;">
-1.0085248
+1.0023679
 </td>
 </tr>
 <tr>
@@ -1633,34 +1661,34 @@ a_bm_norm[21]
 a_bm_norm[22]
 </td>
 <td style="text-align:right;">
-8.0958044
+0.8260845
 </td>
 <td style="text-align:right;">
-0.0700051
+0.0069766
 </td>
 <td style="text-align:right;">
-2.2265575
+0.2283002
 </td>
 <td style="text-align:right;">
-3.6424167
+0.3954488
 </td>
 <td style="text-align:right;">
-6.6261168
+0.6672539
 </td>
 <td style="text-align:right;">
-8.1058766
+0.8183983
 </td>
 <td style="text-align:right;">
-9.5767015
+0.9790294
 </td>
 <td style="text-align:right;">
-12.4526855
+1.2938929
 </td>
 <td style="text-align:right;">
-1011.5993
+1070.8364
 </td>
 <td style="text-align:right;">
-1.0015720
+1.0025092
 </td>
 </tr>
 <tr>
@@ -1668,34 +1696,34 @@ a_bm_norm[22]
 a_bm_norm[23]
 </td>
 <td style="text-align:right;">
--5.5358192
+-0.5486623
 </td>
 <td style="text-align:right;">
-0.0701564
+0.0071808
 </td>
 <td style="text-align:right;">
-2.1652251
+0.2228906
 </td>
 <td style="text-align:right;">
--9.9602000
+-0.9827855
 </td>
 <td style="text-align:right;">
--6.9389123
+-0.6989598
 </td>
 <td style="text-align:right;">
--5.4949951
+-0.5537703
 </td>
 <td style="text-align:right;">
--4.0825698
+-0.3993232
 </td>
 <td style="text-align:right;">
--1.4006888
+-0.0914536
 </td>
 <td style="text-align:right;">
-952.5135
+963.4607
 </td>
 <td style="text-align:right;">
-1.0086023
+1.0023567
 </td>
 </tr>
 <tr>
@@ -1703,34 +1731,34 @@ a_bm_norm[23]
 a_bm_norm[24]
 </td>
 <td style="text-align:right;">
-8.4523112
+0.8638508
 </td>
 <td style="text-align:right;">
-0.0708775
+0.0070587
 </td>
 <td style="text-align:right;">
-2.2470266
+0.2284265
 </td>
 <td style="text-align:right;">
-3.9762111
+0.4350897
 </td>
 <td style="text-align:right;">
-6.9469151
+0.7051429
 </td>
 <td style="text-align:right;">
-8.4647626
+0.8585957
 </td>
 <td style="text-align:right;">
-9.9435050
+1.0158818
 </td>
 <td style="text-align:right;">
-12.9039005
+1.3288395
 </td>
 <td style="text-align:right;">
-1005.0774
+1047.2288
 </td>
 <td style="text-align:right;">
-1.0012439
+1.0021541
 </td>
 </tr>
 <tr>
@@ -1738,34 +1766,34 @@ a_bm_norm[24]
 a_bm_norm[25]
 </td>
 <td style="text-align:right;">
--10.5279574
+-1.0517292
 </td>
 <td style="text-align:right;">
-0.0802152
+0.0078211
 </td>
 <td style="text-align:right;">
-2.4963522
+0.2523898
 </td>
 <td style="text-align:right;">
--15.7209550
+-1.5458927
 </td>
 <td style="text-align:right;">
--12.1311350
+-1.2180663
 </td>
 <td style="text-align:right;">
--10.4380456
+-1.0537688
 </td>
 <td style="text-align:right;">
--8.8068753
+-0.8854221
 </td>
 <td style="text-align:right;">
--5.8655591
+-0.5519734
 </td>
 <td style="text-align:right;">
-968.4979
+1041.3668
 </td>
 <td style="text-align:right;">
-1.0096112
+1.0017377
 </td>
 </tr>
 <tr>
@@ -1773,34 +1801,34 @@ a_bm_norm[25]
 a_bm_norm[26]
 </td>
 <td style="text-align:right;">
-21.5078177
+2.1795035
 </td>
 <td style="text-align:right;">
-0.1033759
+0.0093341
 </td>
 <td style="text-align:right;">
-3.5066005
+0.3456007
 </td>
 <td style="text-align:right;">
-14.7823934
+1.5244836
 </td>
 <td style="text-align:right;">
-19.1123022
+1.9441663
 </td>
 <td style="text-align:right;">
-21.4775763
+2.1689410
 </td>
 <td style="text-align:right;">
-23.8859476
+2.4116865
 </td>
 <td style="text-align:right;">
-28.2789321
+2.8699751
 </td>
 <td style="text-align:right;">
-1150.6250
+1370.9012
 </td>
 <td style="text-align:right;">
-1.0011242
+1.0015402
 </td>
 </tr>
 <tr>
@@ -1808,34 +1836,34 @@ a_bm_norm[26]
 a_bm_norm[27]
 </td>
 <td style="text-align:right;">
--3.2335153
+-0.3155189
 </td>
 <td style="text-align:right;">
-0.0673942
+0.0070174
 </td>
 <td style="text-align:right;">
-2.1723149
+0.2250988
 </td>
 <td style="text-align:right;">
--7.7081539
+-0.7440751
 </td>
 <td style="text-align:right;">
--4.6367134
+-0.4691298
 </td>
 <td style="text-align:right;">
--3.1696124
+-0.3204429
 </td>
 <td style="text-align:right;">
--1.7798582
+-0.1644169
 </td>
 <td style="text-align:right;">
-0.9014833
+0.1370003
 </td>
 <td style="text-align:right;">
-1038.9650
+1028.9402
 </td>
 <td style="text-align:right;">
-1.0069983
+1.0024098
 </td>
 </tr>
 <tr>
@@ -1843,34 +1871,34 @@ a_bm_norm[27]
 a_bm_norm[28]
 </td>
 <td style="text-align:right;">
--8.5321269
+-0.8538050
 </td>
 <td style="text-align:right;">
-0.0712292
+0.0074970
 </td>
 <td style="text-align:right;">
-4.1167821
+0.4198744
 </td>
 <td style="text-align:right;">
--17.3364948
+-1.7782993
 </td>
 <td style="text-align:right;">
--11.1489733
+-1.1090358
 </td>
 <td style="text-align:right;">
--8.2104286
+-0.8195746
 </td>
 <td style="text-align:right;">
--5.5897781
+-0.5620716
 </td>
 <td style="text-align:right;">
--1.5108541
+-0.1229214
 </td>
 <td style="text-align:right;">
-3340.4129
+3136.6107
 </td>
 <td style="text-align:right;">
-1.0020824
+0.9999658
 </td>
 </tr>
 <tr>
@@ -1878,34 +1906,34 @@ a_bm_norm[28]
 a_bm_norm[29]
 </td>
 <td style="text-align:right;">
-3.0863179
+0.3213962
 </td>
 <td style="text-align:right;">
-0.0653996
+0.0067173
 </td>
 <td style="text-align:right;">
-2.0160957
+0.2081710
 </td>
 <td style="text-align:right;">
--0.9445710
+-0.0685415
 </td>
 <td style="text-align:right;">
-1.7852036
+0.1780737
 </td>
 <td style="text-align:right;">
-3.0724728
+0.3146147
 </td>
 <td style="text-align:right;">
-4.4343885
+0.4584381
 </td>
 <td style="text-align:right;">
-6.9619422
+0.7477982
 </td>
 <td style="text-align:right;">
-950.3245
+960.3955
 </td>
 <td style="text-align:right;">
-1.0033837
+1.0022376
 </td>
 </tr>
 <tr>
@@ -1913,34 +1941,34 @@ a_bm_norm[29]
 a_bm_norm[30]
 </td>
 <td style="text-align:right;">
-7.8416935
+0.8008738
 </td>
 <td style="text-align:right;">
-0.0702258
+0.0069773
 </td>
 <td style="text-align:right;">
-2.2052631
+0.2245934
 </td>
 <td style="text-align:right;">
-3.4507164
+0.3818617
 </td>
 <td style="text-align:right;">
-6.3697465
+0.6456976
 </td>
 <td style="text-align:right;">
-7.8285057
+0.7942260
 </td>
 <td style="text-align:right;">
-9.3278814
+0.9504745
 </td>
 <td style="text-align:right;">
-12.1223456
+1.2578285
 </td>
 <td style="text-align:right;">
-986.1133
+1036.1382
 </td>
 <td style="text-align:right;">
-1.0018694
+1.0025364
 </td>
 </tr>
 <tr>
@@ -1948,34 +1976,34 @@ a_bm_norm[30]
 s
 </td>
 <td style="text-align:right;">
-0.2467678
+2.4428738
 </td>
 <td style="text-align:right;">
-0.0010139
+0.0081690
 </td>
 <td style="text-align:right;">
-0.0357911
+0.3319133
 </td>
 <td style="text-align:right;">
-0.1900351
+1.8958297
 </td>
 <td style="text-align:right;">
-0.2213592
+2.2045872
 </td>
 <td style="text-align:right;">
-0.2428182
+2.4095331
 </td>
 <td style="text-align:right;">
-0.2673082
+2.6429476
 </td>
 <td style="text-align:right;">
-0.3268829
+3.1826092
 </td>
 <td style="text-align:right;">
-1246.1026
+1650.8714
 </td>
 <td style="text-align:right;">
-1.0043498
+1.0009461
 </td>
 </tr>
 <tr>
@@ -1983,34 +2011,34 @@ s
 lp__
 </td>
 <td style="text-align:right;">
--5469.5295707
+-5467.9684851
 </td>
 <td style="text-align:right;">
-0.1407376
+0.1284895
 </td>
 <td style="text-align:right;">
-5.6774072
+5.5912387
 </td>
 <td style="text-align:right;">
--5481.5884801
+-5479.8300452
 </td>
 <td style="text-align:right;">
--5473.1698647
+-5471.5617575
 </td>
 <td style="text-align:right;">
--5469.2481459
+-5467.6665614
 </td>
 <td style="text-align:right;">
--5465.5160240
+-5464.0459719
 </td>
 <td style="text-align:right;">
--5459.2165106
+-5457.9444212
 </td>
 <td style="text-align:right;">
-1627.3454
+1893.5662
 </td>
 <td style="text-align:right;">
-1.0015679
+1.0007111
 </td>
 </tr>
 </tbody>
@@ -2020,55 +2048,55 @@ lp__
 <h2><span class="header-section-number">5.4</span> Results and Plots</h2>
 <p>First lets get the HPDI of every parameter.</p>
 <p>Then we restrict to the algorithms, them to the slopes, then to the parameter s</p>
-<div class="sourceCode" id="cb68"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb68-1"><a href="time-to-complete.html#cb68-1"></a>hpdi &lt;-<span class="st"> </span><span class="kw">get_HPDI_from_stanfit</span>(timetoconverge_fit)</span>
-<span id="cb68-2"><a href="time-to-complete.html#cb68-2"></a></span>
-<span id="cb68-3"><a href="time-to-complete.html#cb68-3"></a>hpdi_algorithm &lt;-<span class="st"> </span>hpdi <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb68-4"><a href="time-to-complete.html#cb68-4"></a><span class="st">      </span>dplyr<span class="op">::</span><span class="kw">filter</span>(<span class="kw">str_detect</span>(Parameter, <span class="st">&quot;a_alg</span><span class="ch">\\</span><span class="st">[&quot;</span>)) <span class="op">%&gt;%</span></span>
-<span id="cb68-5"><a href="time-to-complete.html#cb68-5"></a><span class="st">      </span>dplyr<span class="op">::</span><span class="kw">mutate</span>(<span class="dt">Parameter=</span>algorithms) <span class="co">#Changing to the algorithms labels</span></span>
-<span id="cb68-6"><a href="time-to-complete.html#cb68-6"></a></span>
-<span id="cb68-7"><a href="time-to-complete.html#cb68-7"></a>hpdi_noise&lt;-<span class="st"> </span>hpdi <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb68-8"><a href="time-to-complete.html#cb68-8"></a><span class="st">      </span>dplyr<span class="op">::</span><span class="kw">filter</span>(<span class="kw">str_detect</span>(Parameter, <span class="st">&quot;b_noise</span><span class="ch">\\</span><span class="st">[&quot;</span>)) <span class="op">%&gt;%</span></span>
-<span id="cb68-9"><a href="time-to-complete.html#cb68-9"></a><span class="st">      </span>dplyr<span class="op">::</span><span class="kw">mutate</span>(<span class="dt">Parameter=</span>algorithms) <span class="co">#Changing to the algorithms labels</span></span>
-<span id="cb68-10"><a href="time-to-complete.html#cb68-10"></a></span>
-<span id="cb68-11"><a href="time-to-complete.html#cb68-11"></a>hpdi_s &lt;-<span class="st"> </span>hpdi <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb68-12"><a href="time-to-complete.html#cb68-12"></a><span class="st">      </span>dplyr<span class="op">::</span><span class="kw">filter</span>(Parameter<span class="op">==</span><span class="st">&#39;s&#39;</span>)</span>
-<span id="cb68-13"><a href="time-to-complete.html#cb68-13"></a></span>
-<span id="cb68-14"><a href="time-to-complete.html#cb68-14"></a></span>
-<span id="cb68-15"><a href="time-to-complete.html#cb68-15"></a>p_alg&lt;-<span class="kw">ggplot</span>(<span class="dt">data=</span>hpdi_algorithm, <span class="kw">aes</span>(<span class="dt">x=</span>Parameter))<span class="op">+</span></span>
-<span id="cb68-16"><a href="time-to-complete.html#cb68-16"></a><span class="st">  </span><span class="kw">geom_pointrange</span>(<span class="kw">aes</span>(</span>
-<span id="cb68-17"><a href="time-to-complete.html#cb68-17"></a>    <span class="dt">ymin=</span>HPDI.lower, </span>
-<span id="cb68-18"><a href="time-to-complete.html#cb68-18"></a>    <span class="dt">ymax=</span>HPDI.higher, </span>
-<span id="cb68-19"><a href="time-to-complete.html#cb68-19"></a>    <span class="dt">y=</span>Mean))<span class="op">+</span></span>
-<span id="cb68-20"><a href="time-to-complete.html#cb68-20"></a><span class="st">  </span><span class="kw">labs</span>(<span class="dt">y=</span><span class="st">&quot;a_alg&quot;</span>, <span class="dt">x=</span><span class="st">&quot;Algorithm&quot;</span>)<span class="op">+</span></span>
-<span id="cb68-21"><a href="time-to-complete.html#cb68-21"></a><span class="st">  </span><span class="kw">coord_flip</span>()</span>
-<span id="cb68-22"><a href="time-to-complete.html#cb68-22"></a>p_alg <span class="op">+</span><span class="st"> </span><span class="kw">plot_annotation</span>(<span class="dt">title =</span> <span class="st">&#39;HPDI interval for the algorithms&#39;</span>)</span></code></pre></div>
-<p><img src="statscomp-appendix_files/figure-html/unnamed-chunk-67-1.png" width="672" style="display: block; margin: auto;" /></p>
-<div class="sourceCode" id="cb69"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb69-1"><a href="time-to-complete.html#cb69-1"></a>p_noise&lt;-<span class="kw">ggplot</span>(<span class="dt">data=</span>hpdi_noise, <span class="kw">aes</span>(<span class="dt">x=</span>Parameter))<span class="op">+</span></span>
-<span id="cb69-2"><a href="time-to-complete.html#cb69-2"></a><span class="st">  </span><span class="kw">geom_pointrange</span>(<span class="kw">aes</span>(</span>
-<span id="cb69-3"><a href="time-to-complete.html#cb69-3"></a>    <span class="dt">ymin=</span>HPDI.lower, </span>
-<span id="cb69-4"><a href="time-to-complete.html#cb69-4"></a>    <span class="dt">ymax=</span>HPDI.higher, </span>
-<span id="cb69-5"><a href="time-to-complete.html#cb69-5"></a>    <span class="dt">y=</span>Mean))<span class="op">+</span></span>
-<span id="cb69-6"><a href="time-to-complete.html#cb69-6"></a><span class="st">  </span><span class="kw">labs</span>(<span class="dt">y=</span><span class="st">&quot;b_noise&quot;</span>, <span class="dt">x=</span><span class="st">&quot;Algorithm&quot;</span>)<span class="op">+</span></span>
-<span id="cb69-7"><a href="time-to-complete.html#cb69-7"></a><span class="st">  </span><span class="kw">coord_flip</span>()</span>
-<span id="cb69-8"><a href="time-to-complete.html#cb69-8"></a>p_noise <span class="op">+</span><span class="st"> </span><span class="kw">plot_annotation</span>(<span class="dt">title =</span> <span class="st">&#39;HPDI interval for noise coefficient&#39;</span>)</span></code></pre></div>
-<p><img src="statscomp-appendix_files/figure-html/unnamed-chunk-67-2.png" width="672" style="display: block; margin: auto;" /></p>
-<div class="sourceCode" id="cb70"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb70-1"><a href="time-to-complete.html#cb70-1"></a>p_s &lt;-<span class="st"> </span><span class="kw">ggplot</span>(<span class="dt">data=</span>hpdi_s, <span class="kw">aes</span>(<span class="dt">x=</span>Parameter))<span class="op">+</span></span>
-<span id="cb70-2"><a href="time-to-complete.html#cb70-2"></a><span class="st">  </span><span class="kw">geom_pointrange</span>(<span class="kw">aes</span>(</span>
-<span id="cb70-3"><a href="time-to-complete.html#cb70-3"></a>    <span class="dt">ymin=</span>HPDI.lower, </span>
-<span id="cb70-4"><a href="time-to-complete.html#cb70-4"></a>    <span class="dt">ymax=</span>HPDI.higher, </span>
-<span id="cb70-5"><a href="time-to-complete.html#cb70-5"></a>    <span class="dt">y=</span>Mean))<span class="op">+</span></span>
-<span id="cb70-6"><a href="time-to-complete.html#cb70-6"></a><span class="st">  </span><span class="kw">labs</span>(<span class="dt">y=</span><span class="st">&quot;Estimate&quot;</span>, <span class="dt">x=</span><span class="st">&quot;Parameter&quot;</span>)<span class="op">+</span></span>
-<span id="cb70-7"><a href="time-to-complete.html#cb70-7"></a><span class="st">  </span><span class="kw">coord_flip</span>()</span>
-<span id="cb70-8"><a href="time-to-complete.html#cb70-8"></a>p_s <span class="op">+</span><span class="st"> </span><span class="kw">plot_annotation</span>(<span class="dt">title =</span> <span class="st">&#39;HPDI interval std of the benchmarks&#39;</span>)</span></code></pre></div>
-<p><img src="statscomp-appendix_files/figure-html/unnamed-chunk-67-3.png" width="672" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb70"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb70-1"><a href="time-to-complete.html#cb70-1"></a>hpdi &lt;-<span class="st"> </span><span class="kw">get_HPDI_from_stanfit</span>(timetoconverge_fit)</span>
+<span id="cb70-2"><a href="time-to-complete.html#cb70-2"></a></span>
+<span id="cb70-3"><a href="time-to-complete.html#cb70-3"></a>hpdi_algorithm &lt;-<span class="st"> </span>hpdi <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb70-4"><a href="time-to-complete.html#cb70-4"></a><span class="st">      </span>dplyr<span class="op">::</span><span class="kw">filter</span>(<span class="kw">str_detect</span>(Parameter, <span class="st">&quot;a_alg</span><span class="ch">\\</span><span class="st">[&quot;</span>)) <span class="op">%&gt;%</span></span>
+<span id="cb70-5"><a href="time-to-complete.html#cb70-5"></a><span class="st">      </span>dplyr<span class="op">::</span><span class="kw">mutate</span>(<span class="dt">Parameter=</span>algorithms) <span class="co">#Changing to the algorithms labels</span></span>
+<span id="cb70-6"><a href="time-to-complete.html#cb70-6"></a></span>
+<span id="cb70-7"><a href="time-to-complete.html#cb70-7"></a>hpdi_noise&lt;-<span class="st"> </span>hpdi <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb70-8"><a href="time-to-complete.html#cb70-8"></a><span class="st">      </span>dplyr<span class="op">::</span><span class="kw">filter</span>(<span class="kw">str_detect</span>(Parameter, <span class="st">&quot;b_noise</span><span class="ch">\\</span><span class="st">[&quot;</span>)) <span class="op">%&gt;%</span></span>
+<span id="cb70-9"><a href="time-to-complete.html#cb70-9"></a><span class="st">      </span>dplyr<span class="op">::</span><span class="kw">mutate</span>(<span class="dt">Parameter=</span>algorithms) <span class="co">#Changing to the algorithms labels</span></span>
+<span id="cb70-10"><a href="time-to-complete.html#cb70-10"></a></span>
+<span id="cb70-11"><a href="time-to-complete.html#cb70-11"></a>hpdi_s &lt;-<span class="st"> </span>hpdi <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb70-12"><a href="time-to-complete.html#cb70-12"></a><span class="st">      </span>dplyr<span class="op">::</span><span class="kw">filter</span>(Parameter<span class="op">==</span><span class="st">&#39;s&#39;</span>)</span>
+<span id="cb70-13"><a href="time-to-complete.html#cb70-13"></a></span>
+<span id="cb70-14"><a href="time-to-complete.html#cb70-14"></a></span>
+<span id="cb70-15"><a href="time-to-complete.html#cb70-15"></a>p_alg&lt;-<span class="kw">ggplot</span>(<span class="dt">data=</span>hpdi_algorithm, <span class="kw">aes</span>(<span class="dt">x=</span>Parameter))<span class="op">+</span></span>
+<span id="cb70-16"><a href="time-to-complete.html#cb70-16"></a><span class="st">  </span><span class="kw">geom_pointrange</span>(<span class="kw">aes</span>(</span>
+<span id="cb70-17"><a href="time-to-complete.html#cb70-17"></a>    <span class="dt">ymin=</span>HPDI.lower, </span>
+<span id="cb70-18"><a href="time-to-complete.html#cb70-18"></a>    <span class="dt">ymax=</span>HPDI.higher, </span>
+<span id="cb70-19"><a href="time-to-complete.html#cb70-19"></a>    <span class="dt">y=</span>Mean))<span class="op">+</span></span>
+<span id="cb70-20"><a href="time-to-complete.html#cb70-20"></a><span class="st">  </span><span class="kw">labs</span>(<span class="dt">y=</span><span class="st">&quot;a_alg&quot;</span>, <span class="dt">x=</span><span class="st">&quot;Algorithm&quot;</span>)<span class="op">+</span></span>
+<span id="cb70-21"><a href="time-to-complete.html#cb70-21"></a><span class="st">  </span><span class="kw">coord_flip</span>()</span>
+<span id="cb70-22"><a href="time-to-complete.html#cb70-22"></a>p_alg <span class="op">+</span><span class="st"> </span><span class="kw">plot_annotation</span>(<span class="dt">title =</span> <span class="st">&#39;HPDI interval for the algorithms&#39;</span>)</span></code></pre></div>
+<p><img src="statscomp-appendix_files/figure-html/unnamed-chunk-145-1.png" width="672" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb71"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb71-1"><a href="time-to-complete.html#cb71-1"></a>p_noise&lt;-<span class="kw">ggplot</span>(<span class="dt">data=</span>hpdi_noise, <span class="kw">aes</span>(<span class="dt">x=</span>Parameter))<span class="op">+</span></span>
+<span id="cb71-2"><a href="time-to-complete.html#cb71-2"></a><span class="st">  </span><span class="kw">geom_pointrange</span>(<span class="kw">aes</span>(</span>
+<span id="cb71-3"><a href="time-to-complete.html#cb71-3"></a>    <span class="dt">ymin=</span>HPDI.lower, </span>
+<span id="cb71-4"><a href="time-to-complete.html#cb71-4"></a>    <span class="dt">ymax=</span>HPDI.higher, </span>
+<span id="cb71-5"><a href="time-to-complete.html#cb71-5"></a>    <span class="dt">y=</span>Mean))<span class="op">+</span></span>
+<span id="cb71-6"><a href="time-to-complete.html#cb71-6"></a><span class="st">  </span><span class="kw">labs</span>(<span class="dt">y=</span><span class="st">&quot;b_noise&quot;</span>, <span class="dt">x=</span><span class="st">&quot;Algorithm&quot;</span>)<span class="op">+</span></span>
+<span id="cb71-7"><a href="time-to-complete.html#cb71-7"></a><span class="st">  </span><span class="kw">coord_flip</span>()</span>
+<span id="cb71-8"><a href="time-to-complete.html#cb71-8"></a>p_noise <span class="op">+</span><span class="st"> </span><span class="kw">plot_annotation</span>(<span class="dt">title =</span> <span class="st">&#39;HPDI interval for noise coefficient&#39;</span>)</span></code></pre></div>
+<p><img src="statscomp-appendix_files/figure-html/unnamed-chunk-145-2.png" width="672" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb72"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb72-1"><a href="time-to-complete.html#cb72-1"></a>p_s &lt;-<span class="st"> </span><span class="kw">ggplot</span>(<span class="dt">data=</span>hpdi_s, <span class="kw">aes</span>(<span class="dt">x=</span>Parameter))<span class="op">+</span></span>
+<span id="cb72-2"><a href="time-to-complete.html#cb72-2"></a><span class="st">  </span><span class="kw">geom_pointrange</span>(<span class="kw">aes</span>(</span>
+<span id="cb72-3"><a href="time-to-complete.html#cb72-3"></a>    <span class="dt">ymin=</span>HPDI.lower, </span>
+<span id="cb72-4"><a href="time-to-complete.html#cb72-4"></a>    <span class="dt">ymax=</span>HPDI.higher, </span>
+<span id="cb72-5"><a href="time-to-complete.html#cb72-5"></a>    <span class="dt">y=</span>Mean))<span class="op">+</span></span>
+<span id="cb72-6"><a href="time-to-complete.html#cb72-6"></a><span class="st">  </span><span class="kw">labs</span>(<span class="dt">y=</span><span class="st">&quot;Estimate of s&quot;</span>, <span class="dt">x=</span><span class="st">&quot;Parameter&quot;</span>)<span class="op">+</span></span>
+<span id="cb72-7"><a href="time-to-complete.html#cb72-7"></a><span class="st">  </span><span class="kw">coord_flip</span>()</span>
+<span id="cb72-8"><a href="time-to-complete.html#cb72-8"></a>p_s <span class="op">+</span><span class="st"> </span><span class="kw">plot_annotation</span>(<span class="dt">title =</span> <span class="st">&#39;HPDI interval std of the benchmarks&#39;</span>)</span></code></pre></div>
+<p><img src="statscomp-appendix_files/figure-html/unnamed-chunk-145-3.png" width="672" style="display: block; margin: auto;" /></p>
 <p>Table for the hazard ratio</p>
-<div class="sourceCode" id="cb71"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb71-1"><a href="time-to-complete.html#cb71-1"></a>hr_table &lt;-<span class="st"> </span><span class="kw">tibble</span>(</span>
-<span id="cb71-2"><a href="time-to-complete.html#cb71-2"></a>  <span class="st">&quot;Algorithm&quot;</span> =<span class="st"> </span>algorithms,</span>
-<span id="cb71-3"><a href="time-to-complete.html#cb71-3"></a>  <span class="st">&quot;Baseline Coefficient&quot;</span> =<span class="st"> </span><span class="kw">exp</span>(hpdi_algorithm<span class="op">$</span>Mean),</span>
-<span id="cb71-4"><a href="time-to-complete.html#cb71-4"></a>  <span class="st">&quot;Noise HR&quot;</span> =<span class="st"> </span><span class="kw">exp</span>(hpdi_noise<span class="op">$</span>Mean))</span>
-<span id="cb71-5"><a href="time-to-complete.html#cb71-5"></a></span>
-<span id="cb71-6"><a href="time-to-complete.html#cb71-6"></a><span class="kw">kable</span>(hr_table, <span class="dt">booktabs=</span>T, <span class="dt">format.args =</span> <span class="kw">list</span>(<span class="dt">scientific =</span> <span class="ot">FALSE</span>), <span class="dt">digits =</span> <span class="dv">3</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb71-7"><a href="time-to-complete.html#cb71-7"></a><span class="st">  </span><span class="kw">kable_styling</span>(<span class="dt">bootstrap_options =</span> <span class="kw">c</span>(<span class="st">&quot;striped&quot;</span>, <span class="st">&quot;hover&quot;</span>, <span class="st">&quot;condensed&quot;</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb73"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb73-1"><a href="time-to-complete.html#cb73-1"></a>hr_table &lt;-<span class="st"> </span><span class="kw">tibble</span>(</span>
+<span id="cb73-2"><a href="time-to-complete.html#cb73-2"></a>  <span class="st">&quot;Algorithm&quot;</span> =<span class="st"> </span>algorithms,</span>
+<span id="cb73-3"><a href="time-to-complete.html#cb73-3"></a>  <span class="st">&quot;Baseline Coefficient&quot;</span> =<span class="st"> </span><span class="kw">exp</span>(hpdi_algorithm<span class="op">$</span>Mean),</span>
+<span id="cb73-4"><a href="time-to-complete.html#cb73-4"></a>  <span class="st">&quot;Noise HR&quot;</span> =<span class="st"> </span><span class="kw">exp</span>(hpdi_noise<span class="op">$</span>Mean))</span>
+<span id="cb73-5"><a href="time-to-complete.html#cb73-5"></a></span>
+<span id="cb73-6"><a href="time-to-complete.html#cb73-6"></a><span class="kw">kable</span>(hr_table, <span class="dt">booktabs=</span>T, <span class="dt">format.args =</span> <span class="kw">list</span>(<span class="dt">scientific =</span> <span class="ot">FALSE</span>), <span class="dt">digits =</span> <span class="dv">3</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb73-7"><a href="time-to-complete.html#cb73-7"></a><span class="st">  </span><span class="kw">kable_styling</span>(<span class="dt">bootstrap_options =</span> <span class="kw">c</span>(<span class="st">&quot;striped&quot;</span>, <span class="st">&quot;hover&quot;</span>, <span class="st">&quot;condensed&quot;</span>))</span></code></pre></div>
 <table class="table table-striped table-hover table-condensed" style="margin-left: auto; margin-right: auto;">
 <thead>
 <tr>
@@ -2092,7 +2120,7 @@ CMAES
 0.006
 </td>
 <td style="text-align:right;">
-0.456
+0.455
 </td>
 </tr>
 <tr>
@@ -2103,7 +2131,7 @@ DifferentialEvolution
 0.002
 </td>
 <td style="text-align:right;">
-0.384
+0.383
 </td>
 </tr>
 <tr>
@@ -2131,9 +2159,9 @@ RandomSearch2
 </tbody>
 </table>
 <p>Creating an output table</p>
-<div class="sourceCode" id="cb72"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb72-1"><a href="time-to-complete.html#cb72-1"></a>rename_pars &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="kw">paste</span>(<span class="kw">rep</span>(<span class="st">&#39;a_&#39;</span>,<span class="kw">length</span>(algorithms)),algorithms, <span class="dt">sep =</span> <span class="st">&quot;&quot;</span>), <span class="kw">paste</span>(<span class="kw">rep</span>(<span class="st">&#39;b_&#39;</span>,<span class="kw">length</span>(algorithms)),algorithms, <span class="dt">sep =</span> <span class="st">&quot;&quot;</span>),<span class="st">&#39;s&#39;</span>)</span>
-<span id="cb72-2"><a href="time-to-complete.html#cb72-2"></a>t&lt;-<span class="kw">create_table_model</span>(timetoconverge_fit, <span class="kw">c</span>(a_alg, b_noise, <span class="st">&#39;s&#39;</span>),rename_pars)</span>
-<span id="cb72-3"><a href="time-to-complete.html#cb72-3"></a><span class="kw">saveRDS</span>(t,<span class="st">&#39;./statscomp-paper/tables/datafortables/timetoconverge-par-table.RDS&#39;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb74"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb74-1"><a href="time-to-complete.html#cb74-1"></a>rename_pars &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="kw">paste</span>(<span class="kw">rep</span>(<span class="st">&#39;a_&#39;</span>,<span class="kw">length</span>(algorithms)),algorithms, <span class="dt">sep =</span> <span class="st">&quot;&quot;</span>), <span class="kw">paste</span>(<span class="kw">rep</span>(<span class="st">&#39;b_&#39;</span>,<span class="kw">length</span>(algorithms)),algorithms, <span class="dt">sep =</span> <span class="st">&quot;&quot;</span>),<span class="st">&#39;s&#39;</span>)</span>
+<span id="cb74-2"><a href="time-to-complete.html#cb74-2"></a>t&lt;-<span class="kw">create_table_model</span>(timetoconverge_fit, <span class="kw">c</span>(a_alg, b_noise, <span class="st">&#39;s&#39;</span>),rename_pars)</span>
+<span id="cb74-3"><a href="time-to-complete.html#cb74-3"></a><span class="kw">saveRDS</span>(t,<span class="st">&#39;./statscomp-paper/tables/datafortables/timetoconverge-par-table.RDS&#39;</span>)</span></code></pre></div>
 
 </div>
 </div>

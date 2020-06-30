@@ -1,8 +1,7 @@
 # Introduction
 
-This document is based on a single dataset. We will ask several possible research questions from this dataset in order to develop and motivate the statistical models of this paper. But first let's explore the dataset and how this data was obtained.
-
-## The simulation
+This document is based on a single dataset available at `./data/statscomp.csv`. 
+With this dataset we ask different research questions that motivates the statistical models developed on the paper. Explanations about the models and how the data was obtained are available in the paper.
 
 ### Exploring the dataset
 
@@ -22,6 +21,35 @@ kable(head(dplyr::select(d,
 ```
 
 
-### Column definitions
+### Column definitions of the dataset
 
-
+* Algorithms: *string* Algorithm used in the optimization
+* CostFunction: *string* Specific cost function used. If the cost function can be instantiated in more than one dimension this name also includes the number of dimensions, e.g. SphereN10 is has the base class Sphere and the N=10 for dimensions. 
+* BestArm: *string*  represents the xalgo obtained at the end of the optimization
+* NumberFunctionEval: *numeric* number of times the functon was evaluated in total
+* EuclideanDistance: *numeric*  ||xalgo - xoptimal||2     
+* TrueRewardDifference: *numeric* falgo - foptimal
+* CumulativeRegret: *numeric* total regret 
+* TimeToComplete: *numeric* time taken to complete the optimization
+* Continuous: *string* function properties from the Jamil and Yang survey 2013         
+* Differentiability: *string* function properties from the Jamil and Yang survey 2013  
+* Separability: *string* function properties from the Jamil and Yang survey 2013           
+* Scalability: *string* function properties from the Jamil and Yang survey 2013       
+* Modality: *string* function properties from the Jamil and Yang survey 2013
+* Ndimension: *numeric* number of dimensions
+* OptimizationSuccessful"
+* BBOB: *boolean* is part of the BBOB 2009 functions?         
+* BaseClass: *string* the benchmark function used. E.g. SphereN10 has the base class Sphere          
+* SD: *numeric* gaussian noise added to the benchmark function
+* MaxFeval: *numeric* maximum number of function evaluations in total
+* MaxFevalPerDimensions: *numeric* maximum number of function evaluations allowed per dimensions
+* FevalPerDimensions: *numeric* number of times the benchmark function was evaluated per dimensions (some algorithms might evaluate a bit less than the maximum)
+* SolveAt1: *boolean* was the problem solved at precision 1  
+* SolveAt1e-1"  *boolean* was the problem solved at precision 1e-1
+* SolveAt1e-3"  *boolean* was the problem solved at precision 1e-3         
+* SolveAt1e-6: *boolean* was the problem solved at precision 1e-6          
+* SolveEarlierAt1: *numeric*    iteration number where converged to the result at precision 1
+* SolveEarlierAt1e-1: *numeric* iteration number where converged to the result at precision 1e-1
+* SolveEarlierAt1e-3: *numeric* iteration number where converged to the result at precision 1e-3
+* SolveEarlierAt1e-6: *numeric* iteration number where converged to the result at precision 1e-6    
+* simNumber: *numeric* number of the repeated measures, in the dataset, every algorithm was evaluated 10 times in each benchmark function in each condition, in this case the number goes from 0 to 9

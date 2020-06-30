@@ -136,15 +136,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#software-environment"><i class="fa fa-check"></i>Software environment</a></li>
 </ul></li>
 <li class="chapter" data-level="1" data-path="introduction.html"><a href="introduction.html"><i class="fa fa-check"></i><b>1</b> Introduction</a><ul>
-<li class="chapter" data-level="1.1" data-path="introduction.html"><a href="introduction.html#the-simulation"><i class="fa fa-check"></i><b>1.1</b> The simulation</a><ul>
-<li class="chapter" data-level="1.1.1" data-path="introduction.html"><a href="introduction.html#exploring-the-dataset"><i class="fa fa-check"></i><b>1.1.1</b> Exploring the dataset</a></li>
-<li class="chapter" data-level="1.1.2" data-path="introduction.html"><a href="introduction.html#column-definitions"><i class="fa fa-check"></i><b>1.1.2</b> Column definitions</a></li>
-</ul></li>
+<li class="chapter" data-level="1.0.1" data-path="introduction.html"><a href="introduction.html#exploring-the-dataset"><i class="fa fa-check"></i><b>1.0.1</b> Exploring the dataset</a></li>
+<li class="chapter" data-level="1.0.2" data-path="introduction.html"><a href="introduction.html#column-definitions-of-the-dataset"><i class="fa fa-check"></i><b>1.0.2</b> Column definitions of the dataset</a></li>
 </ul></li>
 <li class="chapter" data-level="2" data-path="probability-of-success-model.html"><a href="probability-of-success-model.html"><i class="fa fa-check"></i><b>2</b> Probability of success model</a><ul>
 <li class="chapter" data-level="2.1" data-path="probability-of-success-model.html"><a href="probability-of-success-model.html#data-preparation"><i class="fa fa-check"></i><b>2.1</b> Data preparation</a></li>
 <li class="chapter" data-level="2.2" data-path="probability-of-success-model.html"><a href="probability-of-success-model.html#stan-model"><i class="fa fa-check"></i><b>2.2</b> Stan model</a></li>
-<li class="chapter" data-level="2.3" data-path="probability-of-success-model.html"><a href="probability-of-success-model.html#diagnosis"><i class="fa fa-check"></i><b>2.3</b> Diagnosis</a></li>
+<li class="chapter" data-level="2.3" data-path="probability-of-success-model.html"><a href="probability-of-success-model.html#diagnosis"><i class="fa fa-check"></i><b>2.3</b> Diagnosis</a><ul>
+<li class="chapter" data-level="2.3.1" data-path="probability-of-success-model.html"><a href="probability-of-success-model.html#chains-convergence"><i class="fa fa-check"></i><b>2.3.1</b> Chains convergence</a></li>
+</ul></li>
 <li class="chapter" data-level="2.4" data-path="probability-of-success-model.html"><a href="probability-of-success-model.html#results-and-plots"><i class="fa fa-check"></i><b>2.4</b> Results and Plots</a></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="relative-improvement.html"><a href="relative-improvement.html"><i class="fa fa-check"></i><b>3</b> Relative improvement</a><ul>
@@ -171,7 +171,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="6.3" data-path="multiple-group-comparison.html"><a href="multiple-group-comparison.html#diagnosis-4"><i class="fa fa-check"></i><b>6.3</b> Diagnosis</a></li>
 <li class="chapter" data-level="6.4" data-path="multiple-group-comparison.html"><a href="multiple-group-comparison.html#results-and-plots-4"><i class="fa fa-check"></i><b>6.4</b> Results and Plots</a></li>
 </ul></li>
-<li class="chapter" data-level="7" data-path="sensitivity-analysis-and-model-comparison.html"><a href="sensitivity-analysis-and-model-comparison.html"><i class="fa fa-check"></i><b>7</b> Sensitivity analysis and model comparison</a></li>
+<li class="chapter" data-level="7" data-path="sensitivity-analysis-model-comparison-and-posterior-predictive.html"><a href="sensitivity-analysis-model-comparison-and-posterior-predictive.html"><i class="fa fa-check"></i><b>7</b> Sensitivity analysis, model comparison and posterior predictive</a><ul>
+<li class="chapter" data-level="7.1" data-path="sensitivity-analysis-model-comparison-and-posterior-predictive.html"><a href="sensitivity-analysis-model-comparison-and-posterior-predictive.html#compare-models-with-and-without-clustering"><i class="fa fa-check"></i><b>7.1</b> Compare models with and without clustering</a></li>
+<li class="chapter" data-level="7.2" data-path="sensitivity-analysis-model-comparison-and-posterior-predictive.html"><a href="sensitivity-analysis-model-comparison-and-posterior-predictive.html#sensitivity-analysis-of-priors"><i class="fa fa-check"></i><b>7.2</b> Sensitivity analysis of priors</a></li>
+<li class="chapter" data-level="7.3" data-path="sensitivity-analysis-model-comparison-and-posterior-predictive.html"><a href="sensitivity-analysis-model-comparison-and-posterior-predictive.html#posterior-predictive-plots"><i class="fa fa-check"></i><b>7.3</b> Posterior predictive plots</a></li>
+</ul></li>
 </ul>
 
       </nav>
@@ -191,18 +195,17 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
             <section class="normal" id="section-">
 <div id="introduction" class="section level1">
 <h1><span class="header-section-number">Chapter 1</span> Introduction</h1>
-<p>This document is based on a single dataset. We will ask several possible research questions from this dataset in order to develop and motivate the statistical models of this paper. But first let’s explore the dataset and how this data was obtained.</p>
-<div id="the-simulation" class="section level2">
-<h2><span class="header-section-number">1.1</span> The simulation</h2>
+<p>This document is based on a single dataset available at <code>./data/statscomp.csv</code>.
+With this dataset we ask different research questions that motivates the statistical models developed on the paper. Explanations about the models and how the data was obtained are available in the paper.</p>
 <div id="exploring-the-dataset" class="section level3">
-<h3><span class="header-section-number">1.1.1</span> Exploring the dataset</h3>
+<h3><span class="header-section-number">1.0.1</span> Exploring the dataset</h3>
 <p>This dataset follows the principle of tidy data as described in <a href="https://r4ds.had.co.nz/tidy-data.html" class="uri">https://r4ds.had.co.nz/tidy-data.html</a>. The key idea is that every variables has its own column, and every observation has its own unique row. Throughout this document, to facilitate our modeling approach, we will modify this dataset in different ways, often resulting in non-tidy data. However every model will start from the same base tidy dataset.</p>
 <p>This approach will hopefully make it easier for the reader to understand from where we are starting and adopt similar strategies in their own models. Additionally, we recommend, if the reader has the opportunity to influence the data collection process, the choice of tidy data. It is often ideal for exploratory analysis, plotting, is the basis for most models, and easy to transform to be used in different models.</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="introduction.html#cb5-1"></a>d &lt;-<span class="st"> </span>readr<span class="op">::</span><span class="kw">read_csv</span>(<span class="st">&#39;./data/statscomp.csv&#39;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="introduction.html#cb6-1"></a>d &lt;-<span class="st"> </span>readr<span class="op">::</span><span class="kw">read_csv</span>(<span class="st">&#39;./data/statscomp.csv&#39;</span>)</span></code></pre></div>
 <p>Here we are excluding a few columns to simplify our view</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="introduction.html#cb6-1"></a><span class="kw">kable</span>(<span class="kw">head</span>(dplyr<span class="op">::</span><span class="kw">select</span>(d,</span>
-<span id="cb6-2"><a href="introduction.html#cb6-2"></a>                         <span class="op">-</span>BestArm, <span class="op">-</span>Continuous, <span class="op">-</span>Differentiability, <span class="op">-</span>Separability, <span class="op">-</span>Scalability, <span class="op">-</span>Modality,<span class="op">-</span>BBOB,<span class="op">-</span>BaseClass, <span class="op">-</span>MaxFeval, <span class="op">-</span>FevalPerDimensions),</span>
-<span id="cb6-3"><a href="introduction.html#cb6-3"></a>           <span class="dt">n=</span><span class="dv">10</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="introduction.html#cb7-1"></a><span class="kw">kable</span>(<span class="kw">head</span>(dplyr<span class="op">::</span><span class="kw">select</span>(d,</span>
+<span id="cb7-2"><a href="introduction.html#cb7-2"></a>                         <span class="op">-</span>BestArm, <span class="op">-</span>Continuous, <span class="op">-</span>Differentiability, <span class="op">-</span>Separability, <span class="op">-</span>Scalability, <span class="op">-</span>Modality,<span class="op">-</span>BBOB,<span class="op">-</span>BaseClass, <span class="op">-</span>MaxFeval, <span class="op">-</span>FevalPerDimensions),</span>
+<span id="cb7-3"><a href="introduction.html#cb7-3"></a>           <span class="dt">n=</span><span class="dv">10</span>))</span></code></pre></div>
 <table>
 <thead>
 <tr>
@@ -892,10 +895,52 @@ NA
 </tbody>
 </table>
 </div>
-<div id="column-definitions" class="section level3">
-<h3><span class="header-section-number">1.1.2</span> Column definitions</h3>
+<div id="column-definitions-of-the-dataset" class="section level3">
+<h3><span class="header-section-number">1.0.2</span> Column definitions of the dataset</h3>
+<ul>
+<li>Algorithms: <em>string</em> Algorithm used in the optimization</li>
+<li>CostFunction: <em>string</em> Specific cost function used. If the cost function can be instantiated in more than one dimension this name also includes the number of dimensions, e.g. SphereN10 is has the base class Sphere and the N=10 for dimensions.</li>
+<li>BestArm: <em>string</em> represents the xalgo obtained at the end of the optimization</li>
+<li>NumberFunctionEval: <em>numeric</em> number of times the functon was evaluated in total</li>
+<li>EuclideanDistance: <em>numeric</em> ||xalgo - xoptimal||2<br />
+</li>
+<li>TrueRewardDifference: <em>numeric</em> falgo - foptimal</li>
+<li>CumulativeRegret: <em>numeric</em> total regret</li>
+<li>TimeToComplete: <em>numeric</em> time taken to complete the optimization</li>
+<li>Continuous: <em>string</em> function properties from the Jamil and Yang survey 2013<br />
+</li>
+<li>Differentiability: <em>string</em> function properties from the Jamil and Yang survey 2013<br />
+</li>
+<li>Separability: <em>string</em> function properties from the Jamil and Yang survey 2013<br />
+</li>
+<li>Scalability: <em>string</em> function properties from the Jamil and Yang survey 2013<br />
+</li>
+<li>Modality: <em>string</em> function properties from the Jamil and Yang survey 2013</li>
+<li>Ndimension: <em>numeric</em> number of dimensions</li>
+<li>OptimizationSuccessful"</li>
+<li>BBOB: <em>boolean</em> is part of the BBOB 2009 functions?<br />
+</li>
+<li>BaseClass: <em>string</em> the benchmark function used. E.g. SphereN10 has the base class Sphere<br />
+</li>
+<li>SD: <em>numeric</em> gaussian noise added to the benchmark function</li>
+<li>MaxFeval: <em>numeric</em> maximum number of function evaluations in total</li>
+<li>MaxFevalPerDimensions: <em>numeric</em> maximum number of function evaluations allowed per dimensions</li>
+<li>FevalPerDimensions: <em>numeric</em> number of times the benchmark function was evaluated per dimensions (some algorithms might evaluate a bit less than the maximum)</li>
+<li>SolveAt1: <em>boolean</em> was the problem solved at precision 1<br />
+</li>
+<li>SolveAt1e-1" <em>boolean</em> was the problem solved at precision 1e-1</li>
+<li>SolveAt1e-3" <em>boolean</em> was the problem solved at precision 1e-3<br />
+</li>
+<li>SolveAt1e-6: <em>boolean</em> was the problem solved at precision 1e-6<br />
+</li>
+<li>SolveEarlierAt1: <em>numeric</em> iteration number where converged to the result at precision 1</li>
+<li>SolveEarlierAt1e-1: <em>numeric</em> iteration number where converged to the result at precision 1e-1</li>
+<li>SolveEarlierAt1e-3: <em>numeric</em> iteration number where converged to the result at precision 1e-3</li>
+<li>SolveEarlierAt1e-6: <em>numeric</em> iteration number where converged to the result at precision 1e-6<br />
+</li>
+<li>simNumber: <em>numeric</em> number of the repeated measures, in the dataset, every algorithm was evaluated 10 times in each benchmark function in each condition, in this case the number goes from 0 to 9</li>
+</ul>
 
-</div>
 </div>
 </div>
             </section>

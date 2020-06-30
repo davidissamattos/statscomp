@@ -31,7 +31,7 @@
   
   
 <link rel="prev" href="time-to-complete.html"/>
-<link rel="next" href="sensitivity-analysis-and-model-comparison.html"/>
+<link rel="next" href="sensitivity-analysis-model-comparison-and-posterior-predictive.html"/>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -136,15 +136,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#software-environment"><i class="fa fa-check"></i>Software environment</a></li>
 </ul></li>
 <li class="chapter" data-level="1" data-path="introduction.html"><a href="introduction.html"><i class="fa fa-check"></i><b>1</b> Introduction</a><ul>
-<li class="chapter" data-level="1.1" data-path="introduction.html"><a href="introduction.html#the-simulation"><i class="fa fa-check"></i><b>1.1</b> The simulation</a><ul>
-<li class="chapter" data-level="1.1.1" data-path="introduction.html"><a href="introduction.html#exploring-the-dataset"><i class="fa fa-check"></i><b>1.1.1</b> Exploring the dataset</a></li>
-<li class="chapter" data-level="1.1.2" data-path="introduction.html"><a href="introduction.html#column-definitions"><i class="fa fa-check"></i><b>1.1.2</b> Column definitions</a></li>
-</ul></li>
+<li class="chapter" data-level="1.0.1" data-path="introduction.html"><a href="introduction.html#exploring-the-dataset"><i class="fa fa-check"></i><b>1.0.1</b> Exploring the dataset</a></li>
+<li class="chapter" data-level="1.0.2" data-path="introduction.html"><a href="introduction.html#column-definitions-of-the-dataset"><i class="fa fa-check"></i><b>1.0.2</b> Column definitions of the dataset</a></li>
 </ul></li>
 <li class="chapter" data-level="2" data-path="probability-of-success-model.html"><a href="probability-of-success-model.html"><i class="fa fa-check"></i><b>2</b> Probability of success model</a><ul>
 <li class="chapter" data-level="2.1" data-path="probability-of-success-model.html"><a href="probability-of-success-model.html#data-preparation"><i class="fa fa-check"></i><b>2.1</b> Data preparation</a></li>
 <li class="chapter" data-level="2.2" data-path="probability-of-success-model.html"><a href="probability-of-success-model.html#stan-model"><i class="fa fa-check"></i><b>2.2</b> Stan model</a></li>
-<li class="chapter" data-level="2.3" data-path="probability-of-success-model.html"><a href="probability-of-success-model.html#diagnosis"><i class="fa fa-check"></i><b>2.3</b> Diagnosis</a></li>
+<li class="chapter" data-level="2.3" data-path="probability-of-success-model.html"><a href="probability-of-success-model.html#diagnosis"><i class="fa fa-check"></i><b>2.3</b> Diagnosis</a><ul>
+<li class="chapter" data-level="2.3.1" data-path="probability-of-success-model.html"><a href="probability-of-success-model.html#chains-convergence"><i class="fa fa-check"></i><b>2.3.1</b> Chains convergence</a></li>
+</ul></li>
 <li class="chapter" data-level="2.4" data-path="probability-of-success-model.html"><a href="probability-of-success-model.html#results-and-plots"><i class="fa fa-check"></i><b>2.4</b> Results and Plots</a></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="relative-improvement.html"><a href="relative-improvement.html"><i class="fa fa-check"></i><b>3</b> Relative improvement</a><ul>
@@ -171,7 +171,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="6.3" data-path="multiple-group-comparison.html"><a href="multiple-group-comparison.html#diagnosis-4"><i class="fa fa-check"></i><b>6.3</b> Diagnosis</a></li>
 <li class="chapter" data-level="6.4" data-path="multiple-group-comparison.html"><a href="multiple-group-comparison.html#results-and-plots-4"><i class="fa fa-check"></i><b>6.4</b> Results and Plots</a></li>
 </ul></li>
-<li class="chapter" data-level="7" data-path="sensitivity-analysis-and-model-comparison.html"><a href="sensitivity-analysis-and-model-comparison.html"><i class="fa fa-check"></i><b>7</b> Sensitivity analysis and model comparison</a></li>
+<li class="chapter" data-level="7" data-path="sensitivity-analysis-model-comparison-and-posterior-predictive.html"><a href="sensitivity-analysis-model-comparison-and-posterior-predictive.html"><i class="fa fa-check"></i><b>7</b> Sensitivity analysis, model comparison and posterior predictive</a><ul>
+<li class="chapter" data-level="7.1" data-path="sensitivity-analysis-model-comparison-and-posterior-predictive.html"><a href="sensitivity-analysis-model-comparison-and-posterior-predictive.html#compare-models-with-and-without-clustering"><i class="fa fa-check"></i><b>7.1</b> Compare models with and without clustering</a></li>
+<li class="chapter" data-level="7.2" data-path="sensitivity-analysis-model-comparison-and-posterior-predictive.html"><a href="sensitivity-analysis-model-comparison-and-posterior-predictive.html#sensitivity-analysis-of-priors"><i class="fa fa-check"></i><b>7.2</b> Sensitivity analysis of priors</a></li>
+<li class="chapter" data-level="7.3" data-path="sensitivity-analysis-model-comparison-and-posterior-predictive.html"><a href="sensitivity-analysis-model-comparison-and-posterior-predictive.html#posterior-predictive-plots"><i class="fa fa-check"></i><b>7.3</b> Posterior predictive plots</a></li>
+</ul></li>
 </ul>
 
       </nav>
@@ -192,28 +196,29 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="multiple-group-comparison" class="section level1">
 <h1><span class="header-section-number">Chapter 6</span> Multiple-group comparison</h1>
 <p>We present here the Stan version of the BEST (Bayesian Estimation Supersedes the t Test) from John K. Kruschke. We will consider the following research question</p>
-<p><strong>RQ4-a: </strong> What is the average number of function evaluations that it takes for an algorithm to converge to a solution at a precision of <span class="math inline">\(\epsilon=0.1\)</span>, with a budget of 100,000 function evaluations per dimension?</p>
-<p><strong>RQ4-b: </strong> What is the impact of noise in the number of function evaluations that it takes for an algorithm to converge to a solution at a precision of <span class="math inline">\(\epsilon=0.1\)</span>, with a budget of 100,000 function evaluations per dimension?</p>
+<ul>
+<li><strong>RQ5: </strong> Is there a difference in the time taken per function evaluation between the PSO, the RandomSearch1 and the Differential Evolution algorithms?</li>
+</ul>
 <div id="data-preparation-4" class="section level2">
 <h2><span class="header-section-number">6.1</span> Data preparation</h2>
 <p>We start importing the dataset</p>
-<div class="sourceCode" id="cb73"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb73-1"><a href="multiple-group-comparison.html#cb73-1"></a>dataset &lt;-<span class="st"> </span>readr<span class="op">::</span><span class="kw">read_csv</span>(<span class="st">&#39;./data/statscomp.csv&#39;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb75"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb75-1"><a href="multiple-group-comparison.html#cb75-1"></a>dataset &lt;-<span class="st"> </span>readr<span class="op">::</span><span class="kw">read_csv</span>(<span class="st">&#39;./data/statscomp.csv&#39;</span>)</span></code></pre></div>
 <p>Filtering the data that we want and applying some transformations</p>
-<div class="sourceCode" id="cb74"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb74-1"><a href="multiple-group-comparison.html#cb74-1"></a>d &lt;-<span class="st"> </span>dataset <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb74-2"><a href="multiple-group-comparison.html#cb74-2"></a><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">filter</span>(</span>
-<span id="cb74-3"><a href="multiple-group-comparison.html#cb74-3"></a>    OptimizationSuccessful<span class="op">==</span><span class="ot">TRUE</span> <span class="op">&amp;</span></span>
-<span id="cb74-4"><a href="multiple-group-comparison.html#cb74-4"></a><span class="st">    </span>(Algorithm<span class="op">==</span><span class="st">&quot;PSO&quot;</span> <span class="op">|</span><span class="st"> </span>Algorithm<span class="op">==</span><span class="st">&quot;RandomSearch1&quot;</span> <span class="op">|</span><span class="st"> </span>Algorithm<span class="op">==</span><span class="st">&quot;DifferentialEvolution&quot;</span>)) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb74-5"><a href="multiple-group-comparison.html#cb74-5"></a><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">select</span>(Algorithm, CostFunction, TimeToComplete, simNumber, MaxFeval) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb74-6"><a href="multiple-group-comparison.html#cb74-6"></a><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">mutate</span>(<span class="dt">y=</span><span class="dv">10000</span><span class="op">*</span>TimeToComplete<span class="op">/</span>MaxFeval,</span>
-<span id="cb74-7"><a href="multiple-group-comparison.html#cb74-7"></a>                <span class="dt">CostFunctionID=</span><span class="kw">create_index</span>(CostFunction),</span>
-<span id="cb74-8"><a href="multiple-group-comparison.html#cb74-8"></a>                <span class="dt">AlgorithmID=</span><span class="kw">create_index</span>(Algorithm)) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb74-9"><a href="multiple-group-comparison.html#cb74-9"></a><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">select</span>(Algorithm, AlgorithmID, CostFunction, CostFunctionID, y,<span class="op">-</span>simNumber, <span class="op">-</span>MaxFeval)</span>
-<span id="cb74-10"><a href="multiple-group-comparison.html#cb74-10"></a></span>
-<span id="cb74-11"><a href="multiple-group-comparison.html#cb74-11"></a>algorithms&lt;-<span class="kw">get_index_names_as_array</span>(d<span class="op">$</span>Algorithm)</span>
-<span id="cb74-12"><a href="multiple-group-comparison.html#cb74-12"></a>bm &lt;-<span class="st"> </span><span class="kw">get_index_names_as_array</span>(d<span class="op">$</span>CostFunction)</span></code></pre></div>
+<div class="sourceCode" id="cb76"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb76-1"><a href="multiple-group-comparison.html#cb76-1"></a>d &lt;-<span class="st"> </span>dataset <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb76-2"><a href="multiple-group-comparison.html#cb76-2"></a><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">filter</span>(</span>
+<span id="cb76-3"><a href="multiple-group-comparison.html#cb76-3"></a>    OptimizationSuccessful<span class="op">==</span><span class="ot">TRUE</span> <span class="op">&amp;</span></span>
+<span id="cb76-4"><a href="multiple-group-comparison.html#cb76-4"></a><span class="st">    </span>(Algorithm<span class="op">==</span><span class="st">&quot;PSO&quot;</span> <span class="op">|</span><span class="st"> </span>Algorithm<span class="op">==</span><span class="st">&quot;RandomSearch1&quot;</span> <span class="op">|</span><span class="st"> </span>Algorithm<span class="op">==</span><span class="st">&quot;DifferentialEvolution&quot;</span>)) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb76-5"><a href="multiple-group-comparison.html#cb76-5"></a><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">select</span>(Algorithm, CostFunction, TimeToComplete, simNumber, MaxFeval) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb76-6"><a href="multiple-group-comparison.html#cb76-6"></a><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">mutate</span>(<span class="dt">y=</span><span class="dv">10000</span><span class="op">*</span>TimeToComplete<span class="op">/</span>MaxFeval,</span>
+<span id="cb76-7"><a href="multiple-group-comparison.html#cb76-7"></a>                <span class="dt">CostFunctionID=</span><span class="kw">create_index</span>(CostFunction),</span>
+<span id="cb76-8"><a href="multiple-group-comparison.html#cb76-8"></a>                <span class="dt">AlgorithmID=</span><span class="kw">create_index</span>(Algorithm)) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb76-9"><a href="multiple-group-comparison.html#cb76-9"></a><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">select</span>(Algorithm, AlgorithmID, CostFunction, CostFunctionID, y,<span class="op">-</span>simNumber, <span class="op">-</span>MaxFeval)</span>
+<span id="cb76-10"><a href="multiple-group-comparison.html#cb76-10"></a></span>
+<span id="cb76-11"><a href="multiple-group-comparison.html#cb76-11"></a>algorithms&lt;-<span class="kw">get_index_names_as_array</span>(d<span class="op">$</span>Algorithm)</span>
+<span id="cb76-12"><a href="multiple-group-comparison.html#cb76-12"></a>bm &lt;-<span class="st"> </span><span class="kw">get_index_names_as_array</span>(d<span class="op">$</span>CostFunction)</span></code></pre></div>
 <p>The data should look like this:</p>
-<div class="sourceCode" id="cb75"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb75-1"><a href="multiple-group-comparison.html#cb75-1"></a><span class="kw">kable</span>(dplyr<span class="op">::</span><span class="kw">sample_n</span>(d,<span class="dt">size=</span><span class="dv">10</span>), <span class="st">&quot;html&quot;</span>,<span class="dt">booktabs=</span>T, <span class="dt">format.args =</span> <span class="kw">list</span>(<span class="dt">scientific =</span> <span class="ot">FALSE</span>), <span class="dt">digits =</span> <span class="dv">3</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb75-2"><a href="multiple-group-comparison.html#cb75-2"></a><span class="st">  </span><span class="kw">kable_styling</span>(<span class="dt">bootstrap_options =</span> <span class="kw">c</span>(<span class="st">&quot;striped&quot;</span>, <span class="st">&quot;hover&quot;</span>, <span class="st">&quot;condensed&quot;</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb77"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb77-1"><a href="multiple-group-comparison.html#cb77-1"></a><span class="kw">kable</span>(dplyr<span class="op">::</span><span class="kw">sample_n</span>(d,<span class="dt">size=</span><span class="dv">10</span>), <span class="st">&quot;html&quot;</span>,<span class="dt">booktabs=</span>T, <span class="dt">format.args =</span> <span class="kw">list</span>(<span class="dt">scientific =</span> <span class="ot">FALSE</span>), <span class="dt">digits =</span> <span class="dv">3</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb77-2"><a href="multiple-group-comparison.html#cb77-2"></a><span class="st">  </span><span class="kw">kable_styling</span>(<span class="dt">bootstrap_options =</span> <span class="kw">c</span>(<span class="st">&quot;striped&quot;</span>, <span class="st">&quot;hover&quot;</span>, <span class="st">&quot;condensed&quot;</span>))</span></code></pre></div>
 <table class="table table-striped table-hover table-condensed" style="margin-left: auto; margin-right: auto;">
 <thead>
 <tr>
@@ -237,19 +242,104 @@ y
 <tbody>
 <tr>
 <td style="text-align:left;">
+DifferentialEvolution
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:left;">
+QingN2
+</td>
+<td style="text-align:right;">
+13
+</td>
+<td style="text-align:right;">
+1.526
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
 PSO
 </td>
 <td style="text-align:right;">
 2
 </td>
 <td style="text-align:left;">
-LunacekBiRastriginN6
+PinterN6
 </td>
 <td style="text-align:right;">
-9
+11
 </td>
 <td style="text-align:right;">
-1.137
+0.778
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+PSO
+</td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:left;">
+Shubert
+</td>
+<td style="text-align:right;">
+21
+</td>
+<td style="text-align:right;">
+0.557
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+PSO
+</td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:left;">
+Trigonometric1N6
+</td>
+<td style="text-align:right;">
+26
+</td>
+<td style="text-align:right;">
+0.622
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+PSO
+</td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:left;">
+ExponentialN2
+</td>
+<td style="text-align:right;">
+7
+</td>
+<td style="text-align:right;">
+0.368
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+PSO
+</td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:left;">
+ZakharovN2
+</td>
+<td style="text-align:right;">
+30
+</td>
+<td style="text-align:right;">
+0.553
 </td>
 </tr>
 <tr>
@@ -260,47 +350,13 @@ RandomSearch1
 3
 </td>
 <td style="text-align:left;">
-StrechedVSineWave2N
+ExponentialN2
 </td>
 <td style="text-align:right;">
-23
+7
 </td>
 <td style="text-align:right;">
-0.232
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-RandomSearch1
-</td>
-<td style="text-align:right;">
-3
-</td>
-<td style="text-align:left;">
-WhitleyN6
-</td>
-<td style="text-align:right;">
-28
-</td>
-<td style="text-align:right;">
-1.636
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-RandomSearch1
-</td>
-<td style="text-align:right;">
-3
-</td>
-<td style="text-align:left;">
-StrechedVSineWave2N
-</td>
-<td style="text-align:right;">
-23
-</td>
-<td style="text-align:right;">
-0.221
+0.295
 </td>
 </tr>
 <tr>
@@ -311,13 +367,13 @@ DifferentialEvolution
 1
 </td>
 <td style="text-align:left;">
-ChenBird
+ZakharovN2
 </td>
 <td style="text-align:right;">
-2
+30
 </td>
 <td style="text-align:right;">
-1.680
+1.838
 </td>
 </tr>
 <tr>
@@ -328,72 +384,21 @@ PSO
 2
 </td>
 <td style="text-align:left;">
-ChenBird
+ExponentialN2
 </td>
 <td style="text-align:right;">
-2
+7
 </td>
 <td style="text-align:right;">
-0.508
+0.487
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-RandomSearch1
+DifferentialEvolution
 </td>
 <td style="text-align:right;">
-3
-</td>
-<td style="text-align:left;">
-Schwefel2d26N6
-</td>
-<td style="text-align:right;">
-19
-</td>
-<td style="text-align:right;">
-0.437
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-PSO
-</td>
-<td style="text-align:right;">
-2
-</td>
-<td style="text-align:left;">
-Schwefel2d23N6
-</td>
-<td style="text-align:right;">
-18
-</td>
-<td style="text-align:right;">
-0.465
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-PSO
-</td>
-<td style="text-align:right;">
-2
-</td>
-<td style="text-align:left;">
-RosenbrockRotatedN6
-</td>
-<td style="text-align:right;">
-14
-</td>
-<td style="text-align:right;">
-1.058
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-RandomSearch1
-</td>
-<td style="text-align:right;">
-3
+1
 </td>
 <td style="text-align:left;">
 Schwefel2d21N6
@@ -402,30 +407,30 @@ Schwefel2d21N6
 17
 </td>
 <td style="text-align:right;">
-0.350
+1.683
 </td>
 </tr>
 </tbody>
 </table>
 <p>Some initial visualizations in terms of box-plots</p>
-<div class="sourceCode" id="cb76"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb76-1"><a href="multiple-group-comparison.html#cb76-1"></a>p1&lt;-<span class="kw">ggplot</span>(d) <span class="op">+</span></span>
-<span id="cb76-2"><a href="multiple-group-comparison.html#cb76-2"></a><span class="st">  </span><span class="kw">geom_boxplot</span>(<span class="kw">aes</span>(<span class="dt">x=</span>Algorithm, <span class="dt">y=</span>y))<span class="op">+</span></span>
-<span id="cb76-3"><a href="multiple-group-comparison.html#cb76-3"></a><span class="st">  </span><span class="kw">labs</span>(<span class="dt">y=</span><span class="st">&quot;Time to complete x10,000&quot;</span>)</span>
-<span id="cb76-4"><a href="multiple-group-comparison.html#cb76-4"></a>p1 <span class="op">+</span><span class="st"> </span><span class="kw">plot_annotation</span>(<span class="dt">title =</span><span class="st">&quot;Box-plot of the time per evaluation&quot;</span>)</span></code></pre></div>
-<p><img src="statscomp-appendix_files/figure-html/unnamed-chunk-76-1.png" width="672" style="display: block; margin: auto;" /></p>
-<div class="sourceCode" id="cb77"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb77-1"><a href="multiple-group-comparison.html#cb77-1"></a>lmfit &lt;-<span class="st"> </span><span class="kw">lm</span>(y<span class="op">~</span>Algorithm, <span class="dt">data=</span>d)</span>
-<span id="cb77-2"><a href="multiple-group-comparison.html#cb77-2"></a></span>
-<span id="cb77-3"><a href="multiple-group-comparison.html#cb77-3"></a>p2&lt;-<span class="kw">ggplot</span>()<span class="op">+</span></span>
-<span id="cb77-4"><a href="multiple-group-comparison.html#cb77-4"></a><span class="st">  </span><span class="kw">geom_qq</span>(<span class="kw">aes</span>(<span class="dt">sample=</span>lmfit<span class="op">$</span>residuals))<span class="op">+</span></span>
-<span id="cb77-5"><a href="multiple-group-comparison.html#cb77-5"></a><span class="st">  </span><span class="kw">geom_qq_line</span>(<span class="kw">aes</span>(<span class="dt">sample=</span>lmfit<span class="op">$</span>residuals))<span class="op">+</span></span>
-<span id="cb77-6"><a href="multiple-group-comparison.html#cb77-6"></a><span class="st">  </span><span class="kw">labs</span>(<span class="dt">x=</span><span class="st">&quot;Standard normal quantiles&quot;</span>, <span class="dt">y=</span><span class="st">&quot;Sample quantiles&quot;</span>)</span>
-<span id="cb77-7"><a href="multiple-group-comparison.html#cb77-7"></a>p2 <span class="op">+</span><span class="st"> </span><span class="kw">plot_annotation</span>(<span class="dt">title =</span> <span class="st">&quot;Q-Q plot for normality analysis&quot;</span>)</span></code></pre></div>
-<p><img src="statscomp-appendix_files/figure-html/unnamed-chunk-76-2.png" width="672" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb78"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb78-1"><a href="multiple-group-comparison.html#cb78-1"></a>p1&lt;-<span class="kw">ggplot</span>(d) <span class="op">+</span></span>
+<span id="cb78-2"><a href="multiple-group-comparison.html#cb78-2"></a><span class="st">  </span><span class="kw">geom_boxplot</span>(<span class="kw">aes</span>(<span class="dt">x=</span>Algorithm, <span class="dt">y=</span>y))<span class="op">+</span></span>
+<span id="cb78-3"><a href="multiple-group-comparison.html#cb78-3"></a><span class="st">  </span><span class="kw">labs</span>(<span class="dt">y=</span><span class="st">&quot;Time to complete x10,000&quot;</span>)</span>
+<span id="cb78-4"><a href="multiple-group-comparison.html#cb78-4"></a>p1 <span class="op">+</span><span class="st"> </span><span class="kw">plot_annotation</span>(<span class="dt">title =</span><span class="st">&quot;Box-plot of the time per evaluation&quot;</span>)</span></code></pre></div>
+<p><img src="statscomp-appendix_files/figure-html/unnamed-chunk-154-1.png" width="672" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb79"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb79-1"><a href="multiple-group-comparison.html#cb79-1"></a>lmfit &lt;-<span class="st"> </span><span class="kw">lm</span>(y<span class="op">~</span>Algorithm, <span class="dt">data=</span>d)</span>
+<span id="cb79-2"><a href="multiple-group-comparison.html#cb79-2"></a></span>
+<span id="cb79-3"><a href="multiple-group-comparison.html#cb79-3"></a>p2&lt;-<span class="kw">ggplot</span>()<span class="op">+</span></span>
+<span id="cb79-4"><a href="multiple-group-comparison.html#cb79-4"></a><span class="st">  </span><span class="kw">geom_qq</span>(<span class="kw">aes</span>(<span class="dt">sample=</span>lmfit<span class="op">$</span>residuals))<span class="op">+</span></span>
+<span id="cb79-5"><a href="multiple-group-comparison.html#cb79-5"></a><span class="st">  </span><span class="kw">geom_qq_line</span>(<span class="kw">aes</span>(<span class="dt">sample=</span>lmfit<span class="op">$</span>residuals))<span class="op">+</span></span>
+<span id="cb79-6"><a href="multiple-group-comparison.html#cb79-6"></a><span class="st">  </span><span class="kw">labs</span>(<span class="dt">x=</span><span class="st">&quot;Standard normal quantiles&quot;</span>, <span class="dt">y=</span><span class="st">&quot;Sample quantiles&quot;</span>)</span>
+<span id="cb79-7"><a href="multiple-group-comparison.html#cb79-7"></a>p2 <span class="op">+</span><span class="st"> </span><span class="kw">plot_annotation</span>(<span class="dt">title =</span> <span class="st">&quot;Q-Q plot for normality analysis&quot;</span>)</span></code></pre></div>
+<p><img src="statscomp-appendix_files/figure-html/unnamed-chunk-154-2.png" width="672" style="display: block; margin: auto;" /></p>
 </div>
 <div id="stan-model-4" class="section level2">
 <h2><span class="header-section-number">6.2</span> Stan model</h2>
-<p>The Stan model is specified in the file: <code>'./stanmodels/multiplegroups.stan'</code></p>
-<div class="sourceCode" id="cb78"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb78-1"><a href="multiple-group-comparison.html#cb78-1"></a><span class="kw">print_stan_code</span>(<span class="st">&#39;./stanmodels/multiplegroups.stan&#39;</span>)</span></code></pre></div>
+<p>The Stan model is specified in the file: <code>'./stanmodels/multiplegroups.stan'</code>. Note that at the end of the model we commented the generated quantities. This block generates the predictive posterior y_rep and the log likelihood, log_lik. These values are useful in diagnosing and validating the model but the end file is extremely large (~1Gb for 2000 iterations) and make many of the following calculations slow. If the reader wants to see these values is just to uncomment and run the stan model again.</p>
+<div class="sourceCode" id="cb80"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb80-1"><a href="multiple-group-comparison.html#cb80-1"></a><span class="kw">print_stan_code</span>(<span class="st">&#39;./stanmodels/multiplegroups.stan&#39;</span>)</span></code></pre></div>
 <pre><code>// Multiple group comparison
 // Author: David Issa Mattos
 // Date: 23 June 2020
@@ -480,47 +485,63 @@ model {
   }
   
   y ~ student_t(nu, mu, sigma_i);
-}</code></pre>
+}
+
+//Uncoment this part to get the posterior predictives and the log likelihood
+//But note that it takes a lot of space in the final model
+// generated quantities{
+//   vector [N_total] y_rep;
+//   vector[N_total] log_lik;
+//   for (i in 1:N_total){
+//     real mu;
+//     real sigma_i;
+//     mu = a_alg[algorithm_id[i]] + a_bm_norm[bm_id[i]]*s;
+//     sigma_i = sigma[algorithm_id[i]];
+//     y_rep[i] = student_t_rng(nu,mu,sigma_i);
+//     
+//     //Log likelihood
+//     log_lik[i] = student_t_lpdf(y[i] | nu,mu,sigma_i);
+//     
+//   }
+// }</code></pre>
 <p>Let’s compile and start sampling with the Stan function. In the data folder you can find the specific data used to fit the model after all transformations <code>"./data/multiplegroup-data.RDS"</code></p>
-<div class="sourceCode" id="cb80"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb80-1"><a href="multiple-group-comparison.html#cb80-1"></a>standata &lt;-<span class="st"> </span><span class="kw">list</span>(</span>
-<span id="cb80-2"><a href="multiple-group-comparison.html#cb80-2"></a>  <span class="dt">N_total=</span><span class="kw">nrow</span>(d),</span>
-<span id="cb80-3"><a href="multiple-group-comparison.html#cb80-3"></a>  <span class="dt">y =</span> d<span class="op">$</span>y,</span>
-<span id="cb80-4"><a href="multiple-group-comparison.html#cb80-4"></a>  <span class="dt">N_algorithm =</span> <span class="kw">length</span>(algorithms),</span>
-<span id="cb80-5"><a href="multiple-group-comparison.html#cb80-5"></a>  <span class="dt">algorithm_id =</span> d<span class="op">$</span>AlgorithmID,</span>
-<span id="cb80-6"><a href="multiple-group-comparison.html#cb80-6"></a>  <span class="dt">N_bm =</span> <span class="kw">length</span>(bm),</span>
-<span id="cb80-7"><a href="multiple-group-comparison.html#cb80-7"></a>  <span class="dt">bm_id =</span> d<span class="op">$</span>CostFunctionID</span>
-<span id="cb80-8"><a href="multiple-group-comparison.html#cb80-8"></a>  )</span>
-<span id="cb80-9"><a href="multiple-group-comparison.html#cb80-9"></a><span class="kw">saveRDS</span>(standata, <span class="dt">file =</span> <span class="st">&quot;./data/multiplegroups-data.RDS&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb82"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb82-1"><a href="multiple-group-comparison.html#cb82-1"></a>standata &lt;-<span class="st"> </span><span class="kw">list</span>(</span>
+<span id="cb82-2"><a href="multiple-group-comparison.html#cb82-2"></a>  <span class="dt">N_total=</span><span class="kw">nrow</span>(d),</span>
+<span id="cb82-3"><a href="multiple-group-comparison.html#cb82-3"></a>  <span class="dt">y =</span> d<span class="op">$</span>y,</span>
+<span id="cb82-4"><a href="multiple-group-comparison.html#cb82-4"></a>  <span class="dt">N_algorithm =</span> <span class="kw">length</span>(algorithms),</span>
+<span id="cb82-5"><a href="multiple-group-comparison.html#cb82-5"></a>  <span class="dt">algorithm_id =</span> d<span class="op">$</span>AlgorithmID,</span>
+<span id="cb82-6"><a href="multiple-group-comparison.html#cb82-6"></a>  <span class="dt">N_bm =</span> <span class="kw">length</span>(bm),</span>
+<span id="cb82-7"><a href="multiple-group-comparison.html#cb82-7"></a>  <span class="dt">bm_id =</span> d<span class="op">$</span>CostFunctionID</span>
+<span id="cb82-8"><a href="multiple-group-comparison.html#cb82-8"></a>  )</span>
+<span id="cb82-9"><a href="multiple-group-comparison.html#cb82-9"></a><span class="kw">saveRDS</span>(standata, <span class="dt">file =</span> <span class="st">&quot;./data/multiplegroups-data.RDS&quot;</span>)</span></code></pre></div>
 <p>For computation time sake we are not running this chunk every time we compile this document. From now on we will load from the saved Stan fit object. However, when we change our model or the data we can just run this chunk separately. Here we increased the maxtreedepth and the number of iterations so we have a higher effective sample for inference. Both of these do not impact the validity of the chain just the computation efficiency.</p>
-<div class="sourceCode" id="cb81"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb81-1"><a href="multiple-group-comparison.html#cb81-1"></a>standata&lt;-<span class="kw">readRDS</span>(<span class="st">&quot;./data/multiplegroups-data.RDS&quot;</span>)</span>
-<span id="cb81-2"><a href="multiple-group-comparison.html#cb81-2"></a>multiplegroup_fit &lt;-<span class="st"> </span><span class="kw">stan</span>(<span class="dt">file =</span> <span class="st">&#39;./stanmodels/multiplegroups.stan&#39;</span>,</span>
-<span id="cb81-3"><a href="multiple-group-comparison.html#cb81-3"></a>                     <span class="dt">data=</span>standata,</span>
-<span id="cb81-4"><a href="multiple-group-comparison.html#cb81-4"></a>                     <span class="dt">chains =</span> <span class="dv">4</span>,</span>
-<span id="cb81-5"><a href="multiple-group-comparison.html#cb81-5"></a>                     <span class="dt">warmup =</span> <span class="dv">400</span>,</span>
-<span id="cb81-6"><a href="multiple-group-comparison.html#cb81-6"></a>                     <span class="dt">iter =</span> <span class="dv">4000</span>,</span>
-<span id="cb81-7"><a href="multiple-group-comparison.html#cb81-7"></a>                     <span class="co"># include = T,</span></span>
-<span id="cb81-8"><a href="multiple-group-comparison.html#cb81-8"></a>                     <span class="co"># sample_file = &quot;./stanmodels/multiplegroups.csv&quot;</span></span>
-<span id="cb81-9"><a href="multiple-group-comparison.html#cb81-9"></a>                     <span class="dt">control =</span> <span class="kw">list</span>(<span class="dt">max_treedepth =</span> <span class="dv">15</span>))</span>
-<span id="cb81-10"><a href="multiple-group-comparison.html#cb81-10"></a><span class="kw">saveRDS</span>(multiplegroup_fit, <span class="dt">file =</span> <span class="st">&quot;./data/multiplegroups-fit.RDS&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb83"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb83-1"><a href="multiple-group-comparison.html#cb83-1"></a>standata&lt;-<span class="kw">readRDS</span>(<span class="st">&quot;./data/multiplegroups-data.RDS&quot;</span>)</span>
+<span id="cb83-2"><a href="multiple-group-comparison.html#cb83-2"></a>multiplegroup_fit &lt;-<span class="st"> </span><span class="kw">stan</span>(<span class="dt">file =</span> <span class="st">&#39;./stanmodels/multiplegroups.stan&#39;</span>,</span>
+<span id="cb83-3"><a href="multiple-group-comparison.html#cb83-3"></a>                     <span class="dt">data=</span>standata,</span>
+<span id="cb83-4"><a href="multiple-group-comparison.html#cb83-4"></a>                     <span class="dt">chains =</span> <span class="dv">4</span>,</span>
+<span id="cb83-5"><a href="multiple-group-comparison.html#cb83-5"></a>                     <span class="dt">warmup =</span> <span class="dv">400</span>,</span>
+<span id="cb83-6"><a href="multiple-group-comparison.html#cb83-6"></a>                     <span class="dt">iter =</span> <span class="dv">4000</span>,</span>
+<span id="cb83-7"><a href="multiple-group-comparison.html#cb83-7"></a>                     <span class="dt">control =</span> <span class="kw">list</span>(<span class="dt">max_treedepth =</span> <span class="dv">15</span>))</span>
+<span id="cb83-8"><a href="multiple-group-comparison.html#cb83-8"></a><span class="kw">saveRDS</span>(multiplegroup_fit, <span class="dt">file =</span> <span class="st">&quot;./data/multiplegroups-fit.RDS&quot;</span>)</span></code></pre></div>
 </div>
 <div id="diagnosis-4" class="section level2">
 <h2><span class="header-section-number">6.3</span> Diagnosis</h2>
-<div class="sourceCode" id="cb82"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb82-1"><a href="multiple-group-comparison.html#cb82-1"></a>a_alg_v &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;a_alg[1]&quot;</span>,</span>
-<span id="cb82-2"><a href="multiple-group-comparison.html#cb82-2"></a>           <span class="st">&quot;a_alg[2]&quot;</span>,</span>
-<span id="cb82-3"><a href="multiple-group-comparison.html#cb82-3"></a>           <span class="st">&quot;a_alg[3]&quot;</span>)</span>
-<span id="cb82-4"><a href="multiple-group-comparison.html#cb82-4"></a></span>
-<span id="cb82-5"><a href="multiple-group-comparison.html#cb82-5"></a>sigma_v &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;sigma[1]&quot;</span>,</span>
-<span id="cb82-6"><a href="multiple-group-comparison.html#cb82-6"></a>           <span class="st">&quot;sigma[2]&quot;</span>,</span>
-<span id="cb82-7"><a href="multiple-group-comparison.html#cb82-7"></a>           <span class="st">&quot;sigma[3]&quot;</span>)</span>
-<span id="cb82-8"><a href="multiple-group-comparison.html#cb82-8"></a>rstan<span class="op">::</span><span class="kw">traceplot</span>(multiplegroup_fit, <span class="dt">pars=</span>a_alg_v)</span></code></pre></div>
-<p><img src="statscomp-appendix_files/figure-html/unnamed-chunk-82-1.png" width="672" style="display: block; margin: auto;" /></p>
-<div class="sourceCode" id="cb83"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb83-1"><a href="multiple-group-comparison.html#cb83-1"></a>rstan<span class="op">::</span><span class="kw">traceplot</span>(multiplegroup_fit, <span class="dt">pars=</span>sigma_v)</span></code></pre></div>
-<p><img src="statscomp-appendix_files/figure-html/unnamed-chunk-82-2.png" width="672" style="display: block; margin: auto;" /></p>
-<div class="sourceCode" id="cb84"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb84-1"><a href="multiple-group-comparison.html#cb84-1"></a>rstan<span class="op">::</span><span class="kw">traceplot</span>(multiplegroup_fit, <span class="dt">pars=</span><span class="kw">c</span>(<span class="st">&#39;s&#39;</span>, <span class="st">&#39;nu&#39;</span>))</span></code></pre></div>
-<p><img src="statscomp-appendix_files/figure-html/unnamed-chunk-82-3.png" width="672" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb84"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb84-1"><a href="multiple-group-comparison.html#cb84-1"></a>a_alg_v &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;a_alg[1]&quot;</span>,</span>
+<span id="cb84-2"><a href="multiple-group-comparison.html#cb84-2"></a>           <span class="st">&quot;a_alg[2]&quot;</span>,</span>
+<span id="cb84-3"><a href="multiple-group-comparison.html#cb84-3"></a>           <span class="st">&quot;a_alg[3]&quot;</span>)</span>
+<span id="cb84-4"><a href="multiple-group-comparison.html#cb84-4"></a></span>
+<span id="cb84-5"><a href="multiple-group-comparison.html#cb84-5"></a>sigma_v &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;sigma[1]&quot;</span>,</span>
+<span id="cb84-6"><a href="multiple-group-comparison.html#cb84-6"></a>           <span class="st">&quot;sigma[2]&quot;</span>,</span>
+<span id="cb84-7"><a href="multiple-group-comparison.html#cb84-7"></a>           <span class="st">&quot;sigma[3]&quot;</span>)</span>
+<span id="cb84-8"><a href="multiple-group-comparison.html#cb84-8"></a>rstan<span class="op">::</span><span class="kw">traceplot</span>(multiplegroup_fit, <span class="dt">pars=</span>a_alg_v)</span></code></pre></div>
+<p><img src="statscomp-appendix_files/figure-html/unnamed-chunk-160-1.png" width="672" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb85"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb85-1"><a href="multiple-group-comparison.html#cb85-1"></a>rstan<span class="op">::</span><span class="kw">traceplot</span>(multiplegroup_fit, <span class="dt">pars=</span>sigma_v)</span></code></pre></div>
+<p><img src="statscomp-appendix_files/figure-html/unnamed-chunk-160-2.png" width="672" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb86"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb86-1"><a href="multiple-group-comparison.html#cb86-1"></a>rstan<span class="op">::</span><span class="kw">traceplot</span>(multiplegroup_fit, <span class="dt">pars=</span><span class="kw">c</span>(<span class="st">&#39;s&#39;</span>, <span class="st">&#39;nu&#39;</span>))</span></code></pre></div>
+<p><img src="statscomp-appendix_files/figure-html/unnamed-chunk-160-3.png" width="672" style="display: block; margin: auto;" /></p>
 <p>Another diagnosis is to look at the Rhat. If Rhat is greater than 1.05 it indicates a divergence in the chains (they did not mix well). The table below shows a summary of the sampling.</p>
-<div class="sourceCode" id="cb85"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb85-1"><a href="multiple-group-comparison.html#cb85-1"></a><span class="kw">kable</span>(<span class="kw">summary</span>(multiplegroup_fit)<span class="op">$</span>summary, <span class="st">&quot;html&quot;</span>,) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb85-2"><a href="multiple-group-comparison.html#cb85-2"></a><span class="st">  </span><span class="kw">kable_styling</span>(<span class="dt">bootstrap_options =</span> <span class="kw">c</span>(<span class="st">&#39;striped&#39;</span>,<span class="st">&quot;hover&quot;</span>, <span class="st">&quot;condensed&quot;</span> ))</span></code></pre></div>
+<div class="sourceCode" id="cb87"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb87-1"><a href="multiple-group-comparison.html#cb87-1"></a><span class="kw">kable</span>(<span class="kw">summary</span>(multiplegroup_fit)<span class="op">$</span>summary, <span class="st">&quot;html&quot;</span>,) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb87-2"><a href="multiple-group-comparison.html#cb87-2"></a><span class="st">  </span><span class="kw">kable_styling</span>(<span class="dt">bootstrap_options =</span> <span class="kw">c</span>(<span class="st">&#39;striped&#39;</span>,<span class="st">&quot;hover&quot;</span>, <span class="st">&quot;condensed&quot;</span> ))</span></code></pre></div>
 <table class="table table-striped table-hover table-condensed" style="margin-left: auto; margin-right: auto;">
 <thead>
 <tr>
@@ -564,34 +585,34 @@ Rhat
 a_alg[1]
 </td>
 <td style="text-align:right;">
-1.7815819
+1.7811268
 </td>
 <td style="text-align:right;">
-0.0024748
+0.0026230
 </td>
 <td style="text-align:right;">
-0.0566810
+0.0606078
 </td>
 <td style="text-align:right;">
-1.6721093
+1.6619826
 </td>
 <td style="text-align:right;">
-1.7445310
+1.7403893
 </td>
 <td style="text-align:right;">
-1.7807935
+1.7820330
 </td>
 <td style="text-align:right;">
-1.8199106
+1.8215807
 </td>
 <td style="text-align:right;">
-1.8926830
+1.8982458
 </td>
 <td style="text-align:right;">
-524.5383
+533.8817
 </td>
 <td style="text-align:right;">
-1.002721
+1.006126
 </td>
 </tr>
 <tr>
@@ -599,34 +620,34 @@ a_alg[1]
 a_alg[2]
 </td>
 <td style="text-align:right;">
-0.5696040
+0.5691139
 </td>
 <td style="text-align:right;">
-0.0024743
+0.0026209
 </td>
 <td style="text-align:right;">
-0.0566789
+0.0605588
 </td>
 <td style="text-align:right;">
-0.4603005
+0.4496716
 </td>
 <td style="text-align:right;">
-0.5326239
+0.5283954
 </td>
 <td style="text-align:right;">
-0.5687407
+0.5700587
 </td>
 <td style="text-align:right;">
-0.6077809
+0.6093643
 </td>
 <td style="text-align:right;">
-0.6804053
+0.6855433
 </td>
 <td style="text-align:right;">
-524.7432
+533.8829
 </td>
 <td style="text-align:right;">
-1.002723
+1.006094
 </td>
 </tr>
 <tr>
@@ -634,34 +655,34 @@ a_alg[2]
 a_alg[3]
 </td>
 <td style="text-align:right;">
-0.4428074
+0.4423529
 </td>
 <td style="text-align:right;">
-0.0024754
+0.0026208
 </td>
 <td style="text-align:right;">
-0.0566494
+0.0605582
 </td>
 <td style="text-align:right;">
-0.3332348
+0.3233317
 </td>
 <td style="text-align:right;">
-0.4059292
+0.4013482
 </td>
 <td style="text-align:right;">
-0.4419022
+0.4432400
 </td>
 <td style="text-align:right;">
-0.4810402
+0.4826083
 </td>
 <td style="text-align:right;">
-0.5535471
+0.5580626
 </td>
 <td style="text-align:right;">
-523.7002
+533.9264
 </td>
 <td style="text-align:right;">
-1.002756
+1.006091
 </td>
 </tr>
 <tr>
@@ -669,34 +690,34 @@ a_alg[3]
 sigma[1]
 </td>
 <td style="text-align:right;">
-0.0876911
+0.0877444
 </td>
 <td style="text-align:right;">
-0.0000311
+0.0000318
 </td>
 <td style="text-align:right;">
-0.0017075
+0.0017455
 </td>
 <td style="text-align:right;">
-0.0844449
+0.0843878
 </td>
 <td style="text-align:right;">
-0.0865150
+0.0865374
 </td>
 <td style="text-align:right;">
-0.0876638
+0.0877212
 </td>
 <td style="text-align:right;">
-0.0888157
+0.0889341
 </td>
 <td style="text-align:right;">
-0.0911495
+0.0911437
 </td>
 <td style="text-align:right;">
-3013.0294
+3011.1145
 </td>
 <td style="text-align:right;">
-1.001474
+1.001623
 </td>
 </tr>
 <tr>
@@ -704,34 +725,34 @@ sigma[1]
 sigma[2]
 </td>
 <td style="text-align:right;">
-0.0694382
+0.0694441
 </td>
 <td style="text-align:right;">
-0.0000276
+0.0000277
 </td>
 <td style="text-align:right;">
-0.0014904
+0.0015140
 </td>
 <td style="text-align:right;">
-0.0665632
+0.0664710
 </td>
 <td style="text-align:right;">
-0.0684023
+0.0684330
 </td>
 <td style="text-align:right;">
-0.0693989
+0.0694499
 </td>
 <td style="text-align:right;">
-0.0704513
+0.0704463
 </td>
 <td style="text-align:right;">
-0.0724145
+0.0724822
 </td>
 <td style="text-align:right;">
-2913.9665
+2976.8074
 </td>
 <td style="text-align:right;">
-1.001041
+1.000836
 </td>
 </tr>
 <tr>
@@ -739,34 +760,34 @@ sigma[2]
 sigma[3]
 </td>
 <td style="text-align:right;">
-0.0368466
+0.0368688
 </td>
 <td style="text-align:right;">
-0.0000150
+0.0000144
 </td>
 <td style="text-align:right;">
-0.0008085
+0.0008039
 </td>
 <td style="text-align:right;">
-0.0352774
+0.0352959
 </td>
 <td style="text-align:right;">
-0.0363041
+0.0363257
 </td>
 <td style="text-align:right;">
-0.0368220
+0.0368479
 </td>
 <td style="text-align:right;">
-0.0373747
+0.0374083
 </td>
 <td style="text-align:right;">
-0.0384569
+0.0384708
 </td>
 <td style="text-align:right;">
-2897.1475
+3121.5824
 </td>
 <td style="text-align:right;">
-1.000519
+1.000719
 </td>
 </tr>
 <tr>
@@ -774,34 +795,34 @@ sigma[3]
 a_bm_norm[1]
 </td>
 <td style="text-align:right;">
-0.7192083
+0.7169454
 </td>
 <td style="text-align:right;">
-0.0086246
+0.0087107
 </td>
 <td style="text-align:right;">
-0.2094808
+0.2135654
 </td>
 <td style="text-align:right;">
-0.3161019
+0.2988931
 </td>
 <td style="text-align:right;">
-0.5779758
+0.5710651
 </td>
 <td style="text-align:right;">
-0.7220803
+0.7142151
 </td>
 <td style="text-align:right;">
-0.8677116
+0.8674880
 </td>
 <td style="text-align:right;">
-1.1162210
+1.1328629
 </td>
 <td style="text-align:right;">
-589.9497
+601.1139
 </td>
 <td style="text-align:right;">
-1.003545
+1.008025
 </td>
 </tr>
 <tr>
@@ -809,34 +830,34 @@ a_bm_norm[1]
 a_bm_norm[2]
 </td>
 <td style="text-align:right;">
--0.1814373
+-0.1824269
 </td>
 <td style="text-align:right;">
-0.0079796
+0.0085491
 </td>
 <td style="text-align:right;">
-0.1837739
+0.1988784
 </td>
 <td style="text-align:right;">
--0.5391235
+-0.5714764
 </td>
 <td style="text-align:right;">
--0.3097406
+-0.3176881
 </td>
 <td style="text-align:right;">
--0.1810262
+-0.1827604
 </td>
 <td style="text-align:right;">
--0.0580464
+-0.0451221
 </td>
 <td style="text-align:right;">
-0.1761930
+0.1940826
 </td>
 <td style="text-align:right;">
-530.4046
+541.1669
 </td>
 <td style="text-align:right;">
-1.003210
+1.005750
 </td>
 </tr>
 <tr>
@@ -844,34 +865,34 @@ a_bm_norm[2]
 a_bm_norm[3]
 </td>
 <td style="text-align:right;">
--0.5827379
+-0.5830931
 </td>
 <td style="text-align:right;">
-0.0083120
+0.0091159
 </td>
 <td style="text-align:right;">
-0.1959346
+0.2163121
 </td>
 <td style="text-align:right;">
--0.9565364
+-1.0160424
 </td>
 <td style="text-align:right;">
--0.7190948
+-0.7275807
 </td>
 <td style="text-align:right;">
--0.5808377
+-0.5801526
 </td>
 <td style="text-align:right;">
--0.4482490
+-0.4404438
 </td>
 <td style="text-align:right;">
--0.2036032
+-0.1643768
 </td>
 <td style="text-align:right;">
-555.6618
+563.0722
 </td>
 <td style="text-align:right;">
-1.004407
+1.003927
 </td>
 </tr>
 <tr>
@@ -879,34 +900,34 @@ a_bm_norm[3]
 a_bm_norm[4]
 </td>
 <td style="text-align:right;">
--0.6089228
+-0.6091954
 </td>
 <td style="text-align:right;">
-0.0083542
+0.0091666
 </td>
 <td style="text-align:right;">
-0.1970467
+0.2178293
 </td>
 <td style="text-align:right;">
--0.9822168
+-1.0467759
 </td>
 <td style="text-align:right;">
--0.7462298
+-0.7534750
 </td>
 <td style="text-align:right;">
--0.6064975
+-0.6062762
 </td>
 <td style="text-align:right;">
--0.4755324
+-0.4656718
 </td>
 <td style="text-align:right;">
--0.2258659
+-0.1855039
 </td>
 <td style="text-align:right;">
-556.3242
+564.6959
 </td>
 <td style="text-align:right;">
-1.004509
+1.003882
 </td>
 </tr>
 <tr>
@@ -914,34 +935,34 @@ a_bm_norm[4]
 a_bm_norm[5]
 </td>
 <td style="text-align:right;">
--0.2476612
+-0.2485564
 </td>
 <td style="text-align:right;">
-0.0080067
+0.0086165
 </td>
 <td style="text-align:right;">
-0.1849829
+0.2008707
 </td>
 <td style="text-align:right;">
--0.6059732
+-0.6432752
 </td>
 <td style="text-align:right;">
--0.3757603
+-0.3856466
 </td>
 <td style="text-align:right;">
--0.2457094
+-0.2485221
 </td>
 <td style="text-align:right;">
--0.1225043
+-0.1111202
 </td>
 <td style="text-align:right;">
-0.1104547
+0.1316417
 </td>
 <td style="text-align:right;">
-533.7774
+543.4600
 </td>
 <td style="text-align:right;">
-1.003279
+1.005561
 </td>
 </tr>
 <tr>
@@ -949,34 +970,34 @@ a_bm_norm[5]
 a_bm_norm[6]
 </td>
 <td style="text-align:right;">
-0.4750596
+0.4734111
 </td>
 <td style="text-align:right;">
-0.0082505
+0.0084824
 </td>
 <td style="text-align:right;">
-0.1959683
+0.2024756
 </td>
 <td style="text-align:right;">
-0.0961207
+0.0780666
 </td>
 <td style="text-align:right;">
-0.3410841
+0.3334823
 </td>
 <td style="text-align:right;">
-0.4779159
+0.4720095
 </td>
 <td style="text-align:right;">
-0.6141989
+0.6152515
 </td>
 <td style="text-align:right;">
-0.8520264
+0.8568556
 </td>
 <td style="text-align:right;">
-564.1714
+569.7825
 </td>
 <td style="text-align:right;">
-1.002989
+1.007887
 </td>
 </tr>
 <tr>
@@ -984,34 +1005,34 @@ a_bm_norm[6]
 a_bm_norm[7]
 </td>
 <td style="text-align:right;">
--0.6420408
+-0.6423130
 </td>
 <td style="text-align:right;">
-0.0083861
+0.0092312
 </td>
 <td style="text-align:right;">
-0.1987948
+0.2198717
 </td>
 <td style="text-align:right;">
--1.0201032
+-1.0846795
 </td>
 <td style="text-align:right;">
--0.7794661
+-0.7887968
 </td>
 <td style="text-align:right;">
--0.6404438
+-0.6386941
 </td>
 <td style="text-align:right;">
--0.5074182
+-0.4972334
 </td>
 <td style="text-align:right;">
--0.2562647
+-0.2139691
 </td>
 <td style="text-align:right;">
-561.9448
+567.3092
 </td>
 <td style="text-align:right;">
-1.004617
+1.003799
 </td>
 </tr>
 <tr>
@@ -1019,34 +1040,34 @@ a_bm_norm[7]
 a_bm_norm[8]
 </td>
 <td style="text-align:right;">
--0.1634319
+-0.1644817
 </td>
 <td style="text-align:right;">
-0.0079914
+0.0085326
 </td>
 <td style="text-align:right;">
-0.1838506
+0.1985217
 </td>
 <td style="text-align:right;">
--0.5206348
+-0.5517190
 </td>
 <td style="text-align:right;">
--0.2915316
+-0.2996106
 </td>
 <td style="text-align:right;">
--0.1620165
+-0.1657384
 </td>
 <td style="text-align:right;">
--0.0398618
+-0.0275923
 </td>
 <td style="text-align:right;">
-0.1912232
+0.2129775
 </td>
 <td style="text-align:right;">
-529.2798
+541.3154
 </td>
 <td style="text-align:right;">
-1.003135
+1.005963
 </td>
 </tr>
 <tr>
@@ -1054,34 +1075,34 @@ a_bm_norm[8]
 a_bm_norm[9]
 </td>
 <td style="text-align:right;">
-2.1154599
+2.1116300
 </td>
 <td style="text-align:right;">
-0.0123913
+0.0121812
 </td>
 <td style="text-align:right;">
-0.3386954
+0.3393819
 </td>
 <td style="text-align:right;">
-1.4588894
+1.4484849
 </td>
 <td style="text-align:right;">
-1.8888847
+1.8816608
 </td>
 <td style="text-align:right;">
-2.1236694
+2.1092589
 </td>
 <td style="text-align:right;">
-2.3444388
+2.3358436
 </td>
 <td style="text-align:right;">
-2.7697322
+2.7967160
 </td>
 <td style="text-align:right;">
-747.1082
+776.2394
 </td>
 <td style="text-align:right;">
-1.006364
+1.005745
 </td>
 </tr>
 <tr>
@@ -1089,34 +1110,34 @@ a_bm_norm[9]
 a_bm_norm[10]
 </td>
 <td style="text-align:right;">
--0.1804465
+-0.1812781
 </td>
 <td style="text-align:right;">
-0.0079840
+0.0085416
 </td>
 <td style="text-align:right;">
-0.1839089
+0.1989285
 </td>
 <td style="text-align:right;">
--0.5387432
+-0.5714155
 </td>
 <td style="text-align:right;">
--0.3089380
+-0.3176169
 </td>
 <td style="text-align:right;">
--0.1785651
+-0.1816472
 </td>
 <td style="text-align:right;">
--0.0566686
+-0.0444326
 </td>
 <td style="text-align:right;">
-0.1739718
+0.1975518
 </td>
 <td style="text-align:right;">
-530.6024
+542.3993
 </td>
 <td style="text-align:right;">
-1.003236
+1.005821
 </td>
 </tr>
 <tr>
@@ -1124,34 +1145,34 @@ a_bm_norm[10]
 a_bm_norm[11]
 </td>
 <td style="text-align:right;">
-0.9041127
+0.9019238
 </td>
 <td style="text-align:right;">
-0.0089536
+0.0089863
 </td>
 <td style="text-align:right;">
-0.2222174
+0.2249558
 </td>
 <td style="text-align:right;">
-0.4740013
+0.4576177
 </td>
 <td style="text-align:right;">
-0.7546731
+0.7501431
 </td>
 <td style="text-align:right;">
-0.9095963
+0.8991386
 </td>
 <td style="text-align:right;">
-1.0585790
+1.0577316
 </td>
 <td style="text-align:right;">
-1.3270507
+1.3417398
 </td>
 <td style="text-align:right;">
-615.9702
+626.6611
 </td>
 <td style="text-align:right;">
-1.004018
+1.007809
 </td>
 </tr>
 <tr>
@@ -1159,34 +1180,34 @@ a_bm_norm[11]
 a_bm_norm[12]
 </td>
 <td style="text-align:right;">
--0.7819305
+-0.7818005
 </td>
 <td style="text-align:right;">
-0.0086115
+0.0095262
 </td>
 <td style="text-align:right;">
-0.2067054
+0.2292960
 </td>
 <td style="text-align:right;">
--1.1711710
+-1.2427092
 </td>
 <td style="text-align:right;">
--0.9250797
+-0.9348107
 </td>
 <td style="text-align:right;">
--0.7817243
+-0.7782093
 </td>
 <td style="text-align:right;">
--0.6403822
+-0.6287008
 </td>
 <td style="text-align:right;">
--0.3839085
+-0.3328971
 </td>
 <td style="text-align:right;">
-576.1671
+579.3611
 </td>
 <td style="text-align:right;">
-1.005135
+1.003212
 </td>
 </tr>
 <tr>
@@ -1194,34 +1215,34 @@ a_bm_norm[12]
 a_bm_norm[13]
 </td>
 <td style="text-align:right;">
--0.6772704
+-0.6775106
 </td>
 <td style="text-align:right;">
-0.0084572
+0.0092827
 </td>
 <td style="text-align:right;">
-0.2008767
+0.2220651
 </td>
 <td style="text-align:right;">
--1.0568907
+-1.1227791
 </td>
 <td style="text-align:right;">
--0.8167815
+-0.8255683
 </td>
 <td style="text-align:right;">
--0.6756358
+-0.6734795
 </td>
 <td style="text-align:right;">
--0.5401214
+-0.5296425
 </td>
 <td style="text-align:right;">
--0.2884239
+-0.2434466
 </td>
 <td style="text-align:right;">
-564.1649
+572.2849
 </td>
 <td style="text-align:right;">
-1.004795
+1.003527
 </td>
 </tr>
 <tr>
@@ -1229,34 +1250,34 @@ a_bm_norm[13]
 a_bm_norm[14]
 </td>
 <td style="text-align:right;">
-1.7172228
+1.7137941
 </td>
 <td style="text-align:right;">
-0.0110972
+0.0109291
 </td>
 <td style="text-align:right;">
-0.2962334
+0.2967903
 </td>
 <td style="text-align:right;">
-1.1467413
+1.1337453
 </td>
 <td style="text-align:right;">
-1.5179348
+1.5123317
 </td>
 <td style="text-align:right;">
-1.7242375
+1.7108835
 </td>
 <td style="text-align:right;">
-1.9183202
+1.9123530
 </td>
 <td style="text-align:right;">
-2.2869387
+2.3102016
 </td>
 <td style="text-align:right;">
-712.5936
+737.4474
 </td>
 <td style="text-align:right;">
-1.005705
+1.006425
 </td>
 </tr>
 <tr>
@@ -1264,34 +1285,34 @@ a_bm_norm[14]
 a_bm_norm[15]
 </td>
 <td style="text-align:right;">
--0.2509447
+-0.2518458
 </td>
 <td style="text-align:right;">
-0.0080060
+0.0086224
 </td>
 <td style="text-align:right;">
-0.1849612
+0.2009569
 </td>
 <td style="text-align:right;">
--0.6096211
+-0.6477380
 </td>
 <td style="text-align:right;">
--0.3798723
+-0.3884656
 </td>
 <td style="text-align:right;">
--0.2493476
+-0.2520031
 </td>
 <td style="text-align:right;">
--0.1265618
+-0.1136934
 </td>
 <td style="text-align:right;">
-0.1081399
+0.1301903
 </td>
 <td style="text-align:right;">
-533.7393
+543.1896
 </td>
 <td style="text-align:right;">
-1.003362
+1.005519
 </td>
 </tr>
 <tr>
@@ -1299,34 +1320,34 @@ a_bm_norm[15]
 a_bm_norm[16]
 </td>
 <td style="text-align:right;">
--0.6887018
+-0.6890408
 </td>
 <td style="text-align:right;">
-0.0084737
+0.0093176
 </td>
 <td style="text-align:right;">
-0.2014353
+0.2228297
 </td>
 <td style="text-align:right;">
--1.0669924
+-1.1395233
 </td>
 <td style="text-align:right;">
--0.8280677
+-0.8382348
 </td>
 <td style="text-align:right;">
--0.6876355
+-0.6855899
 </td>
 <td style="text-align:right;">
--0.5517005
+-0.5409571
 </td>
 <td style="text-align:right;">
--0.2998266
+-0.2539657
 </td>
 <td style="text-align:right;">
-565.0964
+571.9248
 </td>
 <td style="text-align:right;">
-1.004953
+1.003543
 </td>
 </tr>
 <tr>
@@ -1334,34 +1355,34 @@ a_bm_norm[16]
 a_bm_norm[17]
 </td>
 <td style="text-align:right;">
--0.2987615
+-0.2997380
 </td>
 <td style="text-align:right;">
-0.0080353
+0.0086702
 </td>
 <td style="text-align:right;">
-0.1858974
+0.2027220
 </td>
 <td style="text-align:right;">
--0.6575569
+-0.6996320
 </td>
 <td style="text-align:right;">
--0.4267789
+-0.4386068
 </td>
 <td style="text-align:right;">
--0.2965663
+-0.2983614
 </td>
 <td style="text-align:right;">
--0.1724545
+-0.1626570
 </td>
 <td style="text-align:right;">
-0.0592583
+0.0871212
 </td>
 <td style="text-align:right;">
-535.2275
+546.6910
 </td>
 <td style="text-align:right;">
-1.003464
+1.005343
 </td>
 </tr>
 <tr>
@@ -1369,34 +1390,34 @@ a_bm_norm[17]
 a_bm_norm[18]
 </td>
 <td style="text-align:right;">
--0.2057157
+-0.2065718
 </td>
 <td style="text-align:right;">
-0.0079888
+0.0085791
 </td>
 <td style="text-align:right;">
-0.1842716
+0.1997227
 </td>
 <td style="text-align:right;">
--0.5629628
+-0.5978602
 </td>
 <td style="text-align:right;">
--0.3336642
+-0.3420286
 </td>
 <td style="text-align:right;">
--0.2054677
+-0.2057953
 </td>
 <td style="text-align:right;">
--0.0819283
+-0.0687583
 </td>
 <td style="text-align:right;">
-0.1508168
+0.1743771
 </td>
 <td style="text-align:right;">
-532.0458
+541.9588
 </td>
 <td style="text-align:right;">
-1.003351
+1.005684
 </td>
 </tr>
 <tr>
@@ -1404,34 +1425,34 @@ a_bm_norm[18]
 a_bm_norm[19]
 </td>
 <td style="text-align:right;">
--0.1772225
+-0.1781351
 </td>
 <td style="text-align:right;">
-0.0079777
+0.0085411
 </td>
 <td style="text-align:right;">
-0.1838359
+0.1988323
 </td>
 <td style="text-align:right;">
--0.5353252
+-0.5689114
 </td>
 <td style="text-align:right;">
--0.3051236
+-0.3141829
 </td>
 <td style="text-align:right;">
--0.1764972
+-0.1783365
 </td>
 <td style="text-align:right;">
--0.0539611
+-0.0407893
 </td>
 <td style="text-align:right;">
-0.1780432
+0.1991033
 </td>
 <td style="text-align:right;">
-531.0154
+541.9402
 </td>
 <td style="text-align:right;">
-1.003200
+1.005823
 </td>
 </tr>
 <tr>
@@ -1439,34 +1460,34 @@ a_bm_norm[19]
 a_bm_norm[20]
 </td>
 <td style="text-align:right;">
-0.0021975
+0.0013479
 </td>
 <td style="text-align:right;">
-0.0079578
+0.0084299
 </td>
 <td style="text-align:right;">
-0.1833495
+0.1959243
 </td>
 <td style="text-align:right;">
--0.3579432
+-0.3801857
 </td>
 <td style="text-align:right;">
--0.1252151
+-0.1321950
 </td>
 <td style="text-align:right;">
-0.0040986
+-0.0011718
 </td>
 <td style="text-align:right;">
-0.1274310
+0.1384331
 </td>
 <td style="text-align:right;">
-0.3529663
+0.3748182
 </td>
 <td style="text-align:right;">
-530.8547
+540.1669
 </td>
 <td style="text-align:right;">
-1.002951
+1.006703
 </td>
 </tr>
 <tr>
@@ -1474,34 +1495,34 @@ a_bm_norm[20]
 a_bm_norm[21]
 </td>
 <td style="text-align:right;">
--0.0370757
+-0.0381568
 </td>
 <td style="text-align:right;">
-0.0079567
+0.0084334
 </td>
 <td style="text-align:right;">
-0.1833234
+0.1961037
 </td>
 <td style="text-align:right;">
--0.3970028
+-0.4215247
 </td>
 <td style="text-align:right;">
--0.1650148
+-0.1727083
 </td>
 <td style="text-align:right;">
--0.0351024
+-0.0400992
 </td>
 <td style="text-align:right;">
-0.0858728
+0.0998043
 </td>
 <td style="text-align:right;">
-0.3142432
+0.3345669
 </td>
 <td style="text-align:right;">
-530.8508
+540.7160
 </td>
 <td style="text-align:right;">
-1.002966
+1.006430
 </td>
 </tr>
 <tr>
@@ -1509,34 +1530,34 @@ a_bm_norm[21]
 a_bm_norm[22]
 </td>
 <td style="text-align:right;">
--0.2582016
+-0.2591012
 </td>
 <td style="text-align:right;">
-0.0080267
+0.0086473
 </td>
 <td style="text-align:right;">
-0.1850542
+0.2014404
 </td>
 <td style="text-align:right;">
--0.6155364
+-0.6537203
 </td>
 <td style="text-align:right;">
--0.3865295
+-0.3957154
 </td>
 <td style="text-align:right;">
--0.2570828
+-0.2589614
 </td>
 <td style="text-align:right;">
--0.1331500
+-0.1220667
 </td>
 <td style="text-align:right;">
-0.0991284
+0.1262415
 </td>
 <td style="text-align:right;">
-531.5186
+542.6678
 </td>
 <td style="text-align:right;">
-1.003413
+1.005472
 </td>
 </tr>
 <tr>
@@ -1544,34 +1565,34 @@ a_bm_norm[22]
 a_bm_norm[23]
 </td>
 <td style="text-align:right;">
--0.7357537
+-0.7358550
 </td>
 <td style="text-align:right;">
-0.0085331
+0.0094254
 </td>
 <td style="text-align:right;">
-0.2038511
+0.2260798
 </td>
 <td style="text-align:right;">
--1.1186036
+-1.1892931
 </td>
 <td style="text-align:right;">
--0.8766281
+-0.8858307
 </td>
 <td style="text-align:right;">
--0.7351464
+-0.7320868
 </td>
 <td style="text-align:right;">
--0.5982257
+-0.5846833
 </td>
 <td style="text-align:right;">
--0.3425063
+-0.2939862
 </td>
 <td style="text-align:right;">
-570.7101
+575.3385
 </td>
 <td style="text-align:right;">
-1.004962
+1.003330
 </td>
 </tr>
 <tr>
@@ -1579,34 +1600,34 @@ a_bm_norm[23]
 a_bm_norm[24]
 </td>
 <td style="text-align:right;">
--0.8252724
+-0.8254234
 </td>
 <td style="text-align:right;">
-0.0086947
+0.0096072
 </td>
 <td style="text-align:right;">
-0.2094949
+0.2324392
 </td>
 <td style="text-align:right;">
--1.2189848
+-1.2935835
 </td>
 <td style="text-align:right;">
--0.9708733
+-0.9805076
 </td>
 <td style="text-align:right;">
--0.8254469
+-0.8213645
 </td>
 <td style="text-align:right;">
--0.6819852
+-0.6689679
 </td>
 <td style="text-align:right;">
--0.4221552
+-0.3684101
 </td>
 <td style="text-align:right;">
-580.5534
+585.3639
 </td>
 <td style="text-align:right;">
-1.005230
+1.003067
 </td>
 </tr>
 <tr>
@@ -1614,34 +1635,34 @@ a_bm_norm[24]
 a_bm_norm[25]
 </td>
 <td style="text-align:right;">
--0.3359663
+-0.3366898
 </td>
 <td style="text-align:right;">
-0.0080697
+0.0087284
 </td>
 <td style="text-align:right;">
-0.1868876
+0.2039811
 </td>
 <td style="text-align:right;">
--0.6971104
+-0.7369234
 </td>
 <td style="text-align:right;">
--0.4646943
+-0.4748569
 </td>
 <td style="text-align:right;">
--0.3327841
+-0.3359966
 </td>
 <td style="text-align:right;">
--0.2091031
+-0.1992994
 </td>
 <td style="text-align:right;">
-0.0259680
+0.0536531
 </td>
 <td style="text-align:right;">
-536.3423
+546.1521
 </td>
 <td style="text-align:right;">
-1.003643
+1.005150
 </td>
 </tr>
 <tr>
@@ -1649,34 +1670,34 @@ a_bm_norm[25]
 a_bm_norm[26]
 </td>
 <td style="text-align:right;">
-0.3504413
+0.3488281
 </td>
 <td style="text-align:right;">
-0.0081328
+0.0084028
 </td>
 <td style="text-align:right;">
-0.1907707
+0.1985740
 </td>
 <td style="text-align:right;">
--0.0194125
+-0.0350128
 </td>
 <td style="text-align:right;">
-0.2175444
+0.2120805
 </td>
 <td style="text-align:right;">
-0.3538897
+0.3487199
 </td>
 <td style="text-align:right;">
-0.4859020
+0.4879435
 </td>
 <td style="text-align:right;">
-0.7197615
+0.7238281
 </td>
 <td style="text-align:right;">
-550.2295
+558.4606
 </td>
 <td style="text-align:right;">
-1.002923
+1.007803
 </td>
 </tr>
 <tr>
@@ -1684,34 +1705,34 @@ a_bm_norm[26]
 a_bm_norm[27]
 </td>
 <td style="text-align:right;">
--0.7344475
+-0.7346498
 </td>
 <td style="text-align:right;">
-0.0085396
+0.0094058
 </td>
 <td style="text-align:right;">
-0.2039208
+0.2258222
 </td>
 <td style="text-align:right;">
--1.1172730
+-1.1905483
 </td>
 <td style="text-align:right;">
--0.8755600
+-0.8847851
 </td>
 <td style="text-align:right;">
--0.7335636
+-0.7302798
 </td>
 <td style="text-align:right;">
--0.5964523
+-0.5839647
 </td>
 <td style="text-align:right;">
--0.3408633
+-0.2927947
 </td>
 <td style="text-align:right;">
-570.2296
+576.4249
 </td>
 <td style="text-align:right;">
-1.004995
+1.003359
 </td>
 </tr>
 <tr>
@@ -1719,34 +1740,34 @@ a_bm_norm[27]
 a_bm_norm[28]
 </td>
 <td style="text-align:right;">
-3.7056060
+3.6998131
 </td>
 <td style="text-align:right;">
-0.0184140
+0.0182556
 </td>
 <td style="text-align:right;">
-0.5268846
+0.5324392
 </td>
 <td style="text-align:right;">
-2.6654739
+2.6893552
 </td>
 <td style="text-align:right;">
-3.3494149
+3.3338793
 </td>
 <td style="text-align:right;">
-3.7062854
+3.6905820
 </td>
 <td style="text-align:right;">
-4.0644549
+4.0513884
 </td>
 <td style="text-align:right;">
-4.7388580
+4.7696181
 </td>
 <td style="text-align:right;">
-818.7208
+850.6446
 </td>
 <td style="text-align:right;">
-1.007627
+1.004008
 </td>
 </tr>
 <tr>
@@ -1754,34 +1775,34 @@ a_bm_norm[28]
 a_bm_norm[29]
 </td>
 <td style="text-align:right;">
--0.4139099
+-0.4143554
 </td>
 <td style="text-align:right;">
-0.0081410
+0.0088376
 </td>
 <td style="text-align:right;">
-0.1892188
+0.2074474
 </td>
 <td style="text-align:right;">
--0.7771179
+-0.8239239
 </td>
 <td style="text-align:right;">
--0.5447576
+-0.5542043
 </td>
 <td style="text-align:right;">
--0.4105746
+-0.4118008
 </td>
 <td style="text-align:right;">
--0.2855314
+-0.2764703
 </td>
 <td style="text-align:right;">
--0.0474645
+-0.0164877
 </td>
 <td style="text-align:right;">
-540.2168
+550.9920
 </td>
 <td style="text-align:right;">
-1.003952
+1.004714
 </td>
 </tr>
 <tr>
@@ -1789,34 +1810,34 @@ a_bm_norm[29]
 a_bm_norm[30]
 </td>
 <td style="text-align:right;">
--0.1763685
+-0.1770084
 </td>
 <td style="text-align:right;">
-0.0079847
+0.0085576
 </td>
 <td style="text-align:right;">
-0.1837990
+0.1989495
 </td>
 <td style="text-align:right;">
--0.5350264
+-0.5672901
 </td>
 <td style="text-align:right;">
--0.3048733
+-0.3128015
 </td>
 <td style="text-align:right;">
--0.1757948
+-0.1772755
 </td>
 <td style="text-align:right;">
--0.0531583
+-0.0397254
 </td>
 <td style="text-align:right;">
-0.1779765
+0.2004904
 </td>
 <td style="text-align:right;">
-529.8757
+540.4818
 </td>
 <td style="text-align:right;">
-1.003222
+1.005940
 </td>
 </tr>
 <tr>
@@ -1824,34 +1845,34 @@ a_bm_norm[30]
 s
 </td>
 <td style="text-align:right;">
-0.3064198
+0.3072466
 </td>
 <td style="text-align:right;">
-0.0014329
+0.0014798
 </td>
 <td style="text-align:right;">
-0.0423732
+0.0441124
 </td>
 <td style="text-align:right;">
-0.2379312
+0.2352709
 </td>
 <td style="text-align:right;">
-0.2766066
+0.2768578
 </td>
 <td style="text-align:right;">
-0.3013470
+0.3021747
 </td>
 <td style="text-align:right;">
-0.3301371
+0.3322788
 </td>
 <td style="text-align:right;">
-0.4061672
+0.4069552
 </td>
 <td style="text-align:right;">
-874.5406
+888.6323
 </td>
 <td style="text-align:right;">
-1.009378
+1.001588
 </td>
 </tr>
 <tr>
@@ -1859,34 +1880,34 @@ s
 nu
 </td>
 <td style="text-align:right;">
-2.7520111
+2.7532026
 </td>
 <td style="text-align:right;">
-0.0015060
+0.0015421
 </td>
 <td style="text-align:right;">
-0.0796144
+0.0802559
 </td>
 <td style="text-align:right;">
-2.5992295
+2.6021136
 </td>
 <td style="text-align:right;">
-2.6986152
+2.6972495
 </td>
 <td style="text-align:right;">
-2.7495934
+2.7520588
 </td>
 <td style="text-align:right;">
-2.8046633
+2.8075206
 </td>
 <td style="text-align:right;">
-2.9117775
+2.9112477
 </td>
 <td style="text-align:right;">
-2794.5987
+2708.6351
 </td>
 <td style="text-align:right;">
-1.001687
+1.001055
 </td>
 </tr>
 <tr>
@@ -1894,34 +1915,34 @@ nu
 lp__
 </td>
 <td style="text-align:right;">
-14070.3651083
+14070.2753067
 </td>
 <td style="text-align:right;">
-0.1502401
+0.1671716
 </td>
 <td style="text-align:right;">
-5.7707953
+5.9172571
 </td>
 <td style="text-align:right;">
-14058.1445159
+14057.6082046
 </td>
 <td style="text-align:right;">
-14066.7032470
+14066.4863632
 </td>
 <td style="text-align:right;">
-14070.6873137
+14070.6208015
 </td>
 <td style="text-align:right;">
-14074.3315285
+14074.4422447
 </td>
 <td style="text-align:right;">
-14080.8165057
+14080.7870357
 </td>
 <td style="text-align:right;">
-1475.3660
+1252.8982
 </td>
 <td style="text-align:right;">
-1.004358
+1.000465
 </td>
 </tr>
 </tbody>
@@ -1931,96 +1952,96 @@ lp__
 <h2><span class="header-section-number">6.4</span> Results and Plots</h2>
 <p>First lets get the HPDI of every parameter.</p>
 <p>Then we restrict to the algorithms, them to the slopes, then to the parameter s</p>
-<div class="sourceCode" id="cb86"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb86-1"><a href="multiple-group-comparison.html#cb86-1"></a>hpdi &lt;-<span class="st"> </span><span class="kw">get_HPDI_from_stanfit</span>(multiplegroup_fit)</span>
-<span id="cb86-2"><a href="multiple-group-comparison.html#cb86-2"></a></span>
-<span id="cb86-3"><a href="multiple-group-comparison.html#cb86-3"></a>hpdi_algorithm &lt;-<span class="st"> </span>hpdi <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb86-4"><a href="multiple-group-comparison.html#cb86-4"></a><span class="st">      </span>dplyr<span class="op">::</span><span class="kw">filter</span>(<span class="kw">str_detect</span>(Parameter, <span class="st">&quot;a_alg</span><span class="ch">\\</span><span class="st">[&quot;</span>)) <span class="op">%&gt;%</span></span>
-<span id="cb86-5"><a href="multiple-group-comparison.html#cb86-5"></a><span class="st">      </span>dplyr<span class="op">::</span><span class="kw">mutate</span>(<span class="dt">Parameter=</span>algorithms) <span class="co">#Changing to the algorithms labels</span></span>
-<span id="cb86-6"><a href="multiple-group-comparison.html#cb86-6"></a></span>
-<span id="cb86-7"><a href="multiple-group-comparison.html#cb86-7"></a>hpdi_sigma&lt;-<span class="st"> </span>hpdi <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb86-8"><a href="multiple-group-comparison.html#cb86-8"></a><span class="st">      </span>dplyr<span class="op">::</span><span class="kw">filter</span>(<span class="kw">str_detect</span>(Parameter, <span class="st">&quot;sigma</span><span class="ch">\\</span><span class="st">[&quot;</span>)) <span class="op">%&gt;%</span></span>
-<span id="cb86-9"><a href="multiple-group-comparison.html#cb86-9"></a><span class="st">      </span>dplyr<span class="op">::</span><span class="kw">mutate</span>(<span class="dt">Parameter=</span>algorithms) <span class="co">#Changing to the algorithms labels</span></span>
-<span id="cb86-10"><a href="multiple-group-comparison.html#cb86-10"></a></span>
-<span id="cb86-11"><a href="multiple-group-comparison.html#cb86-11"></a>hpdi_s &lt;-<span class="st"> </span>hpdi <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb86-12"><a href="multiple-group-comparison.html#cb86-12"></a><span class="st">      </span>dplyr<span class="op">::</span><span class="kw">filter</span>(Parameter<span class="op">==</span><span class="st">&#39;s&#39;</span>)</span>
-<span id="cb86-13"><a href="multiple-group-comparison.html#cb86-13"></a></span>
-<span id="cb86-14"><a href="multiple-group-comparison.html#cb86-14"></a></span>
-<span id="cb86-15"><a href="multiple-group-comparison.html#cb86-15"></a>hpdi_nu &lt;-<span class="st"> </span>hpdi <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb86-16"><a href="multiple-group-comparison.html#cb86-16"></a><span class="st">      </span>dplyr<span class="op">::</span><span class="kw">filter</span>(Parameter<span class="op">==</span><span class="st">&#39;nu&#39;</span>)</span>
-<span id="cb86-17"><a href="multiple-group-comparison.html#cb86-17"></a></span>
-<span id="cb86-18"><a href="multiple-group-comparison.html#cb86-18"></a></span>
-<span id="cb86-19"><a href="multiple-group-comparison.html#cb86-19"></a>hpdi_nu_s &lt;-<span class="st"> </span>hpdi <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb86-20"><a href="multiple-group-comparison.html#cb86-20"></a><span class="st">      </span>dplyr<span class="op">::</span><span class="kw">filter</span>(Parameter<span class="op">==</span><span class="st">&#39;nu&#39;</span> <span class="op">|</span><span class="st"> </span>Parameter<span class="op">==</span><span class="st">&#39;s&#39;</span>)</span>
-<span id="cb86-21"><a href="multiple-group-comparison.html#cb86-21"></a></span>
-<span id="cb86-22"><a href="multiple-group-comparison.html#cb86-22"></a>p_alg&lt;-<span class="kw">ggplot</span>(<span class="dt">data=</span>hpdi_algorithm, <span class="kw">aes</span>(<span class="dt">x=</span>Parameter))<span class="op">+</span></span>
-<span id="cb86-23"><a href="multiple-group-comparison.html#cb86-23"></a><span class="st">  </span><span class="kw">geom_pointrange</span>(<span class="kw">aes</span>(</span>
-<span id="cb86-24"><a href="multiple-group-comparison.html#cb86-24"></a>    <span class="dt">ymin=</span>HPDI.lower, </span>
-<span id="cb86-25"><a href="multiple-group-comparison.html#cb86-25"></a>    <span class="dt">ymax=</span>HPDI.higher, </span>
-<span id="cb86-26"><a href="multiple-group-comparison.html#cb86-26"></a>    <span class="dt">y=</span>Mean))<span class="op">+</span></span>
-<span id="cb86-27"><a href="multiple-group-comparison.html#cb86-27"></a><span class="st">  </span><span class="kw">labs</span>(<span class="dt">y=</span><span class="st">&quot;a_alg&quot;</span>, <span class="dt">x=</span><span class="st">&quot;Algorithm&quot;</span>)<span class="op">+</span></span>
-<span id="cb86-28"><a href="multiple-group-comparison.html#cb86-28"></a><span class="st">  </span><span class="kw">coord_flip</span>()</span>
-<span id="cb86-29"><a href="multiple-group-comparison.html#cb86-29"></a>p_alg <span class="op">+</span><span class="st"> </span><span class="kw">plot_annotation</span>(<span class="dt">title =</span> <span class="st">&#39;HPDI interval for the algorithms&#39;</span>)</span></code></pre></div>
-<p><img src="statscomp-appendix_files/figure-html/unnamed-chunk-84-1.png" width="672" style="display: block; margin: auto;" /></p>
-<div class="sourceCode" id="cb87"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb87-1"><a href="multiple-group-comparison.html#cb87-1"></a>p_sigma&lt;-<span class="kw">ggplot</span>(<span class="dt">data=</span>hpdi_sigma, <span class="kw">aes</span>(<span class="dt">x=</span>Parameter))<span class="op">+</span></span>
-<span id="cb87-2"><a href="multiple-group-comparison.html#cb87-2"></a><span class="st">  </span><span class="kw">geom_pointrange</span>(<span class="kw">aes</span>(</span>
-<span id="cb87-3"><a href="multiple-group-comparison.html#cb87-3"></a>    <span class="dt">ymin=</span>HPDI.lower, </span>
-<span id="cb87-4"><a href="multiple-group-comparison.html#cb87-4"></a>    <span class="dt">ymax=</span>HPDI.higher, </span>
-<span id="cb87-5"><a href="multiple-group-comparison.html#cb87-5"></a>    <span class="dt">y=</span>Mean))<span class="op">+</span></span>
-<span id="cb87-6"><a href="multiple-group-comparison.html#cb87-6"></a><span class="st">  </span><span class="kw">labs</span>(<span class="dt">y=</span><span class="st">&quot;sigma&quot;</span>, <span class="dt">x=</span><span class="st">&quot;Algorithm&quot;</span>)<span class="op">+</span></span>
-<span id="cb87-7"><a href="multiple-group-comparison.html#cb87-7"></a><span class="st">  </span><span class="kw">coord_flip</span>()</span>
-<span id="cb87-8"><a href="multiple-group-comparison.html#cb87-8"></a>p_sigma <span class="op">+</span><span class="st"> </span><span class="kw">plot_annotation</span>(<span class="dt">title =</span> <span class="st">&#39;HPDI interval for sigma&#39;</span>)</span></code></pre></div>
-<p><img src="statscomp-appendix_files/figure-html/unnamed-chunk-84-2.png" width="672" style="display: block; margin: auto;" /></p>
-<div class="sourceCode" id="cb88"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb88-1"><a href="multiple-group-comparison.html#cb88-1"></a>p_s &lt;-<span class="st"> </span><span class="kw">ggplot</span>(<span class="dt">data=</span>hpdi_s, <span class="kw">aes</span>(<span class="dt">x=</span>Parameter))<span class="op">+</span></span>
-<span id="cb88-2"><a href="multiple-group-comparison.html#cb88-2"></a><span class="st">  </span><span class="kw">geom_pointrange</span>(<span class="kw">aes</span>(</span>
-<span id="cb88-3"><a href="multiple-group-comparison.html#cb88-3"></a>    <span class="dt">ymin=</span>HPDI.lower, </span>
-<span id="cb88-4"><a href="multiple-group-comparison.html#cb88-4"></a>    <span class="dt">ymax=</span>HPDI.higher, </span>
-<span id="cb88-5"><a href="multiple-group-comparison.html#cb88-5"></a>    <span class="dt">y=</span>Mean))<span class="op">+</span></span>
-<span id="cb88-6"><a href="multiple-group-comparison.html#cb88-6"></a><span class="st">  </span><span class="kw">labs</span>(<span class="dt">y=</span><span class="st">&quot;s&quot;</span>, <span class="dt">x=</span><span class="st">&quot;Parameter&quot;</span>)<span class="op">+</span></span>
-<span id="cb88-7"><a href="multiple-group-comparison.html#cb88-7"></a><span class="st">  </span><span class="kw">coord_flip</span>()</span>
-<span id="cb88-8"><a href="multiple-group-comparison.html#cb88-8"></a>p_s <span class="op">+</span><span class="st"> </span><span class="kw">plot_annotation</span>(<span class="dt">title =</span> <span class="st">&#39;HPDI interval std of the benchmarks&#39;</span>)</span></code></pre></div>
-<p><img src="statscomp-appendix_files/figure-html/unnamed-chunk-84-3.png" width="672" style="display: block; margin: auto;" /></p>
-<div class="sourceCode" id="cb89"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb89-1"><a href="multiple-group-comparison.html#cb89-1"></a>p_nu &lt;-<span class="st"> </span><span class="kw">ggplot</span>(<span class="dt">data=</span>hpdi_nu, <span class="kw">aes</span>(<span class="dt">x=</span>Parameter))<span class="op">+</span></span>
+<div class="sourceCode" id="cb88"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb88-1"><a href="multiple-group-comparison.html#cb88-1"></a>hpdi &lt;-<span class="st"> </span><span class="kw">get_HPDI_from_stanfit</span>(multiplegroup_fit)</span>
+<span id="cb88-2"><a href="multiple-group-comparison.html#cb88-2"></a></span>
+<span id="cb88-3"><a href="multiple-group-comparison.html#cb88-3"></a>hpdi_algorithm &lt;-<span class="st"> </span>hpdi <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb88-4"><a href="multiple-group-comparison.html#cb88-4"></a><span class="st">      </span>dplyr<span class="op">::</span><span class="kw">filter</span>(<span class="kw">str_detect</span>(Parameter, <span class="st">&quot;a_alg</span><span class="ch">\\</span><span class="st">[&quot;</span>)) <span class="op">%&gt;%</span></span>
+<span id="cb88-5"><a href="multiple-group-comparison.html#cb88-5"></a><span class="st">      </span>dplyr<span class="op">::</span><span class="kw">mutate</span>(<span class="dt">Parameter=</span>algorithms) <span class="co">#Changing to the algorithms labels</span></span>
+<span id="cb88-6"><a href="multiple-group-comparison.html#cb88-6"></a></span>
+<span id="cb88-7"><a href="multiple-group-comparison.html#cb88-7"></a>hpdi_sigma&lt;-<span class="st"> </span>hpdi <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb88-8"><a href="multiple-group-comparison.html#cb88-8"></a><span class="st">      </span>dplyr<span class="op">::</span><span class="kw">filter</span>(<span class="kw">str_detect</span>(Parameter, <span class="st">&quot;sigma</span><span class="ch">\\</span><span class="st">[&quot;</span>)) <span class="op">%&gt;%</span></span>
+<span id="cb88-9"><a href="multiple-group-comparison.html#cb88-9"></a><span class="st">      </span>dplyr<span class="op">::</span><span class="kw">mutate</span>(<span class="dt">Parameter=</span>algorithms) <span class="co">#Changing to the algorithms labels</span></span>
+<span id="cb88-10"><a href="multiple-group-comparison.html#cb88-10"></a></span>
+<span id="cb88-11"><a href="multiple-group-comparison.html#cb88-11"></a>hpdi_s &lt;-<span class="st"> </span>hpdi <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb88-12"><a href="multiple-group-comparison.html#cb88-12"></a><span class="st">      </span>dplyr<span class="op">::</span><span class="kw">filter</span>(Parameter<span class="op">==</span><span class="st">&#39;s&#39;</span>)</span>
+<span id="cb88-13"><a href="multiple-group-comparison.html#cb88-13"></a></span>
+<span id="cb88-14"><a href="multiple-group-comparison.html#cb88-14"></a></span>
+<span id="cb88-15"><a href="multiple-group-comparison.html#cb88-15"></a>hpdi_nu &lt;-<span class="st"> </span>hpdi <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb88-16"><a href="multiple-group-comparison.html#cb88-16"></a><span class="st">      </span>dplyr<span class="op">::</span><span class="kw">filter</span>(Parameter<span class="op">==</span><span class="st">&#39;nu&#39;</span>)</span>
+<span id="cb88-17"><a href="multiple-group-comparison.html#cb88-17"></a></span>
+<span id="cb88-18"><a href="multiple-group-comparison.html#cb88-18"></a></span>
+<span id="cb88-19"><a href="multiple-group-comparison.html#cb88-19"></a>hpdi_nu_s &lt;-<span class="st"> </span>hpdi <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb88-20"><a href="multiple-group-comparison.html#cb88-20"></a><span class="st">      </span>dplyr<span class="op">::</span><span class="kw">filter</span>(Parameter<span class="op">==</span><span class="st">&#39;nu&#39;</span> <span class="op">|</span><span class="st"> </span>Parameter<span class="op">==</span><span class="st">&#39;s&#39;</span>)</span>
+<span id="cb88-21"><a href="multiple-group-comparison.html#cb88-21"></a></span>
+<span id="cb88-22"><a href="multiple-group-comparison.html#cb88-22"></a>p_alg&lt;-<span class="kw">ggplot</span>(<span class="dt">data=</span>hpdi_algorithm, <span class="kw">aes</span>(<span class="dt">x=</span>Parameter))<span class="op">+</span></span>
+<span id="cb88-23"><a href="multiple-group-comparison.html#cb88-23"></a><span class="st">  </span><span class="kw">geom_pointrange</span>(<span class="kw">aes</span>(</span>
+<span id="cb88-24"><a href="multiple-group-comparison.html#cb88-24"></a>    <span class="dt">ymin=</span>HPDI.lower, </span>
+<span id="cb88-25"><a href="multiple-group-comparison.html#cb88-25"></a>    <span class="dt">ymax=</span>HPDI.higher, </span>
+<span id="cb88-26"><a href="multiple-group-comparison.html#cb88-26"></a>    <span class="dt">y=</span>Mean))<span class="op">+</span></span>
+<span id="cb88-27"><a href="multiple-group-comparison.html#cb88-27"></a><span class="st">  </span><span class="kw">labs</span>(<span class="dt">y=</span><span class="st">&quot;a_alg&quot;</span>, <span class="dt">x=</span><span class="st">&quot;Algorithm&quot;</span>)<span class="op">+</span></span>
+<span id="cb88-28"><a href="multiple-group-comparison.html#cb88-28"></a><span class="st">  </span><span class="kw">coord_flip</span>()</span>
+<span id="cb88-29"><a href="multiple-group-comparison.html#cb88-29"></a>p_alg <span class="op">+</span><span class="st"> </span><span class="kw">plot_annotation</span>(<span class="dt">title =</span> <span class="st">&#39;HPDI interval for the algorithms&#39;</span>)</span></code></pre></div>
+<p><img src="statscomp-appendix_files/figure-html/unnamed-chunk-162-1.png" width="672" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb89"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb89-1"><a href="multiple-group-comparison.html#cb89-1"></a>p_sigma&lt;-<span class="kw">ggplot</span>(<span class="dt">data=</span>hpdi_sigma, <span class="kw">aes</span>(<span class="dt">x=</span>Parameter))<span class="op">+</span></span>
 <span id="cb89-2"><a href="multiple-group-comparison.html#cb89-2"></a><span class="st">  </span><span class="kw">geom_pointrange</span>(<span class="kw">aes</span>(</span>
 <span id="cb89-3"><a href="multiple-group-comparison.html#cb89-3"></a>    <span class="dt">ymin=</span>HPDI.lower, </span>
 <span id="cb89-4"><a href="multiple-group-comparison.html#cb89-4"></a>    <span class="dt">ymax=</span>HPDI.higher, </span>
 <span id="cb89-5"><a href="multiple-group-comparison.html#cb89-5"></a>    <span class="dt">y=</span>Mean))<span class="op">+</span></span>
-<span id="cb89-6"><a href="multiple-group-comparison.html#cb89-6"></a><span class="st">  </span><span class="kw">labs</span>(<span class="dt">y=</span><span class="st">&quot;nu&quot;</span>, <span class="dt">x=</span><span class="st">&quot;Parameter&quot;</span>)<span class="op">+</span></span>
+<span id="cb89-6"><a href="multiple-group-comparison.html#cb89-6"></a><span class="st">  </span><span class="kw">labs</span>(<span class="dt">y=</span><span class="st">&quot;sigma&quot;</span>, <span class="dt">x=</span><span class="st">&quot;Algorithm&quot;</span>)<span class="op">+</span></span>
 <span id="cb89-7"><a href="multiple-group-comparison.html#cb89-7"></a><span class="st">  </span><span class="kw">coord_flip</span>()</span>
-<span id="cb89-8"><a href="multiple-group-comparison.html#cb89-8"></a>p_nu <span class="op">+</span><span class="st"> </span><span class="kw">plot_annotation</span>(<span class="dt">title =</span> <span class="st">&#39;HPDI interval of the degree of freedom&#39;</span>)</span></code></pre></div>
-<p><img src="statscomp-appendix_files/figure-html/unnamed-chunk-84-4.png" width="672" style="display: block; margin: auto;" /></p>
-<div class="sourceCode" id="cb90"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb90-1"><a href="multiple-group-comparison.html#cb90-1"></a>p_nu_s &lt;-<span class="st"> </span><span class="kw">ggplot</span>(<span class="dt">data=</span>hpdi_nu_s, <span class="kw">aes</span>(<span class="dt">x=</span>Parameter))<span class="op">+</span></span>
+<span id="cb89-8"><a href="multiple-group-comparison.html#cb89-8"></a>p_sigma <span class="op">+</span><span class="st"> </span><span class="kw">plot_annotation</span>(<span class="dt">title =</span> <span class="st">&#39;HPDI interval for sigma&#39;</span>)</span></code></pre></div>
+<p><img src="statscomp-appendix_files/figure-html/unnamed-chunk-162-2.png" width="672" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb90"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb90-1"><a href="multiple-group-comparison.html#cb90-1"></a>p_s &lt;-<span class="st"> </span><span class="kw">ggplot</span>(<span class="dt">data=</span>hpdi_s, <span class="kw">aes</span>(<span class="dt">x=</span>Parameter))<span class="op">+</span></span>
 <span id="cb90-2"><a href="multiple-group-comparison.html#cb90-2"></a><span class="st">  </span><span class="kw">geom_pointrange</span>(<span class="kw">aes</span>(</span>
 <span id="cb90-3"><a href="multiple-group-comparison.html#cb90-3"></a>    <span class="dt">ymin=</span>HPDI.lower, </span>
 <span id="cb90-4"><a href="multiple-group-comparison.html#cb90-4"></a>    <span class="dt">ymax=</span>HPDI.higher, </span>
 <span id="cb90-5"><a href="multiple-group-comparison.html#cb90-5"></a>    <span class="dt">y=</span>Mean))<span class="op">+</span></span>
-<span id="cb90-6"><a href="multiple-group-comparison.html#cb90-6"></a><span class="st">  </span><span class="kw">labs</span>(<span class="dt">y=</span><span class="st">&quot;Estimate&quot;</span>, <span class="dt">x=</span><span class="st">&quot;Parameter&quot;</span>)<span class="op">+</span></span>
+<span id="cb90-6"><a href="multiple-group-comparison.html#cb90-6"></a><span class="st">  </span><span class="kw">labs</span>(<span class="dt">y=</span><span class="st">&quot;s&quot;</span>, <span class="dt">x=</span><span class="st">&quot;Parameter&quot;</span>)<span class="op">+</span></span>
 <span id="cb90-7"><a href="multiple-group-comparison.html#cb90-7"></a><span class="st">  </span><span class="kw">coord_flip</span>()</span>
-<span id="cb90-8"><a href="multiple-group-comparison.html#cb90-8"></a>p_nu_s <span class="op">+</span><span class="st"> </span><span class="kw">plot_annotation</span>(<span class="dt">title =</span> <span class="st">&#39;HPDI interval&#39;</span>)</span></code></pre></div>
-<p><img src="statscomp-appendix_files/figure-html/unnamed-chunk-84-5.png" width="672" style="display: block; margin: auto;" /></p>
+<span id="cb90-8"><a href="multiple-group-comparison.html#cb90-8"></a>p_s <span class="op">+</span><span class="st"> </span><span class="kw">plot_annotation</span>(<span class="dt">title =</span> <span class="st">&#39;HPDI interval std of the benchmarks&#39;</span>)</span></code></pre></div>
+<p><img src="statscomp-appendix_files/figure-html/unnamed-chunk-162-3.png" width="672" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb91"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb91-1"><a href="multiple-group-comparison.html#cb91-1"></a>p_nu &lt;-<span class="st"> </span><span class="kw">ggplot</span>(<span class="dt">data=</span>hpdi_nu, <span class="kw">aes</span>(<span class="dt">x=</span>Parameter))<span class="op">+</span></span>
+<span id="cb91-2"><a href="multiple-group-comparison.html#cb91-2"></a><span class="st">  </span><span class="kw">geom_pointrange</span>(<span class="kw">aes</span>(</span>
+<span id="cb91-3"><a href="multiple-group-comparison.html#cb91-3"></a>    <span class="dt">ymin=</span>HPDI.lower, </span>
+<span id="cb91-4"><a href="multiple-group-comparison.html#cb91-4"></a>    <span class="dt">ymax=</span>HPDI.higher, </span>
+<span id="cb91-5"><a href="multiple-group-comparison.html#cb91-5"></a>    <span class="dt">y=</span>Mean))<span class="op">+</span></span>
+<span id="cb91-6"><a href="multiple-group-comparison.html#cb91-6"></a><span class="st">  </span><span class="kw">labs</span>(<span class="dt">y=</span><span class="st">&quot;nu&quot;</span>, <span class="dt">x=</span><span class="st">&quot;Parameter&quot;</span>)<span class="op">+</span></span>
+<span id="cb91-7"><a href="multiple-group-comparison.html#cb91-7"></a><span class="st">  </span><span class="kw">coord_flip</span>()</span>
+<span id="cb91-8"><a href="multiple-group-comparison.html#cb91-8"></a>p_nu <span class="op">+</span><span class="st"> </span><span class="kw">plot_annotation</span>(<span class="dt">title =</span> <span class="st">&#39;HPDI interval of the degree of freedom&#39;</span>)</span></code></pre></div>
+<p><img src="statscomp-appendix_files/figure-html/unnamed-chunk-162-4.png" width="672" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb92"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb92-1"><a href="multiple-group-comparison.html#cb92-1"></a>p_nu_s &lt;-<span class="st"> </span><span class="kw">ggplot</span>(<span class="dt">data=</span>hpdi_nu_s, <span class="kw">aes</span>(<span class="dt">x=</span>Parameter))<span class="op">+</span></span>
+<span id="cb92-2"><a href="multiple-group-comparison.html#cb92-2"></a><span class="st">  </span><span class="kw">geom_pointrange</span>(<span class="kw">aes</span>(</span>
+<span id="cb92-3"><a href="multiple-group-comparison.html#cb92-3"></a>    <span class="dt">ymin=</span>HPDI.lower, </span>
+<span id="cb92-4"><a href="multiple-group-comparison.html#cb92-4"></a>    <span class="dt">ymax=</span>HPDI.higher, </span>
+<span id="cb92-5"><a href="multiple-group-comparison.html#cb92-5"></a>    <span class="dt">y=</span>Mean))<span class="op">+</span></span>
+<span id="cb92-6"><a href="multiple-group-comparison.html#cb92-6"></a><span class="st">  </span><span class="kw">labs</span>(<span class="dt">y=</span><span class="st">&quot;Estimate of s and nu&quot;</span>, <span class="dt">x=</span><span class="st">&quot;Parameter&quot;</span>)<span class="op">+</span></span>
+<span id="cb92-7"><a href="multiple-group-comparison.html#cb92-7"></a><span class="st">  </span><span class="kw">coord_flip</span>()</span>
+<span id="cb92-8"><a href="multiple-group-comparison.html#cb92-8"></a>p_nu_s <span class="op">+</span><span class="st"> </span><span class="kw">plot_annotation</span>(<span class="dt">title =</span> <span class="st">&#39;HPDI interval&#39;</span>)</span></code></pre></div>
+<p><img src="statscomp-appendix_files/figure-html/unnamed-chunk-162-5.png" width="672" style="display: block; margin: auto;" /></p>
 <p>Now lets get a posterior distribution of the difference</p>
-<div class="sourceCode" id="cb91"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb91-1"><a href="multiple-group-comparison.html#cb91-1"></a>posterior &lt;-<span class="st"> </span>rstan<span class="op">::</span><span class="kw">extract</span>(multiplegroup_fit)</span>
-<span id="cb91-2"><a href="multiple-group-comparison.html#cb91-2"></a>a_alg &lt;-<span class="st"> </span><span class="kw">as_tibble</span>(posterior<span class="op">$</span>a_alg)</span>
-<span id="cb91-3"><a href="multiple-group-comparison.html#cb91-3"></a><span class="kw">colnames</span>(a_alg) &lt;-<span class="st"> </span>algorithms</span>
-<span id="cb91-4"><a href="multiple-group-comparison.html#cb91-4"></a>sample_a_alg &lt;-<span class="st"> </span>dplyr<span class="op">::</span><span class="kw">sample_n</span>(a_alg, <span class="dt">size=</span><span class="dv">1000</span>, <span class="dt">replace=</span>T) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb91-5"><a href="multiple-group-comparison.html#cb91-5"></a><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">mutate</span>(<span class="dt">PSO_Random =</span> PSO<span class="op">-</span>RandomSearch1,</span>
-<span id="cb91-6"><a href="multiple-group-comparison.html#cb91-6"></a>                <span class="dt">DE_PSO=</span> DifferentialEvolution<span class="op">-</span>PSO,</span>
-<span id="cb91-7"><a href="multiple-group-comparison.html#cb91-7"></a>                <span class="dt">DE_Random =</span> DifferentialEvolution<span class="op">-</span>RandomSearch1) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb91-8"><a href="multiple-group-comparison.html#cb91-8"></a><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">select</span>(<span class="op">-</span>DifferentialEvolution,<span class="op">-</span>PSO,<span class="op">-</span>RandomSearch1)</span>
-<span id="cb91-9"><a href="multiple-group-comparison.html#cb91-9"></a></span>
-<span id="cb91-10"><a href="multiple-group-comparison.html#cb91-10"></a><span class="co">#Getting HPDI from a data frame and creating a table instead of plotting...</span></span>
-<span id="cb91-11"><a href="multiple-group-comparison.html#cb91-11"></a>hpdi_diff&lt;-HDInterval<span class="op">::</span><span class="kw">hdi</span>(sample_a_alg,<span class="dt">credMass=</span><span class="fl">0.95</span>)</span>
-<span id="cb91-12"><a href="multiple-group-comparison.html#cb91-12"></a>hpdi_diff&lt;-hpdi_diff <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">as_tibble</span>(<span class="dt">rownames =</span> <span class="st">&quot;Metric&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb91-13"><a href="multiple-group-comparison.html#cb91-13"></a><span class="st">  </span>tibble<span class="op">::</span><span class="kw">add_row</span>(<span class="dt">Metric=</span><span class="st">&quot;Mean&quot;</span>, </span>
-<span id="cb91-14"><a href="multiple-group-comparison.html#cb91-14"></a>                <span class="dt">PSO_Random=</span><span class="kw">mean</span>(sample_a_alg<span class="op">$</span>PSO_Random), </span>
-<span id="cb91-15"><a href="multiple-group-comparison.html#cb91-15"></a>                <span class="dt">DE_PSO=</span><span class="kw">mean</span>(sample_a_alg<span class="op">$</span>DE_PSO), </span>
-<span id="cb91-16"><a href="multiple-group-comparison.html#cb91-16"></a>                <span class="dt">DE_Random=</span><span class="kw">mean</span>(sample_a_alg<span class="op">$</span>DE_Random)) <span class="op">%&gt;%</span></span>
-<span id="cb91-17"><a href="multiple-group-comparison.html#cb91-17"></a><span class="st">  </span>tidyr<span class="op">::</span><span class="kw">pivot_longer</span>(<span class="dt">cols=</span><span class="op">-</span>Metric, <span class="dt">names_to=</span><span class="st">&quot;AlgorithmDifference&quot;</span>, <span class="dt">values_to=</span><span class="st">&#39;values&#39;</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb91-18"><a href="multiple-group-comparison.html#cb91-18"></a><span class="st">  </span>tidyr<span class="op">::</span><span class="kw">pivot_wider</span>(<span class="dt">names_from =</span>Metric , <span class="dt">values_from=</span>values) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb91-19"><a href="multiple-group-comparison.html#cb91-19"></a><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">mutate</span>(<span class="dt">Difference=</span><span class="kw">c</span>(<span class="st">&#39;PSO - RandomSearch&#39;</span>, <span class="st">&#39;DifferentialEvolution - PSO&#39;</span>, <span class="st">&#39;DifferentialEvolution - RandomSearch&#39;</span>)) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb91-20"><a href="multiple-group-comparison.html#cb91-20"></a><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">select</span>(Difference, <span class="dt">Lower=</span>lower, Mean, <span class="dt">Upper=</span>upper)</span>
-<span id="cb91-21"><a href="multiple-group-comparison.html#cb91-21"></a></span>
-<span id="cb91-22"><a href="multiple-group-comparison.html#cb91-22"></a><span class="kw">kable</span>(hpdi_diff, <span class="dt">booktabs=</span>T, <span class="dt">format.args =</span> <span class="kw">list</span>(<span class="dt">scientific =</span> <span class="ot">FALSE</span>), <span class="dt">digits =</span> <span class="dv">3</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb91-23"><a href="multiple-group-comparison.html#cb91-23"></a><span class="st">  </span><span class="kw">kable_styling</span>(<span class="dt">bootstrap_options =</span> <span class="kw">c</span>(<span class="st">&quot;striped&quot;</span>, <span class="st">&quot;hover&quot;</span>, <span class="st">&quot;condensed&quot;</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb93"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb93-1"><a href="multiple-group-comparison.html#cb93-1"></a>posterior &lt;-<span class="st"> </span>rstan<span class="op">::</span><span class="kw">extract</span>(multiplegroup_fit)</span>
+<span id="cb93-2"><a href="multiple-group-comparison.html#cb93-2"></a>a_alg &lt;-<span class="st"> </span><span class="kw">as_tibble</span>(posterior<span class="op">$</span>a_alg)</span>
+<span id="cb93-3"><a href="multiple-group-comparison.html#cb93-3"></a><span class="kw">colnames</span>(a_alg) &lt;-<span class="st"> </span>algorithms</span>
+<span id="cb93-4"><a href="multiple-group-comparison.html#cb93-4"></a>sample_a_alg &lt;-<span class="st"> </span>dplyr<span class="op">::</span><span class="kw">sample_n</span>(a_alg, <span class="dt">size=</span><span class="dv">1000</span>, <span class="dt">replace=</span>T) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb93-5"><a href="multiple-group-comparison.html#cb93-5"></a><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">mutate</span>(<span class="dt">PSO_Random =</span> PSO<span class="op">-</span>RandomSearch1,</span>
+<span id="cb93-6"><a href="multiple-group-comparison.html#cb93-6"></a>                <span class="dt">DE_PSO=</span> DifferentialEvolution<span class="op">-</span>PSO,</span>
+<span id="cb93-7"><a href="multiple-group-comparison.html#cb93-7"></a>                <span class="dt">DE_Random =</span> DifferentialEvolution<span class="op">-</span>RandomSearch1) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb93-8"><a href="multiple-group-comparison.html#cb93-8"></a><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">select</span>(<span class="op">-</span>DifferentialEvolution,<span class="op">-</span>PSO,<span class="op">-</span>RandomSearch1)</span>
+<span id="cb93-9"><a href="multiple-group-comparison.html#cb93-9"></a></span>
+<span id="cb93-10"><a href="multiple-group-comparison.html#cb93-10"></a><span class="co">#Getting HPDI from a data frame and creating a table instead of plotting...</span></span>
+<span id="cb93-11"><a href="multiple-group-comparison.html#cb93-11"></a>hpdi_diff&lt;-HDInterval<span class="op">::</span><span class="kw">hdi</span>(sample_a_alg,<span class="dt">credMass=</span><span class="fl">0.95</span>)</span>
+<span id="cb93-12"><a href="multiple-group-comparison.html#cb93-12"></a>hpdi_diff&lt;-hpdi_diff <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">as_tibble</span>(<span class="dt">rownames =</span> <span class="st">&quot;Metric&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb93-13"><a href="multiple-group-comparison.html#cb93-13"></a><span class="st">  </span>tibble<span class="op">::</span><span class="kw">add_row</span>(<span class="dt">Metric=</span><span class="st">&quot;Mean&quot;</span>, </span>
+<span id="cb93-14"><a href="multiple-group-comparison.html#cb93-14"></a>                <span class="dt">PSO_Random=</span><span class="kw">mean</span>(sample_a_alg<span class="op">$</span>PSO_Random), </span>
+<span id="cb93-15"><a href="multiple-group-comparison.html#cb93-15"></a>                <span class="dt">DE_PSO=</span><span class="kw">mean</span>(sample_a_alg<span class="op">$</span>DE_PSO), </span>
+<span id="cb93-16"><a href="multiple-group-comparison.html#cb93-16"></a>                <span class="dt">DE_Random=</span><span class="kw">mean</span>(sample_a_alg<span class="op">$</span>DE_Random)) <span class="op">%&gt;%</span></span>
+<span id="cb93-17"><a href="multiple-group-comparison.html#cb93-17"></a><span class="st">  </span>tidyr<span class="op">::</span><span class="kw">pivot_longer</span>(<span class="dt">cols=</span><span class="op">-</span>Metric, <span class="dt">names_to=</span><span class="st">&quot;AlgorithmDifference&quot;</span>, <span class="dt">values_to=</span><span class="st">&#39;values&#39;</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb93-18"><a href="multiple-group-comparison.html#cb93-18"></a><span class="st">  </span>tidyr<span class="op">::</span><span class="kw">pivot_wider</span>(<span class="dt">names_from =</span>Metric , <span class="dt">values_from=</span>values) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb93-19"><a href="multiple-group-comparison.html#cb93-19"></a><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">mutate</span>(<span class="dt">Difference=</span><span class="kw">c</span>(<span class="st">&#39;PSO - RandomSearch&#39;</span>, <span class="st">&#39;DifferentialEvolution - PSO&#39;</span>, <span class="st">&#39;DifferentialEvolution - RandomSearch&#39;</span>)) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb93-20"><a href="multiple-group-comparison.html#cb93-20"></a><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">select</span>(Difference, <span class="dt">Lower=</span>lower, Mean, <span class="dt">Upper=</span>upper)</span>
+<span id="cb93-21"><a href="multiple-group-comparison.html#cb93-21"></a></span>
+<span id="cb93-22"><a href="multiple-group-comparison.html#cb93-22"></a><span class="kw">kable</span>(hpdi_diff, <span class="dt">booktabs=</span>T, <span class="dt">format.args =</span> <span class="kw">list</span>(<span class="dt">scientific =</span> <span class="ot">FALSE</span>), <span class="dt">digits =</span> <span class="dv">3</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb93-23"><a href="multiple-group-comparison.html#cb93-23"></a><span class="st">  </span><span class="kw">kable_styling</span>(<span class="dt">bootstrap_options =</span> <span class="kw">c</span>(<span class="st">&quot;striped&quot;</span>, <span class="st">&quot;hover&quot;</span>, <span class="st">&quot;condensed&quot;</span>))</span></code></pre></div>
 <table class="table table-striped table-hover table-condensed" style="margin-left: auto; margin-right: auto;">
 <thead>
 <tr>
@@ -2064,7 +2085,7 @@ DifferentialEvolution - PSO
 1.212
 </td>
 <td style="text-align:right;">
-1.218
+1.217
 </td>
 </tr>
 <tr>
@@ -2072,7 +2093,7 @@ DifferentialEvolution - PSO
 DifferentialEvolution - RandomSearch
 </td>
 <td style="text-align:right;">
-1.334
+1.335
 </td>
 <td style="text-align:right;">
 1.339
@@ -2084,13 +2105,13 @@ DifferentialEvolution - RandomSearch
 </tbody>
 </table>
 <p>Creating an output table</p>
-<div class="sourceCode" id="cb92"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb92-1"><a href="multiple-group-comparison.html#cb92-1"></a>rename_pars &lt;-<span class="st"> </span><span class="kw">c</span>(</span>
-<span id="cb92-2"><a href="multiple-group-comparison.html#cb92-2"></a>  <span class="kw">paste</span>(<span class="kw">rep</span>(<span class="st">&#39;a_&#39;</span>,<span class="kw">length</span>(algorithms)),algorithms, <span class="dt">sep =</span> <span class="st">&quot;&quot;</span>),</span>
-<span id="cb92-3"><a href="multiple-group-comparison.html#cb92-3"></a>  <span class="kw">paste</span>(<span class="kw">rep</span>(<span class="st">&#39;sigma_&#39;</span>,<span class="kw">length</span>(algorithms)),algorithms, <span class="dt">sep =</span> <span class="st">&quot;&quot;</span>),</span>
-<span id="cb92-4"><a href="multiple-group-comparison.html#cb92-4"></a>  <span class="st">&#39;s&#39;</span>,</span>
-<span id="cb92-5"><a href="multiple-group-comparison.html#cb92-5"></a>  <span class="st">&#39;nu&#39;</span>)</span>
-<span id="cb92-6"><a href="multiple-group-comparison.html#cb92-6"></a>t&lt;-<span class="kw">create_table_model</span>(multiplegroup_fit, <span class="dt">pars=</span><span class="kw">c</span>(a_alg_v, sigma_v, <span class="st">&#39;s&#39;</span>,<span class="st">&#39;nu&#39;</span>),rename_pars)</span>
-<span id="cb92-7"><a href="multiple-group-comparison.html#cb92-7"></a><span class="kw">saveRDS</span>(t,<span class="st">&#39;./statscomp-paper/tables/datafortables/multiplegroupsdifference-par-table.RDS&#39;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb94"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb94-1"><a href="multiple-group-comparison.html#cb94-1"></a>rename_pars &lt;-<span class="st"> </span><span class="kw">c</span>(</span>
+<span id="cb94-2"><a href="multiple-group-comparison.html#cb94-2"></a>  <span class="kw">paste</span>(<span class="kw">rep</span>(<span class="st">&#39;a_&#39;</span>,<span class="kw">length</span>(algorithms)),algorithms, <span class="dt">sep =</span> <span class="st">&quot;&quot;</span>),</span>
+<span id="cb94-3"><a href="multiple-group-comparison.html#cb94-3"></a>  <span class="kw">paste</span>(<span class="kw">rep</span>(<span class="st">&#39;sigma_&#39;</span>,<span class="kw">length</span>(algorithms)),algorithms, <span class="dt">sep =</span> <span class="st">&quot;&quot;</span>),</span>
+<span id="cb94-4"><a href="multiple-group-comparison.html#cb94-4"></a>  <span class="st">&#39;s&#39;</span>,</span>
+<span id="cb94-5"><a href="multiple-group-comparison.html#cb94-5"></a>  <span class="st">&#39;nu&#39;</span>)</span>
+<span id="cb94-6"><a href="multiple-group-comparison.html#cb94-6"></a>t&lt;-<span class="kw">create_table_model</span>(multiplegroup_fit, <span class="dt">pars=</span><span class="kw">c</span>(a_alg_v, sigma_v, <span class="st">&#39;s&#39;</span>,<span class="st">&#39;nu&#39;</span>),rename_pars)</span>
+<span id="cb94-7"><a href="multiple-group-comparison.html#cb94-7"></a><span class="kw">saveRDS</span>(t,<span class="st">&#39;./statscomp-paper/tables/datafortables/multiplegroupsdifference-par-table.RDS&#39;</span>)</span></code></pre></div>
 
 </div>
 </div>
@@ -2100,7 +2121,7 @@ DifferentialEvolution - RandomSearch
         </div>
       </div>
 <a href="time-to-complete.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="sensitivity-analysis-and-model-comparison.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="sensitivity-analysis-model-comparison-and-posterior-predictive.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

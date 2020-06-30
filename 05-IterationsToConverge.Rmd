@@ -2,9 +2,8 @@
 
 In this section, we will consider the Cox's Proportional Hazard model for analyzing the time to converge to a a solution (in number of iterations).
 
-*RQ1: **What is the average number of function evaluations that it takes for an algorithm to converge to a solution at a precision of $\epsilon=0.1$? Here we will utilize a window of 100,000 function evaluations per dimension (the budget).
-
-**RQ2:** What is the impact of noise in the number of function evaluations? 
+* **RQ4-a:**  What is the average number of function evaluations taken by an algorithm to converge to a solution at a precision of $\epsilon=0.1$, with a budget of 100,000 function evaluations per dimension?
+* **RQ4-b:** What is the impact of noise in the number of function evaluations taken by an algorithm to converge to a solution at a precision of $\epsilon=0.1$, with a budget of 100,000 function evaluations per dimension?
 
 ## Data preparation
 
@@ -14,7 +13,7 @@ We start importing the dataset
 dataset <- readr::read_csv('./data/statscomp.csv')
 ```
 
-Filtering the data that we want and applying some transformations
+Filtering the data that we want and applying some transformations. The Event variable will indicate if it was censored or not.
 ```{r}
 d <- dataset %>% 
   dplyr::filter(OptimizationSuccessful==TRUE & MaxFevalPerDimensions==100000 & (Algorithm=="PSO"|Algorithm=="CMAES"|Algorithm=="DifferentialEvolution"|Algorithm=="RandomSearch2")) %>% 
@@ -42,7 +41,7 @@ saveRDS(dplyr::sample_n(d,size=6), './statscomp-paper/tables/datafortables/timet
 
 ## Stan model
 
-The Stan model is specified in the file: `'./stanmodels/timetoconverge.stan'`
+The Stan model is specified in the file: `'./stanmodels/timetoconverge.stan'`. Note that at the end of the model we commented the generated quantities. This block generates the predictive posterior y_rep and the log likelihood, log_lik. These values are useful in diagnosing and validating the model but the end file is extremely large (~1Gb for 2000 iterations) and make many of the following calculations slow. If the reader wants to see these values is just to uncomment and run the stan model again. Note also the the predictive posterior calculates for censored and non censored data. We can in r restrict and compare the predictive only to the non censored data or even censor it if the prediction is above the budget.
 
 ```{r}
 print_stan_code('./stanmodels/timetoconverge.stan')
@@ -154,7 +153,7 @@ p_s <- ggplot(data=hpdi_s, aes(x=Parameter))+
     ymin=HPDI.lower, 
     ymax=HPDI.higher, 
     y=Mean))+
-  labs(y="Estimate", x="Parameter")+
+  labs(y="Estimate of s", x="Parameter")+
   coord_flip()
 p_s + plot_annotation(title = 'HPDI interval std of the benchmarks')
 ```

@@ -2,7 +2,7 @@
 
 Our next, model deals with relative improvement of the algorithms over a baseline in noiseless functions. This model is based on a normal linear regression.
 
-**RQ**  What is the expected improvement of these algorithms against the Random Search in noiseless benchmark functions?  For this question we will consider the Euclidean distance to the location of the closest global minima, instead of the final reward difference.
+* **RQ2**   What is the expected improvement of these algorithms against the Random Search in noiseless benchmark functions in terms of approaching a global minima based in the Euclidean distance to the location of the closest global minima?  
 
 ## Data preparation
 
@@ -65,7 +65,9 @@ find.na <- d_final %>%
     dplyr::filter(is.na(y))
 
 bm<-get_index_names_as_array(d_final$CostFunction)
+saveRDS(bm, './data/relativeimprovement_bm.RDS')
 algorithms <- get_index_names_as_array(d_final$Algorithm)
+saveRDS(algorithms, './data/relativeimprovement_algorithms.RDS')
 ```
 
 Now we have our final dataset to use with Stan. Lets preview a sample of the data set
@@ -80,7 +82,7 @@ saveRDS(dplyr::sample_n(d_final,size=4),'./statscomp-paper/tables/datafortables/
  
 ## Stan model
 
-The Stan model is specified in the file: `'./stanmodels/relativeimprovement.stan'`
+The Stan model is specified in the file: `'./stanmodels/relativeimprovement.stan'`. Note that at the end of the model we commented the generated quantities. This block generates the predictive posterior y_rep and the log likelihood, log_lik. These values are useful in diagnosing and validating the model but the end file is extremely large (~1Gb for 2000 iterations) and make many of the following calculations slow. If the reader wants to see these values is just to uncomment and run the stan model again
 
 ```{r}
 print_stan_code('./stanmodels/relativeimprovement.stan')
@@ -156,7 +158,7 @@ p_alg<-ggplot(data=hpdi_algorithm, aes(x=Parameter))+
     ymin=HPDI.lower, 
     ymax=HPDI.higher, 
     y=Mean))+
-  labs(y="Estimate", x="Algorithm")+
+  labs(y="Estimate of intercept", x="Algorithm")+
   coord_flip()
 p_alg + plot_annotation(title = 'HPDI interval for the algorithms')
 
@@ -165,7 +167,7 @@ p_others <- ggplot(data=hpdi_other_parameters, aes(x=Parameter))+
     ymin=HPDI.lower, 
     ymax=HPDI.higher, 
     y=Mean))+
-  labs(y="Estimate", x="Parameter")+
+  labs(y="Estimate of s and sigma", x="Parameter")+
   coord_flip()
 p_others + plot_annotation(title = 'HPDI interval')
 ```

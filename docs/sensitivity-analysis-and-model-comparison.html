@@ -136,15 +136,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#software-environment"><i class="fa fa-check"></i>Software environment</a></li>
 </ul></li>
 <li class="chapter" data-level="1" data-path="introduction.html"><a href="introduction.html"><i class="fa fa-check"></i><b>1</b> Introduction</a><ul>
-<li class="chapter" data-level="1.1" data-path="introduction.html"><a href="introduction.html#the-simulation"><i class="fa fa-check"></i><b>1.1</b> The simulation</a><ul>
-<li class="chapter" data-level="1.1.1" data-path="introduction.html"><a href="introduction.html#exploring-the-dataset"><i class="fa fa-check"></i><b>1.1.1</b> Exploring the dataset</a></li>
-<li class="chapter" data-level="1.1.2" data-path="introduction.html"><a href="introduction.html#column-definitions"><i class="fa fa-check"></i><b>1.1.2</b> Column definitions</a></li>
-</ul></li>
+<li class="chapter" data-level="1.0.1" data-path="introduction.html"><a href="introduction.html#exploring-the-dataset"><i class="fa fa-check"></i><b>1.0.1</b> Exploring the dataset</a></li>
+<li class="chapter" data-level="1.0.2" data-path="introduction.html"><a href="introduction.html#column-definitions-of-the-dataset"><i class="fa fa-check"></i><b>1.0.2</b> Column definitions of the dataset</a></li>
 </ul></li>
 <li class="chapter" data-level="2" data-path="probability-of-success-model.html"><a href="probability-of-success-model.html"><i class="fa fa-check"></i><b>2</b> Probability of success model</a><ul>
 <li class="chapter" data-level="2.1" data-path="probability-of-success-model.html"><a href="probability-of-success-model.html#data-preparation"><i class="fa fa-check"></i><b>2.1</b> Data preparation</a></li>
 <li class="chapter" data-level="2.2" data-path="probability-of-success-model.html"><a href="probability-of-success-model.html#stan-model"><i class="fa fa-check"></i><b>2.2</b> Stan model</a></li>
-<li class="chapter" data-level="2.3" data-path="probability-of-success-model.html"><a href="probability-of-success-model.html#diagnosis"><i class="fa fa-check"></i><b>2.3</b> Diagnosis</a></li>
+<li class="chapter" data-level="2.3" data-path="probability-of-success-model.html"><a href="probability-of-success-model.html#diagnosis"><i class="fa fa-check"></i><b>2.3</b> Diagnosis</a><ul>
+<li class="chapter" data-level="2.3.1" data-path="probability-of-success-model.html"><a href="probability-of-success-model.html#chains-convergence"><i class="fa fa-check"></i><b>2.3.1</b> Chains convergence</a></li>
+</ul></li>
 <li class="chapter" data-level="2.4" data-path="probability-of-success-model.html"><a href="probability-of-success-model.html#results-and-plots"><i class="fa fa-check"></i><b>2.4</b> Results and Plots</a></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="relative-improvement.html"><a href="relative-improvement.html"><i class="fa fa-check"></i><b>3</b> Relative improvement</a><ul>
@@ -171,7 +171,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="6.3" data-path="multiple-group-comparison.html"><a href="multiple-group-comparison.html#diagnosis-4"><i class="fa fa-check"></i><b>6.3</b> Diagnosis</a></li>
 <li class="chapter" data-level="6.4" data-path="multiple-group-comparison.html"><a href="multiple-group-comparison.html#results-and-plots-4"><i class="fa fa-check"></i><b>6.4</b> Results and Plots</a></li>
 </ul></li>
-<li class="chapter" data-level="7" data-path="sensitivity-analysis-and-model-comparison.html"><a href="sensitivity-analysis-and-model-comparison.html"><i class="fa fa-check"></i><b>7</b> Sensitivity analysis and model comparison</a></li>
+<li class="chapter" data-level="7" data-path="sensitivity-analysis-and-model-comparison.html"><a href="sensitivity-analysis-and-model-comparison.html"><i class="fa fa-check"></i><b>7</b> Sensitivity analysis and model comparison</a><ul>
+<li class="chapter" data-level="7.1" data-path="sensitivity-analysis-and-model-comparison.html"><a href="sensitivity-analysis-and-model-comparison.html#sensitivity-analysis"><i class="fa fa-check"></i><b>7.1</b> Sensitivity analysis</a></li>
+</ul></li>
 </ul>
 
       </nav>
@@ -191,7 +193,36 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
             <section class="normal" id="section-">
 <div id="sensitivity-analysis-and-model-comparison" class="section level1">
 <h1><span class="header-section-number">Chapter 7</span> Sensitivity analysis and model comparison</h1>
+<p>In this chapter, we provide an example on how to do a sensitivity analysis and model comparison. For that we will use the Relative Improvement model of chapter 3.</p>
+<p>Reading the data for the (already prepared data) for the model</p>
+<div class="sourceCode" id="cb93"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb93-1"><a href="sensitivity-analysis-and-model-comparison.html#cb93-1"></a>standata&lt;-<span class="kw">readRDS</span>(<span class="st">&quot;./data/relativeimprovement-data.RDS&quot;</span>)</span>
+<span id="cb93-2"><a href="sensitivity-analysis-and-model-comparison.html#cb93-2"></a>algorithms&lt;-<span class="kw">readRDS</span>(<span class="st">&quot;./data/relativeimprovement-algorithms.RDS&quot;</span>)</span>
+<span id="cb93-3"><a href="sensitivity-analysis-and-model-comparison.html#cb93-3"></a>bm&lt;-<span class="kw">readRDS</span>(<span class="st">&quot;./data/relativeimprovement-bm.RDS&quot;</span>)</span></code></pre></div>
+<div id="sensitivity-analysis" class="section level2">
+<h2><span class="header-section-number">7.1</span> Sensitivity analysis</h2>
+<p>Here we consider 3 models for the relative improvement. The original model presented on chapter 3 and in the paper. A model without clustering information about the benchmarks (m1) and a model with a different set of priors (m2)</p>
+<p>In m2 we consider HalfNormal(0,5) for both the s and the sigma parameters (instead of the exponential)</p>
+<div class="sourceCode" id="cb94"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb94-1"><a href="sensitivity-analysis-and-model-comparison.html#cb94-1"></a>standata_m1 =<span class="st"> </span><span class="kw">list</span>(</span>
+<span id="cb94-2"><a href="sensitivity-analysis-and-model-comparison.html#cb94-2"></a>  <span class="dt">N_total=</span> standata<span class="op">$</span>N_total,</span>
+<span id="cb94-3"><a href="sensitivity-analysis-and-model-comparison.html#cb94-3"></a>  <span class="dt">y =</span> standata<span class="op">$</span>y,</span>
+<span id="cb94-4"><a href="sensitivity-analysis-and-model-comparison.html#cb94-4"></a>  <span class="dt">N_algorithm =</span> standata<span class="op">$</span>N_algorithm,</span>
+<span id="cb94-5"><a href="sensitivity-analysis-and-model-comparison.html#cb94-5"></a>  <span class="dt">algorithm_id =</span> standata<span class="op">$</span>algorithm_id</span>
+<span id="cb94-6"><a href="sensitivity-analysis-and-model-comparison.html#cb94-6"></a>)</span>
+<span id="cb94-7"><a href="sensitivity-analysis-and-model-comparison.html#cb94-7"></a>relativeimprovement_fit_m1 &lt;-<span class="st"> </span><span class="kw">stan</span>(<span class="dt">file =</span> <span class="st">&#39;./stanmodels/relativeimprovement-m1.stan&#39;</span>,</span>
+<span id="cb94-8"><a href="sensitivity-analysis-and-model-comparison.html#cb94-8"></a>                     <span class="dt">data=</span>standata_m1,</span>
+<span id="cb94-9"><a href="sensitivity-analysis-and-model-comparison.html#cb94-9"></a>                     <span class="dt">chains =</span> <span class="dv">4</span>,</span>
+<span id="cb94-10"><a href="sensitivity-analysis-and-model-comparison.html#cb94-10"></a>                     <span class="dt">warmup =</span> <span class="dv">200</span>,</span>
+<span id="cb94-11"><a href="sensitivity-analysis-and-model-comparison.html#cb94-11"></a>                     <span class="dt">iter =</span> <span class="dv">2000</span>)</span>
+<span id="cb94-12"><a href="sensitivity-analysis-and-model-comparison.html#cb94-12"></a><span class="kw">saveRDS</span>(relativeimprovement_fit_m1, <span class="dt">file =</span> <span class="st">&quot;./data/relativeimprovement_fit_m1.RDS&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb95"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb95-1"><a href="sensitivity-analysis-and-model-comparison.html#cb95-1"></a>standata_m2 &lt;-<span class="st"> </span>standata </span>
+<span id="cb95-2"><a href="sensitivity-analysis-and-model-comparison.html#cb95-2"></a>relativeimprovement_fit_m2 &lt;-<span class="st"> </span><span class="kw">stan</span>(<span class="dt">file =</span> <span class="st">&#39;./stanmodels/relativeimprovement-m2.stan&#39;</span>,</span>
+<span id="cb95-3"><a href="sensitivity-analysis-and-model-comparison.html#cb95-3"></a>                     <span class="dt">data=</span>standata,</span>
+<span id="cb95-4"><a href="sensitivity-analysis-and-model-comparison.html#cb95-4"></a>                     <span class="dt">chains =</span> <span class="dv">4</span>,</span>
+<span id="cb95-5"><a href="sensitivity-analysis-and-model-comparison.html#cb95-5"></a>                     <span class="dt">warmup =</span> <span class="dv">200</span>,</span>
+<span id="cb95-6"><a href="sensitivity-analysis-and-model-comparison.html#cb95-6"></a>                     <span class="dt">iter =</span> <span class="dv">2000</span>)</span>
+<span id="cb95-7"><a href="sensitivity-analysis-and-model-comparison.html#cb95-7"></a><span class="kw">saveRDS</span>(relativeimprovement_fit_m2, <span class="dt">file =</span> <span class="st">&quot;./data/relativeimprovement_fit_m2.RDS&quot;</span>)</span></code></pre></div>
 
+</div>
 </div>
             </section>
 

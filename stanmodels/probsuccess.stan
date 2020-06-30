@@ -40,7 +40,7 @@ model {
 
   // //Random effects
   s ~ exponential(0.1);
-  a_bm_norm ~ normal(0,2);
+  a_bm_norm ~ normal(0,1);
 
   for (i in 1:N_total)
   {
@@ -52,3 +52,19 @@ model {
   y ~ binomial_logit(N_draw,p);
 }
 
+//Uncoment this part to get the posterior predictives and the log likelihood
+//But note that it takes a lot of space in the final model
+// generated quantities{
+//   vector [N_total] y_rep;
+//   vector[N_total] log_lik;
+//   
+//   for(i in 1:N_total){
+//     real p;
+//     p = a_alg[algorithm_id[i]]+ a_bm_norm[bm_id[i]]*s + b_noise[algorithm_id[i]] * x_noise[i];
+// 
+//     y_rep[i] = binomial_rng(N_draw[i], inv_logit(p));
+//     
+//     //Log likelihood
+//      log_lik[i] = binomial_lpmf(y[i] | N_draw[i], inv_logit(p));
+//   }
+// }

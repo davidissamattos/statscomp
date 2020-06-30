@@ -2,7 +2,7 @@
 
 In this section, we will consider the Bradley-Terry Model for ranking algorithms in the fixed budget of 10,000 function evaluations per dimension and controlling for noise and the effect of benchmark functions
 
-\textbf{RQ: } How can we rank algorithm different optimization algorithms given a budget of 10,000 evaluations per dimension in noisy benchmarks?
+* **RQ3:**  How can we rank algorithm different optimization algorithms given a budget of 10,000 evaluations per dimension in noisy benchmarks?
 
 
 ## Data preparation
@@ -126,7 +126,7 @@ saveRDS(sample_n(df_table,size=6), './statscomp-paper/tables/datafortables/ranki
 
 ## Stan model
 
-The Stan model is specified in the file: `'./stanmodels/rankingmodel.stan'`
+The Stan model is specified in the file: `'./stanmodels/rankingmodel.stan'`. Note that at the end of the model we commented the generated quantities. This block generates the predictive posterior y_rep and the log likelihood, log_lik. These values are useful in diagnosing and validating the model but the end file is extremely large (~1Gb for 2000 iterations) and make many of the following calculations slow. If the reader wants to see these values is just to uncomment and run the stan model again
 
 ```{r}
 print_stan_code('./stanmodels/rankingmodel.stan')
@@ -157,18 +157,27 @@ ranking.fit <- stan(file = './stanmodels/rankingmodel.stan',
 saveRDS(ranking.fit, file = "./data/ranking-fit.RDS")
 ```
 
-```{r echo=F, include=F, eval=T}
+```{r}
 ranking.fit <-readRDS("./data/ranking-fit.RDS")
+a_alg <- c("a_alg[1]",
+           "a_alg[2]",
+           "a_alg[3]",
+           "a_alg[4]",
+           "a_alg[5]",
+           "a_alg[6]",
+           "a_alg[7]",
+           "a_alg[8]")
 ```
 
 ## Diagnosis
 
 ```{r}
-rstan::traceplot(ranking.fit)
+rstan::traceplot(ranking.fit, pars=a_alg)
 ```
 
 Another diagnosis is to look at the Rhat. If Rhat is greater than 1.05 it indicates a divergence in the chains (they did not mix well). The table below shows a summary of the sampling.
 ```{r}
+
 kable(summary(ranking.fit)$summary) %>% 
   kable_styling(bootstrap_options = c('striped',"hover", "condensed" ))
 ```
@@ -191,9 +200,9 @@ p_alg<-ggplot(data=hpdi_algorithm, aes(x=Parameter))+
     ymin=HPDI.lower, 
     ymax=HPDI.higher, 
     y=Mean))+
-  labs(y="Estimate", x="Algorithm")+
+  labs(y="Estimate", x="Algorithm", title = "HPDI interval of the strength of the algorithms")+
   coord_flip()
-p_alg + plot_annotation(title = 'HPDI interval for the algorithms strength')
+p_alg #+ plot_annotation(title = 'HPDI interval for the algorithms strength')
 ```
 ```{r echo=F, include=F, eval=T}
 save_fig(p_alg, 'ranking.pdf')
