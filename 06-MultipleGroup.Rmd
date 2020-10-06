@@ -43,8 +43,8 @@ Some initial visualizations in terms of box-plots
 ```{r}
 p1<-ggplot(d) +
   geom_boxplot(aes(x=Algorithm, y=y))+
-  labs(y="Time to complete x10,000")
-p1 + plot_annotation(title ="Box-plot of the time per evaluation")
+  labs(y="Time to complete x10,000 (s)")
+p1 + plot_annotation(title ="Box-plot of the runtime per function evaluation")
 
 lmfit <- lm(y~Algorithm, data=d)
 
@@ -55,10 +55,23 @@ p2<-ggplot()+
 p2 + plot_annotation(title = "Q-Q plot for normality analysis")
 ```
 
+Verifying that the log of the runtime still present high tailed distributions
+```{r}
+d2<-d
+d2$y <- log(d2$y)
+lmfit2 <- lm(y~Algorithm, data=d2)
+p3<-ggplot()+
+  geom_qq(aes(sample=lmfit2$residuals))+
+  geom_qq_line(aes(sample=lmfit2$residuals))+
+  labs(x="Standard normal quantiles", y="Sample quantiles")
+p2 + plot_annotation(title = "Q-Q plot with the log of runtime")
+```
+
 ```{r echo=F, include=F, eval=T}
 #figure for the paper
-p<- (p1 | p2) + plot_annotation(tag_levels = 'A')
-save_fig(p, 'groupcomparisonexplore.pdf')
+# p<- (p1 / p2) + plot_annotation(tag_levels = 'A')
+p <- p1
+save_fig(p, 'groupcomparisonexplore.pdf',  type = 'single-column')
 ```
 
 
@@ -157,6 +170,7 @@ p_alg<-ggplot(data=hpdi_algorithm, aes(x=Parameter))+
     ymax=HPDI.higher, 
     y=Mean))+
   labs(y="a_alg", x="Algorithm")+
+  theme(axis.title.x= element_blank())+
   coord_flip()
 p_alg + plot_annotation(title = 'HPDI interval for the algorithms')
 
@@ -166,6 +180,7 @@ p_sigma<-ggplot(data=hpdi_sigma, aes(x=Parameter))+
     ymax=HPDI.higher, 
     y=Mean))+
   labs(y="sigma", x="Algorithm")+
+  theme(axis.title.x= element_blank())+
   coord_flip()
 p_sigma + plot_annotation(title = 'HPDI interval for sigma')
 
@@ -193,7 +208,9 @@ p_nu_s <- ggplot(data=hpdi_nu_s, aes(x=Parameter))+
     ymax=HPDI.higher, 
     y=Mean))+
   labs(y="Estimate of s and nu", x="Parameter")+
+  theme(axis.title.x= element_blank())+
   coord_flip()
+
 p_nu_s + plot_annotation(title = 'HPDI interval')
 ```
 
@@ -218,13 +235,10 @@ sample_a_alg <- dplyr::sample_n(a_alg, size=1000, replace=T) %>%
 #Getting HPDI from a data frame and creating a table instead of plotting...
 hpdi_diff<-HDInterval::hdi(sample_a_alg,credMass=0.95)
 hpdi_diff<-hpdi_diff %>% as_tibble(rownames = "Metric") %>% 
-  tibble::add_row(Metric="Mean", 
-                PSO_Random=mean(sample_a_alg$PSO_Random), 
-                DE_PSO=mean(sample_a_alg$DE_PSO), 
-                DE_Random=mean(sample_a_alg$DE_Random)) %>%
+  tibble::add_row(Metric="Mean", PSO_Random=mean(sample_a_alg$PSO_Random), DE_PSO=mean(sample_a_alg$DE_PSO), DE_Random=mean(sample_a_alg$DE_Random)) %>%
   tidyr::pivot_longer(cols=-Metric, names_to="AlgorithmDifference", values_to='values') %>% 
   tidyr::pivot_wider(names_from =Metric , values_from=values) %>% 
-  dplyr::mutate(Difference=c('PSO - RandomSearch', 'DifferentialEvolution - PSO', 'DifferentialEvolution - RandomSearch')) %>% 
+  dplyr::mutate(Difference=c('PSO - RandomSearch', 'DiffEvolution - PSO', 'DiffEvolution - RandomSearch')) %>% 
   dplyr::select(Difference, Lower=lower, Mean, Upper=upper)
 
 kable(hpdi_diff, booktabs=T, format.args = list(scientific = FALSE), digits = 3) %>% 
@@ -232,6 +246,8 @@ kable(hpdi_diff, booktabs=T, format.args = list(scientific = FALSE), digits = 3)
 ```
 
 ```{r include=F}
+hpdi_diff<- hpdi_diff %>% 
+  dplyr::select(Difference, Mean, 'HPD low'=Lower, 'HPD higher'=Upper)
 saveRDS(hpdi_diff, './statscomp-paper/tables/datafortables/multiplegroupsdifference.RDS')
 ```
 
@@ -244,5 +260,6 @@ rename_pars <- c(
   's',
   'nu')
 t<-create_table_model(multiplegroup_fit, pars=c(a_alg_v, sigma_v, 's','nu'),rename_pars)
+colnames(t)<-c("Parameter", "Mean", "HPD low", "HPD high")
 saveRDS(t,'./statscomp-paper/tables/datafortables/multiplegroupsdifference-par-table.RDS')
 ```

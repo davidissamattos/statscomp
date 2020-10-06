@@ -109,8 +109,9 @@ kable(summary(timetoconverge_fit)$summary) %>%
   kable_styling(bootstrap_options = c('striped',"hover", "condensed" ))
 ```
 
-
 ## Results and Plots
+
+### Parameters and plots
 
 First lets get the HPDI of every parameter. 
 
@@ -165,12 +166,12 @@ p<- (p_alg | p_noise | p_s) + plot_annotation(title = 'HPDI interval of the para
 save_fig(p, 'timetoconverge.pdf')
 ```
 
-Table for the hazard ratio
+### Hazard ratio
 
 ```{r}
 hr_table <- tibble(
-  "Algorithm" = algorithms,
-  "Baseline Coefficient" = exp(hpdi_algorithm$Mean),
+  "Algorithms" = algorithms,
+  "Baseline HR" = exp(hpdi_algorithm$Mean),
   "Noise HR" = exp(hpdi_noise$Mean))
 
 kable(hr_table, booktabs=T, format.args = list(scientific = FALSE), digits = 3) %>% 
@@ -181,17 +182,60 @@ kable(hr_table, booktabs=T, format.args = list(scientific = FALSE), digits = 3) 
 saveRDS(hr_table, './statscomp-paper/tables/datafortables/hr_table.RDS')
 ```
 
-```{r hr, echo=F, include=F, eval=T}
-#this snipped is for creating the latex code for the paper
-kable(hr_table, "latex", caption=" Average baseline coefficient and the average noise hazard ratio", label = "hr" ,booktabs=T, format.args = list(scientific = FALSE), digits = 3) %>% 
-  kable_styling(latex_options = c("hold_position"),
-                full_width = F) %>% 
-  readr::write_lines('./statscomp-paper/tables/hr.tex')
+
+
+### Iterations to Converge
+
+To obtain the average iteration to converge we first extract samples from the posterior distribution
+
+Looking at the average value of the data regardless of the benchmarks
+```{r}
+d_no_na <- d %>% drop_na(y)
+d_no_na %>% group_by(Algorithm) %>% summarise(Mean=mean(y))
 ```
 
-Creating an output table
+
+```{r}
+posterior <- rstan::extract(timetoconverge_fit)
+a <- as_tibble(posterior$a_alg)
+colnames(a) <- algorithms
+
+lambda <- exp(a)
+mu <- 1/lambda
+
+
+#Creating a HPD table
+timetoconverge_table<-as_tibble(HDInterval::hdi(mu,credMass=0.95), rownames = "Metric") %>%
+  tibble::add_row(Metric="Mean",CMAES=mean(mu$CMAES), DifferentialEvolution=mean(mu$DifferentialEvolution), PSO=mean(mu$PSO), RandomSearch2=mean(mu$RandomSearch2)) %>% 
+  tidyr::pivot_longer(cols=-Metric,names_to = 'Algorithms', values_to='values') %>% 
+  tidyr::pivot_wider(names_from =Metric , values_from=values) %>% 
+  dplyr::rename(Mean=Mean,
+                'HPD low' = lower,
+                'HPD high' = upper) %>% 
+  dplyr::relocate(Algorithms, Mean)
+
+saveRDS(timetoconverge_table, './statscomp-paper/tables/datafortables/averagetimetoconverge.RDS')
+```
+
+### Merging hazards and time to converge table
+
+```{r include=F}
+
+# join with the hazards table
+ft <- dplyr::inner_join(timetoconverge_table,hr_table, by='Algorithms')
+colnames(ft)<-c("Parameter", "Mean", "HPD low", "HPD high","Baseline", "Noise")
+
+saveRDS(ft, './statscomp-paper/tables/datafortables/averagetimetoconverge_hr_table.RDS')
+
+```
+
+### Parameter table
+
 ```{r}
 rename_pars <- c(paste(rep('a_',length(algorithms)),algorithms, sep = ""), paste(rep('b_',length(algorithms)),algorithms, sep = ""),'s')
-t<-create_table_model(timetoconverge_fit, c(a_alg, b_noise, 's'),rename_pars)
-saveRDS(t,'./statscomp-paper/tables/datafortables/timetoconverge-par-table.RDS')
+
+t<-create_table_model(timetoconverge_fit, c(a_alg, b_noise, 's'), rename_pars)
+
+colnames(t)<-c("Parameter", "Mean", "HPD low", "HPD high")
+saveRDS(t,'./statscomp-paper/tables/datafortables/timetoconverge-hr-par-table.RDS')
 ```

@@ -1,4 +1,4 @@
-// Relative improvement model
+// Ranking model
 // Author: David Issa Mattos
 // Date: 22 June 2020
 //
