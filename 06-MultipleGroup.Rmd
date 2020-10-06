@@ -5,7 +5,7 @@ We present here the Stan version of the BEST (Bayesian Estimation Supersedes the
 
 * **RQ5: **  Is there a difference in the time taken per function evaluation between the PSO, the RandomSearch1 and the Differential Evolution algorithms?
 
-## Data preparation
+## RQ5 Data preparation
 
 We start importing the dataset
 
@@ -76,7 +76,7 @@ save_fig(p, 'groupcomparisonexplore.pdf',  type = 'single-column')
 
 
 
-## Stan model
+## RQ5 Stan model
 
 The Stan model is specified in the file: `'./stanmodels/multiplegroups.stan'`. Note that at the end of the model we commented the generated quantities. This block generates the predictive posterior y_rep and the log likelihood, log_lik. These values are useful in diagnosing and validating the model but the end file is extremely large (~1Gb for 2000 iterations) and make many of the following calculations slow. If the reader wants to see these values is just to uncomment and run the stan model again.
 
@@ -111,7 +111,7 @@ multiplegroup_fit <- stan(file = './stanmodels/multiplegroups.stan',
 saveRDS(multiplegroup_fit, file = "./data/multiplegroups-fit.RDS")
 ```
 
-## Diagnosis
+## RQ5 Diagnosis
 
 ```{r echo=F, include=F, eval=T}
 multiplegroup_fit <-readRDS("./data/multiplegroups-fit.RDS")
@@ -137,7 +137,7 @@ kable(summary(multiplegroup_fit)$summary, "html",) %>%
   kable_styling(bootstrap_options = c('striped',"hover", "condensed" ))
 ```
 
-## Results and Plots
+## RQ5 Results and Plots
 
 First lets get the HPDI of every parameter. 
 

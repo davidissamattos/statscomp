@@ -4,7 +4,7 @@ Our next, model deals with relative improvement of the algorithms over a baselin
 
 * **RQ2**   What is the expected improvement of these algorithms against the Random Search in noiseless benchmark functions in terms of approaching a global minima based in the Euclidean distance to the location of the closest global minima?  
 
-## Data preparation
+## RQ2 Data preparation
 
 We start importing the dataset
 
@@ -80,7 +80,7 @@ kable(dplyr::sample_n(d_final,size=10), "html",booktabs=T, format.args = list(sc
 saveRDS(dplyr::sample_n(d_final,size=4),'./statscomp-paper/tables/datafortables/relativeimprovementmodeldata.RDS')
 ```
  
-## Stan model
+## RQ2 Stan model
 
 The Stan model is specified in the file: `'./stanmodels/relativeimprovement.stan'`. Note that at the end of the model we commented the generated quantities. This block generates the predictive posterior y_rep and the log likelihood, log_lik. These values are useful in diagnosing and validating the model but the end file is extremely large (~1Gb for 2000 iterations) and make many of the following calculations slow. If the reader wants to see these values is just to uncomment and run the stan model again
 
@@ -118,7 +118,7 @@ relativeimprovement.fit <-readRDS("./data/relativeimprovement-fit.RDS")
 ```
 
 
-## Diagnosis
+## RQ2 Diagnosis
 
 ```{r}
 a_alg <- c("a_alg[1]",
@@ -137,7 +137,7 @@ kable(summary(relativeimprovement.fit)$summary) %>%
   kable_styling(bootstrap_options = c('striped',"hover", "condensed" ))
 ```
 
-## Results and Plots
+## RQ2 Results and Plots
 
 First lets get the HPDI of every parameter. 
 

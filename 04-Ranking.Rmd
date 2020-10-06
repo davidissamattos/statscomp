@@ -5,7 +5,7 @@ In this section, we will consider the Bradley-Terry Model for ranking algorithms
 * **RQ3:**  How can we rank algorithm different optimization algorithms given a budget of 10,000 evaluations per dimension in noisy benchmarks?
 
 
-## Data preparation
+## RQ3 Data preparation
 
 We start importing the dataset
 
@@ -132,7 +132,7 @@ saveRDS(sample_n(df_table,size=6), './statscomp-paper/tables/datafortables/ranki
 
 
 
-## Stan model
+## RQ3 Stan model
 
 The Stan model is specified in the file: `'./stanmodels/rankingmodel_withcluster.stan'`. 
 
@@ -179,7 +179,7 @@ a_alg <- c("a_alg[1]",
 ```
 
 
-## Diagnosis
+## RQ3 Diagnosis
 
 ```{r}
 rstan::traceplot(ranking.fit, pars=c(a_alg,'s'))
@@ -193,7 +193,7 @@ kable(summary(ranking.fit)$summary) %>%
 ```
 
 
-## Results and Plots
+## RQ3 Results and Plots
 
 First let's get the HPDI interval for the "strength" parameters. Then we will sample the posterior and rank them and present the ranks with their respective posteriors.
 
