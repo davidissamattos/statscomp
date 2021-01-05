@@ -133,7 +133,7 @@ generate_tables<-function(){
         label='probsuccesspartable',
         format.args = list(scientific = FALSE), digits = 2,
         linesep = "") %>% 
-    column_spec(1,width = "1.2cm") %>% 
+    column_spec(1,width = "1.4cm") %>% 
     column_spec(2,width = "0.7cm") %>% 
     column_spec(3,width = "0.7cm") %>% 
     column_spec(4,width = "0.7cm") %>% 

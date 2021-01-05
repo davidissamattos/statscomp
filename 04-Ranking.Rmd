@@ -113,6 +113,7 @@ saveRDS(df_out, file="./data/ranking.RDS")
 
 Adding index for the benchmarks
 ```{r}
+df_out <- readRDS("./data/ranking.RDS")
 df_out$CostFunctionId <- create_index(df_out$CostFunction)
 benchmarks <- get_index_names_as_array(df_out$CostFunction)
 ```
@@ -120,7 +121,6 @@ benchmarks <- get_index_names_as_array(df_out$CostFunction)
 
 Visualizing how the data frame looks like
 ```{r}
-df_out <- readRDS("./data/ranking.RDS")
 kable(dplyr::sample_n(df_out,size=10), "html", booktabs=T, format.args = list(scientific = FALSE), digits = 3) %>% 
   kable_styling(bootstrap_options = c("striped", "hover", "condensed"))
 ```

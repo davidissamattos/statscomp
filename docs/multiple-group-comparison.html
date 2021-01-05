@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 6 Multiple-group comparison | Online Appendix for: Statistical Models for the Analysis of Optimization Algorithms with Benchmark Functions</title>
   <meta name="description" content="Chapter 6 Multiple-group comparison | Online Appendix for: Statistical Models for the Analysis of Optimization Algorithms with Benchmark Functions" />
-  <meta name="generator" content="bookdown 0.20 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 6 Multiple-group comparison | Online Appendix for: Statistical Models for the Analysis of Optimization Algorithms with Benchmark Functions" />
   <meta property="og:type" content="book" />
@@ -210,23 +210,23 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="rq5-data-preparation" class="section level2">
 <h2><span class="header-section-number">6.1</span> RQ5 Data preparation</h2>
 <p>We start importing the dataset</p>
-<div class="sourceCode" id="cb87"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb87-1"><a href="multiple-group-comparison.html#cb87-1"></a>dataset &lt;-<span class="st"> </span>readr<span class="op">::</span><span class="kw">read_csv</span>(<span class="st">&#39;./data/statscomp.csv&#39;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb86"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb86-1"><a href="multiple-group-comparison.html#cb86-1"></a>dataset &lt;-<span class="st"> </span>readr<span class="op">::</span><span class="kw">read_csv</span>(<span class="st">&#39;./data/statscomp.csv&#39;</span>)</span></code></pre></div>
 <p>Filtering the data that we want and applying some transformations</p>
-<div class="sourceCode" id="cb88"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb88-1"><a href="multiple-group-comparison.html#cb88-1"></a>d &lt;-<span class="st"> </span>dataset <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb88-2"><a href="multiple-group-comparison.html#cb88-2"></a><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">filter</span>(</span>
-<span id="cb88-3"><a href="multiple-group-comparison.html#cb88-3"></a>    OptimizationSuccessful<span class="op">==</span><span class="ot">TRUE</span> <span class="op">&amp;</span></span>
-<span id="cb88-4"><a href="multiple-group-comparison.html#cb88-4"></a><span class="st">    </span>(Algorithm<span class="op">==</span><span class="st">&quot;PSO&quot;</span> <span class="op">|</span><span class="st"> </span>Algorithm<span class="op">==</span><span class="st">&quot;RandomSearch1&quot;</span> <span class="op">|</span><span class="st"> </span>Algorithm<span class="op">==</span><span class="st">&quot;DifferentialEvolution&quot;</span>)) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb88-5"><a href="multiple-group-comparison.html#cb88-5"></a><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">select</span>(Algorithm, CostFunction, TimeToComplete, simNumber, MaxFeval) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb88-6"><a href="multiple-group-comparison.html#cb88-6"></a><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">mutate</span>(<span class="dt">y=</span><span class="dv">10000</span><span class="op">*</span>TimeToComplete<span class="op">/</span>MaxFeval,</span>
-<span id="cb88-7"><a href="multiple-group-comparison.html#cb88-7"></a>                <span class="dt">CostFunctionID=</span><span class="kw">create_index</span>(CostFunction),</span>
-<span id="cb88-8"><a href="multiple-group-comparison.html#cb88-8"></a>                <span class="dt">AlgorithmID=</span><span class="kw">create_index</span>(Algorithm)) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb88-9"><a href="multiple-group-comparison.html#cb88-9"></a><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">select</span>(Algorithm, AlgorithmID, CostFunction, CostFunctionID, y,<span class="op">-</span>simNumber, <span class="op">-</span>MaxFeval)</span>
-<span id="cb88-10"><a href="multiple-group-comparison.html#cb88-10"></a></span>
-<span id="cb88-11"><a href="multiple-group-comparison.html#cb88-11"></a>algorithms&lt;-<span class="kw">get_index_names_as_array</span>(d<span class="op">$</span>Algorithm)</span>
-<span id="cb88-12"><a href="multiple-group-comparison.html#cb88-12"></a>bm &lt;-<span class="st"> </span><span class="kw">get_index_names_as_array</span>(d<span class="op">$</span>CostFunction)</span></code></pre></div>
+<div class="sourceCode" id="cb87"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb87-1"><a href="multiple-group-comparison.html#cb87-1"></a>d &lt;-<span class="st"> </span>dataset <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb87-2"><a href="multiple-group-comparison.html#cb87-2"></a><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">filter</span>(</span>
+<span id="cb87-3"><a href="multiple-group-comparison.html#cb87-3"></a>    OptimizationSuccessful<span class="op">==</span><span class="ot">TRUE</span> <span class="op">&amp;</span></span>
+<span id="cb87-4"><a href="multiple-group-comparison.html#cb87-4"></a><span class="st">    </span>(Algorithm<span class="op">==</span><span class="st">&quot;PSO&quot;</span> <span class="op">|</span><span class="st"> </span>Algorithm<span class="op">==</span><span class="st">&quot;RandomSearch1&quot;</span> <span class="op">|</span><span class="st"> </span>Algorithm<span class="op">==</span><span class="st">&quot;DifferentialEvolution&quot;</span>)) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb87-5"><a href="multiple-group-comparison.html#cb87-5"></a><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">select</span>(Algorithm, CostFunction, TimeToComplete, simNumber, MaxFeval) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb87-6"><a href="multiple-group-comparison.html#cb87-6"></a><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">mutate</span>(<span class="dt">y=</span><span class="dv">10000</span><span class="op">*</span>TimeToComplete<span class="op">/</span>MaxFeval,</span>
+<span id="cb87-7"><a href="multiple-group-comparison.html#cb87-7"></a>                <span class="dt">CostFunctionID=</span><span class="kw">create_index</span>(CostFunction),</span>
+<span id="cb87-8"><a href="multiple-group-comparison.html#cb87-8"></a>                <span class="dt">AlgorithmID=</span><span class="kw">create_index</span>(Algorithm)) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb87-9"><a href="multiple-group-comparison.html#cb87-9"></a><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">select</span>(Algorithm, AlgorithmID, CostFunction, CostFunctionID, y,<span class="op">-</span>simNumber, <span class="op">-</span>MaxFeval)</span>
+<span id="cb87-10"><a href="multiple-group-comparison.html#cb87-10"></a></span>
+<span id="cb87-11"><a href="multiple-group-comparison.html#cb87-11"></a>algorithms&lt;-<span class="kw">get_index_names_as_array</span>(d<span class="op">$</span>Algorithm)</span>
+<span id="cb87-12"><a href="multiple-group-comparison.html#cb87-12"></a>bm &lt;-<span class="st"> </span><span class="kw">get_index_names_as_array</span>(d<span class="op">$</span>CostFunction)</span></code></pre></div>
 <p>The data should look like this:</p>
-<div class="sourceCode" id="cb89"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb89-1"><a href="multiple-group-comparison.html#cb89-1"></a><span class="kw">kable</span>(dplyr<span class="op">::</span><span class="kw">sample_n</span>(d,<span class="dt">size=</span><span class="dv">10</span>), <span class="st">&quot;html&quot;</span>,<span class="dt">booktabs=</span>T, <span class="dt">format.args =</span> <span class="kw">list</span>(<span class="dt">scientific =</span> <span class="ot">FALSE</span>), <span class="dt">digits =</span> <span class="dv">3</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb89-2"><a href="multiple-group-comparison.html#cb89-2"></a><span class="st">  </span><span class="kw">kable_styling</span>(<span class="dt">bootstrap_options =</span> <span class="kw">c</span>(<span class="st">&quot;striped&quot;</span>, <span class="st">&quot;hover&quot;</span>, <span class="st">&quot;condensed&quot;</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb88"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb88-1"><a href="multiple-group-comparison.html#cb88-1"></a><span class="kw">kable</span>(dplyr<span class="op">::</span><span class="kw">sample_n</span>(d,<span class="dt">size=</span><span class="dv">10</span>), <span class="st">&quot;html&quot;</span>,<span class="dt">booktabs=</span>T, <span class="dt">format.args =</span> <span class="kw">list</span>(<span class="dt">scientific =</span> <span class="ot">FALSE</span>), <span class="dt">digits =</span> <span class="dv">3</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb88-2"><a href="multiple-group-comparison.html#cb88-2"></a><span class="st">  </span><span class="kw">kable_styling</span>(<span class="dt">bootstrap_options =</span> <span class="kw">c</span>(<span class="st">&quot;striped&quot;</span>, <span class="st">&quot;hover&quot;</span>, <span class="st">&quot;condensed&quot;</span>))</span></code></pre></div>
 <table class="table table-striped table-hover table-condensed" style="margin-left: auto; margin-right: auto;">
 <thead>
 <tr>
@@ -256,13 +256,13 @@ DifferentialEvolution
 1
 </td>
 <td style="text-align:left;">
-ThreeHumpCamelBack
+WhitleyN6
 </td>
 <td style="text-align:right;">
-24
+28
 </td>
 <td style="text-align:right;">
-1.456
+2.950
 </td>
 </tr>
 <tr>
@@ -273,81 +273,13 @@ DifferentialEvolution
 1
 </td>
 <td style="text-align:left;">
-Price1
+ChenBird
 </td>
 <td style="text-align:right;">
-12
+2
 </td>
 <td style="text-align:right;">
-1.472
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-DifferentialEvolution
-</td>
-<td style="text-align:right;">
-1
-</td>
-<td style="text-align:left;">
-Shubert
-</td>
-<td style="text-align:right;">
-21
-</td>
-<td style="text-align:right;">
-1.771
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-DifferentialEvolution
-</td>
-<td style="text-align:right;">
-1
-</td>
-<td style="text-align:left;">
-PinterN6
-</td>
-<td style="text-align:right;">
-11
-</td>
-<td style="text-align:right;">
-2.157
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-RandomSearch1
-</td>
-<td style="text-align:right;">
-3
-</td>
-<td style="text-align:left;">
-PinterN6
-</td>
-<td style="text-align:right;">
-11
-</td>
-<td style="text-align:right;">
-0.754
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-DifferentialEvolution
-</td>
-<td style="text-align:right;">
-1
-</td>
-<td style="text-align:left;">
-LunacekBiRastriginN6
-</td>
-<td style="text-align:right;">
-9
-</td>
-<td style="text-align:right;">
-2.607
+1.813
 </td>
 </tr>
 <tr>
@@ -358,13 +290,13 @@ PSO
 2
 </td>
 <td style="text-align:left;">
-Mishra7N6
+Trefethen
 </td>
 <td style="text-align:right;">
-10
+25
 </td>
 <td style="text-align:right;">
-0.461
+0.541
 </td>
 </tr>
 <tr>
@@ -381,7 +313,7 @@ WhitleyN6
 28
 </td>
 <td style="text-align:right;">
-3.009
+2.957
 </td>
 </tr>
 <tr>
@@ -392,63 +324,131 @@ RandomSearch1
 3
 </td>
 <td style="text-align:left;">
-Trefethen
+DiscusN2
 </td>
 <td style="text-align:right;">
-25
+6
 </td>
 <td style="text-align:right;">
-0.297
+0.517
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-DifferentialEvolution
+PSO
 </td>
 <td style="text-align:right;">
-1
+2
 </td>
 <td style="text-align:left;">
-ZakharovN2
+RosenbrockRotatedN6
 </td>
 <td style="text-align:right;">
-30
+14
 </td>
 <td style="text-align:right;">
-1.670
+1.747
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+RandomSearch1
+</td>
+<td style="text-align:right;">
+3
+</td>
+<td style="text-align:left;">
+Giunta
+</td>
+<td style="text-align:right;">
+8
+</td>
+<td style="text-align:right;">
+0.379
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+RandomSearch1
+</td>
+<td style="text-align:right;">
+3
+</td>
+<td style="text-align:left;">
+QingN2
+</td>
+<td style="text-align:right;">
+13
+</td>
+<td style="text-align:right;">
+0.190
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+RandomSearch1
+</td>
+<td style="text-align:right;">
+3
+</td>
+<td style="text-align:left;">
+Schwefel2d4N6
+</td>
+<td style="text-align:right;">
+20
+</td>
+<td style="text-align:right;">
+0.436
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+RandomSearch1
+</td>
+<td style="text-align:right;">
+3
+</td>
+<td style="text-align:left;">
+Damavandi
+</td>
+<td style="text-align:right;">
+5
+</td>
+<td style="text-align:right;">
+0.360
 </td>
 </tr>
 </tbody>
 </table>
 <p>Some initial visualizations in terms of box-plots</p>
-<div class="sourceCode" id="cb90"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb90-1"><a href="multiple-group-comparison.html#cb90-1"></a>p1&lt;-<span class="kw">ggplot</span>(d) <span class="op">+</span></span>
-<span id="cb90-2"><a href="multiple-group-comparison.html#cb90-2"></a><span class="st">  </span><span class="kw">geom_boxplot</span>(<span class="kw">aes</span>(<span class="dt">x=</span>Algorithm, <span class="dt">y=</span>y))<span class="op">+</span></span>
-<span id="cb90-3"><a href="multiple-group-comparison.html#cb90-3"></a><span class="st">  </span><span class="kw">labs</span>(<span class="dt">y=</span><span class="st">&quot;Time to complete x10,000 (s)&quot;</span>)</span>
-<span id="cb90-4"><a href="multiple-group-comparison.html#cb90-4"></a>p1 <span class="op">+</span><span class="st"> </span><span class="kw">plot_annotation</span>(<span class="dt">title =</span><span class="st">&quot;Box-plot of the runtime per function evaluation&quot;</span>)</span></code></pre></div>
-<p><img src="statscomp-appendix_files/figure-html/unnamed-chunk-80-1.png" width="672" style="display: block; margin: auto;" /></p>
-<div class="sourceCode" id="cb91"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb91-1"><a href="multiple-group-comparison.html#cb91-1"></a>lmfit &lt;-<span class="st"> </span><span class="kw">lm</span>(y<span class="op">~</span>Algorithm, <span class="dt">data=</span>d)</span>
-<span id="cb91-2"><a href="multiple-group-comparison.html#cb91-2"></a></span>
-<span id="cb91-3"><a href="multiple-group-comparison.html#cb91-3"></a>p2&lt;-<span class="kw">ggplot</span>()<span class="op">+</span></span>
-<span id="cb91-4"><a href="multiple-group-comparison.html#cb91-4"></a><span class="st">  </span><span class="kw">geom_qq</span>(<span class="kw">aes</span>(<span class="dt">sample=</span>lmfit<span class="op">$</span>residuals))<span class="op">+</span></span>
-<span id="cb91-5"><a href="multiple-group-comparison.html#cb91-5"></a><span class="st">  </span><span class="kw">geom_qq_line</span>(<span class="kw">aes</span>(<span class="dt">sample=</span>lmfit<span class="op">$</span>residuals))<span class="op">+</span></span>
-<span id="cb91-6"><a href="multiple-group-comparison.html#cb91-6"></a><span class="st">  </span><span class="kw">labs</span>(<span class="dt">x=</span><span class="st">&quot;Standard normal quantiles&quot;</span>, <span class="dt">y=</span><span class="st">&quot;Sample quantiles&quot;</span>)</span>
-<span id="cb91-7"><a href="multiple-group-comparison.html#cb91-7"></a>p2 <span class="op">+</span><span class="st"> </span><span class="kw">plot_annotation</span>(<span class="dt">title =</span> <span class="st">&quot;Q-Q plot for normality analysis&quot;</span>)</span></code></pre></div>
-<p><img src="statscomp-appendix_files/figure-html/unnamed-chunk-80-2.png" width="672" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb89"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb89-1"><a href="multiple-group-comparison.html#cb89-1"></a>p1&lt;-<span class="kw">ggplot</span>(d) <span class="op">+</span></span>
+<span id="cb89-2"><a href="multiple-group-comparison.html#cb89-2"></a><span class="st">  </span><span class="kw">geom_boxplot</span>(<span class="kw">aes</span>(<span class="dt">x=</span>Algorithm, <span class="dt">y=</span>y))<span class="op">+</span></span>
+<span id="cb89-3"><a href="multiple-group-comparison.html#cb89-3"></a><span class="st">  </span><span class="kw">labs</span>(<span class="dt">y=</span><span class="st">&quot;Time to complete x10,000 (s)&quot;</span>)</span>
+<span id="cb89-4"><a href="multiple-group-comparison.html#cb89-4"></a>p1 <span class="op">+</span><span class="st"> </span><span class="kw">plot_annotation</span>(<span class="dt">title =</span><span class="st">&quot;Box-plot of the runtime per function evaluation&quot;</span>)</span></code></pre></div>
+<p><img src="statscomp-appendix_files/figure-html/unnamed-chunk-79-1.png" width="672" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb90"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb90-1"><a href="multiple-group-comparison.html#cb90-1"></a>lmfit &lt;-<span class="st"> </span><span class="kw">lm</span>(y<span class="op">~</span>Algorithm, <span class="dt">data=</span>d)</span>
+<span id="cb90-2"><a href="multiple-group-comparison.html#cb90-2"></a></span>
+<span id="cb90-3"><a href="multiple-group-comparison.html#cb90-3"></a>p2&lt;-<span class="kw">ggplot</span>()<span class="op">+</span></span>
+<span id="cb90-4"><a href="multiple-group-comparison.html#cb90-4"></a><span class="st">  </span><span class="kw">geom_qq</span>(<span class="kw">aes</span>(<span class="dt">sample=</span>lmfit<span class="op">$</span>residuals))<span class="op">+</span></span>
+<span id="cb90-5"><a href="multiple-group-comparison.html#cb90-5"></a><span class="st">  </span><span class="kw">geom_qq_line</span>(<span class="kw">aes</span>(<span class="dt">sample=</span>lmfit<span class="op">$</span>residuals))<span class="op">+</span></span>
+<span id="cb90-6"><a href="multiple-group-comparison.html#cb90-6"></a><span class="st">  </span><span class="kw">labs</span>(<span class="dt">x=</span><span class="st">&quot;Standard normal quantiles&quot;</span>, <span class="dt">y=</span><span class="st">&quot;Sample quantiles&quot;</span>)</span>
+<span id="cb90-7"><a href="multiple-group-comparison.html#cb90-7"></a>p2 <span class="op">+</span><span class="st"> </span><span class="kw">plot_annotation</span>(<span class="dt">title =</span> <span class="st">&quot;Q-Q plot for normality analysis&quot;</span>)</span></code></pre></div>
+<p><img src="statscomp-appendix_files/figure-html/unnamed-chunk-79-2.png" width="672" style="display: block; margin: auto;" /></p>
 <p>Verifying that the log of the runtime still present high tailed distributions</p>
-<div class="sourceCode" id="cb92"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb92-1"><a href="multiple-group-comparison.html#cb92-1"></a>d2&lt;-d</span>
-<span id="cb92-2"><a href="multiple-group-comparison.html#cb92-2"></a>d2<span class="op">$</span>y &lt;-<span class="st"> </span><span class="kw">log</span>(d2<span class="op">$</span>y)</span>
-<span id="cb92-3"><a href="multiple-group-comparison.html#cb92-3"></a>lmfit2 &lt;-<span class="st"> </span><span class="kw">lm</span>(y<span class="op">~</span>Algorithm, <span class="dt">data=</span>d2)</span>
-<span id="cb92-4"><a href="multiple-group-comparison.html#cb92-4"></a>p3&lt;-<span class="kw">ggplot</span>()<span class="op">+</span></span>
-<span id="cb92-5"><a href="multiple-group-comparison.html#cb92-5"></a><span class="st">  </span><span class="kw">geom_qq</span>(<span class="kw">aes</span>(<span class="dt">sample=</span>lmfit2<span class="op">$</span>residuals))<span class="op">+</span></span>
-<span id="cb92-6"><a href="multiple-group-comparison.html#cb92-6"></a><span class="st">  </span><span class="kw">geom_qq_line</span>(<span class="kw">aes</span>(<span class="dt">sample=</span>lmfit2<span class="op">$</span>residuals))<span class="op">+</span></span>
-<span id="cb92-7"><a href="multiple-group-comparison.html#cb92-7"></a><span class="st">  </span><span class="kw">labs</span>(<span class="dt">x=</span><span class="st">&quot;Standard normal quantiles&quot;</span>, <span class="dt">y=</span><span class="st">&quot;Sample quantiles&quot;</span>)</span>
-<span id="cb92-8"><a href="multiple-group-comparison.html#cb92-8"></a>p2 <span class="op">+</span><span class="st"> </span><span class="kw">plot_annotation</span>(<span class="dt">title =</span> <span class="st">&quot;Q-Q plot with the log of runtime&quot;</span>)</span></code></pre></div>
-<p><img src="statscomp-appendix_files/figure-html/unnamed-chunk-81-1.png" width="672" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb91"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb91-1"><a href="multiple-group-comparison.html#cb91-1"></a>d2&lt;-d</span>
+<span id="cb91-2"><a href="multiple-group-comparison.html#cb91-2"></a>d2<span class="op">$</span>y &lt;-<span class="st"> </span><span class="kw">log</span>(d2<span class="op">$</span>y)</span>
+<span id="cb91-3"><a href="multiple-group-comparison.html#cb91-3"></a>lmfit2 &lt;-<span class="st"> </span><span class="kw">lm</span>(y<span class="op">~</span>Algorithm, <span class="dt">data=</span>d2)</span>
+<span id="cb91-4"><a href="multiple-group-comparison.html#cb91-4"></a>p3&lt;-<span class="kw">ggplot</span>()<span class="op">+</span></span>
+<span id="cb91-5"><a href="multiple-group-comparison.html#cb91-5"></a><span class="st">  </span><span class="kw">geom_qq</span>(<span class="kw">aes</span>(<span class="dt">sample=</span>lmfit2<span class="op">$</span>residuals))<span class="op">+</span></span>
+<span id="cb91-6"><a href="multiple-group-comparison.html#cb91-6"></a><span class="st">  </span><span class="kw">geom_qq_line</span>(<span class="kw">aes</span>(<span class="dt">sample=</span>lmfit2<span class="op">$</span>residuals))<span class="op">+</span></span>
+<span id="cb91-7"><a href="multiple-group-comparison.html#cb91-7"></a><span class="st">  </span><span class="kw">labs</span>(<span class="dt">x=</span><span class="st">&quot;Standard normal quantiles&quot;</span>, <span class="dt">y=</span><span class="st">&quot;Sample quantiles&quot;</span>)</span>
+<span id="cb91-8"><a href="multiple-group-comparison.html#cb91-8"></a>p2 <span class="op">+</span><span class="st"> </span><span class="kw">plot_annotation</span>(<span class="dt">title =</span> <span class="st">&quot;Q-Q plot with the log of runtime&quot;</span>)</span></code></pre></div>
+<p><img src="statscomp-appendix_files/figure-html/unnamed-chunk-80-1.png" width="672" style="display: block; margin: auto;" /></p>
 </div>
 <div id="rq5-stan-model" class="section level2">
 <h2><span class="header-section-number">6.2</span> RQ5 Stan model</h2>
 <p>The Stan model is specified in the file: <code>'./stanmodels/multiplegroups.stan'</code>. Note that at the end of the model we commented the generated quantities. This block generates the predictive posterior y_rep and the log likelihood, log_lik. These values are useful in diagnosing and validating the model but the end file is extremely large (~1Gb for 2000 iterations) and make many of the following calculations slow. If the reader wants to see these values is just to uncomment and run the stan model again.</p>
-<div class="sourceCode" id="cb93"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb93-1"><a href="multiple-group-comparison.html#cb93-1"></a><span class="kw">print_stan_code</span>(<span class="st">&#39;./stanmodels/multiplegroups.stan&#39;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb92"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb92-1"><a href="multiple-group-comparison.html#cb92-1"></a><span class="kw">print_stan_code</span>(<span class="st">&#39;./stanmodels/multiplegroups.stan&#39;</span>)</span></code></pre></div>
 <pre><code>// Multiple group comparison
 // Author: David Issa Mattos
 // Date: 23 June 2020
@@ -523,43 +523,43 @@ model {
 //   }
 // }</code></pre>
 <p>Let’s compile and start sampling with the Stan function. In the data folder you can find the specific data used to fit the model after all transformations <code>"./data/multiplegroup-data.RDS"</code></p>
-<div class="sourceCode" id="cb95"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb95-1"><a href="multiple-group-comparison.html#cb95-1"></a>standata &lt;-<span class="st"> </span><span class="kw">list</span>(</span>
-<span id="cb95-2"><a href="multiple-group-comparison.html#cb95-2"></a>  <span class="dt">N_total=</span><span class="kw">nrow</span>(d),</span>
-<span id="cb95-3"><a href="multiple-group-comparison.html#cb95-3"></a>  <span class="dt">y =</span> d<span class="op">$</span>y,</span>
-<span id="cb95-4"><a href="multiple-group-comparison.html#cb95-4"></a>  <span class="dt">N_algorithm =</span> <span class="kw">length</span>(algorithms),</span>
-<span id="cb95-5"><a href="multiple-group-comparison.html#cb95-5"></a>  <span class="dt">algorithm_id =</span> d<span class="op">$</span>AlgorithmID,</span>
-<span id="cb95-6"><a href="multiple-group-comparison.html#cb95-6"></a>  <span class="dt">N_bm =</span> <span class="kw">length</span>(bm),</span>
-<span id="cb95-7"><a href="multiple-group-comparison.html#cb95-7"></a>  <span class="dt">bm_id =</span> d<span class="op">$</span>CostFunctionID</span>
-<span id="cb95-8"><a href="multiple-group-comparison.html#cb95-8"></a>  )</span>
-<span id="cb95-9"><a href="multiple-group-comparison.html#cb95-9"></a><span class="kw">saveRDS</span>(standata, <span class="dt">file =</span> <span class="st">&quot;./data/multiplegroups-data.RDS&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb94"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb94-1"><a href="multiple-group-comparison.html#cb94-1"></a>standata &lt;-<span class="st"> </span><span class="kw">list</span>(</span>
+<span id="cb94-2"><a href="multiple-group-comparison.html#cb94-2"></a>  <span class="dt">N_total=</span><span class="kw">nrow</span>(d),</span>
+<span id="cb94-3"><a href="multiple-group-comparison.html#cb94-3"></a>  <span class="dt">y =</span> d<span class="op">$</span>y,</span>
+<span id="cb94-4"><a href="multiple-group-comparison.html#cb94-4"></a>  <span class="dt">N_algorithm =</span> <span class="kw">length</span>(algorithms),</span>
+<span id="cb94-5"><a href="multiple-group-comparison.html#cb94-5"></a>  <span class="dt">algorithm_id =</span> d<span class="op">$</span>AlgorithmID,</span>
+<span id="cb94-6"><a href="multiple-group-comparison.html#cb94-6"></a>  <span class="dt">N_bm =</span> <span class="kw">length</span>(bm),</span>
+<span id="cb94-7"><a href="multiple-group-comparison.html#cb94-7"></a>  <span class="dt">bm_id =</span> d<span class="op">$</span>CostFunctionID</span>
+<span id="cb94-8"><a href="multiple-group-comparison.html#cb94-8"></a>  )</span>
+<span id="cb94-9"><a href="multiple-group-comparison.html#cb94-9"></a><span class="kw">saveRDS</span>(standata, <span class="dt">file =</span> <span class="st">&quot;./data/multiplegroups-data.RDS&quot;</span>)</span></code></pre></div>
 <p>For computation time sake we are not running this chunk every time we compile this document. From now on we will load from the saved Stan fit object. However, when we change our model or the data we can just run this chunk separately. Here we increased the maxtreedepth and the number of iterations so we have a higher effective sample for inference. Both of these do not impact the validity of the chain just the computation efficiency.</p>
-<div class="sourceCode" id="cb96"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb96-1"><a href="multiple-group-comparison.html#cb96-1"></a>standata&lt;-<span class="kw">readRDS</span>(<span class="st">&quot;./data/multiplegroups-data.RDS&quot;</span>)</span>
-<span id="cb96-2"><a href="multiple-group-comparison.html#cb96-2"></a>multiplegroup_fit &lt;-<span class="st"> </span><span class="kw">stan</span>(<span class="dt">file =</span> <span class="st">&#39;./stanmodels/multiplegroups.stan&#39;</span>,</span>
-<span id="cb96-3"><a href="multiple-group-comparison.html#cb96-3"></a>                     <span class="dt">data=</span>standata,</span>
-<span id="cb96-4"><a href="multiple-group-comparison.html#cb96-4"></a>                     <span class="dt">chains =</span> <span class="dv">4</span>,</span>
-<span id="cb96-5"><a href="multiple-group-comparison.html#cb96-5"></a>                     <span class="dt">warmup =</span> <span class="dv">400</span>,</span>
-<span id="cb96-6"><a href="multiple-group-comparison.html#cb96-6"></a>                     <span class="dt">iter =</span> <span class="dv">4000</span>,</span>
-<span id="cb96-7"><a href="multiple-group-comparison.html#cb96-7"></a>                     <span class="dt">control =</span> <span class="kw">list</span>(<span class="dt">max_treedepth =</span> <span class="dv">15</span>))</span>
-<span id="cb96-8"><a href="multiple-group-comparison.html#cb96-8"></a><span class="kw">saveRDS</span>(multiplegroup_fit, <span class="dt">file =</span> <span class="st">&quot;./data/multiplegroups-fit.RDS&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb95"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb95-1"><a href="multiple-group-comparison.html#cb95-1"></a>standata&lt;-<span class="kw">readRDS</span>(<span class="st">&quot;./data/multiplegroups-data.RDS&quot;</span>)</span>
+<span id="cb95-2"><a href="multiple-group-comparison.html#cb95-2"></a>multiplegroup_fit &lt;-<span class="st"> </span><span class="kw">stan</span>(<span class="dt">file =</span> <span class="st">&#39;./stanmodels/multiplegroups.stan&#39;</span>,</span>
+<span id="cb95-3"><a href="multiple-group-comparison.html#cb95-3"></a>                     <span class="dt">data=</span>standata,</span>
+<span id="cb95-4"><a href="multiple-group-comparison.html#cb95-4"></a>                     <span class="dt">chains =</span> <span class="dv">4</span>,</span>
+<span id="cb95-5"><a href="multiple-group-comparison.html#cb95-5"></a>                     <span class="dt">warmup =</span> <span class="dv">400</span>,</span>
+<span id="cb95-6"><a href="multiple-group-comparison.html#cb95-6"></a>                     <span class="dt">iter =</span> <span class="dv">4000</span>,</span>
+<span id="cb95-7"><a href="multiple-group-comparison.html#cb95-7"></a>                     <span class="dt">control =</span> <span class="kw">list</span>(<span class="dt">max_treedepth =</span> <span class="dv">15</span>))</span>
+<span id="cb95-8"><a href="multiple-group-comparison.html#cb95-8"></a><span class="kw">saveRDS</span>(multiplegroup_fit, <span class="dt">file =</span> <span class="st">&quot;./data/multiplegroups-fit.RDS&quot;</span>)</span></code></pre></div>
 </div>
 <div id="rq5-diagnosis" class="section level2">
 <h2><span class="header-section-number">6.3</span> RQ5 Diagnosis</h2>
-<div class="sourceCode" id="cb97"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb97-1"><a href="multiple-group-comparison.html#cb97-1"></a>a_alg_v &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;a_alg[1]&quot;</span>,</span>
-<span id="cb97-2"><a href="multiple-group-comparison.html#cb97-2"></a>           <span class="st">&quot;a_alg[2]&quot;</span>,</span>
-<span id="cb97-3"><a href="multiple-group-comparison.html#cb97-3"></a>           <span class="st">&quot;a_alg[3]&quot;</span>)</span>
-<span id="cb97-4"><a href="multiple-group-comparison.html#cb97-4"></a></span>
-<span id="cb97-5"><a href="multiple-group-comparison.html#cb97-5"></a>sigma_v &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;sigma[1]&quot;</span>,</span>
-<span id="cb97-6"><a href="multiple-group-comparison.html#cb97-6"></a>           <span class="st">&quot;sigma[2]&quot;</span>,</span>
-<span id="cb97-7"><a href="multiple-group-comparison.html#cb97-7"></a>           <span class="st">&quot;sigma[3]&quot;</span>)</span>
-<span id="cb97-8"><a href="multiple-group-comparison.html#cb97-8"></a>rstan<span class="op">::</span><span class="kw">traceplot</span>(multiplegroup_fit, <span class="dt">pars=</span>a_alg_v)</span></code></pre></div>
-<p><img src="statscomp-appendix_files/figure-html/unnamed-chunk-87-1.png" width="672" style="display: block; margin: auto;" /></p>
-<div class="sourceCode" id="cb98"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb98-1"><a href="multiple-group-comparison.html#cb98-1"></a>rstan<span class="op">::</span><span class="kw">traceplot</span>(multiplegroup_fit, <span class="dt">pars=</span>sigma_v)</span></code></pre></div>
-<p><img src="statscomp-appendix_files/figure-html/unnamed-chunk-87-2.png" width="672" style="display: block; margin: auto;" /></p>
-<div class="sourceCode" id="cb99"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb99-1"><a href="multiple-group-comparison.html#cb99-1"></a>rstan<span class="op">::</span><span class="kw">traceplot</span>(multiplegroup_fit, <span class="dt">pars=</span><span class="kw">c</span>(<span class="st">&#39;s&#39;</span>, <span class="st">&#39;nu&#39;</span>))</span></code></pre></div>
-<p><img src="statscomp-appendix_files/figure-html/unnamed-chunk-87-3.png" width="672" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb96"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb96-1"><a href="multiple-group-comparison.html#cb96-1"></a>a_alg_v &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;a_alg[1]&quot;</span>,</span>
+<span id="cb96-2"><a href="multiple-group-comparison.html#cb96-2"></a>           <span class="st">&quot;a_alg[2]&quot;</span>,</span>
+<span id="cb96-3"><a href="multiple-group-comparison.html#cb96-3"></a>           <span class="st">&quot;a_alg[3]&quot;</span>)</span>
+<span id="cb96-4"><a href="multiple-group-comparison.html#cb96-4"></a></span>
+<span id="cb96-5"><a href="multiple-group-comparison.html#cb96-5"></a>sigma_v &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;sigma[1]&quot;</span>,</span>
+<span id="cb96-6"><a href="multiple-group-comparison.html#cb96-6"></a>           <span class="st">&quot;sigma[2]&quot;</span>,</span>
+<span id="cb96-7"><a href="multiple-group-comparison.html#cb96-7"></a>           <span class="st">&quot;sigma[3]&quot;</span>)</span>
+<span id="cb96-8"><a href="multiple-group-comparison.html#cb96-8"></a>rstan<span class="op">::</span><span class="kw">traceplot</span>(multiplegroup_fit, <span class="dt">pars=</span>a_alg_v)</span></code></pre></div>
+<p><img src="statscomp-appendix_files/figure-html/unnamed-chunk-86-1.png" width="672" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb97"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb97-1"><a href="multiple-group-comparison.html#cb97-1"></a>rstan<span class="op">::</span><span class="kw">traceplot</span>(multiplegroup_fit, <span class="dt">pars=</span>sigma_v)</span></code></pre></div>
+<p><img src="statscomp-appendix_files/figure-html/unnamed-chunk-86-2.png" width="672" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb98"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb98-1"><a href="multiple-group-comparison.html#cb98-1"></a>rstan<span class="op">::</span><span class="kw">traceplot</span>(multiplegroup_fit, <span class="dt">pars=</span><span class="kw">c</span>(<span class="st">&#39;s&#39;</span>, <span class="st">&#39;nu&#39;</span>))</span></code></pre></div>
+<p><img src="statscomp-appendix_files/figure-html/unnamed-chunk-86-3.png" width="672" style="display: block; margin: auto;" /></p>
 <p>Another diagnosis is to look at the Rhat. If Rhat is greater than 1.05 it indicates a divergence in the chains (they did not mix well). The table below shows a summary of the sampling.</p>
-<div class="sourceCode" id="cb100"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb100-1"><a href="multiple-group-comparison.html#cb100-1"></a><span class="kw">kable</span>(<span class="kw">summary</span>(multiplegroup_fit)<span class="op">$</span>summary, <span class="st">&quot;html&quot;</span>,) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb100-2"><a href="multiple-group-comparison.html#cb100-2"></a><span class="st">  </span><span class="kw">kable_styling</span>(<span class="dt">bootstrap_options =</span> <span class="kw">c</span>(<span class="st">&#39;striped&#39;</span>,<span class="st">&quot;hover&quot;</span>, <span class="st">&quot;condensed&quot;</span> ))</span></code></pre></div>
+<div class="sourceCode" id="cb99"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb99-1"><a href="multiple-group-comparison.html#cb99-1"></a><span class="kw">kable</span>(<span class="kw">summary</span>(multiplegroup_fit)<span class="op">$</span>summary, <span class="st">&quot;html&quot;</span>,) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb99-2"><a href="multiple-group-comparison.html#cb99-2"></a><span class="st">  </span><span class="kw">kable_styling</span>(<span class="dt">bootstrap_options =</span> <span class="kw">c</span>(<span class="st">&#39;striped&#39;</span>,<span class="st">&quot;hover&quot;</span>, <span class="st">&quot;condensed&quot;</span> ))</span></code></pre></div>
 <table class="table table-striped table-hover table-condensed" style="margin-left: auto; margin-right: auto;">
 <thead>
 <tr>
@@ -1970,97 +1970,97 @@ lp__
 <h2><span class="header-section-number">6.4</span> RQ5 Results and Plots</h2>
 <p>First lets get the HPDI of every parameter.</p>
 <p>Then we restrict to the algorithms, them to the slopes, then to the parameter s</p>
-<div class="sourceCode" id="cb101"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb101-1"><a href="multiple-group-comparison.html#cb101-1"></a>hpdi &lt;-<span class="st"> </span><span class="kw">get_HPDI_from_stanfit</span>(multiplegroup_fit)</span>
-<span id="cb101-2"><a href="multiple-group-comparison.html#cb101-2"></a></span>
-<span id="cb101-3"><a href="multiple-group-comparison.html#cb101-3"></a>hpdi_algorithm &lt;-<span class="st"> </span>hpdi <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb101-4"><a href="multiple-group-comparison.html#cb101-4"></a><span class="st">      </span>dplyr<span class="op">::</span><span class="kw">filter</span>(<span class="kw">str_detect</span>(Parameter, <span class="st">&quot;a_alg</span><span class="ch">\\</span><span class="st">[&quot;</span>)) <span class="op">%&gt;%</span></span>
-<span id="cb101-5"><a href="multiple-group-comparison.html#cb101-5"></a><span class="st">      </span>dplyr<span class="op">::</span><span class="kw">mutate</span>(<span class="dt">Parameter=</span>algorithms) <span class="co">#Changing to the algorithms labels</span></span>
-<span id="cb101-6"><a href="multiple-group-comparison.html#cb101-6"></a></span>
-<span id="cb101-7"><a href="multiple-group-comparison.html#cb101-7"></a>hpdi_sigma&lt;-<span class="st"> </span>hpdi <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb101-8"><a href="multiple-group-comparison.html#cb101-8"></a><span class="st">      </span>dplyr<span class="op">::</span><span class="kw">filter</span>(<span class="kw">str_detect</span>(Parameter, <span class="st">&quot;sigma</span><span class="ch">\\</span><span class="st">[&quot;</span>)) <span class="op">%&gt;%</span></span>
-<span id="cb101-9"><a href="multiple-group-comparison.html#cb101-9"></a><span class="st">      </span>dplyr<span class="op">::</span><span class="kw">mutate</span>(<span class="dt">Parameter=</span>algorithms) <span class="co">#Changing to the algorithms labels</span></span>
-<span id="cb101-10"><a href="multiple-group-comparison.html#cb101-10"></a></span>
-<span id="cb101-11"><a href="multiple-group-comparison.html#cb101-11"></a>hpdi_s &lt;-<span class="st"> </span>hpdi <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb101-12"><a href="multiple-group-comparison.html#cb101-12"></a><span class="st">      </span>dplyr<span class="op">::</span><span class="kw">filter</span>(Parameter<span class="op">==</span><span class="st">&#39;s&#39;</span>)</span>
-<span id="cb101-13"><a href="multiple-group-comparison.html#cb101-13"></a></span>
-<span id="cb101-14"><a href="multiple-group-comparison.html#cb101-14"></a></span>
-<span id="cb101-15"><a href="multiple-group-comparison.html#cb101-15"></a>hpdi_nu &lt;-<span class="st"> </span>hpdi <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb101-16"><a href="multiple-group-comparison.html#cb101-16"></a><span class="st">      </span>dplyr<span class="op">::</span><span class="kw">filter</span>(Parameter<span class="op">==</span><span class="st">&#39;nu&#39;</span>)</span>
-<span id="cb101-17"><a href="multiple-group-comparison.html#cb101-17"></a></span>
-<span id="cb101-18"><a href="multiple-group-comparison.html#cb101-18"></a></span>
-<span id="cb101-19"><a href="multiple-group-comparison.html#cb101-19"></a>hpdi_nu_s &lt;-<span class="st"> </span>hpdi <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb101-20"><a href="multiple-group-comparison.html#cb101-20"></a><span class="st">      </span>dplyr<span class="op">::</span><span class="kw">filter</span>(Parameter<span class="op">==</span><span class="st">&#39;nu&#39;</span> <span class="op">|</span><span class="st"> </span>Parameter<span class="op">==</span><span class="st">&#39;s&#39;</span>)</span>
-<span id="cb101-21"><a href="multiple-group-comparison.html#cb101-21"></a></span>
-<span id="cb101-22"><a href="multiple-group-comparison.html#cb101-22"></a>p_alg&lt;-<span class="kw">ggplot</span>(<span class="dt">data=</span>hpdi_algorithm, <span class="kw">aes</span>(<span class="dt">x=</span>Parameter))<span class="op">+</span></span>
-<span id="cb101-23"><a href="multiple-group-comparison.html#cb101-23"></a><span class="st">  </span><span class="kw">geom_pointrange</span>(<span class="kw">aes</span>(</span>
-<span id="cb101-24"><a href="multiple-group-comparison.html#cb101-24"></a>    <span class="dt">ymin=</span>HPDI.lower, </span>
-<span id="cb101-25"><a href="multiple-group-comparison.html#cb101-25"></a>    <span class="dt">ymax=</span>HPDI.higher, </span>
-<span id="cb101-26"><a href="multiple-group-comparison.html#cb101-26"></a>    <span class="dt">y=</span>Mean))<span class="op">+</span></span>
-<span id="cb101-27"><a href="multiple-group-comparison.html#cb101-27"></a><span class="st">  </span><span class="kw">labs</span>(<span class="dt">y=</span><span class="st">&quot;a_alg&quot;</span>, <span class="dt">x=</span><span class="st">&quot;Algorithm&quot;</span>)<span class="op">+</span></span>
-<span id="cb101-28"><a href="multiple-group-comparison.html#cb101-28"></a><span class="st">  </span><span class="kw">theme</span>(<span class="dt">axis.title.x=</span> <span class="kw">element_blank</span>())<span class="op">+</span></span>
-<span id="cb101-29"><a href="multiple-group-comparison.html#cb101-29"></a><span class="st">  </span><span class="kw">coord_flip</span>()</span>
-<span id="cb101-30"><a href="multiple-group-comparison.html#cb101-30"></a>p_alg <span class="op">+</span><span class="st"> </span><span class="kw">plot_annotation</span>(<span class="dt">title =</span> <span class="st">&#39;HPDI interval for the algorithms&#39;</span>)</span></code></pre></div>
-<p><img src="statscomp-appendix_files/figure-html/unnamed-chunk-89-1.png" width="672" style="display: block; margin: auto;" /></p>
-<div class="sourceCode" id="cb102"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb102-1"><a href="multiple-group-comparison.html#cb102-1"></a>p_sigma&lt;-<span class="kw">ggplot</span>(<span class="dt">data=</span>hpdi_sigma, <span class="kw">aes</span>(<span class="dt">x=</span>Parameter))<span class="op">+</span></span>
+<div class="sourceCode" id="cb100"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb100-1"><a href="multiple-group-comparison.html#cb100-1"></a>hpdi &lt;-<span class="st"> </span><span class="kw">get_HPDI_from_stanfit</span>(multiplegroup_fit)</span>
+<span id="cb100-2"><a href="multiple-group-comparison.html#cb100-2"></a></span>
+<span id="cb100-3"><a href="multiple-group-comparison.html#cb100-3"></a>hpdi_algorithm &lt;-<span class="st"> </span>hpdi <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb100-4"><a href="multiple-group-comparison.html#cb100-4"></a><span class="st">      </span>dplyr<span class="op">::</span><span class="kw">filter</span>(<span class="kw">str_detect</span>(Parameter, <span class="st">&quot;a_alg</span><span class="ch">\\</span><span class="st">[&quot;</span>)) <span class="op">%&gt;%</span></span>
+<span id="cb100-5"><a href="multiple-group-comparison.html#cb100-5"></a><span class="st">      </span>dplyr<span class="op">::</span><span class="kw">mutate</span>(<span class="dt">Parameter=</span>algorithms) <span class="co">#Changing to the algorithms labels</span></span>
+<span id="cb100-6"><a href="multiple-group-comparison.html#cb100-6"></a></span>
+<span id="cb100-7"><a href="multiple-group-comparison.html#cb100-7"></a>hpdi_sigma&lt;-<span class="st"> </span>hpdi <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb100-8"><a href="multiple-group-comparison.html#cb100-8"></a><span class="st">      </span>dplyr<span class="op">::</span><span class="kw">filter</span>(<span class="kw">str_detect</span>(Parameter, <span class="st">&quot;sigma</span><span class="ch">\\</span><span class="st">[&quot;</span>)) <span class="op">%&gt;%</span></span>
+<span id="cb100-9"><a href="multiple-group-comparison.html#cb100-9"></a><span class="st">      </span>dplyr<span class="op">::</span><span class="kw">mutate</span>(<span class="dt">Parameter=</span>algorithms) <span class="co">#Changing to the algorithms labels</span></span>
+<span id="cb100-10"><a href="multiple-group-comparison.html#cb100-10"></a></span>
+<span id="cb100-11"><a href="multiple-group-comparison.html#cb100-11"></a>hpdi_s &lt;-<span class="st"> </span>hpdi <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb100-12"><a href="multiple-group-comparison.html#cb100-12"></a><span class="st">      </span>dplyr<span class="op">::</span><span class="kw">filter</span>(Parameter<span class="op">==</span><span class="st">&#39;s&#39;</span>)</span>
+<span id="cb100-13"><a href="multiple-group-comparison.html#cb100-13"></a></span>
+<span id="cb100-14"><a href="multiple-group-comparison.html#cb100-14"></a></span>
+<span id="cb100-15"><a href="multiple-group-comparison.html#cb100-15"></a>hpdi_nu &lt;-<span class="st"> </span>hpdi <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb100-16"><a href="multiple-group-comparison.html#cb100-16"></a><span class="st">      </span>dplyr<span class="op">::</span><span class="kw">filter</span>(Parameter<span class="op">==</span><span class="st">&#39;nu&#39;</span>)</span>
+<span id="cb100-17"><a href="multiple-group-comparison.html#cb100-17"></a></span>
+<span id="cb100-18"><a href="multiple-group-comparison.html#cb100-18"></a></span>
+<span id="cb100-19"><a href="multiple-group-comparison.html#cb100-19"></a>hpdi_nu_s &lt;-<span class="st"> </span>hpdi <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb100-20"><a href="multiple-group-comparison.html#cb100-20"></a><span class="st">      </span>dplyr<span class="op">::</span><span class="kw">filter</span>(Parameter<span class="op">==</span><span class="st">&#39;nu&#39;</span> <span class="op">|</span><span class="st"> </span>Parameter<span class="op">==</span><span class="st">&#39;s&#39;</span>)</span>
+<span id="cb100-21"><a href="multiple-group-comparison.html#cb100-21"></a></span>
+<span id="cb100-22"><a href="multiple-group-comparison.html#cb100-22"></a>p_alg&lt;-<span class="kw">ggplot</span>(<span class="dt">data=</span>hpdi_algorithm, <span class="kw">aes</span>(<span class="dt">x=</span>Parameter))<span class="op">+</span></span>
+<span id="cb100-23"><a href="multiple-group-comparison.html#cb100-23"></a><span class="st">  </span><span class="kw">geom_pointrange</span>(<span class="kw">aes</span>(</span>
+<span id="cb100-24"><a href="multiple-group-comparison.html#cb100-24"></a>    <span class="dt">ymin=</span>HPDI.lower, </span>
+<span id="cb100-25"><a href="multiple-group-comparison.html#cb100-25"></a>    <span class="dt">ymax=</span>HPDI.higher, </span>
+<span id="cb100-26"><a href="multiple-group-comparison.html#cb100-26"></a>    <span class="dt">y=</span>Mean))<span class="op">+</span></span>
+<span id="cb100-27"><a href="multiple-group-comparison.html#cb100-27"></a><span class="st">  </span><span class="kw">labs</span>(<span class="dt">y=</span><span class="st">&quot;a_alg&quot;</span>, <span class="dt">x=</span><span class="st">&quot;Algorithm&quot;</span>)<span class="op">+</span></span>
+<span id="cb100-28"><a href="multiple-group-comparison.html#cb100-28"></a><span class="st">  </span><span class="kw">theme</span>(<span class="dt">axis.title.x=</span> <span class="kw">element_blank</span>())<span class="op">+</span></span>
+<span id="cb100-29"><a href="multiple-group-comparison.html#cb100-29"></a><span class="st">  </span><span class="kw">coord_flip</span>()</span>
+<span id="cb100-30"><a href="multiple-group-comparison.html#cb100-30"></a>p_alg <span class="op">+</span><span class="st"> </span><span class="kw">plot_annotation</span>(<span class="dt">title =</span> <span class="st">&#39;HPDI interval for the algorithms&#39;</span>)</span></code></pre></div>
+<p><img src="statscomp-appendix_files/figure-html/unnamed-chunk-88-1.png" width="672" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb101"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb101-1"><a href="multiple-group-comparison.html#cb101-1"></a>p_sigma&lt;-<span class="kw">ggplot</span>(<span class="dt">data=</span>hpdi_sigma, <span class="kw">aes</span>(<span class="dt">x=</span>Parameter))<span class="op">+</span></span>
+<span id="cb101-2"><a href="multiple-group-comparison.html#cb101-2"></a><span class="st">  </span><span class="kw">geom_pointrange</span>(<span class="kw">aes</span>(</span>
+<span id="cb101-3"><a href="multiple-group-comparison.html#cb101-3"></a>    <span class="dt">ymin=</span>HPDI.lower, </span>
+<span id="cb101-4"><a href="multiple-group-comparison.html#cb101-4"></a>    <span class="dt">ymax=</span>HPDI.higher, </span>
+<span id="cb101-5"><a href="multiple-group-comparison.html#cb101-5"></a>    <span class="dt">y=</span>Mean))<span class="op">+</span></span>
+<span id="cb101-6"><a href="multiple-group-comparison.html#cb101-6"></a><span class="st">  </span><span class="kw">labs</span>(<span class="dt">y=</span><span class="st">&quot;sigma&quot;</span>, <span class="dt">x=</span><span class="st">&quot;Algorithm&quot;</span>)<span class="op">+</span></span>
+<span id="cb101-7"><a href="multiple-group-comparison.html#cb101-7"></a><span class="st">  </span><span class="kw">theme</span>(<span class="dt">axis.title.x=</span> <span class="kw">element_blank</span>())<span class="op">+</span></span>
+<span id="cb101-8"><a href="multiple-group-comparison.html#cb101-8"></a><span class="st">  </span><span class="kw">coord_flip</span>()</span>
+<span id="cb101-9"><a href="multiple-group-comparison.html#cb101-9"></a>p_sigma <span class="op">+</span><span class="st"> </span><span class="kw">plot_annotation</span>(<span class="dt">title =</span> <span class="st">&#39;HPDI interval for sigma&#39;</span>)</span></code></pre></div>
+<p><img src="statscomp-appendix_files/figure-html/unnamed-chunk-88-2.png" width="672" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb102"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb102-1"><a href="multiple-group-comparison.html#cb102-1"></a>p_s &lt;-<span class="st"> </span><span class="kw">ggplot</span>(<span class="dt">data=</span>hpdi_s, <span class="kw">aes</span>(<span class="dt">x=</span>Parameter))<span class="op">+</span></span>
 <span id="cb102-2"><a href="multiple-group-comparison.html#cb102-2"></a><span class="st">  </span><span class="kw">geom_pointrange</span>(<span class="kw">aes</span>(</span>
 <span id="cb102-3"><a href="multiple-group-comparison.html#cb102-3"></a>    <span class="dt">ymin=</span>HPDI.lower, </span>
 <span id="cb102-4"><a href="multiple-group-comparison.html#cb102-4"></a>    <span class="dt">ymax=</span>HPDI.higher, </span>
 <span id="cb102-5"><a href="multiple-group-comparison.html#cb102-5"></a>    <span class="dt">y=</span>Mean))<span class="op">+</span></span>
-<span id="cb102-6"><a href="multiple-group-comparison.html#cb102-6"></a><span class="st">  </span><span class="kw">labs</span>(<span class="dt">y=</span><span class="st">&quot;sigma&quot;</span>, <span class="dt">x=</span><span class="st">&quot;Algorithm&quot;</span>)<span class="op">+</span></span>
-<span id="cb102-7"><a href="multiple-group-comparison.html#cb102-7"></a><span class="st">  </span><span class="kw">theme</span>(<span class="dt">axis.title.x=</span> <span class="kw">element_blank</span>())<span class="op">+</span></span>
-<span id="cb102-8"><a href="multiple-group-comparison.html#cb102-8"></a><span class="st">  </span><span class="kw">coord_flip</span>()</span>
-<span id="cb102-9"><a href="multiple-group-comparison.html#cb102-9"></a>p_sigma <span class="op">+</span><span class="st"> </span><span class="kw">plot_annotation</span>(<span class="dt">title =</span> <span class="st">&#39;HPDI interval for sigma&#39;</span>)</span></code></pre></div>
-<p><img src="statscomp-appendix_files/figure-html/unnamed-chunk-89-2.png" width="672" style="display: block; margin: auto;" /></p>
-<div class="sourceCode" id="cb103"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb103-1"><a href="multiple-group-comparison.html#cb103-1"></a>p_s &lt;-<span class="st"> </span><span class="kw">ggplot</span>(<span class="dt">data=</span>hpdi_s, <span class="kw">aes</span>(<span class="dt">x=</span>Parameter))<span class="op">+</span></span>
+<span id="cb102-6"><a href="multiple-group-comparison.html#cb102-6"></a><span class="st">  </span><span class="kw">labs</span>(<span class="dt">y=</span><span class="st">&quot;s&quot;</span>, <span class="dt">x=</span><span class="st">&quot;Parameter&quot;</span>)<span class="op">+</span></span>
+<span id="cb102-7"><a href="multiple-group-comparison.html#cb102-7"></a><span class="st">  </span><span class="kw">coord_flip</span>()</span>
+<span id="cb102-8"><a href="multiple-group-comparison.html#cb102-8"></a>p_s <span class="op">+</span><span class="st"> </span><span class="kw">plot_annotation</span>(<span class="dt">title =</span> <span class="st">&#39;HPDI interval std of the benchmarks&#39;</span>)</span></code></pre></div>
+<p><img src="statscomp-appendix_files/figure-html/unnamed-chunk-88-3.png" width="672" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb103"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb103-1"><a href="multiple-group-comparison.html#cb103-1"></a>p_nu &lt;-<span class="st"> </span><span class="kw">ggplot</span>(<span class="dt">data=</span>hpdi_nu, <span class="kw">aes</span>(<span class="dt">x=</span>Parameter))<span class="op">+</span></span>
 <span id="cb103-2"><a href="multiple-group-comparison.html#cb103-2"></a><span class="st">  </span><span class="kw">geom_pointrange</span>(<span class="kw">aes</span>(</span>
 <span id="cb103-3"><a href="multiple-group-comparison.html#cb103-3"></a>    <span class="dt">ymin=</span>HPDI.lower, </span>
 <span id="cb103-4"><a href="multiple-group-comparison.html#cb103-4"></a>    <span class="dt">ymax=</span>HPDI.higher, </span>
 <span id="cb103-5"><a href="multiple-group-comparison.html#cb103-5"></a>    <span class="dt">y=</span>Mean))<span class="op">+</span></span>
-<span id="cb103-6"><a href="multiple-group-comparison.html#cb103-6"></a><span class="st">  </span><span class="kw">labs</span>(<span class="dt">y=</span><span class="st">&quot;s&quot;</span>, <span class="dt">x=</span><span class="st">&quot;Parameter&quot;</span>)<span class="op">+</span></span>
+<span id="cb103-6"><a href="multiple-group-comparison.html#cb103-6"></a><span class="st">  </span><span class="kw">labs</span>(<span class="dt">y=</span><span class="st">&quot;nu&quot;</span>, <span class="dt">x=</span><span class="st">&quot;Parameter&quot;</span>)<span class="op">+</span></span>
 <span id="cb103-7"><a href="multiple-group-comparison.html#cb103-7"></a><span class="st">  </span><span class="kw">coord_flip</span>()</span>
-<span id="cb103-8"><a href="multiple-group-comparison.html#cb103-8"></a>p_s <span class="op">+</span><span class="st"> </span><span class="kw">plot_annotation</span>(<span class="dt">title =</span> <span class="st">&#39;HPDI interval std of the benchmarks&#39;</span>)</span></code></pre></div>
-<p><img src="statscomp-appendix_files/figure-html/unnamed-chunk-89-3.png" width="672" style="display: block; margin: auto;" /></p>
-<div class="sourceCode" id="cb104"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb104-1"><a href="multiple-group-comparison.html#cb104-1"></a>p_nu &lt;-<span class="st"> </span><span class="kw">ggplot</span>(<span class="dt">data=</span>hpdi_nu, <span class="kw">aes</span>(<span class="dt">x=</span>Parameter))<span class="op">+</span></span>
+<span id="cb103-8"><a href="multiple-group-comparison.html#cb103-8"></a>p_nu <span class="op">+</span><span class="st"> </span><span class="kw">plot_annotation</span>(<span class="dt">title =</span> <span class="st">&#39;HPDI interval of the degree of freedom&#39;</span>)</span></code></pre></div>
+<p><img src="statscomp-appendix_files/figure-html/unnamed-chunk-88-4.png" width="672" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb104"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb104-1"><a href="multiple-group-comparison.html#cb104-1"></a>p_nu_s &lt;-<span class="st"> </span><span class="kw">ggplot</span>(<span class="dt">data=</span>hpdi_nu_s, <span class="kw">aes</span>(<span class="dt">x=</span>Parameter))<span class="op">+</span></span>
 <span id="cb104-2"><a href="multiple-group-comparison.html#cb104-2"></a><span class="st">  </span><span class="kw">geom_pointrange</span>(<span class="kw">aes</span>(</span>
 <span id="cb104-3"><a href="multiple-group-comparison.html#cb104-3"></a>    <span class="dt">ymin=</span>HPDI.lower, </span>
 <span id="cb104-4"><a href="multiple-group-comparison.html#cb104-4"></a>    <span class="dt">ymax=</span>HPDI.higher, </span>
 <span id="cb104-5"><a href="multiple-group-comparison.html#cb104-5"></a>    <span class="dt">y=</span>Mean))<span class="op">+</span></span>
-<span id="cb104-6"><a href="multiple-group-comparison.html#cb104-6"></a><span class="st">  </span><span class="kw">labs</span>(<span class="dt">y=</span><span class="st">&quot;nu&quot;</span>, <span class="dt">x=</span><span class="st">&quot;Parameter&quot;</span>)<span class="op">+</span></span>
-<span id="cb104-7"><a href="multiple-group-comparison.html#cb104-7"></a><span class="st">  </span><span class="kw">coord_flip</span>()</span>
-<span id="cb104-8"><a href="multiple-group-comparison.html#cb104-8"></a>p_nu <span class="op">+</span><span class="st"> </span><span class="kw">plot_annotation</span>(<span class="dt">title =</span> <span class="st">&#39;HPDI interval of the degree of freedom&#39;</span>)</span></code></pre></div>
-<p><img src="statscomp-appendix_files/figure-html/unnamed-chunk-89-4.png" width="672" style="display: block; margin: auto;" /></p>
-<div class="sourceCode" id="cb105"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb105-1"><a href="multiple-group-comparison.html#cb105-1"></a>p_nu_s &lt;-<span class="st"> </span><span class="kw">ggplot</span>(<span class="dt">data=</span>hpdi_nu_s, <span class="kw">aes</span>(<span class="dt">x=</span>Parameter))<span class="op">+</span></span>
-<span id="cb105-2"><a href="multiple-group-comparison.html#cb105-2"></a><span class="st">  </span><span class="kw">geom_pointrange</span>(<span class="kw">aes</span>(</span>
-<span id="cb105-3"><a href="multiple-group-comparison.html#cb105-3"></a>    <span class="dt">ymin=</span>HPDI.lower, </span>
-<span id="cb105-4"><a href="multiple-group-comparison.html#cb105-4"></a>    <span class="dt">ymax=</span>HPDI.higher, </span>
-<span id="cb105-5"><a href="multiple-group-comparison.html#cb105-5"></a>    <span class="dt">y=</span>Mean))<span class="op">+</span></span>
-<span id="cb105-6"><a href="multiple-group-comparison.html#cb105-6"></a><span class="st">  </span><span class="kw">labs</span>(<span class="dt">y=</span><span class="st">&quot;Estimate of s and nu&quot;</span>, <span class="dt">x=</span><span class="st">&quot;Parameter&quot;</span>)<span class="op">+</span></span>
-<span id="cb105-7"><a href="multiple-group-comparison.html#cb105-7"></a><span class="st">  </span><span class="kw">theme</span>(<span class="dt">axis.title.x=</span> <span class="kw">element_blank</span>())<span class="op">+</span></span>
-<span id="cb105-8"><a href="multiple-group-comparison.html#cb105-8"></a><span class="st">  </span><span class="kw">coord_flip</span>()</span>
-<span id="cb105-9"><a href="multiple-group-comparison.html#cb105-9"></a></span>
-<span id="cb105-10"><a href="multiple-group-comparison.html#cb105-10"></a>p_nu_s <span class="op">+</span><span class="st"> </span><span class="kw">plot_annotation</span>(<span class="dt">title =</span> <span class="st">&#39;HPDI interval&#39;</span>)</span></code></pre></div>
-<p><img src="statscomp-appendix_files/figure-html/unnamed-chunk-89-5.png" width="672" style="display: block; margin: auto;" /></p>
+<span id="cb104-6"><a href="multiple-group-comparison.html#cb104-6"></a><span class="st">  </span><span class="kw">labs</span>(<span class="dt">y=</span><span class="st">&quot;Estimate of s and nu&quot;</span>, <span class="dt">x=</span><span class="st">&quot;Parameter&quot;</span>)<span class="op">+</span></span>
+<span id="cb104-7"><a href="multiple-group-comparison.html#cb104-7"></a><span class="st">  </span><span class="kw">theme</span>(<span class="dt">axis.title.x=</span> <span class="kw">element_blank</span>())<span class="op">+</span></span>
+<span id="cb104-8"><a href="multiple-group-comparison.html#cb104-8"></a><span class="st">  </span><span class="kw">coord_flip</span>()</span>
+<span id="cb104-9"><a href="multiple-group-comparison.html#cb104-9"></a></span>
+<span id="cb104-10"><a href="multiple-group-comparison.html#cb104-10"></a>p_nu_s <span class="op">+</span><span class="st"> </span><span class="kw">plot_annotation</span>(<span class="dt">title =</span> <span class="st">&#39;HPDI interval&#39;</span>)</span></code></pre></div>
+<p><img src="statscomp-appendix_files/figure-html/unnamed-chunk-88-5.png" width="672" style="display: block; margin: auto;" /></p>
 <p>Now lets get a posterior distribution of the difference</p>
-<div class="sourceCode" id="cb106"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb106-1"><a href="multiple-group-comparison.html#cb106-1"></a>posterior &lt;-<span class="st"> </span>rstan<span class="op">::</span><span class="kw">extract</span>(multiplegroup_fit)</span>
-<span id="cb106-2"><a href="multiple-group-comparison.html#cb106-2"></a>a_alg &lt;-<span class="st"> </span><span class="kw">as_tibble</span>(posterior<span class="op">$</span>a_alg)</span>
-<span id="cb106-3"><a href="multiple-group-comparison.html#cb106-3"></a><span class="kw">colnames</span>(a_alg) &lt;-<span class="st"> </span>algorithms</span>
-<span id="cb106-4"><a href="multiple-group-comparison.html#cb106-4"></a>sample_a_alg &lt;-<span class="st"> </span>dplyr<span class="op">::</span><span class="kw">sample_n</span>(a_alg, <span class="dt">size=</span><span class="dv">1000</span>, <span class="dt">replace=</span>T) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb106-5"><a href="multiple-group-comparison.html#cb106-5"></a><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">mutate</span>(<span class="dt">PSO_Random =</span> PSO<span class="op">-</span>RandomSearch1,</span>
-<span id="cb106-6"><a href="multiple-group-comparison.html#cb106-6"></a>                <span class="dt">DE_PSO=</span> DifferentialEvolution<span class="op">-</span>PSO,</span>
-<span id="cb106-7"><a href="multiple-group-comparison.html#cb106-7"></a>                <span class="dt">DE_Random =</span> DifferentialEvolution<span class="op">-</span>RandomSearch1) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb106-8"><a href="multiple-group-comparison.html#cb106-8"></a><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">select</span>(<span class="op">-</span>DifferentialEvolution,<span class="op">-</span>PSO,<span class="op">-</span>RandomSearch1)</span>
-<span id="cb106-9"><a href="multiple-group-comparison.html#cb106-9"></a></span>
-<span id="cb106-10"><a href="multiple-group-comparison.html#cb106-10"></a><span class="co">#Getting HPDI from a data frame and creating a table instead of plotting...</span></span>
-<span id="cb106-11"><a href="multiple-group-comparison.html#cb106-11"></a>hpdi_diff&lt;-HDInterval<span class="op">::</span><span class="kw">hdi</span>(sample_a_alg,<span class="dt">credMass=</span><span class="fl">0.95</span>)</span>
-<span id="cb106-12"><a href="multiple-group-comparison.html#cb106-12"></a>hpdi_diff&lt;-hpdi_diff <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">as_tibble</span>(<span class="dt">rownames =</span> <span class="st">&quot;Metric&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb106-13"><a href="multiple-group-comparison.html#cb106-13"></a><span class="st">  </span>tibble<span class="op">::</span><span class="kw">add_row</span>(<span class="dt">Metric=</span><span class="st">&quot;Mean&quot;</span>, <span class="dt">PSO_Random=</span><span class="kw">mean</span>(sample_a_alg<span class="op">$</span>PSO_Random), <span class="dt">DE_PSO=</span><span class="kw">mean</span>(sample_a_alg<span class="op">$</span>DE_PSO), <span class="dt">DE_Random=</span><span class="kw">mean</span>(sample_a_alg<span class="op">$</span>DE_Random)) <span class="op">%&gt;%</span></span>
-<span id="cb106-14"><a href="multiple-group-comparison.html#cb106-14"></a><span class="st">  </span>tidyr<span class="op">::</span><span class="kw">pivot_longer</span>(<span class="dt">cols=</span><span class="op">-</span>Metric, <span class="dt">names_to=</span><span class="st">&quot;AlgorithmDifference&quot;</span>, <span class="dt">values_to=</span><span class="st">&#39;values&#39;</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb106-15"><a href="multiple-group-comparison.html#cb106-15"></a><span class="st">  </span>tidyr<span class="op">::</span><span class="kw">pivot_wider</span>(<span class="dt">names_from =</span>Metric , <span class="dt">values_from=</span>values) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb106-16"><a href="multiple-group-comparison.html#cb106-16"></a><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">mutate</span>(<span class="dt">Difference=</span><span class="kw">c</span>(<span class="st">&#39;PSO - RandomSearch&#39;</span>, <span class="st">&#39;DiffEvolution - PSO&#39;</span>, <span class="st">&#39;DiffEvolution - RandomSearch&#39;</span>)) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb106-17"><a href="multiple-group-comparison.html#cb106-17"></a><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">select</span>(Difference, <span class="dt">Lower=</span>lower, Mean, <span class="dt">Upper=</span>upper)</span>
-<span id="cb106-18"><a href="multiple-group-comparison.html#cb106-18"></a></span>
-<span id="cb106-19"><a href="multiple-group-comparison.html#cb106-19"></a><span class="kw">kable</span>(hpdi_diff, <span class="dt">booktabs=</span>T, <span class="dt">format.args =</span> <span class="kw">list</span>(<span class="dt">scientific =</span> <span class="ot">FALSE</span>), <span class="dt">digits =</span> <span class="dv">3</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb106-20"><a href="multiple-group-comparison.html#cb106-20"></a><span class="st">  </span><span class="kw">kable_styling</span>(<span class="dt">bootstrap_options =</span> <span class="kw">c</span>(<span class="st">&quot;striped&quot;</span>, <span class="st">&quot;hover&quot;</span>, <span class="st">&quot;condensed&quot;</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb105"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb105-1"><a href="multiple-group-comparison.html#cb105-1"></a>posterior &lt;-<span class="st"> </span>rstan<span class="op">::</span><span class="kw">extract</span>(multiplegroup_fit)</span>
+<span id="cb105-2"><a href="multiple-group-comparison.html#cb105-2"></a>a_alg &lt;-<span class="st"> </span><span class="kw">as_tibble</span>(posterior<span class="op">$</span>a_alg)</span>
+<span id="cb105-3"><a href="multiple-group-comparison.html#cb105-3"></a><span class="kw">colnames</span>(a_alg) &lt;-<span class="st"> </span>algorithms</span>
+<span id="cb105-4"><a href="multiple-group-comparison.html#cb105-4"></a>sample_a_alg &lt;-<span class="st"> </span>dplyr<span class="op">::</span><span class="kw">sample_n</span>(a_alg, <span class="dt">size=</span><span class="dv">1000</span>, <span class="dt">replace=</span>T) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb105-5"><a href="multiple-group-comparison.html#cb105-5"></a><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">mutate</span>(<span class="dt">PSO_Random =</span> PSO<span class="op">-</span>RandomSearch1,</span>
+<span id="cb105-6"><a href="multiple-group-comparison.html#cb105-6"></a>                <span class="dt">DE_PSO=</span> DifferentialEvolution<span class="op">-</span>PSO,</span>
+<span id="cb105-7"><a href="multiple-group-comparison.html#cb105-7"></a>                <span class="dt">DE_Random =</span> DifferentialEvolution<span class="op">-</span>RandomSearch1) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb105-8"><a href="multiple-group-comparison.html#cb105-8"></a><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">select</span>(<span class="op">-</span>DifferentialEvolution,<span class="op">-</span>PSO,<span class="op">-</span>RandomSearch1)</span>
+<span id="cb105-9"><a href="multiple-group-comparison.html#cb105-9"></a></span>
+<span id="cb105-10"><a href="multiple-group-comparison.html#cb105-10"></a><span class="co">#Getting HPDI from a data frame and creating a table instead of plotting...</span></span>
+<span id="cb105-11"><a href="multiple-group-comparison.html#cb105-11"></a>hpdi_diff&lt;-HDInterval<span class="op">::</span><span class="kw">hdi</span>(sample_a_alg,<span class="dt">credMass=</span><span class="fl">0.95</span>)</span>
+<span id="cb105-12"><a href="multiple-group-comparison.html#cb105-12"></a>hpdi_diff&lt;-hpdi_diff <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">as_tibble</span>(<span class="dt">rownames =</span> <span class="st">&quot;Metric&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb105-13"><a href="multiple-group-comparison.html#cb105-13"></a><span class="st">  </span>tibble<span class="op">::</span><span class="kw">add_row</span>(<span class="dt">Metric=</span><span class="st">&quot;Mean&quot;</span>, <span class="dt">PSO_Random=</span><span class="kw">mean</span>(sample_a_alg<span class="op">$</span>PSO_Random), <span class="dt">DE_PSO=</span><span class="kw">mean</span>(sample_a_alg<span class="op">$</span>DE_PSO), <span class="dt">DE_Random=</span><span class="kw">mean</span>(sample_a_alg<span class="op">$</span>DE_Random)) <span class="op">%&gt;%</span></span>
+<span id="cb105-14"><a href="multiple-group-comparison.html#cb105-14"></a><span class="st">  </span>tidyr<span class="op">::</span><span class="kw">pivot_longer</span>(<span class="dt">cols=</span><span class="op">-</span>Metric, <span class="dt">names_to=</span><span class="st">&quot;AlgorithmDifference&quot;</span>, <span class="dt">values_to=</span><span class="st">&#39;values&#39;</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb105-15"><a href="multiple-group-comparison.html#cb105-15"></a><span class="st">  </span>tidyr<span class="op">::</span><span class="kw">pivot_wider</span>(<span class="dt">names_from =</span>Metric , <span class="dt">values_from=</span>values) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb105-16"><a href="multiple-group-comparison.html#cb105-16"></a><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">mutate</span>(<span class="dt">Difference=</span><span class="kw">c</span>(<span class="st">&#39;PSO - RandomSearch&#39;</span>, <span class="st">&#39;DiffEvolution - PSO&#39;</span>, <span class="st">&#39;DiffEvolution - RandomSearch&#39;</span>)) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb105-17"><a href="multiple-group-comparison.html#cb105-17"></a><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">select</span>(Difference, <span class="dt">Lower=</span>lower, Mean, <span class="dt">Upper=</span>upper)</span>
+<span id="cb105-18"><a href="multiple-group-comparison.html#cb105-18"></a></span>
+<span id="cb105-19"><a href="multiple-group-comparison.html#cb105-19"></a><span class="kw">kable</span>(hpdi_diff, <span class="dt">booktabs=</span>T, <span class="dt">format.args =</span> <span class="kw">list</span>(<span class="dt">scientific =</span> <span class="ot">FALSE</span>), <span class="dt">digits =</span> <span class="dv">3</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb105-20"><a href="multiple-group-comparison.html#cb105-20"></a><span class="st">  </span><span class="kw">kable_styling</span>(<span class="dt">bootstrap_options =</span> <span class="kw">c</span>(<span class="st">&quot;striped&quot;</span>, <span class="st">&quot;hover&quot;</span>, <span class="st">&quot;condensed&quot;</span>))</span></code></pre></div>
 <table class="table table-striped table-hover table-condensed" style="margin-left: auto; margin-right: auto;">
 <thead>
 <tr>
@@ -2124,14 +2124,14 @@ DiffEvolution - RandomSearch
 </tbody>
 </table>
 <p>Creating an output table</p>
-<div class="sourceCode" id="cb107"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb107-1"><a href="multiple-group-comparison.html#cb107-1"></a>rename_pars &lt;-<span class="st"> </span><span class="kw">c</span>(</span>
-<span id="cb107-2"><a href="multiple-group-comparison.html#cb107-2"></a>  <span class="kw">paste</span>(<span class="kw">rep</span>(<span class="st">&#39;a_&#39;</span>,<span class="kw">length</span>(algorithms)),algorithms, <span class="dt">sep =</span> <span class="st">&quot;&quot;</span>),</span>
-<span id="cb107-3"><a href="multiple-group-comparison.html#cb107-3"></a>  <span class="kw">paste</span>(<span class="kw">rep</span>(<span class="st">&#39;sigma_&#39;</span>,<span class="kw">length</span>(algorithms)),algorithms, <span class="dt">sep =</span> <span class="st">&quot;&quot;</span>),</span>
-<span id="cb107-4"><a href="multiple-group-comparison.html#cb107-4"></a>  <span class="st">&#39;s&#39;</span>,</span>
-<span id="cb107-5"><a href="multiple-group-comparison.html#cb107-5"></a>  <span class="st">&#39;nu&#39;</span>)</span>
-<span id="cb107-6"><a href="multiple-group-comparison.html#cb107-6"></a>t&lt;-<span class="kw">create_table_model</span>(multiplegroup_fit, <span class="dt">pars=</span><span class="kw">c</span>(a_alg_v, sigma_v, <span class="st">&#39;s&#39;</span>,<span class="st">&#39;nu&#39;</span>),rename_pars)</span>
-<span id="cb107-7"><a href="multiple-group-comparison.html#cb107-7"></a><span class="kw">colnames</span>(t)&lt;-<span class="kw">c</span>(<span class="st">&quot;Parameter&quot;</span>, <span class="st">&quot;Mean&quot;</span>, <span class="st">&quot;HPD low&quot;</span>, <span class="st">&quot;HPD high&quot;</span>)</span>
-<span id="cb107-8"><a href="multiple-group-comparison.html#cb107-8"></a><span class="kw">saveRDS</span>(t,<span class="st">&#39;./statscomp-paper/tables/datafortables/multiplegroupsdifference-par-table.RDS&#39;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb106"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb106-1"><a href="multiple-group-comparison.html#cb106-1"></a>rename_pars &lt;-<span class="st"> </span><span class="kw">c</span>(</span>
+<span id="cb106-2"><a href="multiple-group-comparison.html#cb106-2"></a>  <span class="kw">paste</span>(<span class="kw">rep</span>(<span class="st">&#39;a_&#39;</span>,<span class="kw">length</span>(algorithms)),algorithms, <span class="dt">sep =</span> <span class="st">&quot;&quot;</span>),</span>
+<span id="cb106-3"><a href="multiple-group-comparison.html#cb106-3"></a>  <span class="kw">paste</span>(<span class="kw">rep</span>(<span class="st">&#39;sigma_&#39;</span>,<span class="kw">length</span>(algorithms)),algorithms, <span class="dt">sep =</span> <span class="st">&quot;&quot;</span>),</span>
+<span id="cb106-4"><a href="multiple-group-comparison.html#cb106-4"></a>  <span class="st">&#39;s&#39;</span>,</span>
+<span id="cb106-5"><a href="multiple-group-comparison.html#cb106-5"></a>  <span class="st">&#39;nu&#39;</span>)</span>
+<span id="cb106-6"><a href="multiple-group-comparison.html#cb106-6"></a>t&lt;-<span class="kw">create_table_model</span>(multiplegroup_fit, <span class="dt">pars=</span><span class="kw">c</span>(a_alg_v, sigma_v, <span class="st">&#39;s&#39;</span>,<span class="st">&#39;nu&#39;</span>),rename_pars)</span>
+<span id="cb106-7"><a href="multiple-group-comparison.html#cb106-7"></a><span class="kw">colnames</span>(t)&lt;-<span class="kw">c</span>(<span class="st">&quot;Parameter&quot;</span>, <span class="st">&quot;Mean&quot;</span>, <span class="st">&quot;HPD low&quot;</span>, <span class="st">&quot;HPD high&quot;</span>)</span>
+<span id="cb106-8"><a href="multiple-group-comparison.html#cb106-8"></a><span class="kw">saveRDS</span>(t,<span class="st">&#39;./statscomp-paper/tables/datafortables/multiplegroupsdifference-par-table.RDS&#39;</span>)</span></code></pre></div>
 
 </div>
 </div>

@@ -1,5 +1,3 @@
-source("renv/activate.R")
-
 #rmarkdown
 library(knitr)
 library(rmdformats)

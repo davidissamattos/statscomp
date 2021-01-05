@@ -181,9 +181,14 @@ save_fig(p, 'relativeimprovement.pdf', type = 'single-column')
 
 Creating an output table
 ```{r}
-rename_pars <- c(paste(rep('a_',length(algorithms)),algorithms, sep = ""),'s','sigma')
-t<-create_table_model(relativeimprovement.fit, c(a_alg, 's', 'sigma'),rename_pars)
+rename_pars <- c('sigma',paste(rep('a_',length(algorithms)), algorithms, sep = ""),'s')
+t<-create_table_model(relativeimprovement.fit, c(a_alg, 's', 'sigma'), rename_pars)
 colnames(t)<-c("Parameter", "Mean", "HPD low", "HPD high")
 saveRDS(t,'./statscomp-paper/tables/datafortables/relativeimprovement-par-table.RDS')
 ```
+
+```{r}
+kable(t)
+```
+
 

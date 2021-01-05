@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 3 Relative improvement | Online Appendix for: Statistical Models for the Analysis of Optimization Algorithms with Benchmark Functions</title>
   <meta name="description" content="Chapter 3 Relative improvement | Online Appendix for: Statistical Models for the Analysis of Optimization Algorithms with Benchmark Functions" />
-  <meta name="generator" content="bookdown 0.20 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 3 Relative improvement | Online Appendix for: Statistical Models for the Analysis of Optimization Algorithms with Benchmark Functions" />
   <meta property="og:type" content="book" />
@@ -210,56 +210,56 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="rq2-data-preparation" class="section level2">
 <h2><span class="header-section-number">3.1</span> RQ2 Data preparation</h2>
 <p>We start importing the dataset</p>
-<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="relative-improvement.html#cb24-1"></a>dataset &lt;-<span class="st"> </span>readr<span class="op">::</span><span class="kw">read_csv</span>(<span class="st">&#39;./data/statscomp.csv&#39;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="relative-improvement.html#cb23-1"></a>dataset &lt;-<span class="st"> </span>readr<span class="op">::</span><span class="kw">read_csv</span>(<span class="st">&#39;./data/statscomp.csv&#39;</span>)</span></code></pre></div>
 <p>Let’s select only the columns that interests us, in this case the Euclidean distance</p>
-<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="relative-improvement.html#cb25-1"></a>d&lt;-<span class="st"> </span>dataset <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb25-2"><a href="relative-improvement.html#cb25-2"></a><span class="st">    </span>dplyr<span class="op">::</span><span class="kw">select</span>(Algorithm, CostFunction, SD, <span class="dt">Budget=</span>MaxFevalPerDimensions, simNumber, EuclideanDistance, OptimizationSuccessful) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb25-3"><a href="relative-improvement.html#cb25-3"></a><span class="st">    </span>dplyr<span class="op">::</span><span class="kw">filter</span>(OptimizationSuccessful <span class="op">&amp;</span><span class="st"> </span>SD<span class="op">==</span><span class="dv">0</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb25-4"><a href="relative-improvement.html#cb25-4"></a><span class="st">    </span>dplyr<span class="op">::</span><span class="kw">select</span>(<span class="op">-</span>SD, <span class="op">-</span>OptimizationSuccessful) </span></code></pre></div>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="relative-improvement.html#cb24-1"></a>d&lt;-<span class="st"> </span>dataset <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb24-2"><a href="relative-improvement.html#cb24-2"></a><span class="st">    </span>dplyr<span class="op">::</span><span class="kw">select</span>(Algorithm, CostFunction, SD, <span class="dt">Budget=</span>MaxFevalPerDimensions, simNumber, EuclideanDistance, OptimizationSuccessful) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb24-3"><a href="relative-improvement.html#cb24-3"></a><span class="st">    </span>dplyr<span class="op">::</span><span class="kw">filter</span>(OptimizationSuccessful <span class="op">&amp;</span><span class="st"> </span>SD<span class="op">==</span><span class="dv">0</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb24-4"><a href="relative-improvement.html#cb24-4"></a><span class="st">    </span>dplyr<span class="op">::</span><span class="kw">select</span>(<span class="op">-</span>SD, <span class="op">-</span>OptimizationSuccessful) </span></code></pre></div>
 <p>Let’s first make this a wide data set based on the algorithm to make it easier to compute the relative improvement over the Random Search. We are also dropping the RandomSearch2 since there is no noise in the benchmark functions</p>
 <p>There are several ways that can be used to compute a relative improvement (and they will affect the result). The way we are using is to compare against the mean of distance of the 10 samples of the Random Search in each cost function for a specific budget. The way we are comparing is we divide the distance of each algorithm by the average distance of the random search. If this ratio is greater than 1 then random search is better, if smaller than 1 then the algorithm is better</p>
-<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="relative-improvement.html#cb26-1"></a>relativeImprovement &lt;-<span class="st"> </span><span class="cf">function</span>(x, rs){</span>
-<span id="cb26-2"><a href="relative-improvement.html#cb26-2"></a>  <span class="co">#x is the column</span></span>
-<span id="cb26-3"><a href="relative-improvement.html#cb26-3"></a>  <span class="co">#rs is the random search column</span></span>
-<span id="cb26-4"><a href="relative-improvement.html#cb26-4"></a>  ri &lt;-<span class="st"> </span>(rs<span class="op">-</span>x)<span class="op">/</span>rs</span>
-<span id="cb26-5"><a href="relative-improvement.html#cb26-5"></a>  ri&lt;-<span class="kw">ifelse</span>(ri <span class="op">&lt;</span><span class="st"> </span><span class="dv">-1</span>, <span class="dv">-1</span>, ri)</span>
-<span id="cb26-6"><a href="relative-improvement.html#cb26-6"></a>  ri&lt;-<span class="kw">ifelse</span>(ri <span class="op">&gt;</span><span class="st">  </span><span class="dv">1</span>,  <span class="dv">1</span>, ri)</span>
-<span id="cb26-7"><a href="relative-improvement.html#cb26-7"></a>  <span class="kw">return</span>(ri)</span>
-<span id="cb26-8"><a href="relative-improvement.html#cb26-8"></a>}</span>
-<span id="cb26-9"><a href="relative-improvement.html#cb26-9"></a></span>
-<span id="cb26-10"><a href="relative-improvement.html#cb26-10"></a>d_wide &lt;-<span class="st"> </span>d <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb26-11"><a href="relative-improvement.html#cb26-11"></a><span class="st">  </span>tidyr<span class="op">::</span><span class="kw">pivot_wider</span>(</span>
-<span id="cb26-12"><a href="relative-improvement.html#cb26-12"></a>    <span class="dt">names_from =</span> Algorithm,</span>
-<span id="cb26-13"><a href="relative-improvement.html#cb26-13"></a>    <span class="dt">values_from =</span> EuclideanDistance) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb26-14"><a href="relative-improvement.html#cb26-14"></a><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">select</span>(<span class="op">-</span>RandomSearch2) <span class="op">%&gt;%</span></span>
-<span id="cb26-15"><a href="relative-improvement.html#cb26-15"></a><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">group_by</span>(CostFunction, Budget) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb26-16"><a href="relative-improvement.html#cb26-16"></a><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">mutate</span>(<span class="dt">avgRandomSearch=</span><span class="kw">mean</span>(RandomSearch1)) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb26-17"><a href="relative-improvement.html#cb26-17"></a><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">ungroup</span>() <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb26-18"><a href="relative-improvement.html#cb26-18"></a><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">mutate_at</span>(<span class="kw">c</span>(<span class="st">&quot;NelderMead&quot;</span>, <span class="st">&quot;PSO&quot;</span>, <span class="st">&quot;SimulatedAnnealing&quot;</span>,<span class="st">&quot;CuckooSearch&quot;</span>, <span class="st">&quot;DifferentialEvolution&quot;</span>, <span class="st">&quot;CMAES&quot;</span>),</span>
-<span id="cb26-19"><a href="relative-improvement.html#cb26-19"></a>                   <span class="op">~</span><span class="kw">relativeImprovement</span>(.x,<span class="dt">rs=</span>avgRandomSearch))</span></code></pre></div>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="relative-improvement.html#cb25-1"></a>relativeImprovement &lt;-<span class="st"> </span><span class="cf">function</span>(x, rs){</span>
+<span id="cb25-2"><a href="relative-improvement.html#cb25-2"></a>  <span class="co">#x is the column</span></span>
+<span id="cb25-3"><a href="relative-improvement.html#cb25-3"></a>  <span class="co">#rs is the random search column</span></span>
+<span id="cb25-4"><a href="relative-improvement.html#cb25-4"></a>  ri &lt;-<span class="st"> </span>(rs<span class="op">-</span>x)<span class="op">/</span>rs</span>
+<span id="cb25-5"><a href="relative-improvement.html#cb25-5"></a>  ri&lt;-<span class="kw">ifelse</span>(ri <span class="op">&lt;</span><span class="st"> </span><span class="dv">-1</span>, <span class="dv">-1</span>, ri)</span>
+<span id="cb25-6"><a href="relative-improvement.html#cb25-6"></a>  ri&lt;-<span class="kw">ifelse</span>(ri <span class="op">&gt;</span><span class="st">  </span><span class="dv">1</span>,  <span class="dv">1</span>, ri)</span>
+<span id="cb25-7"><a href="relative-improvement.html#cb25-7"></a>  <span class="kw">return</span>(ri)</span>
+<span id="cb25-8"><a href="relative-improvement.html#cb25-8"></a>}</span>
+<span id="cb25-9"><a href="relative-improvement.html#cb25-9"></a></span>
+<span id="cb25-10"><a href="relative-improvement.html#cb25-10"></a>d_wide &lt;-<span class="st"> </span>d <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb25-11"><a href="relative-improvement.html#cb25-11"></a><span class="st">  </span>tidyr<span class="op">::</span><span class="kw">pivot_wider</span>(</span>
+<span id="cb25-12"><a href="relative-improvement.html#cb25-12"></a>    <span class="dt">names_from =</span> Algorithm,</span>
+<span id="cb25-13"><a href="relative-improvement.html#cb25-13"></a>    <span class="dt">values_from =</span> EuclideanDistance) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb25-14"><a href="relative-improvement.html#cb25-14"></a><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">select</span>(<span class="op">-</span>RandomSearch2) <span class="op">%&gt;%</span></span>
+<span id="cb25-15"><a href="relative-improvement.html#cb25-15"></a><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">group_by</span>(CostFunction, Budget) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb25-16"><a href="relative-improvement.html#cb25-16"></a><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">mutate</span>(<span class="dt">avgRandomSearch=</span><span class="kw">mean</span>(RandomSearch1)) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb25-17"><a href="relative-improvement.html#cb25-17"></a><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">ungroup</span>() <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb25-18"><a href="relative-improvement.html#cb25-18"></a><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">mutate_at</span>(<span class="kw">c</span>(<span class="st">&quot;NelderMead&quot;</span>, <span class="st">&quot;PSO&quot;</span>, <span class="st">&quot;SimulatedAnnealing&quot;</span>,<span class="st">&quot;CuckooSearch&quot;</span>, <span class="st">&quot;DifferentialEvolution&quot;</span>, <span class="st">&quot;CMAES&quot;</span>),</span>
+<span id="cb25-19"><a href="relative-improvement.html#cb25-19"></a>                   <span class="op">~</span><span class="kw">relativeImprovement</span>(.x,<span class="dt">rs=</span>avgRandomSearch))</span></code></pre></div>
 <p>After we compute our metric we drop the Random Search column and we pivot_longer again to make the inference</p>
-<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="relative-improvement.html#cb27-1"></a>d_final &lt;-<span class="st"> </span>d_wide <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb27-2"><a href="relative-improvement.html#cb27-2"></a><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">select</span>(<span class="op">-</span>RandomSearch1, <span class="op">-</span>avgRandomSearch) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb27-3"><a href="relative-improvement.html#cb27-3"></a><span class="st">  </span>tidyr<span class="op">::</span><span class="kw">pivot_longer</span>( </span>
-<span id="cb27-4"><a href="relative-improvement.html#cb27-4"></a>    <span class="dt">cols =</span> <span class="kw">c</span>(<span class="st">&quot;NelderMead&quot;</span>, <span class="st">&quot;PSO&quot;</span>, <span class="st">&quot;SimulatedAnnealing&quot;</span>,<span class="st">&quot;CuckooSearch&quot;</span>, <span class="st">&quot;DifferentialEvolution&quot;</span>, <span class="st">&quot;CMAES&quot;</span>),</span>
-<span id="cb27-5"><a href="relative-improvement.html#cb27-5"></a>    <span class="dt">names_to =</span> <span class="st">&quot;Algorithm&quot;</span>, </span>
-<span id="cb27-6"><a href="relative-improvement.html#cb27-6"></a>    <span class="dt">values_to =</span> <span class="st">&quot;y&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb27-7"><a href="relative-improvement.html#cb27-7"></a><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">select</span>(<span class="op">-</span>simNumber) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb27-8"><a href="relative-improvement.html#cb27-8"></a><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">mutate</span>(<span class="dt">AlgorithmID=</span><span class="kw">create_index</span>(Algorithm),</span>
-<span id="cb27-9"><a href="relative-improvement.html#cb27-9"></a>                <span class="dt">CostFunctionID=</span><span class="kw">create_index</span>(CostFunction)) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb27-10"><a href="relative-improvement.html#cb27-10"></a><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">select</span>(Algorithm, AlgorithmID, CostFunction, CostFunctionID, Budget, y)</span>
-<span id="cb27-11"><a href="relative-improvement.html#cb27-11"></a></span>
-<span id="cb27-12"><a href="relative-improvement.html#cb27-12"></a><span class="co">#checking if there is any na -&gt; stan does not accept that </span></span>
-<span id="cb27-13"><a href="relative-improvement.html#cb27-13"></a>find.na &lt;-<span class="st"> </span>d_final <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb27-14"><a href="relative-improvement.html#cb27-14"></a><span class="st">    </span>dplyr<span class="op">::</span><span class="kw">filter</span>(<span class="kw">is.na</span>(y))</span>
-<span id="cb27-15"><a href="relative-improvement.html#cb27-15"></a></span>
-<span id="cb27-16"><a href="relative-improvement.html#cb27-16"></a>bm&lt;-<span class="kw">get_index_names_as_array</span>(d_final<span class="op">$</span>CostFunction)</span>
-<span id="cb27-17"><a href="relative-improvement.html#cb27-17"></a><span class="kw">saveRDS</span>(bm, <span class="st">&#39;./data/relativeimprovement_bm.RDS&#39;</span>)</span>
-<span id="cb27-18"><a href="relative-improvement.html#cb27-18"></a>algorithms &lt;-<span class="st"> </span><span class="kw">get_index_names_as_array</span>(d_final<span class="op">$</span>Algorithm)</span>
-<span id="cb27-19"><a href="relative-improvement.html#cb27-19"></a><span class="kw">saveRDS</span>(algorithms, <span class="st">&#39;./data/relativeimprovement_algorithms.RDS&#39;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="relative-improvement.html#cb26-1"></a>d_final &lt;-<span class="st"> </span>d_wide <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb26-2"><a href="relative-improvement.html#cb26-2"></a><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">select</span>(<span class="op">-</span>RandomSearch1, <span class="op">-</span>avgRandomSearch) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb26-3"><a href="relative-improvement.html#cb26-3"></a><span class="st">  </span>tidyr<span class="op">::</span><span class="kw">pivot_longer</span>( </span>
+<span id="cb26-4"><a href="relative-improvement.html#cb26-4"></a>    <span class="dt">cols =</span> <span class="kw">c</span>(<span class="st">&quot;NelderMead&quot;</span>, <span class="st">&quot;PSO&quot;</span>, <span class="st">&quot;SimulatedAnnealing&quot;</span>,<span class="st">&quot;CuckooSearch&quot;</span>, <span class="st">&quot;DifferentialEvolution&quot;</span>, <span class="st">&quot;CMAES&quot;</span>),</span>
+<span id="cb26-5"><a href="relative-improvement.html#cb26-5"></a>    <span class="dt">names_to =</span> <span class="st">&quot;Algorithm&quot;</span>, </span>
+<span id="cb26-6"><a href="relative-improvement.html#cb26-6"></a>    <span class="dt">values_to =</span> <span class="st">&quot;y&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb26-7"><a href="relative-improvement.html#cb26-7"></a><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">select</span>(<span class="op">-</span>simNumber) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb26-8"><a href="relative-improvement.html#cb26-8"></a><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">mutate</span>(<span class="dt">AlgorithmID=</span><span class="kw">create_index</span>(Algorithm),</span>
+<span id="cb26-9"><a href="relative-improvement.html#cb26-9"></a>                <span class="dt">CostFunctionID=</span><span class="kw">create_index</span>(CostFunction)) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb26-10"><a href="relative-improvement.html#cb26-10"></a><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">select</span>(Algorithm, AlgorithmID, CostFunction, CostFunctionID, Budget, y)</span>
+<span id="cb26-11"><a href="relative-improvement.html#cb26-11"></a></span>
+<span id="cb26-12"><a href="relative-improvement.html#cb26-12"></a><span class="co">#checking if there is any na -&gt; stan does not accept that </span></span>
+<span id="cb26-13"><a href="relative-improvement.html#cb26-13"></a>find.na &lt;-<span class="st"> </span>d_final <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb26-14"><a href="relative-improvement.html#cb26-14"></a><span class="st">    </span>dplyr<span class="op">::</span><span class="kw">filter</span>(<span class="kw">is.na</span>(y))</span>
+<span id="cb26-15"><a href="relative-improvement.html#cb26-15"></a></span>
+<span id="cb26-16"><a href="relative-improvement.html#cb26-16"></a>bm&lt;-<span class="kw">get_index_names_as_array</span>(d_final<span class="op">$</span>CostFunction)</span>
+<span id="cb26-17"><a href="relative-improvement.html#cb26-17"></a><span class="kw">saveRDS</span>(bm, <span class="st">&#39;./data/relativeimprovement_bm.RDS&#39;</span>)</span>
+<span id="cb26-18"><a href="relative-improvement.html#cb26-18"></a>algorithms &lt;-<span class="st"> </span><span class="kw">get_index_names_as_array</span>(d_final<span class="op">$</span>Algorithm)</span>
+<span id="cb26-19"><a href="relative-improvement.html#cb26-19"></a><span class="kw">saveRDS</span>(algorithms, <span class="st">&#39;./data/relativeimprovement_algorithms.RDS&#39;</span>)</span></code></pre></div>
 <p>Now we have our final dataset to use with Stan. Lets preview a sample of the data set</p>
-<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="relative-improvement.html#cb28-1"></a><span class="kw">kable</span>(dplyr<span class="op">::</span><span class="kw">sample_n</span>(d_final,<span class="dt">size=</span><span class="dv">10</span>), <span class="st">&quot;html&quot;</span>,<span class="dt">booktabs=</span>T, <span class="dt">format.args =</span> <span class="kw">list</span>(<span class="dt">scientific =</span> <span class="ot">FALSE</span>), <span class="dt">digits =</span> <span class="dv">3</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb28-2"><a href="relative-improvement.html#cb28-2"></a><span class="st">  </span><span class="kw">kable_styling</span>(<span class="dt">bootstrap_options =</span> <span class="kw">c</span>(<span class="st">&quot;striped&quot;</span>, <span class="st">&quot;hover&quot;</span>, <span class="st">&quot;condensed&quot;</span>)) </span></code></pre></div>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="relative-improvement.html#cb27-1"></a><span class="kw">kable</span>(dplyr<span class="op">::</span><span class="kw">sample_n</span>(d_final,<span class="dt">size=</span><span class="dv">10</span>), <span class="st">&quot;html&quot;</span>,<span class="dt">booktabs=</span>T, <span class="dt">format.args =</span> <span class="kw">list</span>(<span class="dt">scientific =</span> <span class="ot">FALSE</span>), <span class="dt">digits =</span> <span class="dv">3</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb27-2"><a href="relative-improvement.html#cb27-2"></a><span class="st">  </span><span class="kw">kable_styling</span>(<span class="dt">bootstrap_options =</span> <span class="kw">c</span>(<span class="st">&quot;striped&quot;</span>, <span class="st">&quot;hover&quot;</span>, <span class="st">&quot;condensed&quot;</span>)) </span></code></pre></div>
 <table class="table table-striped table-hover table-condensed" style="margin-left: auto; margin-right: auto;">
 <thead>
 <tr>
@@ -286,76 +286,16 @@ y
 <tbody>
 <tr>
 <td style="text-align:left;">
-DifferentialEvolution
-</td>
-<td style="text-align:right;">
-3
-</td>
-<td style="text-align:left;">
-PinterN6
-</td>
-<td style="text-align:right;">
-11
-</td>
-<td style="text-align:right;">
-1000
-</td>
-<td style="text-align:right;">
-0.812
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-NelderMead
-</td>
-<td style="text-align:right;">
-4
-</td>
-<td style="text-align:left;">
-ZakharovN2
-</td>
-<td style="text-align:right;">
-30
-</td>
-<td style="text-align:right;">
-20
-</td>
-<td style="text-align:right;">
--1.000
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-DifferentialEvolution
-</td>
-<td style="text-align:right;">
-3
-</td>
-<td style="text-align:left;">
-PinterN6
-</td>
-<td style="text-align:right;">
-11
-</td>
-<td style="text-align:right;">
-100000
-</td>
-<td style="text-align:right;">
-1.000
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
 CuckooSearch
 </td>
 <td style="text-align:right;">
 2
 </td>
 <td style="text-align:left;">
-Shubert
+DiscusN2
 </td>
 <td style="text-align:right;">
-21
+6
 </td>
 <td style="text-align:right;">
 10000
@@ -366,22 +306,22 @@ Shubert
 </tr>
 <tr>
 <td style="text-align:left;">
-PSO
+NelderMead
 </td>
 <td style="text-align:right;">
-5
+4
 </td>
 <td style="text-align:left;">
-Shubert
+Schwefel2d20N2
 </td>
 <td style="text-align:right;">
-21
+16
 </td>
 <td style="text-align:right;">
-100000
+100
 </td>
 <td style="text-align:right;">
-0.943
+-1.000
 </td>
 </tr>
 <tr>
@@ -392,53 +332,13 @@ NelderMead
 4
 </td>
 <td style="text-align:left;">
-WhitleyN6
+Trefethen
 </td>
 <td style="text-align:right;">
-28
+25
 </td>
 <td style="text-align:right;">
 1000
-</td>
-<td style="text-align:right;">
--1.000
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-CuckooSearch
-</td>
-<td style="text-align:right;">
-2
-</td>
-<td style="text-align:left;">
-WhitleyN6
-</td>
-<td style="text-align:right;">
-28
-</td>
-<td style="text-align:right;">
-20
-</td>
-<td style="text-align:right;">
--0.557
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-CMAES
-</td>
-<td style="text-align:right;">
-1
-</td>
-<td style="text-align:left;">
-ChungReynoldsN2
-</td>
-<td style="text-align:right;">
-4
-</td>
-<td style="text-align:right;">
-20
 </td>
 <td style="text-align:right;">
 -1.000
@@ -452,16 +352,96 @@ PSO
 5
 </td>
 <td style="text-align:left;">
+XinSheYang2N2
+</td>
+<td style="text-align:right;">
+29
+</td>
+<td style="text-align:right;">
+100
+</td>
+<td style="text-align:right;">
+0.962
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+SimulatedAnnealing
+</td>
+<td style="text-align:right;">
+6
+</td>
+<td style="text-align:left;">
+RosenbrockRotatedN6
+</td>
+<td style="text-align:right;">
+14
+</td>
+<td style="text-align:right;">
+10000
+</td>
+<td style="text-align:right;">
+-1.000
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+SimulatedAnnealing
+</td>
+<td style="text-align:right;">
+6
+</td>
+<td style="text-align:left;">
+XinSheYang2N2
+</td>
+<td style="text-align:right;">
+29
+</td>
+<td style="text-align:right;">
+100
+</td>
+<td style="text-align:right;">
+-1.000
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+DifferentialEvolution
+</td>
+<td style="text-align:right;">
+3
+</td>
+<td style="text-align:left;">
 ExponentialN2
 </td>
 <td style="text-align:right;">
 7
 </td>
 <td style="text-align:right;">
-1000
+20
 </td>
 <td style="text-align:right;">
--0.889
+-0.372
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+PSO
+</td>
+<td style="text-align:right;">
+5
+</td>
+<td style="text-align:left;">
+RosenbrockRotatedN6
+</td>
+<td style="text-align:right;">
+14
+</td>
+<td style="text-align:right;">
+100000
+</td>
+<td style="text-align:right;">
+0.906
 </td>
 </tr>
 <tr>
@@ -472,16 +452,36 @@ CuckooSearch
 2
 </td>
 <td style="text-align:left;">
-ChenBird
+Tripod
 </td>
 <td style="text-align:right;">
-2
+27
 </td>
 <td style="text-align:right;">
-100
+100000
 </td>
 <td style="text-align:right;">
-0.420
+-1.000
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+SimulatedAnnealing
+</td>
+<td style="text-align:right;">
+6
+</td>
+<td style="text-align:left;">
+LunacekBiRastriginN6
+</td>
+<td style="text-align:right;">
+9
+</td>
+<td style="text-align:right;">
+20
+</td>
+<td style="text-align:right;">
+-0.529
 </td>
 </tr>
 </tbody>
@@ -490,7 +490,7 @@ ChenBird
 <div id="rq2-stan-model" class="section level2">
 <h2><span class="header-section-number">3.2</span> RQ2 Stan model</h2>
 <p>The Stan model is specified in the file: <code>'./stanmodels/relativeimprovement.stan'</code>. Note that at the end of the model we commented the generated quantities. This block generates the predictive posterior y_rep and the log likelihood, log_lik. These values are useful in diagnosing and validating the model but the end file is extremely large (~1Gb for 2000 iterations) and make many of the following calculations slow. If the reader wants to see these values is just to uncomment and run the stan model again</p>
-<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="relative-improvement.html#cb29-1"></a><span class="kw">print_stan_code</span>(<span class="st">&#39;./stanmodels/relativeimprovement.stan&#39;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="relative-improvement.html#cb28-1"></a><span class="kw">print_stan_code</span>(<span class="st">&#39;./stanmodels/relativeimprovement.stan&#39;</span>)</span></code></pre></div>
 <pre><code>// Relative improvement model
 // Author: David Issa Mattos
 // Date: 17 June 2020
@@ -556,38 +556,38 @@ model {
 //   }
 // }</code></pre>
 <p>Let’s compile and start sampling with the Stan function. In the data folder you can find the specific data used to fit the model after all transformations <code>"./data/relativeimprovement-data.RDS"</code></p>
-<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="relative-improvement.html#cb31-1"></a>standata &lt;-<span class="st"> </span><span class="kw">list</span>(</span>
-<span id="cb31-2"><a href="relative-improvement.html#cb31-2"></a>  <span class="dt">N_total=</span><span class="kw">nrow</span>(d_final),</span>
-<span id="cb31-3"><a href="relative-improvement.html#cb31-3"></a>  <span class="dt">y =</span> d_final<span class="op">$</span>y,</span>
-<span id="cb31-4"><a href="relative-improvement.html#cb31-4"></a>  <span class="dt">N_algorithm =</span> <span class="kw">length</span>(algorithms),</span>
-<span id="cb31-5"><a href="relative-improvement.html#cb31-5"></a>  <span class="dt">algorithm_id =</span> d_final<span class="op">$</span>AlgorithmID,</span>
-<span id="cb31-6"><a href="relative-improvement.html#cb31-6"></a>  <span class="dt">N_bm =</span> <span class="kw">length</span>(bm),</span>
-<span id="cb31-7"><a href="relative-improvement.html#cb31-7"></a>  <span class="dt">bm_id =</span> d_final<span class="op">$</span>CostFunctionID)</span>
-<span id="cb31-8"><a href="relative-improvement.html#cb31-8"></a><span class="kw">saveRDS</span>(standata, <span class="dt">file =</span> <span class="st">&quot;./data/relativeimprovement-data.RDS&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="relative-improvement.html#cb30-1"></a>standata &lt;-<span class="st"> </span><span class="kw">list</span>(</span>
+<span id="cb30-2"><a href="relative-improvement.html#cb30-2"></a>  <span class="dt">N_total=</span><span class="kw">nrow</span>(d_final),</span>
+<span id="cb30-3"><a href="relative-improvement.html#cb30-3"></a>  <span class="dt">y =</span> d_final<span class="op">$</span>y,</span>
+<span id="cb30-4"><a href="relative-improvement.html#cb30-4"></a>  <span class="dt">N_algorithm =</span> <span class="kw">length</span>(algorithms),</span>
+<span id="cb30-5"><a href="relative-improvement.html#cb30-5"></a>  <span class="dt">algorithm_id =</span> d_final<span class="op">$</span>AlgorithmID,</span>
+<span id="cb30-6"><a href="relative-improvement.html#cb30-6"></a>  <span class="dt">N_bm =</span> <span class="kw">length</span>(bm),</span>
+<span id="cb30-7"><a href="relative-improvement.html#cb30-7"></a>  <span class="dt">bm_id =</span> d_final<span class="op">$</span>CostFunctionID)</span>
+<span id="cb30-8"><a href="relative-improvement.html#cb30-8"></a><span class="kw">saveRDS</span>(standata, <span class="dt">file =</span> <span class="st">&quot;./data/relativeimprovement-data.RDS&quot;</span>)</span></code></pre></div>
 <p>For computation time sake we are not running this chunk every time we compile this document. From now on we will load from the saved Stan fit object. However, when we change our model or the data we can just run this chunk separately</p>
-<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="relative-improvement.html#cb32-1"></a>standata&lt;-<span class="kw">readRDS</span>(<span class="st">&quot;./data/relativeimprovement-data.RDS&quot;</span>)</span>
-<span id="cb32-2"><a href="relative-improvement.html#cb32-2"></a>relativeimprovement.fit &lt;-<span class="st"> </span><span class="kw">stan</span>(<span class="dt">file =</span> <span class="st">&#39;./stanmodels/relativeimprovement.stan&#39;</span>,</span>
-<span id="cb32-3"><a href="relative-improvement.html#cb32-3"></a>                     <span class="dt">data=</span>standata,</span>
-<span id="cb32-4"><a href="relative-improvement.html#cb32-4"></a>                     <span class="dt">chains =</span> <span class="dv">4</span>,</span>
-<span id="cb32-5"><a href="relative-improvement.html#cb32-5"></a>                     <span class="dt">warmup =</span> <span class="dv">200</span>,</span>
-<span id="cb32-6"><a href="relative-improvement.html#cb32-6"></a>                     <span class="dt">iter =</span> <span class="dv">2000</span>)</span>
-<span id="cb32-7"><a href="relative-improvement.html#cb32-7"></a><span class="kw">saveRDS</span>(relativeimprovement.fit, <span class="dt">file =</span> <span class="st">&quot;./data/relativeimprovement-fit.RDS&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="relative-improvement.html#cb31-1"></a>standata&lt;-<span class="kw">readRDS</span>(<span class="st">&quot;./data/relativeimprovement-data.RDS&quot;</span>)</span>
+<span id="cb31-2"><a href="relative-improvement.html#cb31-2"></a>relativeimprovement.fit &lt;-<span class="st"> </span><span class="kw">stan</span>(<span class="dt">file =</span> <span class="st">&#39;./stanmodels/relativeimprovement.stan&#39;</span>,</span>
+<span id="cb31-3"><a href="relative-improvement.html#cb31-3"></a>                     <span class="dt">data=</span>standata,</span>
+<span id="cb31-4"><a href="relative-improvement.html#cb31-4"></a>                     <span class="dt">chains =</span> <span class="dv">4</span>,</span>
+<span id="cb31-5"><a href="relative-improvement.html#cb31-5"></a>                     <span class="dt">warmup =</span> <span class="dv">200</span>,</span>
+<span id="cb31-6"><a href="relative-improvement.html#cb31-6"></a>                     <span class="dt">iter =</span> <span class="dv">2000</span>)</span>
+<span id="cb31-7"><a href="relative-improvement.html#cb31-7"></a><span class="kw">saveRDS</span>(relativeimprovement.fit, <span class="dt">file =</span> <span class="st">&quot;./data/relativeimprovement-fit.RDS&quot;</span>)</span></code></pre></div>
 </div>
 <div id="rq2-diagnosis" class="section level2">
 <h2><span class="header-section-number">3.3</span> RQ2 Diagnosis</h2>
-<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="relative-improvement.html#cb33-1"></a>a_alg &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;a_alg[1]&quot;</span>,</span>
-<span id="cb33-2"><a href="relative-improvement.html#cb33-2"></a>           <span class="st">&quot;a_alg[2]&quot;</span>,</span>
-<span id="cb33-3"><a href="relative-improvement.html#cb33-3"></a>           <span class="st">&quot;a_alg[3]&quot;</span>,</span>
-<span id="cb33-4"><a href="relative-improvement.html#cb33-4"></a>           <span class="st">&quot;a_alg[4]&quot;</span>,</span>
-<span id="cb33-5"><a href="relative-improvement.html#cb33-5"></a>           <span class="st">&quot;a_alg[5]&quot;</span>,</span>
-<span id="cb33-6"><a href="relative-improvement.html#cb33-6"></a>           <span class="st">&quot;a_alg[6]&quot;</span>)</span>
-<span id="cb33-7"><a href="relative-improvement.html#cb33-7"></a>rstan<span class="op">::</span><span class="kw">traceplot</span>(relativeimprovement.fit, <span class="dt">pars=</span>a_alg)</span></code></pre></div>
-<p><img src="statscomp-appendix_files/figure-html/unnamed-chunk-31-1.png" width="672" style="display: block; margin: auto;" /></p>
-<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="relative-improvement.html#cb34-1"></a>rstan<span class="op">::</span><span class="kw">traceplot</span>(relativeimprovement.fit, <span class="dt">pars=</span><span class="kw">c</span>(<span class="st">&#39;s&#39;</span>,<span class="st">&#39;sigma&#39;</span>))</span></code></pre></div>
-<p><img src="statscomp-appendix_files/figure-html/unnamed-chunk-31-2.png" width="672" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="relative-improvement.html#cb32-1"></a>a_alg &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;a_alg[1]&quot;</span>,</span>
+<span id="cb32-2"><a href="relative-improvement.html#cb32-2"></a>           <span class="st">&quot;a_alg[2]&quot;</span>,</span>
+<span id="cb32-3"><a href="relative-improvement.html#cb32-3"></a>           <span class="st">&quot;a_alg[3]&quot;</span>,</span>
+<span id="cb32-4"><a href="relative-improvement.html#cb32-4"></a>           <span class="st">&quot;a_alg[4]&quot;</span>,</span>
+<span id="cb32-5"><a href="relative-improvement.html#cb32-5"></a>           <span class="st">&quot;a_alg[5]&quot;</span>,</span>
+<span id="cb32-6"><a href="relative-improvement.html#cb32-6"></a>           <span class="st">&quot;a_alg[6]&quot;</span>)</span>
+<span id="cb32-7"><a href="relative-improvement.html#cb32-7"></a>rstan<span class="op">::</span><span class="kw">traceplot</span>(relativeimprovement.fit, <span class="dt">pars=</span>a_alg)</span></code></pre></div>
+<p><img src="statscomp-appendix_files/figure-html/unnamed-chunk-30-1.png" width="672" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="relative-improvement.html#cb33-1"></a>rstan<span class="op">::</span><span class="kw">traceplot</span>(relativeimprovement.fit, <span class="dt">pars=</span><span class="kw">c</span>(<span class="st">&#39;s&#39;</span>,<span class="st">&#39;sigma&#39;</span>))</span></code></pre></div>
+<p><img src="statscomp-appendix_files/figure-html/unnamed-chunk-30-2.png" width="672" style="display: block; margin: auto;" /></p>
 <p>Another diagnosis is to look at the Rhat. If Rhat is greater than 1.05 it indicates a divergence in the chains (they did not mix well). The table below shows a summary of the sampling.</p>
-<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="relative-improvement.html#cb35-1"></a><span class="kw">kable</span>(<span class="kw">summary</span>(relativeimprovement.fit)<span class="op">$</span>summary) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb35-2"><a href="relative-improvement.html#cb35-2"></a><span class="st">  </span><span class="kw">kable_styling</span>(<span class="dt">bootstrap_options =</span> <span class="kw">c</span>(<span class="st">&#39;striped&#39;</span>,<span class="st">&quot;hover&quot;</span>, <span class="st">&quot;condensed&quot;</span> ))</span></code></pre></div>
+<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="relative-improvement.html#cb34-1"></a><span class="kw">kable</span>(<span class="kw">summary</span>(relativeimprovement.fit)<span class="op">$</span>summary) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb34-2"><a href="relative-improvement.html#cb34-2"></a><span class="st">  </span><span class="kw">kable_styling</span>(<span class="dt">bootstrap_options =</span> <span class="kw">c</span>(<span class="st">&#39;striped&#39;</span>,<span class="st">&quot;hover&quot;</span>, <span class="st">&quot;condensed&quot;</span> ))</span></code></pre></div>
 <table class="table table-striped table-hover table-condensed" style="margin-left: auto; margin-right: auto;">
 <thead>
 <tr>
@@ -1998,39 +1998,39 @@ lp__
 <h2><span class="header-section-number">3.4</span> RQ2 Results and Plots</h2>
 <p>First lets get the HPDI of every parameter.</p>
 <p>Then we restrict to the algorithms, them to the slopes, then to the</p>
-<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="relative-improvement.html#cb36-1"></a>hpdi &lt;-<span class="st"> </span><span class="kw">get_HPDI_from_stanfit</span>(relativeimprovement.fit)</span>
-<span id="cb36-2"><a href="relative-improvement.html#cb36-2"></a></span>
-<span id="cb36-3"><a href="relative-improvement.html#cb36-3"></a>hpdi_algorithm &lt;-<span class="st"> </span>hpdi <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb36-4"><a href="relative-improvement.html#cb36-4"></a><span class="st">      </span>dplyr<span class="op">::</span><span class="kw">filter</span>(<span class="kw">str_detect</span>(Parameter, <span class="st">&quot;a_alg</span><span class="ch">\\</span><span class="st">[&quot;</span>)) <span class="op">%&gt;%</span></span>
-<span id="cb36-5"><a href="relative-improvement.html#cb36-5"></a><span class="st">      </span>dplyr<span class="op">::</span><span class="kw">mutate</span>(<span class="dt">Parameter=</span>algorithms) <span class="co">#Changing to the algorithms labels</span></span>
-<span id="cb36-6"><a href="relative-improvement.html#cb36-6"></a></span>
-<span id="cb36-7"><a href="relative-improvement.html#cb36-7"></a>hpdi_other_parameters &lt;-<span class="st"> </span>hpdi <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb36-8"><a href="relative-improvement.html#cb36-8"></a><span class="st">      </span>dplyr<span class="op">::</span><span class="kw">filter</span>(Parameter<span class="op">==</span><span class="st">&#39;s&#39;</span> <span class="op">|</span><span class="st"> </span>Parameter<span class="op">==</span><span class="st">&#39;sigma&#39;</span>)</span>
-<span id="cb36-9"><a href="relative-improvement.html#cb36-9"></a></span>
-<span id="cb36-10"><a href="relative-improvement.html#cb36-10"></a></span>
-<span id="cb36-11"><a href="relative-improvement.html#cb36-11"></a>p_alg&lt;-<span class="kw">ggplot</span>(<span class="dt">data=</span>hpdi_algorithm, <span class="kw">aes</span>(<span class="dt">x=</span>Parameter))<span class="op">+</span></span>
-<span id="cb36-12"><a href="relative-improvement.html#cb36-12"></a><span class="st">  </span><span class="kw">geom_pointrange</span>(<span class="kw">aes</span>(</span>
-<span id="cb36-13"><a href="relative-improvement.html#cb36-13"></a>    <span class="dt">ymin=</span>HPDI.lower, </span>
-<span id="cb36-14"><a href="relative-improvement.html#cb36-14"></a>    <span class="dt">ymax=</span>HPDI.higher, </span>
-<span id="cb36-15"><a href="relative-improvement.html#cb36-15"></a>    <span class="dt">y=</span>Mean))<span class="op">+</span></span>
-<span id="cb36-16"><a href="relative-improvement.html#cb36-16"></a><span class="st">  </span><span class="kw">labs</span>(<span class="dt">y=</span><span class="st">&quot;Estimate of intercept&quot;</span>, <span class="dt">x=</span><span class="st">&quot;Algorithm&quot;</span>)<span class="op">+</span></span>
-<span id="cb36-17"><a href="relative-improvement.html#cb36-17"></a><span class="st">  </span><span class="kw">coord_flip</span>()</span>
-<span id="cb36-18"><a href="relative-improvement.html#cb36-18"></a>p_alg <span class="op">+</span><span class="st"> </span><span class="kw">plot_annotation</span>(<span class="dt">title =</span> <span class="st">&#39;HPDI interval for the algorithms&#39;</span>)</span></code></pre></div>
-<p><img src="statscomp-appendix_files/figure-html/unnamed-chunk-33-1.png" width="672" style="display: block; margin: auto;" /></p>
-<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="relative-improvement.html#cb37-1"></a>p_others &lt;-<span class="st"> </span><span class="kw">ggplot</span>(<span class="dt">data=</span>hpdi_other_parameters, <span class="kw">aes</span>(<span class="dt">x=</span>Parameter))<span class="op">+</span></span>
-<span id="cb37-2"><a href="relative-improvement.html#cb37-2"></a><span class="st">  </span><span class="kw">geom_pointrange</span>(<span class="kw">aes</span>(</span>
-<span id="cb37-3"><a href="relative-improvement.html#cb37-3"></a>    <span class="dt">ymin=</span>HPDI.lower, </span>
-<span id="cb37-4"><a href="relative-improvement.html#cb37-4"></a>    <span class="dt">ymax=</span>HPDI.higher, </span>
-<span id="cb37-5"><a href="relative-improvement.html#cb37-5"></a>    <span class="dt">y=</span>Mean))<span class="op">+</span></span>
-<span id="cb37-6"><a href="relative-improvement.html#cb37-6"></a><span class="st">  </span><span class="kw">labs</span>(<span class="dt">y=</span><span class="st">&quot;Estimate of s and sigma&quot;</span>, <span class="dt">x=</span><span class="st">&quot;Parameter&quot;</span>)<span class="op">+</span></span>
-<span id="cb37-7"><a href="relative-improvement.html#cb37-7"></a><span class="st">  </span><span class="kw">coord_flip</span>()</span>
-<span id="cb37-8"><a href="relative-improvement.html#cb37-8"></a>p_others <span class="op">+</span><span class="st"> </span><span class="kw">plot_annotation</span>(<span class="dt">title =</span> <span class="st">&#39;HPDI interval&#39;</span>)</span></code></pre></div>
-<p><img src="statscomp-appendix_files/figure-html/unnamed-chunk-33-2.png" width="672" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="relative-improvement.html#cb35-1"></a>hpdi &lt;-<span class="st"> </span><span class="kw">get_HPDI_from_stanfit</span>(relativeimprovement.fit)</span>
+<span id="cb35-2"><a href="relative-improvement.html#cb35-2"></a></span>
+<span id="cb35-3"><a href="relative-improvement.html#cb35-3"></a>hpdi_algorithm &lt;-<span class="st"> </span>hpdi <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb35-4"><a href="relative-improvement.html#cb35-4"></a><span class="st">      </span>dplyr<span class="op">::</span><span class="kw">filter</span>(<span class="kw">str_detect</span>(Parameter, <span class="st">&quot;a_alg</span><span class="ch">\\</span><span class="st">[&quot;</span>)) <span class="op">%&gt;%</span></span>
+<span id="cb35-5"><a href="relative-improvement.html#cb35-5"></a><span class="st">      </span>dplyr<span class="op">::</span><span class="kw">mutate</span>(<span class="dt">Parameter=</span>algorithms) <span class="co">#Changing to the algorithms labels</span></span>
+<span id="cb35-6"><a href="relative-improvement.html#cb35-6"></a></span>
+<span id="cb35-7"><a href="relative-improvement.html#cb35-7"></a>hpdi_other_parameters &lt;-<span class="st"> </span>hpdi <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb35-8"><a href="relative-improvement.html#cb35-8"></a><span class="st">      </span>dplyr<span class="op">::</span><span class="kw">filter</span>(Parameter<span class="op">==</span><span class="st">&#39;s&#39;</span> <span class="op">|</span><span class="st"> </span>Parameter<span class="op">==</span><span class="st">&#39;sigma&#39;</span>)</span>
+<span id="cb35-9"><a href="relative-improvement.html#cb35-9"></a></span>
+<span id="cb35-10"><a href="relative-improvement.html#cb35-10"></a></span>
+<span id="cb35-11"><a href="relative-improvement.html#cb35-11"></a>p_alg&lt;-<span class="kw">ggplot</span>(<span class="dt">data=</span>hpdi_algorithm, <span class="kw">aes</span>(<span class="dt">x=</span>Parameter))<span class="op">+</span></span>
+<span id="cb35-12"><a href="relative-improvement.html#cb35-12"></a><span class="st">  </span><span class="kw">geom_pointrange</span>(<span class="kw">aes</span>(</span>
+<span id="cb35-13"><a href="relative-improvement.html#cb35-13"></a>    <span class="dt">ymin=</span>HPDI.lower, </span>
+<span id="cb35-14"><a href="relative-improvement.html#cb35-14"></a>    <span class="dt">ymax=</span>HPDI.higher, </span>
+<span id="cb35-15"><a href="relative-improvement.html#cb35-15"></a>    <span class="dt">y=</span>Mean))<span class="op">+</span></span>
+<span id="cb35-16"><a href="relative-improvement.html#cb35-16"></a><span class="st">  </span><span class="kw">labs</span>(<span class="dt">y=</span><span class="st">&quot;Estimate of intercept&quot;</span>, <span class="dt">x=</span><span class="st">&quot;Algorithm&quot;</span>)<span class="op">+</span></span>
+<span id="cb35-17"><a href="relative-improvement.html#cb35-17"></a><span class="st">  </span><span class="kw">coord_flip</span>()</span>
+<span id="cb35-18"><a href="relative-improvement.html#cb35-18"></a>p_alg <span class="op">+</span><span class="st"> </span><span class="kw">plot_annotation</span>(<span class="dt">title =</span> <span class="st">&#39;HPDI interval for the algorithms&#39;</span>)</span></code></pre></div>
+<p><img src="statscomp-appendix_files/figure-html/unnamed-chunk-32-1.png" width="672" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="relative-improvement.html#cb36-1"></a>p_others &lt;-<span class="st"> </span><span class="kw">ggplot</span>(<span class="dt">data=</span>hpdi_other_parameters, <span class="kw">aes</span>(<span class="dt">x=</span>Parameter))<span class="op">+</span></span>
+<span id="cb36-2"><a href="relative-improvement.html#cb36-2"></a><span class="st">  </span><span class="kw">geom_pointrange</span>(<span class="kw">aes</span>(</span>
+<span id="cb36-3"><a href="relative-improvement.html#cb36-3"></a>    <span class="dt">ymin=</span>HPDI.lower, </span>
+<span id="cb36-4"><a href="relative-improvement.html#cb36-4"></a>    <span class="dt">ymax=</span>HPDI.higher, </span>
+<span id="cb36-5"><a href="relative-improvement.html#cb36-5"></a>    <span class="dt">y=</span>Mean))<span class="op">+</span></span>
+<span id="cb36-6"><a href="relative-improvement.html#cb36-6"></a><span class="st">  </span><span class="kw">labs</span>(<span class="dt">y=</span><span class="st">&quot;Estimate of s and sigma&quot;</span>, <span class="dt">x=</span><span class="st">&quot;Parameter&quot;</span>)<span class="op">+</span></span>
+<span id="cb36-7"><a href="relative-improvement.html#cb36-7"></a><span class="st">  </span><span class="kw">coord_flip</span>()</span>
+<span id="cb36-8"><a href="relative-improvement.html#cb36-8"></a>p_others <span class="op">+</span><span class="st"> </span><span class="kw">plot_annotation</span>(<span class="dt">title =</span> <span class="st">&#39;HPDI interval&#39;</span>)</span></code></pre></div>
+<p><img src="statscomp-appendix_files/figure-html/unnamed-chunk-32-2.png" width="672" style="display: block; margin: auto;" /></p>
 <p>Creating an output table</p>
-<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="relative-improvement.html#cb38-1"></a>rename_pars &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="kw">paste</span>(<span class="kw">rep</span>(<span class="st">&#39;a_&#39;</span>,<span class="kw">length</span>(algorithms)),algorithms, <span class="dt">sep =</span> <span class="st">&quot;&quot;</span>),<span class="st">&#39;s&#39;</span>,<span class="st">&#39;sigma&#39;</span>)</span>
-<span id="cb38-2"><a href="relative-improvement.html#cb38-2"></a>t&lt;-<span class="kw">create_table_model</span>(relativeimprovement.fit, <span class="kw">c</span>(a_alg, <span class="st">&#39;s&#39;</span>, <span class="st">&#39;sigma&#39;</span>),rename_pars)</span>
-<span id="cb38-3"><a href="relative-improvement.html#cb38-3"></a><span class="kw">colnames</span>(t)&lt;-<span class="kw">c</span>(<span class="st">&quot;Parameter&quot;</span>, <span class="st">&quot;Mean&quot;</span>, <span class="st">&quot;HPD low&quot;</span>, <span class="st">&quot;HPD high&quot;</span>)</span>
-<span id="cb38-4"><a href="relative-improvement.html#cb38-4"></a><span class="kw">saveRDS</span>(t,<span class="st">&#39;./statscomp-paper/tables/datafortables/relativeimprovement-par-table.RDS&#39;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="relative-improvement.html#cb37-1"></a>rename_pars &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="kw">paste</span>(<span class="kw">rep</span>(<span class="st">&#39;a_&#39;</span>,<span class="kw">length</span>(algorithms)),algorithms, <span class="dt">sep =</span> <span class="st">&quot;&quot;</span>),<span class="st">&#39;s&#39;</span>,<span class="st">&#39;sigma&#39;</span>)</span>
+<span id="cb37-2"><a href="relative-improvement.html#cb37-2"></a>t&lt;-<span class="kw">create_table_model</span>(relativeimprovement.fit, <span class="kw">c</span>(a_alg, <span class="st">&#39;s&#39;</span>, <span class="st">&#39;sigma&#39;</span>),rename_pars)</span>
+<span id="cb37-3"><a href="relative-improvement.html#cb37-3"></a><span class="kw">colnames</span>(t)&lt;-<span class="kw">c</span>(<span class="st">&quot;Parameter&quot;</span>, <span class="st">&quot;Mean&quot;</span>, <span class="st">&quot;HPD low&quot;</span>, <span class="st">&quot;HPD high&quot;</span>)</span>
+<span id="cb37-4"><a href="relative-improvement.html#cb37-4"></a><span class="kw">saveRDS</span>(t,<span class="st">&#39;./statscomp-paper/tables/datafortables/relativeimprovement-par-table.RDS&#39;</span>)</span></code></pre></div>
 
 </div>
 </div>

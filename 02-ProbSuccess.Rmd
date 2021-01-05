@@ -166,17 +166,17 @@ p_alg<-ggplot(data=hpdi_oddsratio_algorithm, aes(x=Parameter))+
     y=Mean))+
   labs(y="Odds ratio for intercept", x="Algorithm")+
   coord_flip()
-p_alg + plot_annotation(title = 'HPDI interval for the algorithms odd ratio')
+p_alg + plot_annotation(title = 'HPDI interval for the algorithms OR')
 
 p_noise <- ggplot(data=hpdi_oddsratio_b_noise, aes(x=Parameter))+
   geom_pointrange(aes(
     ymin=HPDI.lower, 
     ymax=HPDI.higher, 
     y=Mean))+
-  labs( y="Odds ratio for b_noise", x="")+
+  labs( y="Odds ratio for b_noise", x="Parameter")+
   coord_flip()+
-  theme(axis.text.y=element_blank())
-p_noise + plot_annotation(title = 'HPDI interval for the noise coefficients odd ratio')
+  theme()
+p_noise + plot_annotation(title = 'HPDI interval for the noise coefficients OR')
 
 p_s <- ggplot(data=hpdi_s, aes(x=Parameter))+
   geom_pointrange(aes(
