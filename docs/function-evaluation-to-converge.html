@@ -1,0 +1,2312 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 5 Function Evaluation to converge | Online Appendix for: Statistical Models for the Analysis of Optimization Algorithms with Benchmark Functions</title>
+  <meta name="description" content="Chapter 5 Function Evaluation to converge | Online Appendix for: Statistical Models for the Analysis of Optimization Algorithms with Benchmark Functions" />
+  <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 5 Function Evaluation to converge | Online Appendix for: Statistical Models for the Analysis of Optimization Algorithms with Benchmark Functions" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 5 Function Evaluation to converge | Online Appendix for: Statistical Models for the Analysis of Optimization Algorithms with Benchmark Functions" />
+  
+  
+  
+
+<meta name="author" content="David Issa Mattos, Jan Bosch, Helena Holmström Olsson" />
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="ranking.html"/>
+<link rel="next" href="multiple-group-comparison.html"/>
+<script src="libs/header-attrs-2.6/header-attrs.js"></script>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a>
+<ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#pre-requisites"><i class="fa fa-check"></i>Pre-requisites</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#source-code"><i class="fa fa-check"></i>Source code</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#compiling-this-document"><i class="fa fa-check"></i>Compiling this document</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#software-environment"><i class="fa fa-check"></i>Software environment</a></li>
+</ul></li>
+<li class="chapter" data-level="1" data-path="introduction.html"><a href="introduction.html"><i class="fa fa-check"></i><b>1</b> Introduction</a>
+<ul>
+<li class="chapter" data-level="1.0.1" data-path="introduction.html"><a href="introduction.html#exploring-the-dataset"><i class="fa fa-check"></i><b>1.0.1</b> Exploring the dataset</a></li>
+<li class="chapter" data-level="1.0.2" data-path="introduction.html"><a href="introduction.html#column-definitions-of-the-dataset"><i class="fa fa-check"></i><b>1.0.2</b> Column definitions of the dataset</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="probability-of-success-model.html"><a href="probability-of-success-model.html"><i class="fa fa-check"></i><b>2</b> Probability of success model</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="probability-of-success-model.html"><a href="probability-of-success-model.html#rq1-data-preparation"><i class="fa fa-check"></i><b>2.1</b> RQ1 Data preparation</a></li>
+<li class="chapter" data-level="2.2" data-path="probability-of-success-model.html"><a href="probability-of-success-model.html#rq1-stan-model"><i class="fa fa-check"></i><b>2.2</b> RQ1 Stan model</a></li>
+<li class="chapter" data-level="2.3" data-path="probability-of-success-model.html"><a href="probability-of-success-model.html#rq1-diagnosis"><i class="fa fa-check"></i><b>2.3</b> RQ1 Diagnosis</a>
+<ul>
+<li class="chapter" data-level="2.3.1" data-path="probability-of-success-model.html"><a href="probability-of-success-model.html#rq1-chains-convergence"><i class="fa fa-check"></i><b>2.3.1</b> RQ1 Chains convergence</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="probability-of-success-model.html"><a href="probability-of-success-model.html#rq1-results-and-plots"><i class="fa fa-check"></i><b>2.4</b> RQ1 Results and Plots</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="relative-improvement.html"><a href="relative-improvement.html"><i class="fa fa-check"></i><b>3</b> Relative improvement</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="relative-improvement.html"><a href="relative-improvement.html#rq2-data-preparation"><i class="fa fa-check"></i><b>3.1</b> RQ2 Data preparation</a></li>
+<li class="chapter" data-level="3.2" data-path="relative-improvement.html"><a href="relative-improvement.html#rq2-stan-model"><i class="fa fa-check"></i><b>3.2</b> RQ2 Stan model</a></li>
+<li class="chapter" data-level="3.3" data-path="relative-improvement.html"><a href="relative-improvement.html#rq2-diagnosis"><i class="fa fa-check"></i><b>3.3</b> RQ2 Diagnosis</a></li>
+<li class="chapter" data-level="3.4" data-path="relative-improvement.html"><a href="relative-improvement.html#rq2-results-and-plots"><i class="fa fa-check"></i><b>3.4</b> RQ2 Results and Plots</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="ranking.html"><a href="ranking.html"><i class="fa fa-check"></i><b>4</b> Ranking</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="ranking.html"><a href="ranking.html#rq3-data-preparation"><i class="fa fa-check"></i><b>4.1</b> RQ3 Data preparation</a></li>
+<li class="chapter" data-level="4.2" data-path="ranking.html"><a href="ranking.html#rq3-stan-model"><i class="fa fa-check"></i><b>4.2</b> RQ3 Stan model</a></li>
+<li class="chapter" data-level="4.3" data-path="ranking.html"><a href="ranking.html#rq3-diagnosis"><i class="fa fa-check"></i><b>4.3</b> RQ3 Diagnosis</a></li>
+<li class="chapter" data-level="4.4" data-path="ranking.html"><a href="ranking.html#rq3-results-and-plots"><i class="fa fa-check"></i><b>4.4</b> RQ3 Results and Plots</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="function-evaluation-to-converge.html"><a href="function-evaluation-to-converge.html"><i class="fa fa-check"></i><b>5</b> Function Evaluation to converge</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="function-evaluation-to-converge.html"><a href="function-evaluation-to-converge.html#rq4-data-preparation"><i class="fa fa-check"></i><b>5.1</b> RQ4 Data preparation</a></li>
+<li class="chapter" data-level="5.2" data-path="function-evaluation-to-converge.html"><a href="function-evaluation-to-converge.html#rq4-stan-model"><i class="fa fa-check"></i><b>5.2</b> RQ4 Stan model</a></li>
+<li class="chapter" data-level="5.3" data-path="function-evaluation-to-converge.html"><a href="function-evaluation-to-converge.html#rq4-diagnosis"><i class="fa fa-check"></i><b>5.3</b> RQ4 Diagnosis</a></li>
+<li class="chapter" data-level="5.4" data-path="function-evaluation-to-converge.html"><a href="function-evaluation-to-converge.html#rq4-results-and-plots"><i class="fa fa-check"></i><b>5.4</b> RQ4 Results and Plots</a>
+<ul>
+<li class="chapter" data-level="5.4.1" data-path="function-evaluation-to-converge.html"><a href="function-evaluation-to-converge.html#rq4-parameters-and-plots"><i class="fa fa-check"></i><b>5.4.1</b> RQ4 Parameters and plots</a></li>
+<li class="chapter" data-level="5.4.2" data-path="function-evaluation-to-converge.html"><a href="function-evaluation-to-converge.html#hazard-ratio"><i class="fa fa-check"></i><b>5.4.2</b> Hazard ratio</a></li>
+<li class="chapter" data-level="5.4.3" data-path="function-evaluation-to-converge.html"><a href="function-evaluation-to-converge.html#iterations-to-converge"><i class="fa fa-check"></i><b>5.4.3</b> Iterations to Converge</a></li>
+<li class="chapter" data-level="5.4.4" data-path="function-evaluation-to-converge.html"><a href="function-evaluation-to-converge.html#merging-hazards-and-time-to-converge-table"><i class="fa fa-check"></i><b>5.4.4</b> Merging hazards and time to converge table</a></li>
+<li class="chapter" data-level="5.4.5" data-path="function-evaluation-to-converge.html"><a href="function-evaluation-to-converge.html#parameter-table"><i class="fa fa-check"></i><b>5.4.5</b> Parameter table</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="multiple-group-comparison.html"><a href="multiple-group-comparison.html"><i class="fa fa-check"></i><b>6</b> Multiple-group comparison</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="multiple-group-comparison.html"><a href="multiple-group-comparison.html#rq5-data-preparation"><i class="fa fa-check"></i><b>6.1</b> RQ5 Data preparation</a></li>
+<li class="chapter" data-level="6.2" data-path="multiple-group-comparison.html"><a href="multiple-group-comparison.html#rq5-stan-model"><i class="fa fa-check"></i><b>6.2</b> RQ5 Stan model</a></li>
+<li class="chapter" data-level="6.3" data-path="multiple-group-comparison.html"><a href="multiple-group-comparison.html#rq5-diagnosis"><i class="fa fa-check"></i><b>6.3</b> RQ5 Diagnosis</a></li>
+<li class="chapter" data-level="6.4" data-path="multiple-group-comparison.html"><a href="multiple-group-comparison.html#rq5-results-and-plots"><i class="fa fa-check"></i><b>6.4</b> RQ5 Results and Plots</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="sensitivity-analysis-model-comparison-and-posterior-predictive.html"><a href="sensitivity-analysis-model-comparison-and-posterior-predictive.html"><i class="fa fa-check"></i><b>7</b> Sensitivity analysis, model comparison and posterior predictive</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="sensitivity-analysis-model-comparison-and-posterior-predictive.html"><a href="sensitivity-analysis-model-comparison-and-posterior-predictive.html#compare-models-with-and-without-clustering"><i class="fa fa-check"></i><b>7.1</b> Compare models with and without clustering</a></li>
+<li class="chapter" data-level="7.2" data-path="sensitivity-analysis-model-comparison-and-posterior-predictive.html"><a href="sensitivity-analysis-model-comparison-and-posterior-predictive.html#sensitivity-analysis-of-priors"><i class="fa fa-check"></i><b>7.2</b> Sensitivity analysis of priors</a></li>
+<li class="chapter" data-level="7.3" data-path="sensitivity-analysis-model-comparison-and-posterior-predictive.html"><a href="sensitivity-analysis-model-comparison-and-posterior-predictive.html#posterior-predictive-plots"><i class="fa fa-check"></i><b>7.3</b> Posterior predictive plots</a></li>
+</ul></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Online Appendix for: Statistical Models for the Analysis of Optimization Algorithms with Benchmark Functions</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="function-evaluation-to-converge" class="section level1" number="5">
+<h1><span class="header-section-number">Chapter 5</span> Function Evaluation to converge</h1>
+<p>In this section, we will consider the Cox’s Proportional Hazard model for analyzing the time to converge to a a solution (in number of iterations).</p>
+<ul>
+<li><strong>RQ4-a:</strong> What is the average number of function evaluations taken by an algorithm to converge to a solution at a precision of <span class="math inline">\(\epsilon=0.1\)</span>, with a budget of 100,000 function evaluations per dimension?</li>
+<li><strong>RQ4-b:</strong> What is the impact of noise in the number of function evaluations taken by an algorithm to converge to a solution at a precision of <span class="math inline">\(\epsilon=0.1\)</span>, with a budget of 100,000 function evaluations per dimension?</li>
+</ul>
+<div id="rq4-data-preparation" class="section level2" number="5.1">
+<h2><span class="header-section-number">5.1</span> RQ4 Data preparation</h2>
+<p>We start importing the dataset</p>
+<div class="sourceCode" id="cb68"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb68-1"><a href="function-evaluation-to-converge.html#cb68-1" aria-hidden="true" tabindex="-1"></a>dataset <span class="ot">&lt;-</span> readr<span class="sc">::</span><span class="fu">read_csv</span>(<span class="st">&#39;./data/statscomp.csv&#39;</span>)</span></code></pre></div>
+<p>Filtering the data that we want and applying some transformations. The Event variable will indicate if it was censored or not.</p>
+<div class="sourceCode" id="cb69"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb69-1"><a href="function-evaluation-to-converge.html#cb69-1" aria-hidden="true" tabindex="-1"></a>d <span class="ot">&lt;-</span> dataset <span class="sc">%&gt;%</span> </span>
+<span id="cb69-2"><a href="function-evaluation-to-converge.html#cb69-2" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">filter</span>(OptimizationSuccessful<span class="sc">==</span><span class="cn">TRUE</span> <span class="sc">&amp;</span> MaxFevalPerDimensions<span class="sc">==</span><span class="dv">100000</span> <span class="sc">&amp;</span> (Algorithm<span class="sc">==</span><span class="st">&quot;PSO&quot;</span><span class="sc">|</span>Algorithm<span class="sc">==</span><span class="st">&quot;CMAES&quot;</span><span class="sc">|</span>Algorithm<span class="sc">==</span><span class="st">&quot;DifferentialEvolution&quot;</span><span class="sc">|</span>Algorithm<span class="sc">==</span><span class="st">&quot;RandomSearch1&quot;</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb69-3"><a href="function-evaluation-to-converge.html#cb69-3" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(Algorithm, CostFunction, <span class="at">Event=</span><span class="st">&quot;SolveAt1e-1&quot;</span>, simNumber, Ndimensions, SD, <span class="at">SolvedAtIteration=</span><span class="st">&quot;SolveEarlierAt1e-1&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb69-4"><a href="function-evaluation-to-converge.html#cb69-4" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">mutate</span>(<span class="at">y=</span>SolvedAtIteration<span class="sc">/</span>Ndimensions,</span>
+<span id="cb69-5"><a href="function-evaluation-to-converge.html#cb69-5" aria-hidden="true" tabindex="-1"></a>                <span class="at">Event=</span><span class="fu">as.integer</span>(Event),</span>
+<span id="cb69-6"><a href="function-evaluation-to-converge.html#cb69-6" aria-hidden="true" tabindex="-1"></a>                <span class="at">CostFunctionID=</span><span class="fu">create_index</span>(CostFunction),</span>
+<span id="cb69-7"><a href="function-evaluation-to-converge.html#cb69-7" aria-hidden="true" tabindex="-1"></a>                <span class="at">AlgorithmID=</span><span class="fu">create_index</span>(Algorithm)) <span class="sc">%&gt;%</span> </span>
+<span id="cb69-8"><a href="function-evaluation-to-converge.html#cb69-8" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(Algorithm, AlgorithmID, CostFunction, CostFunctionID, SD, Event, y,<span class="sc">-</span>simNumber,<span class="sc">-</span>SolvedAtIteration, <span class="sc">-</span>Ndimensions)</span>
+<span id="cb69-9"><a href="function-evaluation-to-converge.html#cb69-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb69-10"><a href="function-evaluation-to-converge.html#cb69-10" aria-hidden="true" tabindex="-1"></a>algorithms<span class="ot">&lt;-</span><span class="fu">get_index_names_as_array</span>(d<span class="sc">$</span>Algorithm)</span>
+<span id="cb69-11"><a href="function-evaluation-to-converge.html#cb69-11" aria-hidden="true" tabindex="-1"></a>bm <span class="ot">&lt;-</span> <span class="fu">get_index_names_as_array</span>(d<span class="sc">$</span>CostFunction)</span></code></pre></div>
+<p>The data should look like this:</p>
+<div class="sourceCode" id="cb70"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb70-1"><a href="function-evaluation-to-converge.html#cb70-1" aria-hidden="true" tabindex="-1"></a><span class="fu">kable</span>(dplyr<span class="sc">::</span><span class="fu">sample_n</span>(d,<span class="at">size=</span><span class="dv">10</span>),<span class="st">&quot;html&quot;</span>, <span class="at">booktabs=</span>T, <span class="at">format.args =</span> <span class="fu">list</span>(<span class="at">scientific =</span> <span class="cn">FALSE</span>), <span class="at">digits =</span> <span class="dv">3</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb70-2"><a href="function-evaluation-to-converge.html#cb70-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable_styling</span>(<span class="at">bootstrap_options =</span> <span class="fu">c</span>(<span class="st">&quot;striped&quot;</span>, <span class="st">&quot;hover&quot;</span>, <span class="st">&quot;condensed&quot;</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb70-3"><a href="function-evaluation-to-converge.html#cb70-3" aria-hidden="true" tabindex="-1"></a>  kableExtra<span class="sc">::</span><span class="fu">scroll_box</span>(<span class="at">width =</span> <span class="st">&quot;100%&quot;</span>)</span></code></pre></div>
+<div style="border: 1px solid #ddd; padding: 5px; overflow-x: scroll; width:100%; ">
+<table class="table table-striped table-hover table-condensed" style="margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:left;">
+Algorithm
+</th>
+<th style="text-align:right;">
+AlgorithmID
+</th>
+<th style="text-align:left;">
+CostFunction
+</th>
+<th style="text-align:right;">
+CostFunctionID
+</th>
+<th style="text-align:right;">
+SD
+</th>
+<th style="text-align:right;">
+Event
+</th>
+<th style="text-align:right;">
+y
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+PSO
+</td>
+<td style="text-align:right;">
+3
+</td>
+<td style="text-align:left;">
+DiscusN2
+</td>
+<td style="text-align:right;">
+6
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+44850.000
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+RandomSearch1
+</td>
+<td style="text-align:right;">
+4
+</td>
+<td style="text-align:left;">
+Schwefel2d26N6
+</td>
+<td style="text-align:right;">
+19
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+NA
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+DifferentialEvolution
+</td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:left;">
+ExponentialN2
+</td>
+<td style="text-align:right;">
+7
+</td>
+<td style="text-align:right;">
+3
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0.500
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+CMAES
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:left;">
+DiscusN2
+</td>
+<td style="text-align:right;">
+6
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+NA
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+RandomSearch1
+</td>
+<td style="text-align:right;">
+4
+</td>
+<td style="text-align:left;">
+Tripod
+</td>
+<td style="text-align:right;">
+27
+</td>
+<td style="text-align:right;">
+3
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+NA
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+CMAES
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:left;">
+SphereN6
+</td>
+<td style="text-align:right;">
+22
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+40.333
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+PSO
+</td>
+<td style="text-align:right;">
+3
+</td>
+<td style="text-align:left;">
+WhitleyN6
+</td>
+<td style="text-align:right;">
+28
+</td>
+<td style="text-align:right;">
+3
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+NA
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+CMAES
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:left;">
+PinterN6
+</td>
+<td style="text-align:right;">
+11
+</td>
+<td style="text-align:right;">
+3
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+NA
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+CMAES
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:left;">
+SphereN6
+</td>
+<td style="text-align:right;">
+22
+</td>
+<td style="text-align:right;">
+3
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+46.667
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+PSO
+</td>
+<td style="text-align:right;">
+3
+</td>
+<td style="text-align:left;">
+Schwefel2d23N6
+</td>
+<td style="text-align:right;">
+18
+</td>
+<td style="text-align:right;">
+3
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+237.833
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div id="rq4-stan-model" class="section level2" number="5.2">
+<h2><span class="header-section-number">5.2</span> RQ4 Stan model</h2>
+<p>The Stan model is specified in the file: <code>'./stanmodels/timetoconverge.stan'</code>. Note that at the end of the model we commented the generated quantities. This block generates the predictive posterior y_rep and the log likelihood, log_lik. These values are useful in diagnosing and validating the model but the end file is extremely large (~1Gb for 2000 iterations) and make many of the following calculations slow. If the reader wants to see these values is just to uncomment and run the stan model again. Note also the the predictive posterior calculates for censored and non censored data. We can in r restrict and compare the predictive only to the non censored data or even censor it if the prediction is above the budget.</p>
+<div class="sourceCode" id="cb71"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb71-1"><a href="function-evaluation-to-converge.html#cb71-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print_stan_code</span>(<span class="st">&#39;./stanmodels/timetoconverge.stan&#39;</span>)</span></code></pre></div>
+<pre><code>// Time to converge, Cox regression model
+// Author: David Issa Mattos
+// Date: 23 June 2020
+//
+//
+
+data {
+ int &lt;lower=1&gt; N_total; // Sample size
+ real y[N_total]; // iteration where it was solved
+ int event[N_total]; // Indicates if the event occured or not
+
+ //To model each algorithm independently
+ int &lt;lower=1&gt; N_algorithm; // Number of algorithms
+ int algorithm_id[N_total]; //vector that has the id of each algorithm
+ 
+ //To model the influence of the noise
+ real x_noise[N_total];
+ 
+ //To model the influence of each benchmark
+ int &lt;lower=1&gt; N_bm;
+ int bm_id[N_total];
+}
+
+parameters {
+  
+  //Fixed effect
+  real a_alg[N_algorithm];//the mean effect given by the algorithms
+  real b_noise[N_algorithm];//effect of noise
+  // //Random effect. The effect of the benchmarks
+  real a_bm_norm[N_bm];//the mean effect given by the base class type
+  real&lt;lower=0&gt; s;//std for the random effects
+  
+}
+
+model {
+  
+  
+  //Fixed effect
+  a_alg ~ normal(0,10);
+  
+  // //Random effects
+  s ~ exponential(0.1);
+  a_bm_norm ~ normal(0,1);
+  b_noise ~ normal(0,2);
+
+  for (i in 1:N_total)
+  {
+    //uncensored data
+    if(event[i]==1) target += exponential_lpdf(y[i] | exp(a_alg[algorithm_id[i]] + s*a_bm_norm[bm_id[i]] + b_noise[algorithm_id[i]]*x_noise[i])); 
+    //censored data
+    if(event[i]==0) target += exponential_lccdf(y[i] | exp(a_alg[algorithm_id[i]] + s*a_bm_norm[bm_id[i]] + b_noise[algorithm_id[i]]*x_noise[i]));  
+  }
+  
+}
+
+
+//Uncoment this part to get the posterior predictives and the log likelihood
+//But note that it takes a lot of space in the final model
+// //Here we suppose that the predictive data will not be censored.
+// //But if it is above the budget we can censor it later
+// generated quantities{
+//   vector [N_total] y_rep;
+//   vector[N_total] log_lik;
+//   
+//   for(i in 1:N_total){
+//     real mu;
+//     mu = a_alg[algorithm_id[i]] + s*a_bm_norm[bm_id[i]] + b_noise[algorithm_id[i]]*x_noise[i];
+//     y_rep[i]= exponential_rng(mu);
+//     
+//     //uncensored data
+//     if(event[i]==1) log_lik[i]= exponential_lpdf(y[i] | exp(a_alg[algorithm_id[i]] + s*a_bm_norm[bm_id[i]] + b_noise[algorithm_id[i]]*x_noise[i])); 
+//     //censored data
+//     if(event[i]==0) log_lik[i]= exponential_lccdf(y[i] | exp(a_alg[algorithm_id[i]] + s*a_bm_norm[bm_id[i]] + b_noise[algorithm_id[i]]*x_noise[i]));  
+//   }
+// }</code></pre>
+<p>Let’s compile and start sampling with the Stan function. In the data folder you can find the specific data used to fit the model after all transformations <code>"./data/timetoconverge-data.RDS"</code></p>
+<p>Note that stan does not support NA in the data, so we have two options… We either replace NA for a value and add conditionals in the model (note that this value will not be used). Or we separate the data frame in two parts, censored and not not-censored. We will do the first approach replacing the NA by 0.</p>
+<div class="sourceCode" id="cb73"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb73-1"><a href="function-evaluation-to-converge.html#cb73-1" aria-hidden="true" tabindex="-1"></a>dstan<span class="ot">&lt;-</span>d <span class="sc">%&gt;%</span> </span>
+<span id="cb73-2"><a href="function-evaluation-to-converge.html#cb73-2" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">mutate</span>(<span class="at">y=</span><span class="fu">replace_na</span>(y,<span class="dv">0</span>))</span>
+<span id="cb73-3"><a href="function-evaluation-to-converge.html#cb73-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb73-4"><a href="function-evaluation-to-converge.html#cb73-4" aria-hidden="true" tabindex="-1"></a>standata <span class="ot">&lt;-</span> <span class="fu">list</span>(</span>
+<span id="cb73-5"><a href="function-evaluation-to-converge.html#cb73-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">N_total=</span><span class="fu">nrow</span>(dstan),</span>
+<span id="cb73-6"><a href="function-evaluation-to-converge.html#cb73-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">y =</span> dstan<span class="sc">$</span>y,</span>
+<span id="cb73-7"><a href="function-evaluation-to-converge.html#cb73-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">event =</span> dstan<span class="sc">$</span>Event,</span>
+<span id="cb73-8"><a href="function-evaluation-to-converge.html#cb73-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">x_noise =</span> d<span class="sc">$</span>SD,</span>
+<span id="cb73-9"><a href="function-evaluation-to-converge.html#cb73-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">N_algorithm =</span> <span class="fu">length</span>(algorithms),</span>
+<span id="cb73-10"><a href="function-evaluation-to-converge.html#cb73-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">algorithm_id =</span> dstan<span class="sc">$</span>AlgorithmID,</span>
+<span id="cb73-11"><a href="function-evaluation-to-converge.html#cb73-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">N_bm =</span> <span class="fu">length</span>(bm),</span>
+<span id="cb73-12"><a href="function-evaluation-to-converge.html#cb73-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">bm_id =</span> d<span class="sc">$</span>CostFunctionID</span>
+<span id="cb73-13"><a href="function-evaluation-to-converge.html#cb73-13" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb73-14"><a href="function-evaluation-to-converge.html#cb73-14" aria-hidden="true" tabindex="-1"></a><span class="fu">saveRDS</span>(standata, <span class="at">file =</span> <span class="st">&quot;./data/timetoconverge-data.RDS&quot;</span>)</span></code></pre></div>
+<p>For computation time sake we are not running this chunk every time we compile this document. From now on we will load from the saved Stan fit object. However, when we change our model or the data we can just run this chunk separately</p>
+<div class="sourceCode" id="cb74"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb74-1"><a href="function-evaluation-to-converge.html#cb74-1" aria-hidden="true" tabindex="-1"></a>standata<span class="ot">&lt;-</span><span class="fu">readRDS</span>(<span class="st">&quot;./data/timetoconverge-data.RDS&quot;</span>)</span>
+<span id="cb74-2"><a href="function-evaluation-to-converge.html#cb74-2" aria-hidden="true" tabindex="-1"></a>timetoconverge_fit <span class="ot">&lt;-</span> <span class="fu">stan</span>(<span class="at">file =</span> <span class="st">&#39;./stanmodels/timetoconverge.stan&#39;</span>,</span>
+<span id="cb74-3"><a href="function-evaluation-to-converge.html#cb74-3" aria-hidden="true" tabindex="-1"></a>                     <span class="at">data=</span>standata,</span>
+<span id="cb74-4"><a href="function-evaluation-to-converge.html#cb74-4" aria-hidden="true" tabindex="-1"></a>                     <span class="at">chains =</span> <span class="dv">4</span>,</span>
+<span id="cb74-5"><a href="function-evaluation-to-converge.html#cb74-5" aria-hidden="true" tabindex="-1"></a>                     <span class="at">warmup =</span> <span class="dv">200</span>,</span>
+<span id="cb74-6"><a href="function-evaluation-to-converge.html#cb74-6" aria-hidden="true" tabindex="-1"></a>                     <span class="at">iter =</span> <span class="dv">3000</span>)</span>
+<span id="cb74-7"><a href="function-evaluation-to-converge.html#cb74-7" aria-hidden="true" tabindex="-1"></a><span class="fu">saveRDS</span>(timetoconverge_fit, <span class="at">file =</span> <span class="st">&quot;./data/timetoconverge-fit.RDS&quot;</span>)</span></code></pre></div>
+</div>
+<div id="rq4-diagnosis" class="section level2" number="5.3">
+<h2><span class="header-section-number">5.3</span> RQ4 Diagnosis</h2>
+<div class="sourceCode" id="cb75"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb75-1"><a href="function-evaluation-to-converge.html#cb75-1" aria-hidden="true" tabindex="-1"></a>a_alg <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;a_alg[1]&quot;</span>,</span>
+<span id="cb75-2"><a href="function-evaluation-to-converge.html#cb75-2" aria-hidden="true" tabindex="-1"></a>           <span class="st">&quot;a_alg[2]&quot;</span>,</span>
+<span id="cb75-3"><a href="function-evaluation-to-converge.html#cb75-3" aria-hidden="true" tabindex="-1"></a>           <span class="st">&quot;a_alg[3]&quot;</span>,</span>
+<span id="cb75-4"><a href="function-evaluation-to-converge.html#cb75-4" aria-hidden="true" tabindex="-1"></a>           <span class="st">&quot;a_alg[4]&quot;</span>)</span>
+<span id="cb75-5"><a href="function-evaluation-to-converge.html#cb75-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb75-6"><a href="function-evaluation-to-converge.html#cb75-6" aria-hidden="true" tabindex="-1"></a>b_noise <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;b_noise[1]&quot;</span>,</span>
+<span id="cb75-7"><a href="function-evaluation-to-converge.html#cb75-7" aria-hidden="true" tabindex="-1"></a>           <span class="st">&quot;b_noise[2]&quot;</span>,</span>
+<span id="cb75-8"><a href="function-evaluation-to-converge.html#cb75-8" aria-hidden="true" tabindex="-1"></a>           <span class="st">&quot;b_noise[3]&quot;</span>,</span>
+<span id="cb75-9"><a href="function-evaluation-to-converge.html#cb75-9" aria-hidden="true" tabindex="-1"></a>           <span class="st">&quot;b_noise[4]&quot;</span>)</span>
+<span id="cb75-10"><a href="function-evaluation-to-converge.html#cb75-10" aria-hidden="true" tabindex="-1"></a>rstan<span class="sc">::</span><span class="fu">traceplot</span>(timetoconverge_fit, <span class="at">pars=</span>a_alg)</span></code></pre></div>
+<p><img src="statscomp-appendix_files/figure-html/unnamed-chunk-66-1.png" width="672" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb76"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb76-1"><a href="function-evaluation-to-converge.html#cb76-1" aria-hidden="true" tabindex="-1"></a>rstan<span class="sc">::</span><span class="fu">traceplot</span>(timetoconverge_fit, <span class="at">pars=</span>b_noise)</span></code></pre></div>
+<p><img src="statscomp-appendix_files/figure-html/unnamed-chunk-66-2.png" width="672" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb77"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb77-1"><a href="function-evaluation-to-converge.html#cb77-1" aria-hidden="true" tabindex="-1"></a>rstan<span class="sc">::</span><span class="fu">traceplot</span>(timetoconverge_fit, <span class="at">pars=</span><span class="st">&#39;s&#39;</span>)</span></code></pre></div>
+<p><img src="statscomp-appendix_files/figure-html/unnamed-chunk-66-3.png" width="672" style="display: block; margin: auto;" /></p>
+<p>Another diagnosis is to look at the Rhat. If Rhat is greater than 1.05 it indicates a divergence in the chains (they did not mix well). The table below shows a summary of the sampling.</p>
+<div class="sourceCode" id="cb78"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb78-1"><a href="function-evaluation-to-converge.html#cb78-1" aria-hidden="true" tabindex="-1"></a><span class="fu">kable</span>(<span class="fu">summary</span>(timetoconverge_fit)<span class="sc">$</span>summary) <span class="sc">%&gt;%</span> </span>
+<span id="cb78-2"><a href="function-evaluation-to-converge.html#cb78-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable_styling</span>(<span class="at">bootstrap_options =</span> <span class="fu">c</span>(<span class="st">&#39;striped&#39;</span>,<span class="st">&quot;hover&quot;</span>, <span class="st">&quot;condensed&quot;</span> )) <span class="sc">%&gt;%</span> </span>
+<span id="cb78-3"><a href="function-evaluation-to-converge.html#cb78-3" aria-hidden="true" tabindex="-1"></a>  kableExtra<span class="sc">::</span><span class="fu">scroll_box</span>(<span class="at">width =</span> <span class="st">&quot;100%&quot;</span>)</span></code></pre></div>
+<div style="border: 1px solid #ddd; padding: 5px; overflow-x: scroll; width:100%; ">
+<table class="table table-striped table-hover table-condensed" style="margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:left;">
+</th>
+<th style="text-align:right;">
+mean
+</th>
+<th style="text-align:right;">
+se_mean
+</th>
+<th style="text-align:right;">
+sd
+</th>
+<th style="text-align:right;">
+2.5%
+</th>
+<th style="text-align:right;">
+25%
+</th>
+<th style="text-align:right;">
+50%
+</th>
+<th style="text-align:right;">
+75%
+</th>
+<th style="text-align:right;">
+97.5%
+</th>
+<th style="text-align:right;">
+n_eff
+</th>
+<th style="text-align:right;">
+Rhat
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+a_alg[1]
+</td>
+<td style="text-align:right;">
+-5.0748271
+</td>
+<td style="text-align:right;">
+0.0148421
+</td>
+<td style="text-align:right;">
+0.4735059
+</td>
+<td style="text-align:right;">
+-5.9748027
+</td>
+<td style="text-align:right;">
+-5.4004954
+</td>
+<td style="text-align:right;">
+-5.0811150
+</td>
+<td style="text-align:right;">
+-4.7594485
+</td>
+<td style="text-align:right;">
+-4.1269815
+</td>
+<td style="text-align:right;">
+1017.792
+</td>
+<td style="text-align:right;">
+1.0062787
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+a_alg[2]
+</td>
+<td style="text-align:right;">
+-6.3871417
+</td>
+<td style="text-align:right;">
+0.0148498
+</td>
+<td style="text-align:right;">
+0.4697594
+</td>
+<td style="text-align:right;">
+-7.2845576
+</td>
+<td style="text-align:right;">
+-6.7112468
+</td>
+<td style="text-align:right;">
+-6.3891614
+</td>
+<td style="text-align:right;">
+-6.0738266
+</td>
+<td style="text-align:right;">
+-5.4345811
+</td>
+<td style="text-align:right;">
+1000.714
+</td>
+<td style="text-align:right;">
+1.0063466
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+a_alg[3]
+</td>
+<td style="text-align:right;">
+-6.2898339
+</td>
+<td style="text-align:right;">
+0.0147225
+</td>
+<td style="text-align:right;">
+0.4692970
+</td>
+<td style="text-align:right;">
+-7.1799064
+</td>
+<td style="text-align:right;">
+-6.6112746
+</td>
+<td style="text-align:right;">
+-6.2918339
+</td>
+<td style="text-align:right;">
+-5.9776548
+</td>
+<td style="text-align:right;">
+-5.3393856
+</td>
+<td style="text-align:right;">
+1016.088
+</td>
+<td style="text-align:right;">
+1.0060641
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+a_alg[4]
+</td>
+<td style="text-align:right;">
+-8.6911983
+</td>
+<td style="text-align:right;">
+0.0150255
+</td>
+<td style="text-align:right;">
+0.4779351
+</td>
+<td style="text-align:right;">
+-9.6079250
+</td>
+<td style="text-align:right;">
+-9.0188308
+</td>
+<td style="text-align:right;">
+-8.6949784
+</td>
+<td style="text-align:right;">
+-8.3717172
+</td>
+<td style="text-align:right;">
+-7.7361202
+</td>
+<td style="text-align:right;">
+1011.760
+</td>
+<td style="text-align:right;">
+1.0058845
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+b_noise[1]
+</td>
+<td style="text-align:right;">
+-0.7841948
+</td>
+<td style="text-align:right;">
+0.0006829
+</td>
+<td style="text-align:right;">
+0.0700337
+</td>
+<td style="text-align:right;">
+-0.9254156
+</td>
+<td style="text-align:right;">
+-0.8292292
+</td>
+<td style="text-align:right;">
+-0.7826036
+</td>
+<td style="text-align:right;">
+-0.7362581
+</td>
+<td style="text-align:right;">
+-0.6519258
+</td>
+<td style="text-align:right;">
+10517.588
+</td>
+<td style="text-align:right;">
+1.0003918
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+b_noise[2]
+</td>
+<td style="text-align:right;">
+-0.9531764
+</td>
+<td style="text-align:right;">
+0.0006549
+</td>
+<td style="text-align:right;">
+0.0648313
+</td>
+<td style="text-align:right;">
+-1.0847994
+</td>
+<td style="text-align:right;">
+-0.9960676
+</td>
+<td style="text-align:right;">
+-0.9522515
+</td>
+<td style="text-align:right;">
+-0.9085118
+</td>
+<td style="text-align:right;">
+-0.8291181
+</td>
+<td style="text-align:right;">
+9801.285
+</td>
+<td style="text-align:right;">
+0.9996793
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+b_noise[3]
+</td>
+<td style="text-align:right;">
+-0.6750192
+</td>
+<td style="text-align:right;">
+0.0007456
+</td>
+<td style="text-align:right;">
+0.0618255
+</td>
+<td style="text-align:right;">
+-0.8012824
+</td>
+<td style="text-align:right;">
+-0.7157411
+</td>
+<td style="text-align:right;">
+-0.6735213
+</td>
+<td style="text-align:right;">
+-0.6329539
+</td>
+<td style="text-align:right;">
+-0.5578453
+</td>
+<td style="text-align:right;">
+6875.241
+</td>
+<td style="text-align:right;">
+1.0000335
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+b_noise[4]
+</td>
+<td style="text-align:right;">
+-0.5780610
+</td>
+<td style="text-align:right;">
+0.0008348
+</td>
+<td style="text-align:right;">
+0.0804612
+</td>
+<td style="text-align:right;">
+-0.7382183
+</td>
+<td style="text-align:right;">
+-0.6322695
+</td>
+<td style="text-align:right;">
+-0.5761187
+</td>
+<td style="text-align:right;">
+-0.5230502
+</td>
+<td style="text-align:right;">
+-0.4264751
+</td>
+<td style="text-align:right;">
+9289.680
+</td>
+<td style="text-align:right;">
+0.9999791
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+a_bm_norm[1]
+</td>
+<td style="text-align:right;">
+-0.6965849
+</td>
+<td style="text-align:right;">
+0.0063953
+</td>
+<td style="text-align:right;">
+0.2408707
+</td>
+<td style="text-align:right;">
+-1.1898297
+</td>
+<td style="text-align:right;">
+-0.8556381
+</td>
+<td style="text-align:right;">
+-0.6907584
+</td>
+<td style="text-align:right;">
+-0.5320683
+</td>
+<td style="text-align:right;">
+-0.2328818
+</td>
+<td style="text-align:right;">
+1418.538
+</td>
+<td style="text-align:right;">
+1.0038465
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+a_bm_norm[2]
+</td>
+<td style="text-align:right;">
+-0.5777261
+</td>
+<td style="text-align:right;">
+0.0068955
+</td>
+<td style="text-align:right;">
+0.4316043
+</td>
+<td style="text-align:right;">
+-1.5625677
+</td>
+<td style="text-align:right;">
+-0.8336753
+</td>
+<td style="text-align:right;">
+-0.5360934
+</td>
+<td style="text-align:right;">
+-0.2752100
+</td>
+<td style="text-align:right;">
+0.1556809
+</td>
+<td style="text-align:right;">
+3917.799
+</td>
+<td style="text-align:right;">
+1.0009448
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+a_bm_norm[3]
+</td>
+<td style="text-align:right;">
+-0.6236323
+</td>
+<td style="text-align:right;">
+0.0063588
+</td>
+<td style="text-align:right;">
+0.2271429
+</td>
+<td style="text-align:right;">
+-1.0817263
+</td>
+<td style="text-align:right;">
+-0.7748316
+</td>
+<td style="text-align:right;">
+-0.6180451
+</td>
+<td style="text-align:right;">
+-0.4685312
+</td>
+<td style="text-align:right;">
+-0.1923110
+</td>
+<td style="text-align:right;">
+1275.990
+</td>
+<td style="text-align:right;">
+1.0041453
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+a_bm_norm[4]
+</td>
+<td style="text-align:right;">
+0.1265026
+</td>
+<td style="text-align:right;">
+0.0058734
+</td>
+<td style="text-align:right;">
+0.1951705
+</td>
+<td style="text-align:right;">
+-0.2565235
+</td>
+<td style="text-align:right;">
+-0.0069494
+</td>
+<td style="text-align:right;">
+0.1270324
+</td>
+<td style="text-align:right;">
+0.2643450
+</td>
+<td style="text-align:right;">
+0.4997121
+</td>
+<td style="text-align:right;">
+1104.208
+</td>
+<td style="text-align:right;">
+1.0059306
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+a_bm_norm[5]
+</td>
+<td style="text-align:right;">
+-0.5759095
+</td>
+<td style="text-align:right;">
+0.0060949
+</td>
+<td style="text-align:right;">
+0.2554721
+</td>
+<td style="text-align:right;">
+-1.0923145
+</td>
+<td style="text-align:right;">
+-0.7454205
+</td>
+<td style="text-align:right;">
+-0.5713378
+</td>
+<td style="text-align:right;">
+-0.3982293
+</td>
+<td style="text-align:right;">
+-0.0911667
+</td>
+<td style="text-align:right;">
+1756.939
+</td>
+<td style="text-align:right;">
+1.0032683
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+a_bm_norm[6]
+</td>
+<td style="text-align:right;">
+-0.9766402
+</td>
+<td style="text-align:right;">
+0.0067009
+</td>
+<td style="text-align:right;">
+0.2393889
+</td>
+<td style="text-align:right;">
+-1.4608203
+</td>
+<td style="text-align:right;">
+-1.1301936
+</td>
+<td style="text-align:right;">
+-0.9717149
+</td>
+<td style="text-align:right;">
+-0.8151335
+</td>
+<td style="text-align:right;">
+-0.5193319
+</td>
+<td style="text-align:right;">
+1276.273
+</td>
+<td style="text-align:right;">
+1.0039329
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+a_bm_norm[7]
+</td>
+<td style="text-align:right;">
+2.7370066
+</td>
+<td style="text-align:right;">
+0.0101284
+</td>
+<td style="text-align:right;">
+0.4209890
+</td>
+<td style="text-align:right;">
+1.9367581
+</td>
+<td style="text-align:right;">
+2.4502287
+</td>
+<td style="text-align:right;">
+2.7263716
+</td>
+<td style="text-align:right;">
+3.0244169
+</td>
+<td style="text-align:right;">
+3.5721570
+</td>
+<td style="text-align:right;">
+1727.664
+</td>
+<td style="text-align:right;">
+1.0031417
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+a_bm_norm[8]
+</td>
+<td style="text-align:right;">
+1.7538444
+</td>
+<td style="text-align:right;">
+0.0079298
+</td>
+<td style="text-align:right;">
+0.3113164
+</td>
+<td style="text-align:right;">
+1.1560189
+</td>
+<td style="text-align:right;">
+1.5404985
+</td>
+<td style="text-align:right;">
+1.7501828
+</td>
+<td style="text-align:right;">
+1.9682233
+</td>
+<td style="text-align:right;">
+2.3553327
+</td>
+<td style="text-align:right;">
+1541.290
+</td>
+<td style="text-align:right;">
+1.0039046
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+a_bm_norm[9]
+</td>
+<td style="text-align:right;">
+-0.0041220
+</td>
+<td style="text-align:right;">
+0.0108223
+</td>
+<td style="text-align:right;">
+1.0026192
+</td>
+<td style="text-align:right;">
+-1.9926051
+</td>
+<td style="text-align:right;">
+-0.6755989
+</td>
+<td style="text-align:right;">
+-0.0068539
+</td>
+<td style="text-align:right;">
+0.6708510
+</td>
+<td style="text-align:right;">
+1.9798202
+</td>
+<td style="text-align:right;">
+8582.944
+</td>
+<td style="text-align:right;">
+0.9998661
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+a_bm_norm[10]
+</td>
+<td style="text-align:right;">
+-0.4315799
+</td>
+<td style="text-align:right;">
+0.0061151
+</td>
+<td style="text-align:right;">
+0.2038895
+</td>
+<td style="text-align:right;">
+-0.8404470
+</td>
+<td style="text-align:right;">
+-0.5705033
+</td>
+<td style="text-align:right;">
+-0.4306554
+</td>
+<td style="text-align:right;">
+-0.2899537
+</td>
+<td style="text-align:right;">
+-0.0433997
+</td>
+<td style="text-align:right;">
+1111.691
+</td>
+<td style="text-align:right;">
+1.0054807
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+a_bm_norm[11]
+</td>
+<td style="text-align:right;">
+-0.5259654
+</td>
+<td style="text-align:right;">
+0.0062813
+</td>
+<td style="text-align:right;">
+0.2320727
+</td>
+<td style="text-align:right;">
+-1.0016897
+</td>
+<td style="text-align:right;">
+-0.6782325
+</td>
+<td style="text-align:right;">
+-0.5212058
+</td>
+<td style="text-align:right;">
+-0.3696708
+</td>
+<td style="text-align:right;">
+-0.0885248
+</td>
+<td style="text-align:right;">
+1365.057
+</td>
+<td style="text-align:right;">
+1.0039398
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+a_bm_norm[12]
+</td>
+<td style="text-align:right;">
+0.9068971
+</td>
+<td style="text-align:right;">
+0.0064833
+</td>
+<td style="text-align:right;">
+0.2329520
+</td>
+<td style="text-align:right;">
+0.4544769
+</td>
+<td style="text-align:right;">
+0.7455659
+</td>
+<td style="text-align:right;">
+0.9050496
+</td>
+<td style="text-align:right;">
+1.0665512
+</td>
+<td style="text-align:right;">
+1.3565692
+</td>
+<td style="text-align:right;">
+1291.032
+</td>
+<td style="text-align:right;">
+1.0053887
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+a_bm_norm[13]
+</td>
+<td style="text-align:right;">
+-0.4359458
+</td>
+<td style="text-align:right;">
+0.0061185
+</td>
+<td style="text-align:right;">
+0.2078811
+</td>
+<td style="text-align:right;">
+-0.8463867
+</td>
+<td style="text-align:right;">
+-0.5740035
+</td>
+<td style="text-align:right;">
+-0.4343978
+</td>
+<td style="text-align:right;">
+-0.2939291
+</td>
+<td style="text-align:right;">
+-0.0382113
+</td>
+<td style="text-align:right;">
+1154.354
+</td>
+<td style="text-align:right;">
+1.0044905
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+a_bm_norm[14]
+</td>
+<td style="text-align:right;">
+-0.5611604
+</td>
+<td style="text-align:right;">
+0.0062895
+</td>
+<td style="text-align:right;">
+0.2186831
+</td>
+<td style="text-align:right;">
+-0.9921228
+</td>
+<td style="text-align:right;">
+-0.7077741
+</td>
+<td style="text-align:right;">
+-0.5574438
+</td>
+<td style="text-align:right;">
+-0.4103387
+</td>
+<td style="text-align:right;">
+-0.1426650
+</td>
+<td style="text-align:right;">
+1208.918
+</td>
+<td style="text-align:right;">
+1.0037847
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+a_bm_norm[15]
+</td>
+<td style="text-align:right;">
+-0.6093862
+</td>
+<td style="text-align:right;">
+0.0061928
+</td>
+<td style="text-align:right;">
+0.2186447
+</td>
+<td style="text-align:right;">
+-1.0563642
+</td>
+<td style="text-align:right;">
+-0.7537575
+</td>
+<td style="text-align:right;">
+-0.6074251
+</td>
+<td style="text-align:right;">
+-0.4588930
+</td>
+<td style="text-align:right;">
+-0.1877069
+</td>
+<td style="text-align:right;">
+1246.542
+</td>
+<td style="text-align:right;">
+1.0037959
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+a_bm_norm[16]
+</td>
+<td style="text-align:right;">
+-0.1300590
+</td>
+<td style="text-align:right;">
+0.0059541
+</td>
+<td style="text-align:right;">
+0.1982747
+</td>
+<td style="text-align:right;">
+-0.5215199
+</td>
+<td style="text-align:right;">
+-0.2645092
+</td>
+<td style="text-align:right;">
+-0.1280031
+</td>
+<td style="text-align:right;">
+0.0080854
+</td>
+<td style="text-align:right;">
+0.2464275
+</td>
+<td style="text-align:right;">
+1108.926
+</td>
+<td style="text-align:right;">
+1.0054374
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+a_bm_norm[17]
+</td>
+<td style="text-align:right;">
+-0.8254504
+</td>
+<td style="text-align:right;">
+0.0064065
+</td>
+<td style="text-align:right;">
+0.2261639
+</td>
+<td style="text-align:right;">
+-1.2866539
+</td>
+<td style="text-align:right;">
+-0.9751358
+</td>
+<td style="text-align:right;">
+-0.8233464
+</td>
+<td style="text-align:right;">
+-0.6698349
+</td>
+<td style="text-align:right;">
+-0.3955225
+</td>
+<td style="text-align:right;">
+1246.253
+</td>
+<td style="text-align:right;">
+1.0034022
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+a_bm_norm[18]
+</td>
+<td style="text-align:right;">
+0.2086358
+</td>
+<td style="text-align:right;">
+0.0058512
+</td>
+<td style="text-align:right;">
+0.1968964
+</td>
+<td style="text-align:right;">
+-0.1784470
+</td>
+<td style="text-align:right;">
+0.0744810
+</td>
+<td style="text-align:right;">
+0.2075393
+</td>
+<td style="text-align:right;">
+0.3447130
+</td>
+<td style="text-align:right;">
+0.5823112
+</td>
+<td style="text-align:right;">
+1132.377
+</td>
+<td style="text-align:right;">
+1.0058857
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+a_bm_norm[19]
+</td>
+<td style="text-align:right;">
+-0.4961383
+</td>
+<td style="text-align:right;">
+0.0064632
+</td>
+<td style="text-align:right;">
+0.3014570
+</td>
+<td style="text-align:right;">
+-1.1212569
+</td>
+<td style="text-align:right;">
+-0.6881725
+</td>
+<td style="text-align:right;">
+-0.4841014
+</td>
+<td style="text-align:right;">
+-0.2885630
+</td>
+<td style="text-align:right;">
+0.0617583
+</td>
+<td style="text-align:right;">
+2175.463
+</td>
+<td style="text-align:right;">
+1.0012575
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+a_bm_norm[20]
+</td>
+<td style="text-align:right;">
+-0.4030878
+</td>
+<td style="text-align:right;">
+0.0061632
+</td>
+<td style="text-align:right;">
+0.2137075
+</td>
+<td style="text-align:right;">
+-0.8352109
+</td>
+<td style="text-align:right;">
+-0.5437513
+</td>
+<td style="text-align:right;">
+-0.4023146
+</td>
+<td style="text-align:right;">
+-0.2533124
+</td>
+<td style="text-align:right;">
+-0.0035589
+</td>
+<td style="text-align:right;">
+1202.323
+</td>
+<td style="text-align:right;">
+1.0046415
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+a_bm_norm[21]
+</td>
+<td style="text-align:right;">
+-0.6078715
+</td>
+<td style="text-align:right;">
+0.0062295
+</td>
+<td style="text-align:right;">
+0.2106205
+</td>
+<td style="text-align:right;">
+-1.0271393
+</td>
+<td style="text-align:right;">
+-0.7478032
+</td>
+<td style="text-align:right;">
+-0.6053876
+</td>
+<td style="text-align:right;">
+-0.4642284
+</td>
+<td style="text-align:right;">
+-0.2029004
+</td>
+<td style="text-align:right;">
+1143.133
+</td>
+<td style="text-align:right;">
+1.0047761
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+a_bm_norm[22]
+</td>
+<td style="text-align:right;">
+0.8147772
+</td>
+<td style="text-align:right;">
+0.0063431
+</td>
+<td style="text-align:right;">
+0.2273031
+</td>
+<td style="text-align:right;">
+0.3741683
+</td>
+<td style="text-align:right;">
+0.6582662
+</td>
+<td style="text-align:right;">
+0.8148677
+</td>
+<td style="text-align:right;">
+0.9724791
+</td>
+<td style="text-align:right;">
+1.2506644
+</td>
+<td style="text-align:right;">
+1284.123
+</td>
+<td style="text-align:right;">
+1.0051303
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+a_bm_norm[23]
+</td>
+<td style="text-align:right;">
+-0.5624268
+</td>
+<td style="text-align:right;">
+0.0062140
+</td>
+<td style="text-align:right;">
+0.2145921
+</td>
+<td style="text-align:right;">
+-0.9935462
+</td>
+<td style="text-align:right;">
+-0.7043190
+</td>
+<td style="text-align:right;">
+-0.5604617
+</td>
+<td style="text-align:right;">
+-0.4166895
+</td>
+<td style="text-align:right;">
+-0.1503493
+</td>
+<td style="text-align:right;">
+1192.559
+</td>
+<td style="text-align:right;">
+1.0041953
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+a_bm_norm[24]
+</td>
+<td style="text-align:right;">
+0.8505912
+</td>
+<td style="text-align:right;">
+0.0064559
+</td>
+<td style="text-align:right;">
+0.2302010
+</td>
+<td style="text-align:right;">
+0.4029159
+</td>
+<td style="text-align:right;">
+0.6899970
+</td>
+<td style="text-align:right;">
+0.8482067
+</td>
+<td style="text-align:right;">
+1.0106928
+</td>
+<td style="text-align:right;">
+1.2894445
+</td>
+<td style="text-align:right;">
+1271.473
+</td>
+<td style="text-align:right;">
+1.0056251
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+a_bm_norm[25]
+</td>
+<td style="text-align:right;">
+-1.0437646
+</td>
+<td style="text-align:right;">
+0.0067559
+</td>
+<td style="text-align:right;">
+0.2449729
+</td>
+<td style="text-align:right;">
+-1.5429579
+</td>
+<td style="text-align:right;">
+-1.2032632
+</td>
+<td style="text-align:right;">
+-1.0416170
+</td>
+<td style="text-align:right;">
+-0.8773582
+</td>
+<td style="text-align:right;">
+-0.5722703
+</td>
+<td style="text-align:right;">
+1314.833
+</td>
+<td style="text-align:right;">
+1.0035678
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+a_bm_norm[26]
+</td>
+<td style="text-align:right;">
+2.1491961
+</td>
+<td style="text-align:right;">
+0.0086831
+</td>
+<td style="text-align:right;">
+0.3531701
+</td>
+<td style="text-align:right;">
+1.4738920
+</td>
+<td style="text-align:right;">
+1.9038174
+</td>
+<td style="text-align:right;">
+2.1439157
+</td>
+<td style="text-align:right;">
+2.3909719
+</td>
+<td style="text-align:right;">
+2.8434322
+</td>
+<td style="text-align:right;">
+1654.308
+</td>
+<td style="text-align:right;">
+1.0033435
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+a_bm_norm[27]
+</td>
+<td style="text-align:right;">
+-0.4074135
+</td>
+<td style="text-align:right;">
+0.0061642
+</td>
+<td style="text-align:right;">
+0.2200510
+</td>
+<td style="text-align:right;">
+-0.8398117
+</td>
+<td style="text-align:right;">
+-0.5532337
+</td>
+<td style="text-align:right;">
+-0.4047249
+</td>
+<td style="text-align:right;">
+-0.2547040
+</td>
+<td style="text-align:right;">
+0.0094274
+</td>
+<td style="text-align:right;">
+1274.343
+</td>
+<td style="text-align:right;">
+1.0043605
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+a_bm_norm[28]
+</td>
+<td style="text-align:right;">
+-0.8421851
+</td>
+<td style="text-align:right;">
+0.0068159
+</td>
+<td style="text-align:right;">
+0.4135339
+</td>
+<td style="text-align:right;">
+-1.7664022
+</td>
+<td style="text-align:right;">
+-1.0984919
+</td>
+<td style="text-align:right;">
+-0.8014230
+</td>
+<td style="text-align:right;">
+-0.5507585
+</td>
+<td style="text-align:right;">
+-0.1228178
+</td>
+<td style="text-align:right;">
+3681.056
+</td>
+<td style="text-align:right;">
+1.0007621
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+a_bm_norm[29]
+</td>
+<td style="text-align:right;">
+0.3769791
+</td>
+<td style="text-align:right;">
+0.0060082
+</td>
+<td style="text-align:right;">
+0.2086409
+</td>
+<td style="text-align:right;">
+-0.0361264
+</td>
+<td style="text-align:right;">
+0.2336479
+</td>
+<td style="text-align:right;">
+0.3784831
+</td>
+<td style="text-align:right;">
+0.5230282
+</td>
+<td style="text-align:right;">
+0.7762157
+</td>
+<td style="text-align:right;">
+1205.901
+</td>
+<td style="text-align:right;">
+1.0061095
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+a_bm_norm[30]
+</td>
+<td style="text-align:right;">
+0.8778486
+</td>
+<td style="text-align:right;">
+0.0065097
+</td>
+<td style="text-align:right;">
+0.2327422
+</td>
+<td style="text-align:right;">
+0.4259823
+</td>
+<td style="text-align:right;">
+0.7175528
+</td>
+<td style="text-align:right;">
+0.8777734
+</td>
+<td style="text-align:right;">
+1.0409110
+</td>
+<td style="text-align:right;">
+1.3204945
+</td>
+<td style="text-align:right;">
+1278.271
+</td>
+<td style="text-align:right;">
+1.0052698
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+s
+</td>
+<td style="text-align:right;">
+2.4787526
+</td>
+<td style="text-align:right;">
+0.0078300
+</td>
+<td style="text-align:right;">
+0.3477918
+</td>
+<td style="text-align:right;">
+1.9115061
+</td>
+<td style="text-align:right;">
+2.2297659
+</td>
+<td style="text-align:right;">
+2.4443030
+</td>
+<td style="text-align:right;">
+2.6820143
+</td>
+<td style="text-align:right;">
+3.2530978
+</td>
+<td style="text-align:right;">
+1972.951
+</td>
+<td style="text-align:right;">
+1.0021061
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+lp__
+</td>
+<td style="text-align:right;">
+-5484.5180011
+</td>
+<td style="text-align:right;">
+0.1232301
+</td>
+<td style="text-align:right;">
+5.6597193
+</td>
+<td style="text-align:right;">
+-5496.8727218
+</td>
+<td style="text-align:right;">
+-5488.1030994
+</td>
+<td style="text-align:right;">
+-5484.1825342
+</td>
+<td style="text-align:right;">
+-5480.4879169
+</td>
+<td style="text-align:right;">
+-5474.5067482
+</td>
+<td style="text-align:right;">
+2109.386
+</td>
+<td style="text-align:right;">
+1.0011965
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div id="rq4-results-and-plots" class="section level2" number="5.4">
+<h2><span class="header-section-number">5.4</span> RQ4 Results and Plots</h2>
+<div id="rq4-parameters-and-plots" class="section level3" number="5.4.1">
+<h3><span class="header-section-number">5.4.1</span> RQ4 Parameters and plots</h3>
+<p>First lets get the HPDI of every parameter.</p>
+<p>Then we restrict to the algorithms, them to the slopes, then to the parameter s</p>
+<div class="sourceCode" id="cb79"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb79-1"><a href="function-evaluation-to-converge.html#cb79-1" aria-hidden="true" tabindex="-1"></a>hpdi <span class="ot">&lt;-</span> <span class="fu">get_HPDI_from_stanfit</span>(timetoconverge_fit)</span>
+<span id="cb79-2"><a href="function-evaluation-to-converge.html#cb79-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb79-3"><a href="function-evaluation-to-converge.html#cb79-3" aria-hidden="true" tabindex="-1"></a>hpdi_algorithm <span class="ot">&lt;-</span> hpdi <span class="sc">%&gt;%</span> </span>
+<span id="cb79-4"><a href="function-evaluation-to-converge.html#cb79-4" aria-hidden="true" tabindex="-1"></a>      dplyr<span class="sc">::</span><span class="fu">filter</span>(<span class="fu">str_detect</span>(Parameter, <span class="st">&quot;a_alg</span><span class="sc">\\</span><span class="st">[&quot;</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb79-5"><a href="function-evaluation-to-converge.html#cb79-5" aria-hidden="true" tabindex="-1"></a>      dplyr<span class="sc">::</span><span class="fu">mutate</span>(<span class="at">Parameter=</span>algorithms) <span class="co">#Changing to the algorithms labels</span></span>
+<span id="cb79-6"><a href="function-evaluation-to-converge.html#cb79-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb79-7"><a href="function-evaluation-to-converge.html#cb79-7" aria-hidden="true" tabindex="-1"></a>hpdi_noise<span class="ot">&lt;-</span> hpdi <span class="sc">%&gt;%</span> </span>
+<span id="cb79-8"><a href="function-evaluation-to-converge.html#cb79-8" aria-hidden="true" tabindex="-1"></a>      dplyr<span class="sc">::</span><span class="fu">filter</span>(<span class="fu">str_detect</span>(Parameter, <span class="st">&quot;b_noise</span><span class="sc">\\</span><span class="st">[&quot;</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb79-9"><a href="function-evaluation-to-converge.html#cb79-9" aria-hidden="true" tabindex="-1"></a>      dplyr<span class="sc">::</span><span class="fu">mutate</span>(<span class="at">Parameter=</span>algorithms) <span class="co">#Changing to the algorithms labels</span></span>
+<span id="cb79-10"><a href="function-evaluation-to-converge.html#cb79-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb79-11"><a href="function-evaluation-to-converge.html#cb79-11" aria-hidden="true" tabindex="-1"></a>hpdi_s <span class="ot">&lt;-</span> hpdi <span class="sc">%&gt;%</span> </span>
+<span id="cb79-12"><a href="function-evaluation-to-converge.html#cb79-12" aria-hidden="true" tabindex="-1"></a>      dplyr<span class="sc">::</span><span class="fu">filter</span>(Parameter<span class="sc">==</span><span class="st">&#39;s&#39;</span>)</span>
+<span id="cb79-13"><a href="function-evaluation-to-converge.html#cb79-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb79-14"><a href="function-evaluation-to-converge.html#cb79-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb79-15"><a href="function-evaluation-to-converge.html#cb79-15" aria-hidden="true" tabindex="-1"></a>p_alg<span class="ot">&lt;-</span><span class="fu">ggplot</span>(<span class="at">data=</span>hpdi_algorithm, <span class="fu">aes</span>(<span class="at">x=</span>Parameter))<span class="sc">+</span></span>
+<span id="cb79-16"><a href="function-evaluation-to-converge.html#cb79-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_pointrange</span>(<span class="fu">aes</span>(</span>
+<span id="cb79-17"><a href="function-evaluation-to-converge.html#cb79-17" aria-hidden="true" tabindex="-1"></a>    <span class="at">ymin=</span>HPDI.lower, </span>
+<span id="cb79-18"><a href="function-evaluation-to-converge.html#cb79-18" aria-hidden="true" tabindex="-1"></a>    <span class="at">ymax=</span>HPDI.higher, </span>
+<span id="cb79-19"><a href="function-evaluation-to-converge.html#cb79-19" aria-hidden="true" tabindex="-1"></a>    <span class="at">y=</span>Mean))<span class="sc">+</span></span>
+<span id="cb79-20"><a href="function-evaluation-to-converge.html#cb79-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">y=</span><span class="st">&quot;a_alg&quot;</span>, <span class="at">x=</span><span class="st">&quot;Algorithm&quot;</span>)<span class="sc">+</span></span>
+<span id="cb79-21"><a href="function-evaluation-to-converge.html#cb79-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_flip</span>()</span>
+<span id="cb79-22"><a href="function-evaluation-to-converge.html#cb79-22" aria-hidden="true" tabindex="-1"></a>p_alg <span class="sc">+</span> <span class="fu">plot_annotation</span>(<span class="at">title =</span> <span class="st">&#39;HPDI interval for the algorithms&#39;</span>)</span></code></pre></div>
+<p><img src="statscomp-appendix_files/figure-html/unnamed-chunk-68-1.png" width="672" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb80"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb80-1"><a href="function-evaluation-to-converge.html#cb80-1" aria-hidden="true" tabindex="-1"></a>p_noise<span class="ot">&lt;-</span><span class="fu">ggplot</span>(<span class="at">data=</span>hpdi_noise, <span class="fu">aes</span>(<span class="at">x=</span>Parameter))<span class="sc">+</span></span>
+<span id="cb80-2"><a href="function-evaluation-to-converge.html#cb80-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_pointrange</span>(<span class="fu">aes</span>(</span>
+<span id="cb80-3"><a href="function-evaluation-to-converge.html#cb80-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">ymin=</span>HPDI.lower, </span>
+<span id="cb80-4"><a href="function-evaluation-to-converge.html#cb80-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">ymax=</span>HPDI.higher, </span>
+<span id="cb80-5"><a href="function-evaluation-to-converge.html#cb80-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">y=</span>Mean))<span class="sc">+</span></span>
+<span id="cb80-6"><a href="function-evaluation-to-converge.html#cb80-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">y=</span><span class="st">&quot;b_noise&quot;</span>, <span class="at">x=</span><span class="st">&quot;Algorithm&quot;</span>)<span class="sc">+</span></span>
+<span id="cb80-7"><a href="function-evaluation-to-converge.html#cb80-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_flip</span>()</span>
+<span id="cb80-8"><a href="function-evaluation-to-converge.html#cb80-8" aria-hidden="true" tabindex="-1"></a>p_noise <span class="sc">+</span> <span class="fu">plot_annotation</span>(<span class="at">title =</span> <span class="st">&#39;HPDI interval for noise coefficient&#39;</span>)</span></code></pre></div>
+<p><img src="statscomp-appendix_files/figure-html/unnamed-chunk-68-2.png" width="672" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb81"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb81-1"><a href="function-evaluation-to-converge.html#cb81-1" aria-hidden="true" tabindex="-1"></a>p_s <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data=</span>hpdi_s, <span class="fu">aes</span>(<span class="at">x=</span>Parameter))<span class="sc">+</span></span>
+<span id="cb81-2"><a href="function-evaluation-to-converge.html#cb81-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_pointrange</span>(<span class="fu">aes</span>(</span>
+<span id="cb81-3"><a href="function-evaluation-to-converge.html#cb81-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">ymin=</span>HPDI.lower, </span>
+<span id="cb81-4"><a href="function-evaluation-to-converge.html#cb81-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">ymax=</span>HPDI.higher, </span>
+<span id="cb81-5"><a href="function-evaluation-to-converge.html#cb81-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">y=</span>Mean))<span class="sc">+</span></span>
+<span id="cb81-6"><a href="function-evaluation-to-converge.html#cb81-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">y=</span><span class="st">&quot;Estimate of s&quot;</span>, <span class="at">x=</span><span class="st">&quot;Parameter&quot;</span>)<span class="sc">+</span></span>
+<span id="cb81-7"><a href="function-evaluation-to-converge.html#cb81-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_flip</span>()</span>
+<span id="cb81-8"><a href="function-evaluation-to-converge.html#cb81-8" aria-hidden="true" tabindex="-1"></a>p_s <span class="sc">+</span> <span class="fu">plot_annotation</span>(<span class="at">title =</span> <span class="st">&#39;HPDI interval std of the benchmarks&#39;</span>)</span></code></pre></div>
+<p><img src="statscomp-appendix_files/figure-html/unnamed-chunk-68-3.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="hazard-ratio" class="section level3" number="5.4.2">
+<h3><span class="header-section-number">5.4.2</span> Hazard ratio</h3>
+<div class="sourceCode" id="cb82"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb82-1"><a href="function-evaluation-to-converge.html#cb82-1" aria-hidden="true" tabindex="-1"></a>hr_table <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
+<span id="cb82-2"><a href="function-evaluation-to-converge.html#cb82-2" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;Algorithms&quot;</span> <span class="ot">=</span> algorithms,</span>
+<span id="cb82-3"><a href="function-evaluation-to-converge.html#cb82-3" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;Baseline HR&quot;</span> <span class="ot">=</span> <span class="fu">exp</span>(hpdi_algorithm<span class="sc">$</span>Mean),</span>
+<span id="cb82-4"><a href="function-evaluation-to-converge.html#cb82-4" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;Noise HR&quot;</span> <span class="ot">=</span> <span class="fu">exp</span>(hpdi_noise<span class="sc">$</span>Mean))</span>
+<span id="cb82-5"><a href="function-evaluation-to-converge.html#cb82-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb82-6"><a href="function-evaluation-to-converge.html#cb82-6" aria-hidden="true" tabindex="-1"></a><span class="fu">kable</span>(hr_table, <span class="at">booktabs=</span>T, <span class="at">format.args =</span> <span class="fu">list</span>(<span class="at">scientific =</span> <span class="cn">FALSE</span>), <span class="at">digits =</span> <span class="dv">3</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb82-7"><a href="function-evaluation-to-converge.html#cb82-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable_styling</span>(<span class="at">bootstrap_options =</span> <span class="fu">c</span>(<span class="st">&quot;striped&quot;</span>, <span class="st">&quot;hover&quot;</span>, <span class="st">&quot;condensed&quot;</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb82-8"><a href="function-evaluation-to-converge.html#cb82-8" aria-hidden="true" tabindex="-1"></a>  kableExtra<span class="sc">::</span><span class="fu">scroll_box</span>(<span class="at">width =</span> <span class="st">&quot;100%&quot;</span>)</span></code></pre></div>
+<div style="border: 1px solid #ddd; padding: 5px; overflow-x: scroll; width:100%; ">
+<table class="table table-striped table-hover table-condensed" style="margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:left;">
+Algorithms
+</th>
+<th style="text-align:right;">
+Baseline HR
+</th>
+<th style="text-align:right;">
+Noise HR
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+CMAES
+</td>
+<td style="text-align:right;">
+0.006
+</td>
+<td style="text-align:right;">
+0.456
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+DifferentialEvolution
+</td>
+<td style="text-align:right;">
+0.002
+</td>
+<td style="text-align:right;">
+0.386
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+PSO
+</td>
+<td style="text-align:right;">
+0.002
+</td>
+<td style="text-align:right;">
+0.509
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+RandomSearch1
+</td>
+<td style="text-align:right;">
+0.000
+</td>
+<td style="text-align:right;">
+0.561
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div id="iterations-to-converge" class="section level3" number="5.4.3">
+<h3><span class="header-section-number">5.4.3</span> Iterations to Converge</h3>
+<p>To obtain the average iteration to converge we first extract samples from the posterior distribution</p>
+<p>Looking at the average value of the data regardless of the benchmarks</p>
+<div class="sourceCode" id="cb83"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb83-1"><a href="function-evaluation-to-converge.html#cb83-1" aria-hidden="true" tabindex="-1"></a>d_no_na <span class="ot">&lt;-</span> d <span class="sc">%&gt;%</span> <span class="fu">drop_na</span>(y)</span>
+<span id="cb83-2"><a href="function-evaluation-to-converge.html#cb83-2" aria-hidden="true" tabindex="-1"></a>d_no_na <span class="sc">%&gt;%</span> <span class="fu">group_by</span>(Algorithm) <span class="sc">%&gt;%</span> <span class="fu">summarise</span>(<span class="at">Mean=</span><span class="fu">mean</span>(y))</span></code></pre></div>
+<pre><code># A tibble: 4 x 2
+  Algorithm               Mean
+  &lt;chr&gt;                  &lt;dbl&gt;
+1 CMAES                   115.
+2 DifferentialEvolution  3340.
+3 PSO                    2406.
+4 RandomSearch1         13951.</code></pre>
+<div class="sourceCode" id="cb85"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb85-1"><a href="function-evaluation-to-converge.html#cb85-1" aria-hidden="true" tabindex="-1"></a>posterior <span class="ot">&lt;-</span> rstan<span class="sc">::</span><span class="fu">extract</span>(timetoconverge_fit)</span>
+<span id="cb85-2"><a href="function-evaluation-to-converge.html#cb85-2" aria-hidden="true" tabindex="-1"></a>a <span class="ot">&lt;-</span> <span class="fu">as_tibble</span>(posterior<span class="sc">$</span>a_alg)</span>
+<span id="cb85-3"><a href="function-evaluation-to-converge.html#cb85-3" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(a) <span class="ot">&lt;-</span> algorithms</span>
+<span id="cb85-4"><a href="function-evaluation-to-converge.html#cb85-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb85-5"><a href="function-evaluation-to-converge.html#cb85-5" aria-hidden="true" tabindex="-1"></a>lambda <span class="ot">&lt;-</span> <span class="fu">exp</span>(a)</span>
+<span id="cb85-6"><a href="function-evaluation-to-converge.html#cb85-6" aria-hidden="true" tabindex="-1"></a>mu <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">/</span>lambda</span>
+<span id="cb85-7"><a href="function-evaluation-to-converge.html#cb85-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb85-8"><a href="function-evaluation-to-converge.html#cb85-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb85-9"><a href="function-evaluation-to-converge.html#cb85-9" aria-hidden="true" tabindex="-1"></a><span class="co">#Creating a HPD table</span></span>
+<span id="cb85-10"><a href="function-evaluation-to-converge.html#cb85-10" aria-hidden="true" tabindex="-1"></a>timetoconverge_table<span class="ot">&lt;-</span><span class="fu">as_tibble</span>(HDInterval<span class="sc">::</span><span class="fu">hdi</span>(mu,<span class="at">credMass=</span><span class="fl">0.95</span>), <span class="at">rownames =</span> <span class="st">&quot;Metric&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb85-11"><a href="function-evaluation-to-converge.html#cb85-11" aria-hidden="true" tabindex="-1"></a>  tibble<span class="sc">::</span><span class="fu">add_row</span>(<span class="at">Metric=</span><span class="st">&quot;Mean&quot;</span>,<span class="at">CMAES=</span><span class="fu">mean</span>(mu<span class="sc">$</span>CMAES), <span class="at">DifferentialEvolution=</span><span class="fu">mean</span>(mu<span class="sc">$</span>DifferentialEvolution), <span class="at">PSO=</span><span class="fu">mean</span>(mu<span class="sc">$</span>PSO), <span class="at">RandomSearch1=</span><span class="fu">mean</span>(mu<span class="sc">$</span>RandomSearch1)) <span class="sc">%&gt;%</span> </span>
+<span id="cb85-12"><a href="function-evaluation-to-converge.html#cb85-12" aria-hidden="true" tabindex="-1"></a>  tidyr<span class="sc">::</span><span class="fu">pivot_longer</span>(<span class="at">cols=</span><span class="sc">-</span>Metric,<span class="at">names_to =</span> <span class="st">&#39;Algorithms&#39;</span>, <span class="at">values_to=</span><span class="st">&#39;values&#39;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb85-13"><a href="function-evaluation-to-converge.html#cb85-13" aria-hidden="true" tabindex="-1"></a>  tidyr<span class="sc">::</span><span class="fu">pivot_wider</span>(<span class="at">names_from =</span>Metric , <span class="at">values_from=</span>values) <span class="sc">%&gt;%</span> </span>
+<span id="cb85-14"><a href="function-evaluation-to-converge.html#cb85-14" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">rename</span>(<span class="at">Mean=</span>Mean,</span>
+<span id="cb85-15"><a href="function-evaluation-to-converge.html#cb85-15" aria-hidden="true" tabindex="-1"></a>                <span class="st">&#39;HPD low&#39;</span> <span class="ot">=</span> lower,</span>
+<span id="cb85-16"><a href="function-evaluation-to-converge.html#cb85-16" aria-hidden="true" tabindex="-1"></a>                <span class="st">&#39;HPD high&#39;</span> <span class="ot">=</span> upper) <span class="sc">%&gt;%</span> </span>
+<span id="cb85-17"><a href="function-evaluation-to-converge.html#cb85-17" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">relocate</span>(Algorithms, Mean)</span>
+<span id="cb85-18"><a href="function-evaluation-to-converge.html#cb85-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb85-19"><a href="function-evaluation-to-converge.html#cb85-19" aria-hidden="true" tabindex="-1"></a><span class="fu">saveRDS</span>(timetoconverge_table, <span class="st">&#39;./statscomp-paper/tables/datafortables/averagetimetoconverge.RDS&#39;</span>)</span></code></pre></div>
+</div>
+<div id="merging-hazards-and-time-to-converge-table" class="section level3" number="5.4.4">
+<h3><span class="header-section-number">5.4.4</span> Merging hazards and time to converge table</h3>
+</div>
+<div id="parameter-table" class="section level3" number="5.4.5">
+<h3><span class="header-section-number">5.4.5</span> Parameter table</h3>
+<div class="sourceCode" id="cb86"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb86-1"><a href="function-evaluation-to-converge.html#cb86-1" aria-hidden="true" tabindex="-1"></a>rename_pars <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fu">paste</span>(<span class="fu">rep</span>(<span class="st">&#39;a_&#39;</span>,<span class="fu">length</span>(algorithms)),algorithms, <span class="at">sep =</span> <span class="st">&quot;&quot;</span>), <span class="fu">paste</span>(<span class="fu">rep</span>(<span class="st">&#39;b_&#39;</span>,<span class="fu">length</span>(algorithms)),algorithms, <span class="at">sep =</span> <span class="st">&quot;&quot;</span>),<span class="st">&#39;s&#39;</span>)</span>
+<span id="cb86-2"><a href="function-evaluation-to-converge.html#cb86-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb86-3"><a href="function-evaluation-to-converge.html#cb86-3" aria-hidden="true" tabindex="-1"></a>t<span class="ot">&lt;-</span><span class="fu">create_table_model</span>(timetoconverge_fit, <span class="fu">c</span>(a_alg, b_noise, <span class="st">&#39;s&#39;</span>), rename_pars)</span>
+<span id="cb86-4"><a href="function-evaluation-to-converge.html#cb86-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb86-5"><a href="function-evaluation-to-converge.html#cb86-5" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(t)<span class="ot">&lt;-</span><span class="fu">c</span>(<span class="st">&quot;Parameter&quot;</span>, <span class="st">&quot;Mean&quot;</span>, <span class="st">&quot;HPD low&quot;</span>, <span class="st">&quot;HPD high&quot;</span>)</span>
+<span id="cb86-6"><a href="function-evaluation-to-converge.html#cb86-6" aria-hidden="true" tabindex="-1"></a><span class="fu">saveRDS</span>(t,<span class="st">&#39;./statscomp-paper/tables/datafortables/timetoconverge-hr-par-table.RDS&#39;</span>)</span></code></pre></div>
+
+</div>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="ranking.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="multiple-group-comparison.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": null,
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

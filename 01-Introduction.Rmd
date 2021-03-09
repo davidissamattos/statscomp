@@ -17,7 +17,8 @@ Here we are excluding a few columns to simplify our view
 ```{r echo=T}
 kable(head(dplyr::select(d,
                          -BestArm, -Continuous, -Differentiability, -Separability, -Scalability, -Modality,-BBOB,-BaseClass, -MaxFeval, -FevalPerDimensions),
-           n=10))
+           n=10)) %>% 
+  kableExtra::scroll_box(width = "100%")
 ```
 
 

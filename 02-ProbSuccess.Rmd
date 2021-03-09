@@ -53,7 +53,8 @@ algorithms <- get_index_names_as_array(d$Algorithm)
 Lets preview a sample of the data set
 ```{r}
 kable(dplyr::sample_n(d,size=10),"html", booktabs=T, format.args = list(scientific = FALSE), digits = 3) %>% 
-  kable_styling(bootstrap_options = c("striped", "hover", "condensed"))
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed")) %>% 
+  kableExtra::scroll_box(width = "100%")
 ```
 
 ```{r include=F}
@@ -129,7 +130,8 @@ rstan::traceplot(probsuccess.fit, pars=c('s'))
 Another diagnosis is to look at the Rhat. If Rhat is greater than 1.05 it indicates a divergence in the chains (they did not mix well). The table below shows a summary of the sampling.
 ```{r}
 kable(summary(probsuccess.fit)$summary) %>% 
-  kable_styling(bootstrap_options = c('striped',"hover", "condensed" ))
+  kable_styling(bootstrap_options = c('striped',"hover", "condensed" )) %>% 
+  kableExtra::scroll_box(width = "100%")
 ```
 
 

@@ -1,4 +1,4 @@
-# Time to complete
+# Function Evaluation to converge
 
 In this section, we will consider the Cox's Proportional Hazard model for analyzing the time to converge to a a solution (in number of iterations).
 
@@ -16,7 +16,7 @@ dataset <- readr::read_csv('./data/statscomp.csv')
 Filtering the data that we want and applying some transformations. The Event variable will indicate if it was censored or not.
 ```{r}
 d <- dataset %>% 
-  dplyr::filter(OptimizationSuccessful==TRUE & MaxFevalPerDimensions==100000 & (Algorithm=="PSO"|Algorithm=="CMAES"|Algorithm=="DifferentialEvolution"|Algorithm=="RandomSearch2")) %>% 
+  dplyr::filter(OptimizationSuccessful==TRUE & MaxFevalPerDimensions==100000 & (Algorithm=="PSO"|Algorithm=="CMAES"|Algorithm=="DifferentialEvolution"|Algorithm=="RandomSearch1")) %>% 
   dplyr::select(Algorithm, CostFunction, Event="SolveAt1e-1", simNumber, Ndimensions, SD, SolvedAtIteration="SolveEarlierAt1e-1") %>% 
   dplyr::mutate(y=SolvedAtIteration/Ndimensions,
                 Event=as.integer(Event),
@@ -31,7 +31,8 @@ bm <- get_index_names_as_array(d$CostFunction)
 The data should look like this:
 ```{r}
 kable(dplyr::sample_n(d,size=10),"html", booktabs=T, format.args = list(scientific = FALSE), digits = 3) %>% 
-  kable_styling(bootstrap_options = c("striped", "hover", "condensed"))
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed")) %>% 
+  kableExtra::scroll_box(width = "100%")
 ```
 
 
@@ -106,7 +107,8 @@ rstan::traceplot(timetoconverge_fit, pars='s')
 Another diagnosis is to look at the Rhat. If Rhat is greater than 1.05 it indicates a divergence in the chains (they did not mix well). The table below shows a summary of the sampling.
 ```{r}
 kable(summary(timetoconverge_fit)$summary) %>% 
-  kable_styling(bootstrap_options = c('striped',"hover", "condensed" ))
+  kable_styling(bootstrap_options = c('striped',"hover", "condensed" )) %>% 
+  kableExtra::scroll_box(width = "100%")
 ```
 
 ## RQ4 Results and Plots
@@ -175,7 +177,8 @@ hr_table <- tibble(
   "Noise HR" = exp(hpdi_noise$Mean))
 
 kable(hr_table, booktabs=T, format.args = list(scientific = FALSE), digits = 3) %>% 
-  kable_styling(bootstrap_options = c("striped", "hover", "condensed"))
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed")) %>% 
+  kableExtra::scroll_box(width = "100%")
 ```
 
 ```{r include=F}
@@ -206,7 +209,7 @@ mu <- 1/lambda
 
 #Creating a HPD table
 timetoconverge_table<-as_tibble(HDInterval::hdi(mu,credMass=0.95), rownames = "Metric") %>%
-  tibble::add_row(Metric="Mean",CMAES=mean(mu$CMAES), DifferentialEvolution=mean(mu$DifferentialEvolution), PSO=mean(mu$PSO), RandomSearch2=mean(mu$RandomSearch2)) %>% 
+  tibble::add_row(Metric="Mean",CMAES=mean(mu$CMAES), DifferentialEvolution=mean(mu$DifferentialEvolution), PSO=mean(mu$PSO), RandomSearch1=mean(mu$RandomSearch1)) %>% 
   tidyr::pivot_longer(cols=-Metric,names_to = 'Algorithms', values_to='values') %>% 
   tidyr::pivot_wider(names_from =Metric , values_from=values) %>% 
   dplyr::rename(Mean=Mean,

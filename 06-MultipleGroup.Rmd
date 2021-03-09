@@ -32,7 +32,8 @@ bm <- get_index_names_as_array(d$CostFunction)
 The data should look like this:
 ```{r}
 kable(dplyr::sample_n(d,size=10), "html",booktabs=T, format.args = list(scientific = FALSE), digits = 3) %>% 
-  kable_styling(bootstrap_options = c("striped", "hover", "condensed"))
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed")) %>% 
+  kableExtra::scroll_box(width = "100%")
 ```
 
 ```{r include=F}
@@ -134,7 +135,8 @@ rstan::traceplot(multiplegroup_fit, pars=c('s', 'nu'))
 Another diagnosis is to look at the Rhat. If Rhat is greater than 1.05 it indicates a divergence in the chains (they did not mix well). The table below shows a summary of the sampling.
 ```{r}
 kable(summary(multiplegroup_fit)$summary, "html",) %>% 
-  kable_styling(bootstrap_options = c('striped',"hover", "condensed" ))
+  kable_styling(bootstrap_options = c('striped',"hover", "condensed" )) %>% 
+  kableExtra::scroll_box(width = "100%")
 ```
 
 ## RQ5 Results and Plots
@@ -242,7 +244,8 @@ hpdi_diff<-hpdi_diff %>% as_tibble(rownames = "Metric") %>%
   dplyr::select(Difference, Lower=lower, Mean, Upper=upper)
 
 kable(hpdi_diff, booktabs=T, format.args = list(scientific = FALSE), digits = 3) %>% 
-  kable_styling(bootstrap_options = c("striped", "hover", "condensed"))
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed")) %>% 
+  kableExtra::scroll_box(width = "100%")
 ```
 
 ```{r include=F}

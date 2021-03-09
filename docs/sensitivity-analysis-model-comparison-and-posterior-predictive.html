@@ -32,6 +32,7 @@
   
 <link rel="prev" href="multiple-group-comparison.html"/>
 
+<script src="libs/header-attrs-2.6/header-attrs.js"></script>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -49,24 +50,22 @@
 
 
 
-<script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
 <script src="libs/kePrint-0.0.1/kePrint.js"></script>
 <link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
 
 
 <style type="text/css">
-code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
-code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode { white-space: pre; position: relative; }
 pre.sourceCode { margin: 0; }
 @media screen {
 div.sourceCode { overflow: auto; }
 }
 @media print {
-code.sourceCode { white-space: pre-wrap; }
-code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -86,7 +85,7 @@ pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-le
 div.sourceCode
   {   }
 @media screen {
-code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
@@ -131,55 +130,65 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <nav role="navigation">
 
 <ul class="summary">
-<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a><ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a>
+<ul>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#pre-requisites"><i class="fa fa-check"></i>Pre-requisites</a></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#source-code"><i class="fa fa-check"></i>Source code</a></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#compiling-this-document"><i class="fa fa-check"></i>Compiling this document</a></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#software-environment"><i class="fa fa-check"></i>Software environment</a></li>
 </ul></li>
-<li class="chapter" data-level="1" data-path="introduction.html"><a href="introduction.html"><i class="fa fa-check"></i><b>1</b> Introduction</a><ul>
+<li class="chapter" data-level="1" data-path="introduction.html"><a href="introduction.html"><i class="fa fa-check"></i><b>1</b> Introduction</a>
+<ul>
 <li class="chapter" data-level="1.0.1" data-path="introduction.html"><a href="introduction.html#exploring-the-dataset"><i class="fa fa-check"></i><b>1.0.1</b> Exploring the dataset</a></li>
 <li class="chapter" data-level="1.0.2" data-path="introduction.html"><a href="introduction.html#column-definitions-of-the-dataset"><i class="fa fa-check"></i><b>1.0.2</b> Column definitions of the dataset</a></li>
 </ul></li>
-<li class="chapter" data-level="2" data-path="probability-of-success-model.html"><a href="probability-of-success-model.html"><i class="fa fa-check"></i><b>2</b> Probability of success model</a><ul>
+<li class="chapter" data-level="2" data-path="probability-of-success-model.html"><a href="probability-of-success-model.html"><i class="fa fa-check"></i><b>2</b> Probability of success model</a>
+<ul>
 <li class="chapter" data-level="2.1" data-path="probability-of-success-model.html"><a href="probability-of-success-model.html#rq1-data-preparation"><i class="fa fa-check"></i><b>2.1</b> RQ1 Data preparation</a></li>
 <li class="chapter" data-level="2.2" data-path="probability-of-success-model.html"><a href="probability-of-success-model.html#rq1-stan-model"><i class="fa fa-check"></i><b>2.2</b> RQ1 Stan model</a></li>
-<li class="chapter" data-level="2.3" data-path="probability-of-success-model.html"><a href="probability-of-success-model.html#rq1-diagnosis"><i class="fa fa-check"></i><b>2.3</b> RQ1 Diagnosis</a><ul>
+<li class="chapter" data-level="2.3" data-path="probability-of-success-model.html"><a href="probability-of-success-model.html#rq1-diagnosis"><i class="fa fa-check"></i><b>2.3</b> RQ1 Diagnosis</a>
+<ul>
 <li class="chapter" data-level="2.3.1" data-path="probability-of-success-model.html"><a href="probability-of-success-model.html#rq1-chains-convergence"><i class="fa fa-check"></i><b>2.3.1</b> RQ1 Chains convergence</a></li>
 </ul></li>
 <li class="chapter" data-level="2.4" data-path="probability-of-success-model.html"><a href="probability-of-success-model.html#rq1-results-and-plots"><i class="fa fa-check"></i><b>2.4</b> RQ1 Results and Plots</a></li>
 </ul></li>
-<li class="chapter" data-level="3" data-path="relative-improvement.html"><a href="relative-improvement.html"><i class="fa fa-check"></i><b>3</b> Relative improvement</a><ul>
+<li class="chapter" data-level="3" data-path="relative-improvement.html"><a href="relative-improvement.html"><i class="fa fa-check"></i><b>3</b> Relative improvement</a>
+<ul>
 <li class="chapter" data-level="3.1" data-path="relative-improvement.html"><a href="relative-improvement.html#rq2-data-preparation"><i class="fa fa-check"></i><b>3.1</b> RQ2 Data preparation</a></li>
 <li class="chapter" data-level="3.2" data-path="relative-improvement.html"><a href="relative-improvement.html#rq2-stan-model"><i class="fa fa-check"></i><b>3.2</b> RQ2 Stan model</a></li>
 <li class="chapter" data-level="3.3" data-path="relative-improvement.html"><a href="relative-improvement.html#rq2-diagnosis"><i class="fa fa-check"></i><b>3.3</b> RQ2 Diagnosis</a></li>
 <li class="chapter" data-level="3.4" data-path="relative-improvement.html"><a href="relative-improvement.html#rq2-results-and-plots"><i class="fa fa-check"></i><b>3.4</b> RQ2 Results and Plots</a></li>
 </ul></li>
-<li class="chapter" data-level="4" data-path="ranking.html"><a href="ranking.html"><i class="fa fa-check"></i><b>4</b> Ranking</a><ul>
+<li class="chapter" data-level="4" data-path="ranking.html"><a href="ranking.html"><i class="fa fa-check"></i><b>4</b> Ranking</a>
+<ul>
 <li class="chapter" data-level="4.1" data-path="ranking.html"><a href="ranking.html#rq3-data-preparation"><i class="fa fa-check"></i><b>4.1</b> RQ3 Data preparation</a></li>
 <li class="chapter" data-level="4.2" data-path="ranking.html"><a href="ranking.html#rq3-stan-model"><i class="fa fa-check"></i><b>4.2</b> RQ3 Stan model</a></li>
 <li class="chapter" data-level="4.3" data-path="ranking.html"><a href="ranking.html#rq3-diagnosis"><i class="fa fa-check"></i><b>4.3</b> RQ3 Diagnosis</a></li>
 <li class="chapter" data-level="4.4" data-path="ranking.html"><a href="ranking.html#rq3-results-and-plots"><i class="fa fa-check"></i><b>4.4</b> RQ3 Results and Plots</a></li>
 </ul></li>
-<li class="chapter" data-level="5" data-path="time-to-complete.html"><a href="time-to-complete.html"><i class="fa fa-check"></i><b>5</b> Time to complete</a><ul>
-<li class="chapter" data-level="5.1" data-path="time-to-complete.html"><a href="time-to-complete.html#rq4-data-preparation"><i class="fa fa-check"></i><b>5.1</b> RQ4 Data preparation</a></li>
-<li class="chapter" data-level="5.2" data-path="time-to-complete.html"><a href="time-to-complete.html#rq4-stan-model"><i class="fa fa-check"></i><b>5.2</b> RQ4 Stan model</a></li>
-<li class="chapter" data-level="5.3" data-path="time-to-complete.html"><a href="time-to-complete.html#rq4-diagnosis"><i class="fa fa-check"></i><b>5.3</b> RQ4 Diagnosis</a></li>
-<li class="chapter" data-level="5.4" data-path="time-to-complete.html"><a href="time-to-complete.html#rq4-results-and-plots"><i class="fa fa-check"></i><b>5.4</b> RQ4 Results and Plots</a><ul>
-<li class="chapter" data-level="5.4.1" data-path="time-to-complete.html"><a href="time-to-complete.html#rq4-parameters-and-plots"><i class="fa fa-check"></i><b>5.4.1</b> RQ4 Parameters and plots</a></li>
-<li class="chapter" data-level="5.4.2" data-path="time-to-complete.html"><a href="time-to-complete.html#hazard-ratio"><i class="fa fa-check"></i><b>5.4.2</b> Hazard ratio</a></li>
-<li class="chapter" data-level="5.4.3" data-path="time-to-complete.html"><a href="time-to-complete.html#iterations-to-converge"><i class="fa fa-check"></i><b>5.4.3</b> Iterations to Converge</a></li>
-<li class="chapter" data-level="5.4.4" data-path="time-to-complete.html"><a href="time-to-complete.html#merging-hazards-and-time-to-converge-table"><i class="fa fa-check"></i><b>5.4.4</b> Merging hazards and time to converge table</a></li>
-<li class="chapter" data-level="5.4.5" data-path="time-to-complete.html"><a href="time-to-complete.html#parameter-table"><i class="fa fa-check"></i><b>5.4.5</b> Parameter table</a></li>
+<li class="chapter" data-level="5" data-path="function-evaluation-to-converge.html"><a href="function-evaluation-to-converge.html"><i class="fa fa-check"></i><b>5</b> Function Evaluation to converge</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="function-evaluation-to-converge.html"><a href="function-evaluation-to-converge.html#rq4-data-preparation"><i class="fa fa-check"></i><b>5.1</b> RQ4 Data preparation</a></li>
+<li class="chapter" data-level="5.2" data-path="function-evaluation-to-converge.html"><a href="function-evaluation-to-converge.html#rq4-stan-model"><i class="fa fa-check"></i><b>5.2</b> RQ4 Stan model</a></li>
+<li class="chapter" data-level="5.3" data-path="function-evaluation-to-converge.html"><a href="function-evaluation-to-converge.html#rq4-diagnosis"><i class="fa fa-check"></i><b>5.3</b> RQ4 Diagnosis</a></li>
+<li class="chapter" data-level="5.4" data-path="function-evaluation-to-converge.html"><a href="function-evaluation-to-converge.html#rq4-results-and-plots"><i class="fa fa-check"></i><b>5.4</b> RQ4 Results and Plots</a>
+<ul>
+<li class="chapter" data-level="5.4.1" data-path="function-evaluation-to-converge.html"><a href="function-evaluation-to-converge.html#rq4-parameters-and-plots"><i class="fa fa-check"></i><b>5.4.1</b> RQ4 Parameters and plots</a></li>
+<li class="chapter" data-level="5.4.2" data-path="function-evaluation-to-converge.html"><a href="function-evaluation-to-converge.html#hazard-ratio"><i class="fa fa-check"></i><b>5.4.2</b> Hazard ratio</a></li>
+<li class="chapter" data-level="5.4.3" data-path="function-evaluation-to-converge.html"><a href="function-evaluation-to-converge.html#iterations-to-converge"><i class="fa fa-check"></i><b>5.4.3</b> Iterations to Converge</a></li>
+<li class="chapter" data-level="5.4.4" data-path="function-evaluation-to-converge.html"><a href="function-evaluation-to-converge.html#merging-hazards-and-time-to-converge-table"><i class="fa fa-check"></i><b>5.4.4</b> Merging hazards and time to converge table</a></li>
+<li class="chapter" data-level="5.4.5" data-path="function-evaluation-to-converge.html"><a href="function-evaluation-to-converge.html#parameter-table"><i class="fa fa-check"></i><b>5.4.5</b> Parameter table</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="6" data-path="multiple-group-comparison.html"><a href="multiple-group-comparison.html"><i class="fa fa-check"></i><b>6</b> Multiple-group comparison</a><ul>
+<li class="chapter" data-level="6" data-path="multiple-group-comparison.html"><a href="multiple-group-comparison.html"><i class="fa fa-check"></i><b>6</b> Multiple-group comparison</a>
+<ul>
 <li class="chapter" data-level="6.1" data-path="multiple-group-comparison.html"><a href="multiple-group-comparison.html#rq5-data-preparation"><i class="fa fa-check"></i><b>6.1</b> RQ5 Data preparation</a></li>
 <li class="chapter" data-level="6.2" data-path="multiple-group-comparison.html"><a href="multiple-group-comparison.html#rq5-stan-model"><i class="fa fa-check"></i><b>6.2</b> RQ5 Stan model</a></li>
 <li class="chapter" data-level="6.3" data-path="multiple-group-comparison.html"><a href="multiple-group-comparison.html#rq5-diagnosis"><i class="fa fa-check"></i><b>6.3</b> RQ5 Diagnosis</a></li>
 <li class="chapter" data-level="6.4" data-path="multiple-group-comparison.html"><a href="multiple-group-comparison.html#rq5-results-and-plots"><i class="fa fa-check"></i><b>6.4</b> RQ5 Results and Plots</a></li>
 </ul></li>
-<li class="chapter" data-level="7" data-path="sensitivity-analysis-model-comparison-and-posterior-predictive.html"><a href="sensitivity-analysis-model-comparison-and-posterior-predictive.html"><i class="fa fa-check"></i><b>7</b> Sensitivity analysis, model comparison and posterior predictive</a><ul>
+<li class="chapter" data-level="7" data-path="sensitivity-analysis-model-comparison-and-posterior-predictive.html"><a href="sensitivity-analysis-model-comparison-and-posterior-predictive.html"><i class="fa fa-check"></i><b>7</b> Sensitivity analysis, model comparison and posterior predictive</a>
+<ul>
 <li class="chapter" data-level="7.1" data-path="sensitivity-analysis-model-comparison-and-posterior-predictive.html"><a href="sensitivity-analysis-model-comparison-and-posterior-predictive.html#compare-models-with-and-without-clustering"><i class="fa fa-check"></i><b>7.1</b> Compare models with and without clustering</a></li>
 <li class="chapter" data-level="7.2" data-path="sensitivity-analysis-model-comparison-and-posterior-predictive.html"><a href="sensitivity-analysis-model-comparison-and-posterior-predictive.html#sensitivity-analysis-of-priors"><i class="fa fa-check"></i><b>7.2</b> Sensitivity analysis of priors</a></li>
 <li class="chapter" data-level="7.3" data-path="sensitivity-analysis-model-comparison-and-posterior-predictive.html"><a href="sensitivity-analysis-model-comparison-and-posterior-predictive.html#posterior-predictive-plots"><i class="fa fa-check"></i><b>7.3</b> Posterior predictive plots</a></li>
@@ -201,52 +210,52 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="sensitivity-analysis-model-comparison-and-posterior-predictive" class="section level1">
+<div id="sensitivity-analysis-model-comparison-and-posterior-predictive" class="section level1" number="7">
 <h1><span class="header-section-number">Chapter 7</span> Sensitivity analysis, model comparison and posterior predictive</h1>
 <p>In this chapter, we provide an example on how to do a sensitivity analysis and model comparison. For that we will use the Relative Improvement model of chapter 3.</p>
 <p>Note that it is important to have a model that calculates the log likelihood to compute the WAIC or the LOO-CV. Here we will show only how to use and interpret the WAIC.</p>
 <p>Reading the data for the (already prepared data) for the model</p>
-<div class="sourceCode" id="cb107"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb107-1"><a href="sensitivity-analysis-model-comparison-and-posterior-predictive.html#cb107-1"></a>standata&lt;-<span class="kw">readRDS</span>(<span class="st">&quot;./data/relativeimprovement-data.RDS&quot;</span>)</span>
-<span id="cb107-2"><a href="sensitivity-analysis-model-comparison-and-posterior-predictive.html#cb107-2"></a>algorithms&lt;-<span class="kw">readRDS</span>(<span class="st">&quot;./data/relativeimprovement_algorithms.RDS&quot;</span>)</span>
-<span id="cb107-3"><a href="sensitivity-analysis-model-comparison-and-posterior-predictive.html#cb107-3"></a>bm&lt;-<span class="kw">readRDS</span>(<span class="st">&quot;./data/relativeimprovement_bm.RDS&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb108"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb108-1"><a href="sensitivity-analysis-model-comparison-and-posterior-predictive.html#cb108-1" aria-hidden="true" tabindex="-1"></a>standata<span class="ot">&lt;-</span><span class="fu">readRDS</span>(<span class="st">&quot;./data/relativeimprovement-data.RDS&quot;</span>)</span>
+<span id="cb108-2"><a href="sensitivity-analysis-model-comparison-and-posterior-predictive.html#cb108-2" aria-hidden="true" tabindex="-1"></a>algorithms<span class="ot">&lt;-</span><span class="fu">readRDS</span>(<span class="st">&quot;./data/relativeimprovement_algorithms.RDS&quot;</span>)</span>
+<span id="cb108-3"><a href="sensitivity-analysis-model-comparison-and-posterior-predictive.html#cb108-3" aria-hidden="true" tabindex="-1"></a>bm<span class="ot">&lt;-</span><span class="fu">readRDS</span>(<span class="st">&quot;./data/relativeimprovement_bm.RDS&quot;</span>)</span></code></pre></div>
 <p>Here we consider 3 models for the relative improvement. The original model presented on chapter 3 and in the paper. A model without clustering information about the benchmarks (m1) and a model with a different set of priors (m2)</p>
 <p>In m2 we consider HalfNormal(0,5) for both the s and the sigma parameters (instead of the exponential)</p>
 <p>We are saving the files in a non-tracked folder because they are too big for github</p>
-<div class="sourceCode" id="cb108"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb108-1"><a href="sensitivity-analysis-model-comparison-and-posterior-predictive.html#cb108-1"></a>relativeimprovement_fit_original &lt;-<span class="st"> </span><span class="kw">stan</span>(<span class="dt">file =</span> <span class="st">&#39;./stanmodels/relativeimprovement-original.stan&#39;</span>,</span>
-<span id="cb108-2"><a href="sensitivity-analysis-model-comparison-and-posterior-predictive.html#cb108-2"></a>                     <span class="dt">data=</span>standata,</span>
-<span id="cb108-3"><a href="sensitivity-analysis-model-comparison-and-posterior-predictive.html#cb108-3"></a>                     <span class="dt">chains =</span> <span class="dv">4</span>,</span>
-<span id="cb108-4"><a href="sensitivity-analysis-model-comparison-and-posterior-predictive.html#cb108-4"></a>                     <span class="dt">warmup =</span> <span class="dv">200</span>,</span>
-<span id="cb108-5"><a href="sensitivity-analysis-model-comparison-and-posterior-predictive.html#cb108-5"></a>                     <span class="dt">iter =</span> <span class="dv">1000</span>)</span>
-<span id="cb108-6"><a href="sensitivity-analysis-model-comparison-and-posterior-predictive.html#cb108-6"></a><span class="kw">saveRDS</span>(relativeimprovement_fit_original, <span class="dt">file =</span> <span class="st">&quot;./data/gitignore/relativeimprovement_fit_original.RDS&quot;</span>)</span></code></pre></div>
-<div class="sourceCode" id="cb109"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb109-1"><a href="sensitivity-analysis-model-comparison-and-posterior-predictive.html#cb109-1"></a>standata_m1 =<span class="st"> </span><span class="kw">list</span>(</span>
-<span id="cb109-2"><a href="sensitivity-analysis-model-comparison-and-posterior-predictive.html#cb109-2"></a>  <span class="dt">N_total=</span> standata<span class="op">$</span>N_total,</span>
-<span id="cb109-3"><a href="sensitivity-analysis-model-comparison-and-posterior-predictive.html#cb109-3"></a>  <span class="dt">y =</span> standata<span class="op">$</span>y,</span>
-<span id="cb109-4"><a href="sensitivity-analysis-model-comparison-and-posterior-predictive.html#cb109-4"></a>  <span class="dt">N_algorithm =</span> standata<span class="op">$</span>N_algorithm,</span>
-<span id="cb109-5"><a href="sensitivity-analysis-model-comparison-and-posterior-predictive.html#cb109-5"></a>  <span class="dt">algorithm_id =</span> standata<span class="op">$</span>algorithm_id</span>
-<span id="cb109-6"><a href="sensitivity-analysis-model-comparison-and-posterior-predictive.html#cb109-6"></a>)</span>
-<span id="cb109-7"><a href="sensitivity-analysis-model-comparison-and-posterior-predictive.html#cb109-7"></a>relativeimprovement_fit_m1 &lt;-<span class="st"> </span><span class="kw">stan</span>(<span class="dt">file =</span> <span class="st">&#39;./stanmodels/relativeimprovement-m1.stan&#39;</span>,</span>
-<span id="cb109-8"><a href="sensitivity-analysis-model-comparison-and-posterior-predictive.html#cb109-8"></a>                     <span class="dt">data=</span>standata_m1,</span>
-<span id="cb109-9"><a href="sensitivity-analysis-model-comparison-and-posterior-predictive.html#cb109-9"></a>                     <span class="dt">chains =</span> <span class="dv">4</span>,</span>
-<span id="cb109-10"><a href="sensitivity-analysis-model-comparison-and-posterior-predictive.html#cb109-10"></a>                     <span class="dt">warmup =</span> <span class="dv">200</span>,</span>
-<span id="cb109-11"><a href="sensitivity-analysis-model-comparison-and-posterior-predictive.html#cb109-11"></a>                     <span class="dt">iter =</span> <span class="dv">1000</span>)</span>
-<span id="cb109-12"><a href="sensitivity-analysis-model-comparison-and-posterior-predictive.html#cb109-12"></a><span class="kw">saveRDS</span>(relativeimprovement_fit_m1, <span class="dt">file =</span> <span class="st">&quot;./data/gitignore/relativeimprovement_fit_m1.RDS&quot;</span>)</span></code></pre></div>
-<div class="sourceCode" id="cb110"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb110-1"><a href="sensitivity-analysis-model-comparison-and-posterior-predictive.html#cb110-1"></a>standata_m2 &lt;-<span class="st"> </span>standata </span>
-<span id="cb110-2"><a href="sensitivity-analysis-model-comparison-and-posterior-predictive.html#cb110-2"></a>relativeimprovement_fit_m2 &lt;-<span class="st"> </span><span class="kw">stan</span>(<span class="dt">file =</span> <span class="st">&#39;./stanmodels/relativeimprovement-m2.stan&#39;</span>,</span>
-<span id="cb110-3"><a href="sensitivity-analysis-model-comparison-and-posterior-predictive.html#cb110-3"></a>                     <span class="dt">data=</span>standata,</span>
-<span id="cb110-4"><a href="sensitivity-analysis-model-comparison-and-posterior-predictive.html#cb110-4"></a>                     <span class="dt">chains =</span> <span class="dv">4</span>,</span>
-<span id="cb110-5"><a href="sensitivity-analysis-model-comparison-and-posterior-predictive.html#cb110-5"></a>                     <span class="dt">warmup =</span> <span class="dv">200</span>,</span>
-<span id="cb110-6"><a href="sensitivity-analysis-model-comparison-and-posterior-predictive.html#cb110-6"></a>                     <span class="dt">iter =</span> <span class="dv">1000</span>)</span>
-<span id="cb110-7"><a href="sensitivity-analysis-model-comparison-and-posterior-predictive.html#cb110-7"></a><span class="kw">saveRDS</span>(relativeimprovement_fit_m2, <span class="dt">file =</span> <span class="st">&quot;./data/gitignore/relativeimprovement_fit_m2.RDS&quot;</span>)</span></code></pre></div>
-<div id="compare-models-with-and-without-clustering" class="section level2">
+<div class="sourceCode" id="cb109"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb109-1"><a href="sensitivity-analysis-model-comparison-and-posterior-predictive.html#cb109-1" aria-hidden="true" tabindex="-1"></a>relativeimprovement_fit_original <span class="ot">&lt;-</span> <span class="fu">stan</span>(<span class="at">file =</span> <span class="st">&#39;./stanmodels/relativeimprovement-original.stan&#39;</span>,</span>
+<span id="cb109-2"><a href="sensitivity-analysis-model-comparison-and-posterior-predictive.html#cb109-2" aria-hidden="true" tabindex="-1"></a>                     <span class="at">data=</span>standata,</span>
+<span id="cb109-3"><a href="sensitivity-analysis-model-comparison-and-posterior-predictive.html#cb109-3" aria-hidden="true" tabindex="-1"></a>                     <span class="at">chains =</span> <span class="dv">4</span>,</span>
+<span id="cb109-4"><a href="sensitivity-analysis-model-comparison-and-posterior-predictive.html#cb109-4" aria-hidden="true" tabindex="-1"></a>                     <span class="at">warmup =</span> <span class="dv">200</span>,</span>
+<span id="cb109-5"><a href="sensitivity-analysis-model-comparison-and-posterior-predictive.html#cb109-5" aria-hidden="true" tabindex="-1"></a>                     <span class="at">iter =</span> <span class="dv">1000</span>)</span>
+<span id="cb109-6"><a href="sensitivity-analysis-model-comparison-and-posterior-predictive.html#cb109-6" aria-hidden="true" tabindex="-1"></a><span class="fu">saveRDS</span>(relativeimprovement_fit_original, <span class="at">file =</span> <span class="st">&quot;./data/gitignore/relativeimprovement_fit_original.RDS&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb110"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb110-1"><a href="sensitivity-analysis-model-comparison-and-posterior-predictive.html#cb110-1" aria-hidden="true" tabindex="-1"></a>standata_m1 <span class="ot">=</span> <span class="fu">list</span>(</span>
+<span id="cb110-2"><a href="sensitivity-analysis-model-comparison-and-posterior-predictive.html#cb110-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">N_total=</span> standata<span class="sc">$</span>N_total,</span>
+<span id="cb110-3"><a href="sensitivity-analysis-model-comparison-and-posterior-predictive.html#cb110-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">y =</span> standata<span class="sc">$</span>y,</span>
+<span id="cb110-4"><a href="sensitivity-analysis-model-comparison-and-posterior-predictive.html#cb110-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">N_algorithm =</span> standata<span class="sc">$</span>N_algorithm,</span>
+<span id="cb110-5"><a href="sensitivity-analysis-model-comparison-and-posterior-predictive.html#cb110-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">algorithm_id =</span> standata<span class="sc">$</span>algorithm_id</span>
+<span id="cb110-6"><a href="sensitivity-analysis-model-comparison-and-posterior-predictive.html#cb110-6" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb110-7"><a href="sensitivity-analysis-model-comparison-and-posterior-predictive.html#cb110-7" aria-hidden="true" tabindex="-1"></a>relativeimprovement_fit_m1 <span class="ot">&lt;-</span> <span class="fu">stan</span>(<span class="at">file =</span> <span class="st">&#39;./stanmodels/relativeimprovement-m1.stan&#39;</span>,</span>
+<span id="cb110-8"><a href="sensitivity-analysis-model-comparison-and-posterior-predictive.html#cb110-8" aria-hidden="true" tabindex="-1"></a>                     <span class="at">data=</span>standata_m1,</span>
+<span id="cb110-9"><a href="sensitivity-analysis-model-comparison-and-posterior-predictive.html#cb110-9" aria-hidden="true" tabindex="-1"></a>                     <span class="at">chains =</span> <span class="dv">4</span>,</span>
+<span id="cb110-10"><a href="sensitivity-analysis-model-comparison-and-posterior-predictive.html#cb110-10" aria-hidden="true" tabindex="-1"></a>                     <span class="at">warmup =</span> <span class="dv">200</span>,</span>
+<span id="cb110-11"><a href="sensitivity-analysis-model-comparison-and-posterior-predictive.html#cb110-11" aria-hidden="true" tabindex="-1"></a>                     <span class="at">iter =</span> <span class="dv">1000</span>)</span>
+<span id="cb110-12"><a href="sensitivity-analysis-model-comparison-and-posterior-predictive.html#cb110-12" aria-hidden="true" tabindex="-1"></a><span class="fu">saveRDS</span>(relativeimprovement_fit_m1, <span class="at">file =</span> <span class="st">&quot;./data/gitignore/relativeimprovement_fit_m1.RDS&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb111"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb111-1"><a href="sensitivity-analysis-model-comparison-and-posterior-predictive.html#cb111-1" aria-hidden="true" tabindex="-1"></a>standata_m2 <span class="ot">&lt;-</span> standata </span>
+<span id="cb111-2"><a href="sensitivity-analysis-model-comparison-and-posterior-predictive.html#cb111-2" aria-hidden="true" tabindex="-1"></a>relativeimprovement_fit_m2 <span class="ot">&lt;-</span> <span class="fu">stan</span>(<span class="at">file =</span> <span class="st">&#39;./stanmodels/relativeimprovement-m2.stan&#39;</span>,</span>
+<span id="cb111-3"><a href="sensitivity-analysis-model-comparison-and-posterior-predictive.html#cb111-3" aria-hidden="true" tabindex="-1"></a>                     <span class="at">data=</span>standata,</span>
+<span id="cb111-4"><a href="sensitivity-analysis-model-comparison-and-posterior-predictive.html#cb111-4" aria-hidden="true" tabindex="-1"></a>                     <span class="at">chains =</span> <span class="dv">4</span>,</span>
+<span id="cb111-5"><a href="sensitivity-analysis-model-comparison-and-posterior-predictive.html#cb111-5" aria-hidden="true" tabindex="-1"></a>                     <span class="at">warmup =</span> <span class="dv">200</span>,</span>
+<span id="cb111-6"><a href="sensitivity-analysis-model-comparison-and-posterior-predictive.html#cb111-6" aria-hidden="true" tabindex="-1"></a>                     <span class="at">iter =</span> <span class="dv">1000</span>)</span>
+<span id="cb111-7"><a href="sensitivity-analysis-model-comparison-and-posterior-predictive.html#cb111-7" aria-hidden="true" tabindex="-1"></a><span class="fu">saveRDS</span>(relativeimprovement_fit_m2, <span class="at">file =</span> <span class="st">&quot;./data/gitignore/relativeimprovement_fit_m2.RDS&quot;</span>)</span></code></pre></div>
+<div id="compare-models-with-and-without-clustering" class="section level2" number="7.1">
 <h2><span class="header-section-number">7.1</span> Compare models with and without clustering</h2>
 <p>First we get the log likelihood</p>
-<div class="sourceCode" id="cb111"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb111-1"><a href="sensitivity-analysis-model-comparison-and-posterior-predictive.html#cb111-1"></a>log_lik_original &lt;-<span class="st"> </span>loo<span class="op">::</span><span class="kw">extract_log_lik</span>(relativeimprovement_fit_original, <span class="dt">merge_chains =</span> T)</span>
-<span id="cb111-2"><a href="sensitivity-analysis-model-comparison-and-posterior-predictive.html#cb111-2"></a>log_lik_m1 &lt;-<span class="st"> </span>loo<span class="op">::</span><span class="kw">extract_log_lik</span>(relativeimprovement_fit_m1 ,<span class="dt">merge_chains =</span> T)</span></code></pre></div>
+<div class="sourceCode" id="cb112"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb112-1"><a href="sensitivity-analysis-model-comparison-and-posterior-predictive.html#cb112-1" aria-hidden="true" tabindex="-1"></a>log_lik_original <span class="ot">&lt;-</span> loo<span class="sc">::</span><span class="fu">extract_log_lik</span>(relativeimprovement_fit_original, <span class="at">merge_chains =</span> T)</span>
+<span id="cb112-2"><a href="sensitivity-analysis-model-comparison-and-posterior-predictive.html#cb112-2" aria-hidden="true" tabindex="-1"></a>log_lik_m1 <span class="ot">&lt;-</span> loo<span class="sc">::</span><span class="fu">extract_log_lik</span>(relativeimprovement_fit_m1 ,<span class="at">merge_chains =</span> T)</span></code></pre></div>
 <p>Then we compute the waic</p>
-<div class="sourceCode" id="cb112"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb112-1"><a href="sensitivity-analysis-model-comparison-and-posterior-predictive.html#cb112-1"></a>waic_original&lt;-loo<span class="op">::</span><span class="kw">waic</span>(log_lik_original)</span>
-<span id="cb112-2"><a href="sensitivity-analysis-model-comparison-and-posterior-predictive.html#cb112-2"></a>waic_m1&lt;-loo<span class="op">::</span><span class="kw">waic</span>(log_lik_m1)</span></code></pre></div>
+<div class="sourceCode" id="cb113"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb113-1"><a href="sensitivity-analysis-model-comparison-and-posterior-predictive.html#cb113-1" aria-hidden="true" tabindex="-1"></a>waic_original<span class="ot">&lt;-</span>loo<span class="sc">::</span><span class="fu">waic</span>(log_lik_original)</span>
+<span id="cb113-2"><a href="sensitivity-analysis-model-comparison-and-posterior-predictive.html#cb113-2" aria-hidden="true" tabindex="-1"></a>waic_m1<span class="ot">&lt;-</span>loo<span class="sc">::</span><span class="fu">waic</span>(log_lik_m1)</span></code></pre></div>
 <p>Now we use the compare function</p>
-<div class="sourceCode" id="cb113"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb113-1"><a href="sensitivity-analysis-model-comparison-and-posterior-predictive.html#cb113-1"></a><span class="kw">print</span>(waic_original)</span></code></pre></div>
+<div class="sourceCode" id="cb114"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb114-1"><a href="sensitivity-analysis-model-comparison-and-posterior-predictive.html#cb114-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(waic_original)</span></code></pre></div>
 <pre><code>
 Computed from 3200 by 9000 log-likelihood matrix
 
@@ -254,7 +263,7 @@ Computed from 3200 by 9000 log-likelihood matrix
 elpd_waic  -8723.2  53.7
 p_waic        33.7   0.4
 waic       17446.3 107.4</code></pre>
-<div class="sourceCode" id="cb115"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb115-1"><a href="sensitivity-analysis-model-comparison-and-posterior-predictive.html#cb115-1"></a><span class="kw">print</span>(waic_m1)</span></code></pre></div>
+<div class="sourceCode" id="cb116"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb116-1"><a href="sensitivity-analysis-model-comparison-and-posterior-predictive.html#cb116-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(waic_m1)</span></code></pre></div>
 <pre><code>
 Computed from 3200 by 9000 log-likelihood matrix
 
@@ -262,18 +271,18 @@ Computed from 3200 by 9000 log-likelihood matrix
 elpd_waic  -8913.5  52.2
 p_waic         6.6   0.1
 waic       17827.0 104.4</code></pre>
-<div class="sourceCode" id="cb117"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb117-1"><a href="sensitivity-analysis-model-comparison-and-posterior-predictive.html#cb117-1"></a>loo<span class="op">::</span><span class="kw">loo_compare</span>(waic_original, waic_m1)</span></code></pre></div>
+<div class="sourceCode" id="cb118"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb118-1"><a href="sensitivity-analysis-model-comparison-and-posterior-predictive.html#cb118-1" aria-hidden="true" tabindex="-1"></a>loo<span class="sc">::</span><span class="fu">loo_compare</span>(waic_original, waic_m1)</span></code></pre></div>
 <pre><code>       elpd_diff se_diff
 model1    0.0       0.0 
 model2 -190.3      20.1 </code></pre>
 <p>We can see that the WAIC original (with clustering) provides a big improvement over m1 (without clustering).</p>
 </div>
-<div id="sensitivity-analysis-of-priors" class="section level2">
+<div id="sensitivity-analysis-of-priors" class="section level2" number="7.2">
 <h2><span class="header-section-number">7.2</span> Sensitivity analysis of priors</h2>
-<div class="sourceCode" id="cb119"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb119-1"><a href="sensitivity-analysis-model-comparison-and-posterior-predictive.html#cb119-1"></a>log_lik_m2 &lt;-<span class="st"> </span>loo<span class="op">::</span><span class="kw">extract_log_lik</span>(relativeimprovement_fit_m2, <span class="dt">merge_chains =</span> T)</span></code></pre></div>
+<div class="sourceCode" id="cb120"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb120-1"><a href="sensitivity-analysis-model-comparison-and-posterior-predictive.html#cb120-1" aria-hidden="true" tabindex="-1"></a>log_lik_m2 <span class="ot">&lt;-</span> loo<span class="sc">::</span><span class="fu">extract_log_lik</span>(relativeimprovement_fit_m2, <span class="at">merge_chains =</span> T)</span></code></pre></div>
 <p>First let’s look at the WAIC</p>
-<div class="sourceCode" id="cb120"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb120-1"><a href="sensitivity-analysis-model-comparison-and-posterior-predictive.html#cb120-1"></a>waic_m2&lt;-loo<span class="op">::</span><span class="kw">waic</span>(log_lik_m2)</span>
-<span id="cb120-2"><a href="sensitivity-analysis-model-comparison-and-posterior-predictive.html#cb120-2"></a><span class="kw">print</span>(waic_m2)</span></code></pre></div>
+<div class="sourceCode" id="cb121"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb121-1"><a href="sensitivity-analysis-model-comparison-and-posterior-predictive.html#cb121-1" aria-hidden="true" tabindex="-1"></a>waic_m2<span class="ot">&lt;-</span>loo<span class="sc">::</span><span class="fu">waic</span>(log_lik_m2)</span>
+<span id="cb121-2"><a href="sensitivity-analysis-model-comparison-and-posterior-predictive.html#cb121-2" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(waic_m2)</span></code></pre></div>
 <pre><code>
 Computed from 3200 by 9000 log-likelihood matrix
 
@@ -282,22 +291,24 @@ elpd_waic  -8723.6  53.7
 p_waic        34.1   0.4
 waic       17447.2 107.5</code></pre>
 <p>Comparing the models</p>
-<div class="sourceCode" id="cb122"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb122-1"><a href="sensitivity-analysis-model-comparison-and-posterior-predictive.html#cb122-1"></a>loo<span class="op">::</span><span class="kw">loo_compare</span>(waic_original, waic_m2)</span></code></pre></div>
+<div class="sourceCode" id="cb123"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb123-1"><a href="sensitivity-analysis-model-comparison-and-posterior-predictive.html#cb123-1" aria-hidden="true" tabindex="-1"></a>loo<span class="sc">::</span><span class="fu">loo_compare</span>(waic_original, waic_m2)</span></code></pre></div>
 <pre><code>       elpd_diff se_diff
 model1  0.0       0.0   
 model2 -0.4       0.1   </code></pre>
 <p>We can see here that there is no significant difference between the models with the two priors. This already indicates some robustness in the estimation parameters regardless of the priors (which is expected since both are weakly informative priors).</p>
 <p>Comparing the estimates for the intercepts of the algorithms only. Note that since we have a very big stanfit the summary calculations might take a bit longer.</p>
-<div class="sourceCode" id="cb124"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb124-1"><a href="sensitivity-analysis-model-comparison-and-posterior-predictive.html#cb124-1"></a>a_alg &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;a_alg[1]&quot;</span>,</span>
-<span id="cb124-2"><a href="sensitivity-analysis-model-comparison-and-posterior-predictive.html#cb124-2"></a>           <span class="st">&quot;a_alg[2]&quot;</span>,</span>
-<span id="cb124-3"><a href="sensitivity-analysis-model-comparison-and-posterior-predictive.html#cb124-3"></a>           <span class="st">&quot;a_alg[3]&quot;</span>,</span>
-<span id="cb124-4"><a href="sensitivity-analysis-model-comparison-and-posterior-predictive.html#cb124-4"></a>           <span class="st">&quot;a_alg[4]&quot;</span>,</span>
-<span id="cb124-5"><a href="sensitivity-analysis-model-comparison-and-posterior-predictive.html#cb124-5"></a>           <span class="st">&quot;a_alg[5]&quot;</span>,</span>
-<span id="cb124-6"><a href="sensitivity-analysis-model-comparison-and-posterior-predictive.html#cb124-6"></a>           <span class="st">&quot;a_alg[6]&quot;</span>)</span>
-<span id="cb124-7"><a href="sensitivity-analysis-model-comparison-and-posterior-predictive.html#cb124-7"></a>df_original&lt;-<span class="kw">summary</span>(relativeimprovement_fit_original, <span class="dt">pars =</span> a_alg)<span class="op">$</span>summary</span>
-<span id="cb124-8"><a href="sensitivity-analysis-model-comparison-and-posterior-predictive.html#cb124-8"></a></span>
-<span id="cb124-9"><a href="sensitivity-analysis-model-comparison-and-posterior-predictive.html#cb124-9"></a><span class="kw">kable</span>(df_original, <span class="st">&quot;html&quot;</span>,<span class="dt">booktabs=</span>T, <span class="dt">format.args =</span> <span class="kw">list</span>(<span class="dt">scientific =</span> <span class="ot">FALSE</span>), <span class="dt">digits =</span> <span class="dv">3</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb124-10"><a href="sensitivity-analysis-model-comparison-and-posterior-predictive.html#cb124-10"></a><span class="st">  </span><span class="kw">kable_styling</span>(<span class="dt">bootstrap_options =</span> <span class="kw">c</span>(<span class="st">&quot;striped&quot;</span>, <span class="st">&quot;hover&quot;</span>, <span class="st">&quot;condensed&quot;</span>)) </span></code></pre></div>
+<div class="sourceCode" id="cb125"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb125-1"><a href="sensitivity-analysis-model-comparison-and-posterior-predictive.html#cb125-1" aria-hidden="true" tabindex="-1"></a>a_alg <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;a_alg[1]&quot;</span>,</span>
+<span id="cb125-2"><a href="sensitivity-analysis-model-comparison-and-posterior-predictive.html#cb125-2" aria-hidden="true" tabindex="-1"></a>           <span class="st">&quot;a_alg[2]&quot;</span>,</span>
+<span id="cb125-3"><a href="sensitivity-analysis-model-comparison-and-posterior-predictive.html#cb125-3" aria-hidden="true" tabindex="-1"></a>           <span class="st">&quot;a_alg[3]&quot;</span>,</span>
+<span id="cb125-4"><a href="sensitivity-analysis-model-comparison-and-posterior-predictive.html#cb125-4" aria-hidden="true" tabindex="-1"></a>           <span class="st">&quot;a_alg[4]&quot;</span>,</span>
+<span id="cb125-5"><a href="sensitivity-analysis-model-comparison-and-posterior-predictive.html#cb125-5" aria-hidden="true" tabindex="-1"></a>           <span class="st">&quot;a_alg[5]&quot;</span>,</span>
+<span id="cb125-6"><a href="sensitivity-analysis-model-comparison-and-posterior-predictive.html#cb125-6" aria-hidden="true" tabindex="-1"></a>           <span class="st">&quot;a_alg[6]&quot;</span>)</span>
+<span id="cb125-7"><a href="sensitivity-analysis-model-comparison-and-posterior-predictive.html#cb125-7" aria-hidden="true" tabindex="-1"></a>df_original<span class="ot">&lt;-</span><span class="fu">summary</span>(relativeimprovement_fit_original, <span class="at">pars =</span> a_alg)<span class="sc">$</span>summary</span>
+<span id="cb125-8"><a href="sensitivity-analysis-model-comparison-and-posterior-predictive.html#cb125-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb125-9"><a href="sensitivity-analysis-model-comparison-and-posterior-predictive.html#cb125-9" aria-hidden="true" tabindex="-1"></a><span class="fu">kable</span>(df_original, <span class="st">&quot;html&quot;</span>,<span class="at">booktabs=</span>T, <span class="at">format.args =</span> <span class="fu">list</span>(<span class="at">scientific =</span> <span class="cn">FALSE</span>), <span class="at">digits =</span> <span class="dv">3</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb125-10"><a href="sensitivity-analysis-model-comparison-and-posterior-predictive.html#cb125-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable_styling</span>(<span class="at">bootstrap_options =</span> <span class="fu">c</span>(<span class="st">&quot;striped&quot;</span>, <span class="st">&quot;hover&quot;</span>, <span class="st">&quot;condensed&quot;</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb125-11"><a href="sensitivity-analysis-model-comparison-and-posterior-predictive.html#cb125-11" aria-hidden="true" tabindex="-1"></a>  kableExtra<span class="sc">::</span><span class="fu">scroll_box</span>(<span class="at">width =</span> <span class="st">&quot;100%&quot;</span>)</span></code></pre></div>
+<div style="border: 1px solid #ddd; padding: 5px; overflow-x: scroll; width:100%; ">
 <table class="table table-striped table-hover table-condensed" style="margin-left: auto; margin-right: auto;">
 <thead>
 <tr>
@@ -548,9 +559,12 @@ a_alg[6]
 </tr>
 </tbody>
 </table>
-<div class="sourceCode" id="cb125"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb125-1"><a href="sensitivity-analysis-model-comparison-and-posterior-predictive.html#cb125-1"></a>df_m2&lt;-<span class="kw">summary</span>(relativeimprovement_fit_m2, <span class="dt">pars =</span> a_alg)<span class="op">$</span>summary</span>
-<span id="cb125-2"><a href="sensitivity-analysis-model-comparison-and-posterior-predictive.html#cb125-2"></a><span class="kw">kable</span>(df_m2, <span class="st">&quot;html&quot;</span>,<span class="dt">booktabs=</span>T, <span class="dt">format.args =</span> <span class="kw">list</span>(<span class="dt">scientific =</span> <span class="ot">FALSE</span>), <span class="dt">digits =</span> <span class="dv">3</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb125-3"><a href="sensitivity-analysis-model-comparison-and-posterior-predictive.html#cb125-3"></a><span class="st">  </span><span class="kw">kable_styling</span>(<span class="dt">bootstrap_options =</span> <span class="kw">c</span>(<span class="st">&quot;striped&quot;</span>, <span class="st">&quot;hover&quot;</span>, <span class="st">&quot;condensed&quot;</span>)) </span></code></pre></div>
+</div>
+<div class="sourceCode" id="cb126"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb126-1"><a href="sensitivity-analysis-model-comparison-and-posterior-predictive.html#cb126-1" aria-hidden="true" tabindex="-1"></a>df_m2<span class="ot">&lt;-</span><span class="fu">summary</span>(relativeimprovement_fit_m2, <span class="at">pars =</span> a_alg)<span class="sc">$</span>summary</span>
+<span id="cb126-2"><a href="sensitivity-analysis-model-comparison-and-posterior-predictive.html#cb126-2" aria-hidden="true" tabindex="-1"></a><span class="fu">kable</span>(df_m2, <span class="st">&quot;html&quot;</span>,<span class="at">booktabs=</span>T, <span class="at">format.args =</span> <span class="fu">list</span>(<span class="at">scientific =</span> <span class="cn">FALSE</span>), <span class="at">digits =</span> <span class="dv">3</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb126-3"><a href="sensitivity-analysis-model-comparison-and-posterior-predictive.html#cb126-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable_styling</span>(<span class="at">bootstrap_options =</span> <span class="fu">c</span>(<span class="st">&quot;striped&quot;</span>, <span class="st">&quot;hover&quot;</span>, <span class="st">&quot;condensed&quot;</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb126-4"><a href="sensitivity-analysis-model-comparison-and-posterior-predictive.html#cb126-4" aria-hidden="true" tabindex="-1"></a>  kableExtra<span class="sc">::</span><span class="fu">scroll_box</span>(<span class="at">width =</span> <span class="st">&quot;100%&quot;</span>)</span></code></pre></div>
+<div style="border: 1px solid #ddd; padding: 5px; overflow-x: scroll; width:100%; ">
 <table class="table table-striped table-hover table-condensed" style="margin-left: auto; margin-right: auto;">
 <thead>
 <tr>
@@ -801,66 +815,67 @@ a_alg[6]
 </tr>
 </tbody>
 </table>
+</div>
 <p>We can see from both tables that the estimates of the algorithms intercepts are very similar, which starts to indicate a certain robustness of the model in respect to the priors.</p>
 </div>
-<div id="posterior-predictive-plots" class="section level2">
+<div id="posterior-predictive-plots" class="section level2" number="7.3">
 <h2><span class="header-section-number">7.3</span> Posterior predictive plots</h2>
 <p>To check for the posterior predictive we will use the original model.</p>
 <p>First we extract the posterior of the predictive values. We have in this posterior 3200 rows (800 iterations for every chain) and 9000 columns (1 for each point in the dataset).
 Lets start by resampling to get only 100 estimates for each observation. Then we will create a data frame that has a column for each type of observation. Then we will pivot longer so the 100 observations go to a single column. This will multiply the dataset number of rows by 100 . This will facilitate plotting with ggplot</p>
-<div class="sourceCode" id="cb126"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb126-1"><a href="sensitivity-analysis-model-comparison-and-posterior-predictive.html#cb126-1"></a>y_rep_posterior &lt;-<span class="st"> </span><span class="kw">as_tibble</span>(rstan<span class="op">::</span><span class="kw">extract</span>(relativeimprovement_fit_original, <span class="dt">pars=</span><span class="st">&#39;y_rep&#39;</span>)<span class="op">$</span>y_rep)</span>
-<span id="cb126-2"><a href="sensitivity-analysis-model-comparison-and-posterior-predictive.html#cb126-2"></a>y_rep &lt;-<span class="st"> </span><span class="kw">as_tibble</span>(<span class="kw">t</span>(<span class="kw">sample_n</span>(y_rep_posterior, <span class="dt">size=</span><span class="dv">100</span>)))</span>
-<span id="cb126-3"><a href="sensitivity-analysis-model-comparison-and-posterior-predictive.html#cb126-3"></a>y &lt;-<span class="st"> </span><span class="kw">as_tibble</span>(standata<span class="op">$</span>y)  <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">select</span>(<span class="dt">y_obs=</span>value)</span>
-<span id="cb126-4"><a href="sensitivity-analysis-model-comparison-and-posterior-predictive.html#cb126-4"></a>algo&lt;-<span class="kw">as_tibble</span>(standata<span class="op">$</span>algorithm_id) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">select</span>(<span class="dt">algo=</span>value)</span>
-<span id="cb126-5"><a href="sensitivity-analysis-model-comparison-and-posterior-predictive.html#cb126-5"></a>algo<span class="op">$</span>algo&lt;-dplyr<span class="op">::</span><span class="kw">recode</span>(algo<span class="op">$</span>algo, <span class="st">&#39;1&#39;</span>=algorithms[<span class="dv">1</span>], <span class="st">&#39;2&#39;</span>=algorithms[<span class="dv">2</span>], <span class="st">&#39;3&#39;</span>=algorithms[<span class="dv">3</span>], <span class="st">&#39;4&#39;</span>=algorithms[<span class="dv">4</span>], <span class="st">&#39;5&#39;</span>=algorithms[<span class="dv">5</span>], <span class="st">&#39;6&#39;</span>=algorithms[<span class="dv">6</span>])</span>
-<span id="cb126-6"><a href="sensitivity-analysis-model-comparison-and-posterior-predictive.html#cb126-6"></a></span>
-<span id="cb126-7"><a href="sensitivity-analysis-model-comparison-and-posterior-predictive.html#cb126-7"></a>benchmark &lt;-<span class="st"> </span><span class="kw">as_tibble</span>(standata<span class="op">$</span>bm_id) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">select</span>(<span class="dt">benchmark=</span>value)</span>
-<span id="cb126-8"><a href="sensitivity-analysis-model-comparison-and-posterior-predictive.html#cb126-8"></a>benchmark<span class="op">$</span>benchmark&lt;-dplyr<span class="op">::</span><span class="kw">recode</span>(benchmark<span class="op">$</span>benchmark, </span>
-<span id="cb126-9"><a href="sensitivity-analysis-model-comparison-and-posterior-predictive.html#cb126-9"></a>                                   <span class="st">&#39;1&#39;</span>=bm[<span class="dv">1</span>], </span>
-<span id="cb126-10"><a href="sensitivity-analysis-model-comparison-and-posterior-predictive.html#cb126-10"></a>                                   <span class="st">&#39;2&#39;</span>=bm[<span class="dv">2</span>], </span>
-<span id="cb126-11"><a href="sensitivity-analysis-model-comparison-and-posterior-predictive.html#cb126-11"></a>                                   <span class="st">&#39;3&#39;</span>=bm[<span class="dv">3</span>], </span>
-<span id="cb126-12"><a href="sensitivity-analysis-model-comparison-and-posterior-predictive.html#cb126-12"></a>                                   <span class="st">&#39;4&#39;</span>=bm[<span class="dv">4</span>], </span>
-<span id="cb126-13"><a href="sensitivity-analysis-model-comparison-and-posterior-predictive.html#cb126-13"></a>                                   <span class="st">&#39;5&#39;</span>=bm[<span class="dv">5</span>], </span>
-<span id="cb126-14"><a href="sensitivity-analysis-model-comparison-and-posterior-predictive.html#cb126-14"></a>                                   <span class="st">&#39;6&#39;</span>=bm[<span class="dv">6</span>],</span>
-<span id="cb126-15"><a href="sensitivity-analysis-model-comparison-and-posterior-predictive.html#cb126-15"></a>                                   <span class="st">&#39;7&#39;</span>=bm[<span class="dv">7</span>], </span>
-<span id="cb126-16"><a href="sensitivity-analysis-model-comparison-and-posterior-predictive.html#cb126-16"></a>                                   <span class="st">&#39;8&#39;</span>=bm[<span class="dv">8</span>], </span>
-<span id="cb126-17"><a href="sensitivity-analysis-model-comparison-and-posterior-predictive.html#cb126-17"></a>                                   <span class="st">&#39;9&#39;</span>=bm[<span class="dv">9</span>], </span>
-<span id="cb126-18"><a href="sensitivity-analysis-model-comparison-and-posterior-predictive.html#cb126-18"></a>                                   <span class="st">&#39;10&#39;</span>=bm[<span class="dv">10</span>], </span>
-<span id="cb126-19"><a href="sensitivity-analysis-model-comparison-and-posterior-predictive.html#cb126-19"></a>                                   <span class="st">&#39;11&#39;</span>=bm[<span class="dv">11</span>], </span>
-<span id="cb126-20"><a href="sensitivity-analysis-model-comparison-and-posterior-predictive.html#cb126-20"></a>                                   <span class="st">&#39;12&#39;</span>=bm[<span class="dv">12</span>], </span>
-<span id="cb126-21"><a href="sensitivity-analysis-model-comparison-and-posterior-predictive.html#cb126-21"></a>                                   <span class="st">&#39;13&#39;</span>=bm[<span class="dv">13</span>], </span>
-<span id="cb126-22"><a href="sensitivity-analysis-model-comparison-and-posterior-predictive.html#cb126-22"></a>                                   <span class="st">&#39;14&#39;</span>=bm[<span class="dv">14</span>], </span>
-<span id="cb126-23"><a href="sensitivity-analysis-model-comparison-and-posterior-predictive.html#cb126-23"></a>                                   <span class="st">&#39;15&#39;</span>=bm[<span class="dv">15</span>], </span>
-<span id="cb126-24"><a href="sensitivity-analysis-model-comparison-and-posterior-predictive.html#cb126-24"></a>                                   <span class="st">&#39;16&#39;</span>=bm[<span class="dv">16</span>], </span>
-<span id="cb126-25"><a href="sensitivity-analysis-model-comparison-and-posterior-predictive.html#cb126-25"></a>                                   <span class="st">&#39;17&#39;</span>=bm[<span class="dv">17</span>], </span>
-<span id="cb126-26"><a href="sensitivity-analysis-model-comparison-and-posterior-predictive.html#cb126-26"></a>                                   <span class="st">&#39;18&#39;</span>=bm[<span class="dv">18</span>], </span>
-<span id="cb126-27"><a href="sensitivity-analysis-model-comparison-and-posterior-predictive.html#cb126-27"></a>                                   <span class="st">&#39;19&#39;</span>=bm[<span class="dv">19</span>], </span>
-<span id="cb126-28"><a href="sensitivity-analysis-model-comparison-and-posterior-predictive.html#cb126-28"></a>                                   <span class="st">&#39;20&#39;</span>=bm[<span class="dv">20</span>], </span>
-<span id="cb126-29"><a href="sensitivity-analysis-model-comparison-and-posterior-predictive.html#cb126-29"></a>                                   <span class="st">&#39;21&#39;</span>=bm[<span class="dv">21</span>], </span>
-<span id="cb126-30"><a href="sensitivity-analysis-model-comparison-and-posterior-predictive.html#cb126-30"></a>                                   <span class="st">&#39;22&#39;</span>=bm[<span class="dv">22</span>], </span>
-<span id="cb126-31"><a href="sensitivity-analysis-model-comparison-and-posterior-predictive.html#cb126-31"></a>                                   <span class="st">&#39;23&#39;</span>=bm[<span class="dv">23</span>], </span>
-<span id="cb126-32"><a href="sensitivity-analysis-model-comparison-and-posterior-predictive.html#cb126-32"></a>                                   <span class="st">&#39;24&#39;</span>=bm[<span class="dv">24</span>], </span>
-<span id="cb126-33"><a href="sensitivity-analysis-model-comparison-and-posterior-predictive.html#cb126-33"></a>                                   <span class="st">&#39;25&#39;</span>=bm[<span class="dv">25</span>], </span>
-<span id="cb126-34"><a href="sensitivity-analysis-model-comparison-and-posterior-predictive.html#cb126-34"></a>                                   <span class="st">&#39;26&#39;</span>=bm[<span class="dv">26</span>], </span>
-<span id="cb126-35"><a href="sensitivity-analysis-model-comparison-and-posterior-predictive.html#cb126-35"></a>                                   <span class="st">&#39;27&#39;</span>=bm[<span class="dv">27</span>], </span>
-<span id="cb126-36"><a href="sensitivity-analysis-model-comparison-and-posterior-predictive.html#cb126-36"></a>                                   <span class="st">&#39;28&#39;</span>=bm[<span class="dv">28</span>], </span>
-<span id="cb126-37"><a href="sensitivity-analysis-model-comparison-and-posterior-predictive.html#cb126-37"></a>                                   <span class="st">&#39;29&#39;</span>=bm[<span class="dv">29</span>], </span>
-<span id="cb126-38"><a href="sensitivity-analysis-model-comparison-and-posterior-predictive.html#cb126-38"></a>                                   <span class="st">&#39;30&#39;</span>=bm[<span class="dv">30</span>]</span>
-<span id="cb126-39"><a href="sensitivity-analysis-model-comparison-and-posterior-predictive.html#cb126-39"></a>                                   )</span>
-<span id="cb126-40"><a href="sensitivity-analysis-model-comparison-and-posterior-predictive.html#cb126-40"></a></span>
-<span id="cb126-41"><a href="sensitivity-analysis-model-comparison-and-posterior-predictive.html#cb126-41"></a>df &lt;-<span class="st"> </span>algo <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb126-42"><a href="sensitivity-analysis-model-comparison-and-posterior-predictive.html#cb126-42"></a><span class="st">  </span><span class="kw">add_column</span>(benchmark) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb126-43"><a href="sensitivity-analysis-model-comparison-and-posterior-predictive.html#cb126-43"></a><span class="st">  </span><span class="kw">add_column</span>(y) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb126-44"><a href="sensitivity-analysis-model-comparison-and-posterior-predictive.html#cb126-44"></a><span class="st">  </span><span class="kw">add_column</span>(y_rep) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb126-45"><a href="sensitivity-analysis-model-comparison-and-posterior-predictive.html#cb126-45"></a><span class="st">  </span>tidyr<span class="op">::</span><span class="kw">pivot_longer</span>(<span class="dt">cols=</span><span class="dv">4</span><span class="op">:</span><span class="dv">103</span>,<span class="dt">names_to =</span> <span class="st">&#39;sample&#39;</span>, <span class="dt">values_to=</span><span class="st">&#39;y_rep&#39;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb127"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb127-1"><a href="sensitivity-analysis-model-comparison-and-posterior-predictive.html#cb127-1" aria-hidden="true" tabindex="-1"></a>y_rep_posterior <span class="ot">&lt;-</span> <span class="fu">as_tibble</span>(rstan<span class="sc">::</span><span class="fu">extract</span>(relativeimprovement_fit_original, <span class="at">pars=</span><span class="st">&#39;y_rep&#39;</span>)<span class="sc">$</span>y_rep)</span>
+<span id="cb127-2"><a href="sensitivity-analysis-model-comparison-and-posterior-predictive.html#cb127-2" aria-hidden="true" tabindex="-1"></a>y_rep <span class="ot">&lt;-</span> <span class="fu">as_tibble</span>(<span class="fu">t</span>(<span class="fu">sample_n</span>(y_rep_posterior, <span class="at">size=</span><span class="dv">100</span>)))</span>
+<span id="cb127-3"><a href="sensitivity-analysis-model-comparison-and-posterior-predictive.html#cb127-3" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">as_tibble</span>(standata<span class="sc">$</span>y)  <span class="sc">%&gt;%</span> <span class="fu">select</span>(<span class="at">y_obs=</span>value)</span>
+<span id="cb127-4"><a href="sensitivity-analysis-model-comparison-and-posterior-predictive.html#cb127-4" aria-hidden="true" tabindex="-1"></a>algo<span class="ot">&lt;-</span><span class="fu">as_tibble</span>(standata<span class="sc">$</span>algorithm_id) <span class="sc">%&gt;%</span> <span class="fu">select</span>(<span class="at">algo=</span>value)</span>
+<span id="cb127-5"><a href="sensitivity-analysis-model-comparison-and-posterior-predictive.html#cb127-5" aria-hidden="true" tabindex="-1"></a>algo<span class="sc">$</span>algo<span class="ot">&lt;-</span>dplyr<span class="sc">::</span><span class="fu">recode</span>(algo<span class="sc">$</span>algo, <span class="st">&#39;1&#39;</span><span class="ot">=</span>algorithms[<span class="dv">1</span>], <span class="st">&#39;2&#39;</span><span class="ot">=</span>algorithms[<span class="dv">2</span>], <span class="st">&#39;3&#39;</span><span class="ot">=</span>algorithms[<span class="dv">3</span>], <span class="st">&#39;4&#39;</span><span class="ot">=</span>algorithms[<span class="dv">4</span>], <span class="st">&#39;5&#39;</span><span class="ot">=</span>algorithms[<span class="dv">5</span>], <span class="st">&#39;6&#39;</span><span class="ot">=</span>algorithms[<span class="dv">6</span>])</span>
+<span id="cb127-6"><a href="sensitivity-analysis-model-comparison-and-posterior-predictive.html#cb127-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb127-7"><a href="sensitivity-analysis-model-comparison-and-posterior-predictive.html#cb127-7" aria-hidden="true" tabindex="-1"></a>benchmark <span class="ot">&lt;-</span> <span class="fu">as_tibble</span>(standata<span class="sc">$</span>bm_id) <span class="sc">%&gt;%</span> <span class="fu">select</span>(<span class="at">benchmark=</span>value)</span>
+<span id="cb127-8"><a href="sensitivity-analysis-model-comparison-and-posterior-predictive.html#cb127-8" aria-hidden="true" tabindex="-1"></a>benchmark<span class="sc">$</span>benchmark<span class="ot">&lt;-</span>dplyr<span class="sc">::</span><span class="fu">recode</span>(benchmark<span class="sc">$</span>benchmark, </span>
+<span id="cb127-9"><a href="sensitivity-analysis-model-comparison-and-posterior-predictive.html#cb127-9" aria-hidden="true" tabindex="-1"></a>                                   <span class="st">&#39;1&#39;</span><span class="ot">=</span>bm[<span class="dv">1</span>], </span>
+<span id="cb127-10"><a href="sensitivity-analysis-model-comparison-and-posterior-predictive.html#cb127-10" aria-hidden="true" tabindex="-1"></a>                                   <span class="st">&#39;2&#39;</span><span class="ot">=</span>bm[<span class="dv">2</span>], </span>
+<span id="cb127-11"><a href="sensitivity-analysis-model-comparison-and-posterior-predictive.html#cb127-11" aria-hidden="true" tabindex="-1"></a>                                   <span class="st">&#39;3&#39;</span><span class="ot">=</span>bm[<span class="dv">3</span>], </span>
+<span id="cb127-12"><a href="sensitivity-analysis-model-comparison-and-posterior-predictive.html#cb127-12" aria-hidden="true" tabindex="-1"></a>                                   <span class="st">&#39;4&#39;</span><span class="ot">=</span>bm[<span class="dv">4</span>], </span>
+<span id="cb127-13"><a href="sensitivity-analysis-model-comparison-and-posterior-predictive.html#cb127-13" aria-hidden="true" tabindex="-1"></a>                                   <span class="st">&#39;5&#39;</span><span class="ot">=</span>bm[<span class="dv">5</span>], </span>
+<span id="cb127-14"><a href="sensitivity-analysis-model-comparison-and-posterior-predictive.html#cb127-14" aria-hidden="true" tabindex="-1"></a>                                   <span class="st">&#39;6&#39;</span><span class="ot">=</span>bm[<span class="dv">6</span>],</span>
+<span id="cb127-15"><a href="sensitivity-analysis-model-comparison-and-posterior-predictive.html#cb127-15" aria-hidden="true" tabindex="-1"></a>                                   <span class="st">&#39;7&#39;</span><span class="ot">=</span>bm[<span class="dv">7</span>], </span>
+<span id="cb127-16"><a href="sensitivity-analysis-model-comparison-and-posterior-predictive.html#cb127-16" aria-hidden="true" tabindex="-1"></a>                                   <span class="st">&#39;8&#39;</span><span class="ot">=</span>bm[<span class="dv">8</span>], </span>
+<span id="cb127-17"><a href="sensitivity-analysis-model-comparison-and-posterior-predictive.html#cb127-17" aria-hidden="true" tabindex="-1"></a>                                   <span class="st">&#39;9&#39;</span><span class="ot">=</span>bm[<span class="dv">9</span>], </span>
+<span id="cb127-18"><a href="sensitivity-analysis-model-comparison-and-posterior-predictive.html#cb127-18" aria-hidden="true" tabindex="-1"></a>                                   <span class="st">&#39;10&#39;</span><span class="ot">=</span>bm[<span class="dv">10</span>], </span>
+<span id="cb127-19"><a href="sensitivity-analysis-model-comparison-and-posterior-predictive.html#cb127-19" aria-hidden="true" tabindex="-1"></a>                                   <span class="st">&#39;11&#39;</span><span class="ot">=</span>bm[<span class="dv">11</span>], </span>
+<span id="cb127-20"><a href="sensitivity-analysis-model-comparison-and-posterior-predictive.html#cb127-20" aria-hidden="true" tabindex="-1"></a>                                   <span class="st">&#39;12&#39;</span><span class="ot">=</span>bm[<span class="dv">12</span>], </span>
+<span id="cb127-21"><a href="sensitivity-analysis-model-comparison-and-posterior-predictive.html#cb127-21" aria-hidden="true" tabindex="-1"></a>                                   <span class="st">&#39;13&#39;</span><span class="ot">=</span>bm[<span class="dv">13</span>], </span>
+<span id="cb127-22"><a href="sensitivity-analysis-model-comparison-and-posterior-predictive.html#cb127-22" aria-hidden="true" tabindex="-1"></a>                                   <span class="st">&#39;14&#39;</span><span class="ot">=</span>bm[<span class="dv">14</span>], </span>
+<span id="cb127-23"><a href="sensitivity-analysis-model-comparison-and-posterior-predictive.html#cb127-23" aria-hidden="true" tabindex="-1"></a>                                   <span class="st">&#39;15&#39;</span><span class="ot">=</span>bm[<span class="dv">15</span>], </span>
+<span id="cb127-24"><a href="sensitivity-analysis-model-comparison-and-posterior-predictive.html#cb127-24" aria-hidden="true" tabindex="-1"></a>                                   <span class="st">&#39;16&#39;</span><span class="ot">=</span>bm[<span class="dv">16</span>], </span>
+<span id="cb127-25"><a href="sensitivity-analysis-model-comparison-and-posterior-predictive.html#cb127-25" aria-hidden="true" tabindex="-1"></a>                                   <span class="st">&#39;17&#39;</span><span class="ot">=</span>bm[<span class="dv">17</span>], </span>
+<span id="cb127-26"><a href="sensitivity-analysis-model-comparison-and-posterior-predictive.html#cb127-26" aria-hidden="true" tabindex="-1"></a>                                   <span class="st">&#39;18&#39;</span><span class="ot">=</span>bm[<span class="dv">18</span>], </span>
+<span id="cb127-27"><a href="sensitivity-analysis-model-comparison-and-posterior-predictive.html#cb127-27" aria-hidden="true" tabindex="-1"></a>                                   <span class="st">&#39;19&#39;</span><span class="ot">=</span>bm[<span class="dv">19</span>], </span>
+<span id="cb127-28"><a href="sensitivity-analysis-model-comparison-and-posterior-predictive.html#cb127-28" aria-hidden="true" tabindex="-1"></a>                                   <span class="st">&#39;20&#39;</span><span class="ot">=</span>bm[<span class="dv">20</span>], </span>
+<span id="cb127-29"><a href="sensitivity-analysis-model-comparison-and-posterior-predictive.html#cb127-29" aria-hidden="true" tabindex="-1"></a>                                   <span class="st">&#39;21&#39;</span><span class="ot">=</span>bm[<span class="dv">21</span>], </span>
+<span id="cb127-30"><a href="sensitivity-analysis-model-comparison-and-posterior-predictive.html#cb127-30" aria-hidden="true" tabindex="-1"></a>                                   <span class="st">&#39;22&#39;</span><span class="ot">=</span>bm[<span class="dv">22</span>], </span>
+<span id="cb127-31"><a href="sensitivity-analysis-model-comparison-and-posterior-predictive.html#cb127-31" aria-hidden="true" tabindex="-1"></a>                                   <span class="st">&#39;23&#39;</span><span class="ot">=</span>bm[<span class="dv">23</span>], </span>
+<span id="cb127-32"><a href="sensitivity-analysis-model-comparison-and-posterior-predictive.html#cb127-32" aria-hidden="true" tabindex="-1"></a>                                   <span class="st">&#39;24&#39;</span><span class="ot">=</span>bm[<span class="dv">24</span>], </span>
+<span id="cb127-33"><a href="sensitivity-analysis-model-comparison-and-posterior-predictive.html#cb127-33" aria-hidden="true" tabindex="-1"></a>                                   <span class="st">&#39;25&#39;</span><span class="ot">=</span>bm[<span class="dv">25</span>], </span>
+<span id="cb127-34"><a href="sensitivity-analysis-model-comparison-and-posterior-predictive.html#cb127-34" aria-hidden="true" tabindex="-1"></a>                                   <span class="st">&#39;26&#39;</span><span class="ot">=</span>bm[<span class="dv">26</span>], </span>
+<span id="cb127-35"><a href="sensitivity-analysis-model-comparison-and-posterior-predictive.html#cb127-35" aria-hidden="true" tabindex="-1"></a>                                   <span class="st">&#39;27&#39;</span><span class="ot">=</span>bm[<span class="dv">27</span>], </span>
+<span id="cb127-36"><a href="sensitivity-analysis-model-comparison-and-posterior-predictive.html#cb127-36" aria-hidden="true" tabindex="-1"></a>                                   <span class="st">&#39;28&#39;</span><span class="ot">=</span>bm[<span class="dv">28</span>], </span>
+<span id="cb127-37"><a href="sensitivity-analysis-model-comparison-and-posterior-predictive.html#cb127-37" aria-hidden="true" tabindex="-1"></a>                                   <span class="st">&#39;29&#39;</span><span class="ot">=</span>bm[<span class="dv">29</span>], </span>
+<span id="cb127-38"><a href="sensitivity-analysis-model-comparison-and-posterior-predictive.html#cb127-38" aria-hidden="true" tabindex="-1"></a>                                   <span class="st">&#39;30&#39;</span><span class="ot">=</span>bm[<span class="dv">30</span>]</span>
+<span id="cb127-39"><a href="sensitivity-analysis-model-comparison-and-posterior-predictive.html#cb127-39" aria-hidden="true" tabindex="-1"></a>                                   )</span>
+<span id="cb127-40"><a href="sensitivity-analysis-model-comparison-and-posterior-predictive.html#cb127-40" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb127-41"><a href="sensitivity-analysis-model-comparison-and-posterior-predictive.html#cb127-41" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> algo <span class="sc">%&gt;%</span> </span>
+<span id="cb127-42"><a href="sensitivity-analysis-model-comparison-and-posterior-predictive.html#cb127-42" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_column</span>(benchmark) <span class="sc">%&gt;%</span> </span>
+<span id="cb127-43"><a href="sensitivity-analysis-model-comparison-and-posterior-predictive.html#cb127-43" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_column</span>(y) <span class="sc">%&gt;%</span> </span>
+<span id="cb127-44"><a href="sensitivity-analysis-model-comparison-and-posterior-predictive.html#cb127-44" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_column</span>(y_rep) <span class="sc">%&gt;%</span> </span>
+<span id="cb127-45"><a href="sensitivity-analysis-model-comparison-and-posterior-predictive.html#cb127-45" aria-hidden="true" tabindex="-1"></a>  tidyr<span class="sc">::</span><span class="fu">pivot_longer</span>(<span class="at">cols=</span><span class="dv">4</span><span class="sc">:</span><span class="dv">103</span>,<span class="at">names_to =</span> <span class="st">&#39;sample&#39;</span>, <span class="at">values_to=</span><span class="st">&#39;y_rep&#39;</span>)</span></code></pre></div>
 <p>There are multiple ways to plot predictive posterior. One of them is with a histogram plot of the predictions, or lines for th intercept etc..
 Here we plot the histogram of each benchmark function for the PSO algorithm. Note that the model predicts better for some benchmark functions and not so well for others, but in average all the observed values are inside the histogram of the predictions</p>
-<div class="sourceCode" id="cb127"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb127-1"><a href="sensitivity-analysis-model-comparison-and-posterior-predictive.html#cb127-1"></a><span class="kw">ggplot</span>(<span class="dt">data=</span>dplyr<span class="op">::</span><span class="kw">filter</span>(df, algo<span class="op">==</span><span class="st">&#39;PSO&#39;</span>))<span class="op">+</span></span>
-<span id="cb127-2"><a href="sensitivity-analysis-model-comparison-and-posterior-predictive.html#cb127-2"></a><span class="st">  </span><span class="kw">geom_histogram</span>(<span class="kw">aes</span>(<span class="dt">x=</span>y_rep), <span class="dt">fill=</span><span class="st">&#39;black&#39;</span>, <span class="dt">alpha=</span><span class="fl">0.8</span>)<span class="op">+</span></span>
-<span id="cb127-3"><a href="sensitivity-analysis-model-comparison-and-posterior-predictive.html#cb127-3"></a><span class="st">  </span><span class="kw">geom_histogram</span>(<span class="kw">aes</span>(<span class="dt">x=</span>y_obs), <span class="dt">fill=</span><span class="st">&#39;blue&#39;</span>, <span class="dt">alpha=</span><span class="fl">0.8</span>)<span class="op">+</span></span>
-<span id="cb127-4"><a href="sensitivity-analysis-model-comparison-and-posterior-predictive.html#cb127-4"></a><span class="st">  </span><span class="kw">facet_wrap</span>(<span class="op">~</span>benchmark)<span class="op">+</span></span>
-<span id="cb127-5"><a href="sensitivity-analysis-model-comparison-and-posterior-predictive.html#cb127-5"></a><span class="st">  </span><span class="kw">labs</span>(<span class="dt">title=</span><span class="st">&#39;Predictive posterior for the PSO&#39;</span>)</span></code></pre></div>
-<p><img src="statscomp-appendix_files/figure-html/unnamed-chunk-106-1.png" width="672" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb128"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb128-1"><a href="sensitivity-analysis-model-comparison-and-posterior-predictive.html#cb128-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data=</span>dplyr<span class="sc">::</span><span class="fu">filter</span>(df, algo<span class="sc">==</span><span class="st">&#39;PSO&#39;</span>))<span class="sc">+</span></span>
+<span id="cb128-2"><a href="sensitivity-analysis-model-comparison-and-posterior-predictive.html#cb128-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="fu">aes</span>(<span class="at">x=</span>y_rep), <span class="at">fill=</span><span class="st">&#39;black&#39;</span>, <span class="at">alpha=</span><span class="fl">0.8</span>)<span class="sc">+</span></span>
+<span id="cb128-3"><a href="sensitivity-analysis-model-comparison-and-posterior-predictive.html#cb128-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="fu">aes</span>(<span class="at">x=</span>y_obs), <span class="at">fill=</span><span class="st">&#39;blue&#39;</span>, <span class="at">alpha=</span><span class="fl">0.8</span>)<span class="sc">+</span></span>
+<span id="cb128-4"><a href="sensitivity-analysis-model-comparison-and-posterior-predictive.html#cb128-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>benchmark)<span class="sc">+</span></span>
+<span id="cb128-5"><a href="sensitivity-analysis-model-comparison-and-posterior-predictive.html#cb128-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title=</span><span class="st">&#39;Predictive posterior for the PSO&#39;</span>)</span></code></pre></div>
+<p><img src="statscomp-appendix_files/figure-html/unnamed-chunk-107-1.png" width="672" style="display: block; margin: auto;" /></p>
 
 </div>
 </div>

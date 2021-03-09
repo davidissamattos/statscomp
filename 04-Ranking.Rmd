@@ -31,7 +31,8 @@ d1 <- dataset %>%
 
 ```{r}
 kable(dplyr::sample_n(d1,size=10), booktabs=T, format.args = list(scientific = FALSE), digits = 3) %>% 
-  kable_styling(bootstrap_options = c("striped", "hover", "condensed"))
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed")) %>% 
+  kableExtra::scroll_box(width = "100%")
 ```
 
 Now to compare the ranks we need to pivot wider the data frame and based on that we will expand to the dataset in the appropriated format
@@ -44,7 +45,8 @@ d1_wide <- d1 %>%
 
 ```{r}
 kable(dplyr::sample_n(d1_wide,size=10), booktabs=T, format.args = list(scientific = FALSE), digits = 3) %>% 
-  kable_styling(bootstrap_options = c("striped", "hover", "condensed"))
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed")) %>% 
+  kableExtra::scroll_box(width = "100%")
 ```
 
 Now we need to modify this data set and expand it so we have the pairwise comparisons
@@ -61,7 +63,8 @@ The pairs combinations looks like this (for algo_0 and algo_1):
 
 ```{r}
 kable(comb, booktabs=T) %>% 
-  kable_styling(bootstrap_options = c("striped", "hover", "condensed"))
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed")) %>% 
+  kableExtra::scroll_box(width = "100%")
 ```
 Note that each row of d_wide will be expanded into `r nrow(comb)` rows. Giving a dataset with a total of `r nrow(d1_wide)*nrow(comb)` rows.
 
@@ -122,7 +125,8 @@ benchmarks <- get_index_names_as_array(df_out$CostFunction)
 Visualizing how the data frame looks like
 ```{r}
 kable(dplyr::sample_n(df_out,size=10), "html", booktabs=T, format.args = list(scientific = FALSE), digits = 3) %>% 
-  kable_styling(bootstrap_options = c("striped", "hover", "condensed"))
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed")) %>% 
+  kableExtra::scroll_box(width = "100%")
 ```
 
 ```{r include=F}
@@ -185,11 +189,12 @@ a_alg <- c("a_alg[1]",
 rstan::traceplot(ranking.fit, pars=c(a_alg,'s'))
 ```
 
-Another diagnosis is to look at the Rhat. If Rhat is greater than 1.05 it indicates a divergence in the chains (they did not mix well). The table below shows a summary of the posteriors. Note that we have several random effects parameter estimates...
-```{r}
+Another diagnosis is to look at the Rhat. If Rhat is greater than 1.05 it indicates a divergence in the chains (they did not mix well). The table below shows a summary of the posteriors. Note that we have several random effects parameter estimates.
 
+```{r}
 kable(summary(ranking.fit)$summary) %>% 
-  kable_styling(bootstrap_options = c('striped',"hover", "condensed" ))
+  kable_styling(bootstrap_options = c('striped',"hover", "condensed" )) %>% 
+  kableExtra::scroll_box(width = "100%")
 ```
 
 
@@ -274,7 +279,8 @@ we can see that in this case the probability of CMAES beating RS is between 0.50
 rank_df_table <- rank_df
 colnames(rank_df_table) <- c("Algorithm","Median Rank", "Variance of the Rank")
 kable(rank_df_table, "html") %>% 
-  kable_styling(bootstrap_options = c('striped',"hover", "condensed" ))
+  kable_styling(bootstrap_options = c('striped',"hover", "condensed" )) %>% 
+  kableExtra::scroll_box(width = "100%")
 ```
 
 ```{r include=F}

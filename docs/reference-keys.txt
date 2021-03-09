@@ -17,7 +17,7 @@ rq3-data-preparation
 rq3-stan-model
 rq3-diagnosis
 rq3-results-and-plots
-time-to-complete
+function-evaluation-to-converge
 rq4-data-preparation
 rq4-stan-model
 rq4-diagnosis

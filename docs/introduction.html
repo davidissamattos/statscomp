@@ -32,6 +32,7 @@
   
 <link rel="prev" href="index.html"/>
 <link rel="next" href="probability-of-success-model.html"/>
+<script src="libs/header-attrs-2.6/header-attrs.js"></script>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -49,24 +50,22 @@
 
 
 
-<script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
 <script src="libs/kePrint-0.0.1/kePrint.js"></script>
 <link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
 
 
 <style type="text/css">
-code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
-code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode { white-space: pre; position: relative; }
 pre.sourceCode { margin: 0; }
 @media screen {
 div.sourceCode { overflow: auto; }
 }
 @media print {
-code.sourceCode { white-space: pre-wrap; }
-code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -86,7 +85,7 @@ pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-le
 div.sourceCode
   {   }
 @media screen {
-code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
@@ -131,55 +130,65 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <nav role="navigation">
 
 <ul class="summary">
-<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a><ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a>
+<ul>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#pre-requisites"><i class="fa fa-check"></i>Pre-requisites</a></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#source-code"><i class="fa fa-check"></i>Source code</a></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#compiling-this-document"><i class="fa fa-check"></i>Compiling this document</a></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#software-environment"><i class="fa fa-check"></i>Software environment</a></li>
 </ul></li>
-<li class="chapter" data-level="1" data-path="introduction.html"><a href="introduction.html"><i class="fa fa-check"></i><b>1</b> Introduction</a><ul>
+<li class="chapter" data-level="1" data-path="introduction.html"><a href="introduction.html"><i class="fa fa-check"></i><b>1</b> Introduction</a>
+<ul>
 <li class="chapter" data-level="1.0.1" data-path="introduction.html"><a href="introduction.html#exploring-the-dataset"><i class="fa fa-check"></i><b>1.0.1</b> Exploring the dataset</a></li>
 <li class="chapter" data-level="1.0.2" data-path="introduction.html"><a href="introduction.html#column-definitions-of-the-dataset"><i class="fa fa-check"></i><b>1.0.2</b> Column definitions of the dataset</a></li>
 </ul></li>
-<li class="chapter" data-level="2" data-path="probability-of-success-model.html"><a href="probability-of-success-model.html"><i class="fa fa-check"></i><b>2</b> Probability of success model</a><ul>
+<li class="chapter" data-level="2" data-path="probability-of-success-model.html"><a href="probability-of-success-model.html"><i class="fa fa-check"></i><b>2</b> Probability of success model</a>
+<ul>
 <li class="chapter" data-level="2.1" data-path="probability-of-success-model.html"><a href="probability-of-success-model.html#rq1-data-preparation"><i class="fa fa-check"></i><b>2.1</b> RQ1 Data preparation</a></li>
 <li class="chapter" data-level="2.2" data-path="probability-of-success-model.html"><a href="probability-of-success-model.html#rq1-stan-model"><i class="fa fa-check"></i><b>2.2</b> RQ1 Stan model</a></li>
-<li class="chapter" data-level="2.3" data-path="probability-of-success-model.html"><a href="probability-of-success-model.html#rq1-diagnosis"><i class="fa fa-check"></i><b>2.3</b> RQ1 Diagnosis</a><ul>
+<li class="chapter" data-level="2.3" data-path="probability-of-success-model.html"><a href="probability-of-success-model.html#rq1-diagnosis"><i class="fa fa-check"></i><b>2.3</b> RQ1 Diagnosis</a>
+<ul>
 <li class="chapter" data-level="2.3.1" data-path="probability-of-success-model.html"><a href="probability-of-success-model.html#rq1-chains-convergence"><i class="fa fa-check"></i><b>2.3.1</b> RQ1 Chains convergence</a></li>
 </ul></li>
 <li class="chapter" data-level="2.4" data-path="probability-of-success-model.html"><a href="probability-of-success-model.html#rq1-results-and-plots"><i class="fa fa-check"></i><b>2.4</b> RQ1 Results and Plots</a></li>
 </ul></li>
-<li class="chapter" data-level="3" data-path="relative-improvement.html"><a href="relative-improvement.html"><i class="fa fa-check"></i><b>3</b> Relative improvement</a><ul>
+<li class="chapter" data-level="3" data-path="relative-improvement.html"><a href="relative-improvement.html"><i class="fa fa-check"></i><b>3</b> Relative improvement</a>
+<ul>
 <li class="chapter" data-level="3.1" data-path="relative-improvement.html"><a href="relative-improvement.html#rq2-data-preparation"><i class="fa fa-check"></i><b>3.1</b> RQ2 Data preparation</a></li>
 <li class="chapter" data-level="3.2" data-path="relative-improvement.html"><a href="relative-improvement.html#rq2-stan-model"><i class="fa fa-check"></i><b>3.2</b> RQ2 Stan model</a></li>
 <li class="chapter" data-level="3.3" data-path="relative-improvement.html"><a href="relative-improvement.html#rq2-diagnosis"><i class="fa fa-check"></i><b>3.3</b> RQ2 Diagnosis</a></li>
 <li class="chapter" data-level="3.4" data-path="relative-improvement.html"><a href="relative-improvement.html#rq2-results-and-plots"><i class="fa fa-check"></i><b>3.4</b> RQ2 Results and Plots</a></li>
 </ul></li>
-<li class="chapter" data-level="4" data-path="ranking.html"><a href="ranking.html"><i class="fa fa-check"></i><b>4</b> Ranking</a><ul>
+<li class="chapter" data-level="4" data-path="ranking.html"><a href="ranking.html"><i class="fa fa-check"></i><b>4</b> Ranking</a>
+<ul>
 <li class="chapter" data-level="4.1" data-path="ranking.html"><a href="ranking.html#rq3-data-preparation"><i class="fa fa-check"></i><b>4.1</b> RQ3 Data preparation</a></li>
 <li class="chapter" data-level="4.2" data-path="ranking.html"><a href="ranking.html#rq3-stan-model"><i class="fa fa-check"></i><b>4.2</b> RQ3 Stan model</a></li>
 <li class="chapter" data-level="4.3" data-path="ranking.html"><a href="ranking.html#rq3-diagnosis"><i class="fa fa-check"></i><b>4.3</b> RQ3 Diagnosis</a></li>
 <li class="chapter" data-level="4.4" data-path="ranking.html"><a href="ranking.html#rq3-results-and-plots"><i class="fa fa-check"></i><b>4.4</b> RQ3 Results and Plots</a></li>
 </ul></li>
-<li class="chapter" data-level="5" data-path="time-to-complete.html"><a href="time-to-complete.html"><i class="fa fa-check"></i><b>5</b> Time to complete</a><ul>
-<li class="chapter" data-level="5.1" data-path="time-to-complete.html"><a href="time-to-complete.html#rq4-data-preparation"><i class="fa fa-check"></i><b>5.1</b> RQ4 Data preparation</a></li>
-<li class="chapter" data-level="5.2" data-path="time-to-complete.html"><a href="time-to-complete.html#rq4-stan-model"><i class="fa fa-check"></i><b>5.2</b> RQ4 Stan model</a></li>
-<li class="chapter" data-level="5.3" data-path="time-to-complete.html"><a href="time-to-complete.html#rq4-diagnosis"><i class="fa fa-check"></i><b>5.3</b> RQ4 Diagnosis</a></li>
-<li class="chapter" data-level="5.4" data-path="time-to-complete.html"><a href="time-to-complete.html#rq4-results-and-plots"><i class="fa fa-check"></i><b>5.4</b> RQ4 Results and Plots</a><ul>
-<li class="chapter" data-level="5.4.1" data-path="time-to-complete.html"><a href="time-to-complete.html#rq4-parameters-and-plots"><i class="fa fa-check"></i><b>5.4.1</b> RQ4 Parameters and plots</a></li>
-<li class="chapter" data-level="5.4.2" data-path="time-to-complete.html"><a href="time-to-complete.html#hazard-ratio"><i class="fa fa-check"></i><b>5.4.2</b> Hazard ratio</a></li>
-<li class="chapter" data-level="5.4.3" data-path="time-to-complete.html"><a href="time-to-complete.html#iterations-to-converge"><i class="fa fa-check"></i><b>5.4.3</b> Iterations to Converge</a></li>
-<li class="chapter" data-level="5.4.4" data-path="time-to-complete.html"><a href="time-to-complete.html#merging-hazards-and-time-to-converge-table"><i class="fa fa-check"></i><b>5.4.4</b> Merging hazards and time to converge table</a></li>
-<li class="chapter" data-level="5.4.5" data-path="time-to-complete.html"><a href="time-to-complete.html#parameter-table"><i class="fa fa-check"></i><b>5.4.5</b> Parameter table</a></li>
+<li class="chapter" data-level="5" data-path="function-evaluation-to-converge.html"><a href="function-evaluation-to-converge.html"><i class="fa fa-check"></i><b>5</b> Function Evaluation to converge</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="function-evaluation-to-converge.html"><a href="function-evaluation-to-converge.html#rq4-data-preparation"><i class="fa fa-check"></i><b>5.1</b> RQ4 Data preparation</a></li>
+<li class="chapter" data-level="5.2" data-path="function-evaluation-to-converge.html"><a href="function-evaluation-to-converge.html#rq4-stan-model"><i class="fa fa-check"></i><b>5.2</b> RQ4 Stan model</a></li>
+<li class="chapter" data-level="5.3" data-path="function-evaluation-to-converge.html"><a href="function-evaluation-to-converge.html#rq4-diagnosis"><i class="fa fa-check"></i><b>5.3</b> RQ4 Diagnosis</a></li>
+<li class="chapter" data-level="5.4" data-path="function-evaluation-to-converge.html"><a href="function-evaluation-to-converge.html#rq4-results-and-plots"><i class="fa fa-check"></i><b>5.4</b> RQ4 Results and Plots</a>
+<ul>
+<li class="chapter" data-level="5.4.1" data-path="function-evaluation-to-converge.html"><a href="function-evaluation-to-converge.html#rq4-parameters-and-plots"><i class="fa fa-check"></i><b>5.4.1</b> RQ4 Parameters and plots</a></li>
+<li class="chapter" data-level="5.4.2" data-path="function-evaluation-to-converge.html"><a href="function-evaluation-to-converge.html#hazard-ratio"><i class="fa fa-check"></i><b>5.4.2</b> Hazard ratio</a></li>
+<li class="chapter" data-level="5.4.3" data-path="function-evaluation-to-converge.html"><a href="function-evaluation-to-converge.html#iterations-to-converge"><i class="fa fa-check"></i><b>5.4.3</b> Iterations to Converge</a></li>
+<li class="chapter" data-level="5.4.4" data-path="function-evaluation-to-converge.html"><a href="function-evaluation-to-converge.html#merging-hazards-and-time-to-converge-table"><i class="fa fa-check"></i><b>5.4.4</b> Merging hazards and time to converge table</a></li>
+<li class="chapter" data-level="5.4.5" data-path="function-evaluation-to-converge.html"><a href="function-evaluation-to-converge.html#parameter-table"><i class="fa fa-check"></i><b>5.4.5</b> Parameter table</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="6" data-path="multiple-group-comparison.html"><a href="multiple-group-comparison.html"><i class="fa fa-check"></i><b>6</b> Multiple-group comparison</a><ul>
+<li class="chapter" data-level="6" data-path="multiple-group-comparison.html"><a href="multiple-group-comparison.html"><i class="fa fa-check"></i><b>6</b> Multiple-group comparison</a>
+<ul>
 <li class="chapter" data-level="6.1" data-path="multiple-group-comparison.html"><a href="multiple-group-comparison.html#rq5-data-preparation"><i class="fa fa-check"></i><b>6.1</b> RQ5 Data preparation</a></li>
 <li class="chapter" data-level="6.2" data-path="multiple-group-comparison.html"><a href="multiple-group-comparison.html#rq5-stan-model"><i class="fa fa-check"></i><b>6.2</b> RQ5 Stan model</a></li>
 <li class="chapter" data-level="6.3" data-path="multiple-group-comparison.html"><a href="multiple-group-comparison.html#rq5-diagnosis"><i class="fa fa-check"></i><b>6.3</b> RQ5 Diagnosis</a></li>
 <li class="chapter" data-level="6.4" data-path="multiple-group-comparison.html"><a href="multiple-group-comparison.html#rq5-results-and-plots"><i class="fa fa-check"></i><b>6.4</b> RQ5 Results and Plots</a></li>
 </ul></li>
-<li class="chapter" data-level="7" data-path="sensitivity-analysis-model-comparison-and-posterior-predictive.html"><a href="sensitivity-analysis-model-comparison-and-posterior-predictive.html"><i class="fa fa-check"></i><b>7</b> Sensitivity analysis, model comparison and posterior predictive</a><ul>
+<li class="chapter" data-level="7" data-path="sensitivity-analysis-model-comparison-and-posterior-predictive.html"><a href="sensitivity-analysis-model-comparison-and-posterior-predictive.html"><i class="fa fa-check"></i><b>7</b> Sensitivity analysis, model comparison and posterior predictive</a>
+<ul>
 <li class="chapter" data-level="7.1" data-path="sensitivity-analysis-model-comparison-and-posterior-predictive.html"><a href="sensitivity-analysis-model-comparison-and-posterior-predictive.html#compare-models-with-and-without-clustering"><i class="fa fa-check"></i><b>7.1</b> Compare models with and without clustering</a></li>
 <li class="chapter" data-level="7.2" data-path="sensitivity-analysis-model-comparison-and-posterior-predictive.html"><a href="sensitivity-analysis-model-comparison-and-posterior-predictive.html#sensitivity-analysis-of-priors"><i class="fa fa-check"></i><b>7.2</b> Sensitivity analysis of priors</a></li>
 <li class="chapter" data-level="7.3" data-path="sensitivity-analysis-model-comparison-and-posterior-predictive.html"><a href="sensitivity-analysis-model-comparison-and-posterior-predictive.html#posterior-predictive-plots"><i class="fa fa-check"></i><b>7.3</b> Posterior predictive plots</a></li>
@@ -201,19 +210,21 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="introduction" class="section level1">
+<div id="introduction" class="section level1" number="1">
 <h1><span class="header-section-number">Chapter 1</span> Introduction</h1>
 <p>This document is based on a single dataset available at <code>./data/statscomp.csv</code>.
 With this dataset we ask different research questions that motivates the statistical models developed on the paper. Explanations about the models and how the data was obtained are available in the paper.</p>
-<div id="exploring-the-dataset" class="section level3">
+<div id="exploring-the-dataset" class="section level3" number="1.0.1">
 <h3><span class="header-section-number">1.0.1</span> Exploring the dataset</h3>
 <p>This dataset follows the principle of tidy data as described in <a href="https://r4ds.had.co.nz/tidy-data.html" class="uri">https://r4ds.had.co.nz/tidy-data.html</a>. The key idea is that every variables has its own column, and every observation has its own unique row. Throughout this document, to facilitate our modeling approach, we will modify this dataset in different ways, often resulting in non-tidy data. However every model will start from the same base tidy dataset.</p>
 <p>This approach will hopefully make it easier for the reader to understand from where we are starting and adopt similar strategies in their own models. Additionally, we recommend, if the reader has the opportunity to influence the data collection process, the choice of tidy data. It is often ideal for exploratory analysis, plotting, is the basis for most models, and easy to transform to be used in different models.</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="introduction.html#cb5-1"></a>d &lt;-<span class="st"> </span>readr<span class="op">::</span><span class="kw">read_csv</span>(<span class="st">&#39;./data/statscomp.csv&#39;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="introduction.html#cb5-1" aria-hidden="true" tabindex="-1"></a>d <span class="ot">&lt;-</span> readr<span class="sc">::</span><span class="fu">read_csv</span>(<span class="st">&#39;./data/statscomp.csv&#39;</span>)</span></code></pre></div>
 <p>Here we are excluding a few columns to simplify our view</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="introduction.html#cb6-1"></a><span class="kw">kable</span>(<span class="kw">head</span>(dplyr<span class="op">::</span><span class="kw">select</span>(d,</span>
-<span id="cb6-2"><a href="introduction.html#cb6-2"></a>                         <span class="op">-</span>BestArm, <span class="op">-</span>Continuous, <span class="op">-</span>Differentiability, <span class="op">-</span>Separability, <span class="op">-</span>Scalability, <span class="op">-</span>Modality,<span class="op">-</span>BBOB,<span class="op">-</span>BaseClass, <span class="op">-</span>MaxFeval, <span class="op">-</span>FevalPerDimensions),</span>
-<span id="cb6-3"><a href="introduction.html#cb6-3"></a>           <span class="dt">n=</span><span class="dv">10</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="introduction.html#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">kable</span>(<span class="fu">head</span>(dplyr<span class="sc">::</span><span class="fu">select</span>(d,</span>
+<span id="cb6-2"><a href="introduction.html#cb6-2" aria-hidden="true" tabindex="-1"></a>                         <span class="sc">-</span>BestArm, <span class="sc">-</span>Continuous, <span class="sc">-</span>Differentiability, <span class="sc">-</span>Separability, <span class="sc">-</span>Scalability, <span class="sc">-</span>Modality,<span class="sc">-</span>BBOB,<span class="sc">-</span>BaseClass, <span class="sc">-</span>MaxFeval, <span class="sc">-</span>FevalPerDimensions),</span>
+<span id="cb6-3"><a href="introduction.html#cb6-3" aria-hidden="true" tabindex="-1"></a>           <span class="at">n=</span><span class="dv">10</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb6-4"><a href="introduction.html#cb6-4" aria-hidden="true" tabindex="-1"></a>  kableExtra<span class="sc">::</span><span class="fu">scroll_box</span>(<span class="at">width =</span> <span class="st">&quot;100%&quot;</span>)</span></code></pre></div>
+<div style="border: 1px solid #ddd; padding: 5px; overflow-x: scroll; width:100%; ">
 <table>
 <thead>
 <tr>
@@ -903,7 +914,8 @@ NA
 </tbody>
 </table>
 </div>
-<div id="column-definitions-of-the-dataset" class="section level3">
+</div>
+<div id="column-definitions-of-the-dataset" class="section level3" number="1.0.2">
 <h3><span class="header-section-number">1.0.2</span> Column definitions of the dataset</h3>
 <ul>
 <li>Algorithms: <em>string</em> Algorithm used in the optimization</li>

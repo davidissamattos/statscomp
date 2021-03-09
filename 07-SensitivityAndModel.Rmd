@@ -116,13 +116,15 @@ a_alg <- c("a_alg[1]",
 df_original<-summary(relativeimprovement_fit_original, pars = a_alg)$summary
 
 kable(df_original, "html",booktabs=T, format.args = list(scientific = FALSE), digits = 3) %>% 
-  kable_styling(bootstrap_options = c("striped", "hover", "condensed")) 
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed")) %>% 
+  kableExtra::scroll_box(width = "100%")
 ```
 
 ```{r}
 df_m2<-summary(relativeimprovement_fit_m2, pars = a_alg)$summary
 kable(df_m2, "html",booktabs=T, format.args = list(scientific = FALSE), digits = 3) %>% 
-  kable_styling(bootstrap_options = c("striped", "hover", "condensed")) 
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed")) %>% 
+  kableExtra::scroll_box(width = "100%")
 ```
 
 

@@ -73,7 +73,8 @@ saveRDS(algorithms, './data/relativeimprovement_algorithms.RDS')
 Now we have our final dataset to use with Stan. Lets preview a sample of the data set
 ```{r}
 kable(dplyr::sample_n(d_final,size=10), "html",booktabs=T, format.args = list(scientific = FALSE), digits = 3) %>% 
-  kable_styling(bootstrap_options = c("striped", "hover", "condensed")) 
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed")) %>% 
+  kableExtra::scroll_box(width = "100%")
 ```
 
 ```{r include=F}
@@ -134,7 +135,8 @@ rstan::traceplot(relativeimprovement.fit, pars=c('s','sigma'))
 Another diagnosis is to look at the Rhat. If Rhat is greater than 1.05 it indicates a divergence in the chains (they did not mix well). The table below shows a summary of the sampling.
 ```{r}
 kable(summary(relativeimprovement.fit)$summary) %>% 
-  kable_styling(bootstrap_options = c('striped',"hover", "condensed" ))
+  kable_styling(bootstrap_options = c('striped',"hover", "condensed" )) %>% 
+  kableExtra::scroll_box(width = "100%")
 ```
 
 ## RQ2 Results and Plots
@@ -188,7 +190,8 @@ saveRDS(t,'./statscomp-paper/tables/datafortables/relativeimprovement-par-table.
 ```
 
 ```{r}
-kable(t)
+kable(t) %>% 
+  kableExtra::scroll_box(width = "100%")
 ```
 
 
